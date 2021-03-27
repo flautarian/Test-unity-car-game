@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2550239045928907651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2550239045928907677}
+  - component: {fileID: 2550239045928907650}
+  m_Layer: 0
+  m_Name: MotorCarreteras
+  m_TagString: motorCarreteras
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2550239045928907677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2550239045928907651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2550239045928907650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2550239045928907651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 005db2ea56e385f459079126f6bf13d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  callesPorRecorrer: []
+  beredaObstaculos:
+  - {fileID: 735370548887096935, guid: 3bceef0f10f6a874badc44d9ca1dac00, type: 3}
+  calleObstaculos:
+  - {fileID: 1729197792873312081, guid: b3e5d6e7f73a12744abd227552390b55, type: 3}
+  beredaPowerUps: []
+  callePowerUps: []
+  mainCamera: {fileID: 0}
+  timeLapseForDeployPowerUp: 0
+  calle0: {fileID: 592240166601685354, guid: 4ac37791297991049a3dedc094052bca, type: 3}
+  inicioJuego: 0
+  juegoTerminado: 0
