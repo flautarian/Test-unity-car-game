@@ -12,6 +12,8 @@ public class MotorCarreteras : MonoBehaviour
     public List<GameObject> callePowerUps;
     
     public float timeLapseForDeployPowerUp;
+    public PathCreation.PathCreator mainPath;
+    public PathCreation.PathCreator mainCounterPath;
     private bool canDeployPowerUps = true;
 
     public GameObject calle0;
@@ -45,9 +47,9 @@ public class MotorCarreteras : MonoBehaviour
     public void ciclarCalle(GameObject calle)
     {
         //Debug.Log("ciclando calle");
-        agregarCalleAlFinal();
+        agregarCalleAlFinal(1);
         callesPorRecorrer.Remove(calle);
-        StartCoroutine(EsperarYDestruirCalle(2.0f, calle));
+        //StartCoroutine(EsperarYDestruirCalle(2.0f, calle));
     }
 
     private IEnumerator EsperarYDestruirCalle(float timer, GameObject calle)
@@ -58,43 +60,69 @@ public class MotorCarreteras : MonoBehaviour
 
     void agregarCalleInicioJuego()
     {
-        GameObject nuevaCalle = Instantiate(calle0);
-        nuevaCalle.transform.parent = this.transform;
-        nuevaCalle.GetComponent<Transform>().Translate(new Vector2(0,0));
-        callesPorRecorrer.Add(nuevaCalle);
-        agregarCalleAlFinal();
-        agregarCalleAlFinal();
-        agregarCalleAlFinal();
-        agregarCalleAlFinal();
-        agregarCalleAlFinal();
+        agregarCalleAlFinal(5);
     }
-    void agregarCalleAlFinal()
+    void agregarCalleAlFinal(int times)
     {
-        GameObject nuevaCalle = Instantiate(calle0);
-        nuevaCalle.transform.parent = this.transform;
-        if (nuevaCalle != null && callesPorRecorrer.Count > 0)
-        {
-            GameObject lastCalle = callesPorRecorrer[callesPorRecorrer.Count - 1];
-            Vector3 pos = lastCalle.transform.position;
-            pos.z += getHeightOfCalle(callesPorRecorrer.Count - 1);
-            nuevaCalle.GetComponent<Transform>().position = pos;
-            //joinPath(lastCalle.GetComponent<Calle>().path, nuevaCalle.GetComponent<Calle>().path);
-            //Destroy(nuevaCalle.GetComponent<Calle>().path);
-            //joinPath(lastCalle.GetComponent<Calle>().counterPath, nuevaCalle.GetComponent<Calle>().counterPath);
-            //Destroy(nuevaCalle.GetComponent<Calle>().counterPath);
+        for (int i = 0; i < times; i++) { 
+            GameObject nuevaCalle = Instantiate(calle0);
+            nuevaCalle.transform.parent = this.transform;
+            if (nuevaCalle != null && callesPorRecorrer.Count > 0)
+            {
+                GameObject lastCalle = callesPorRecorrer[callesPorRecorrer.Count-1];
+                Vector3 pos = lastCalle.transform.position;
+                pos.z += getHeightOfCalle(callesPorRecorrer.Count - 1);
+                nuevaCalle.GetComponent<Transform>().position = pos;
+                //procesarNuevosObstaculos(nuevaCalle);
+            }
             callesPorRecorrer.Add(nuevaCalle);
-            procesarNuevosObstaculos(nuevaCalle);
+            UpdatePaths(nuevaCalle);
         }
+    }
+
+    private void UpdatePaths(GameObject nuevaCalle)
+    {
+        PathCreation.PathCreator pathB = nuevaCalle.GetComponent<Calle>().path;
+        pathB.transform.parent = this.transform;
+        if (!System.Object.Equals(this.mainPath, null)){
+            addSegmentsOfPathBToPathA(this.mainPath, pathB);
+            Destroy(pathB.gameObject);
+        }
+        else
+        {
+            this.mainPath = pathB;
+            this.mainPath.transform.parent = this.transform;
+            this.mainPath.name = "mainPath";
+        }
+
+        PathCreation.PathCreator pathBCounter = nuevaCalle.GetComponent<Calle>().counterPath;
+        pathBCounter.transform.parent = this.transform;
+        if (!System.Object.Equals(this.mainCounterPath, null)){
+            addSegmentsOfPathBToPathA(this.mainCounterPath, pathBCounter);
+            Destroy(pathBCounter.gameObject);
+        }
+        else
+        {
+            this.mainCounterPath = pathBCounter;
+            this.mainCounterPath.transform.parent = this.transform;
+            this.mainCounterPath.name = "mainCounterPath";
+        }
+    }
+
+    private void addSegmentsOfPathBToPathA(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
+    {
+        joinPath(pathA, pathB);
+        mainPath.TriggerPathUpdate();
     }
 
     private void joinPath(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
     {
         for (int i = 0; i < pathB.bezierPath.NumSegments; i++)
         {
-            pathA.bezierPath.AddSegmentToEnd(pathB.bezierPath.GetPointsInSegment(i)[0]);
-            pathA.TriggerPathUpdate();
+            Vector3 vec = pathB.bezierPath.GetPointsInSegment(i)[0];
+            vec.z += pathB.transform.position.z;
+            pathA.bezierPath.AddSegmentToEnd(vec);
         }
-
     }
 
     private void procesarNuevosObstaculos(GameObject nuevaCalle)

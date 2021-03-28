@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        Debug.Log("dentro de algo!");
+        //Debug.Log("dentro de algo!");
         switch(collision.tag){         
             case "Cesped":
                 //TODO: reproducir sonido hierbas
@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerExit(Collider collision)
     {
-        Debug.Log("abandonando algo!");
+        //Debug.Log("abandonando algo!");
         if (collision.tag.Equals("Calle")) motor.GetComponent<MotorCarreteras>().ciclarCalle(collision.gameObject);
     }
 }

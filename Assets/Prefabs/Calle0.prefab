@@ -33,8 +33,8 @@ Transform:
   m_Children:
   - {fileID: 592240167700868505}
   - {fileID: 4320147519070432744}
-  - {fileID: 7608928382330244548}
   - {fileID: 9216324300612575654}
+  - {fileID: 7554532399564753824}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: {fileID: 1394540012600344140}
-  counterPath: {fileID: 5954642275392913483}
+  counterPath: {fileID: 4914933249218097087}
 --- !u!1 &592240167700868506
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,90 +220,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9, y: 10, z: 25.6}
   m_Center: {x: 0, y: 5, z: 0}
---- !u!1 &1486213403171384378
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7608928382330244548}
-  - component: {fileID: 5954642275392913483}
-  m_Layer: 0
-  m_Name: CounterCarsPath
-  m_TagString: CarsPath
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7608928382330244548
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486213403171384378}
-  m_LocalRotation: {x: -0, y: -0.70710695, z: -0, w: 0.70710665}
-  m_LocalPosition: {x: -1.5, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 592240166075456438}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 180, y: 89.99999, z: 180}
---- !u!114 &5954642275392913483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486213403171384378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e5ac92bc18f545cc84cd886ece82b4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  editorData:
-    _bezierPath:
-      points:
-      - {x: -12.733398, y: -0.019958496, z: 0.031172752}
-      - {x: -11.733648, y: -0.019916669, z: 0.5312221}
-      - {x: 11.733398, y: 0.019958496, z: -0.5311947}
-      - {x: 12.733398, y: 0.019958496, z: -0.031194568}
-      isClosed: 0
-      space: 0
-      controlMode: 0
-      autoControlLength: 0.3
-      boundsUpToDate: 0
-      bounds:
-        m_Center: {x: -0.00000023841858, y: 0, z: -0.00000094622374}
-        m_Extent: {x: 2, y: 0, z: 0.14433756}
-      perAnchorNormalsAngle:
-      - 0
-      - 0
-      globalNormalsAngle: 90
-      flipNormals: 0
-    vertexPathUpToDate: 1
-    vertexPathMaxAngleError: 0.3
-    vertexPathMinVertexSpacing: 0.01
-    showTransformTool: 1
-    showPathBounds: 0
-    showPerSegmentBounds: 0
-    displayAnchorPoints: 1
-    displayControlPoints: 1
-    bezierHandleScale: 1
-    globalDisplaySettingsFoldout: 0
-    keepConstantHandleSize: 0
-    showNormalsInVertexMode: 0
-    showBezierPathInVertexMode: 0
-    showDisplayOptions: 0
-    showPathOptions: 1
-    showVertexPathDisplayOptions: 0
-    showVertexPathOptions: 1
-    showNormals: 1
-    showNormalsHelpInfo: 0
-    tabIndex: 0
-  initialized: 1
 --- !u!1 &3923298753405830389
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +328,90 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9, y: 10, z: 25.6}
   m_Center: {x: 0, y: 5, z: 0}
+--- !u!1 &6300927977035468673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7554532399564753824}
+  - component: {fileID: 4914933249218097087}
+  m_Layer: 0
+  m_Name: CounterCarsPath
+  m_TagString: CarsPath
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7554532399564753824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300927977035468673}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.0000009536743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 592240166075456438}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4914933249218097087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300927977035468673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5ac92bc18f545cc84cd886ece82b4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  editorData:
+    _bezierPath:
+      points:
+      - {x: -1, y: 0, z: -11}
+      - {x: -1, y: 0, z: -5.5}
+      - {x: -1, y: 0, z: 5.5}
+      - {x: -1, y: 0, z: 11}
+      isClosed: 0
+      space: 0
+      controlMode: 2
+      autoControlLength: 0.3
+      boundsUpToDate: 0
+      bounds:
+        m_Center: {x: 1.0195472, y: 0.110662825, z: 0}
+        m_Extent: {x: 0.046902865, y: 0.14910787, z: 12}
+      perAnchorNormalsAngle:
+      - 0
+      - 0
+      globalNormalsAngle: 90
+      flipNormals: 0
+    vertexPathUpToDate: 1
+    vertexPathMaxAngleError: 0.3
+    vertexPathMinVertexSpacing: 0.01
+    showTransformTool: 1
+    showPathBounds: 0
+    showPerSegmentBounds: 0
+    displayAnchorPoints: 1
+    displayControlPoints: 1
+    bezierHandleScale: 1
+    globalDisplaySettingsFoldout: 0
+    keepConstantHandleSize: 0
+    showNormalsInVertexMode: 0
+    showBezierPathInVertexMode: 0
+    showDisplayOptions: 0
+    showPathOptions: 1
+    showVertexPathDisplayOptions: 0
+    showVertexPathOptions: 1
+    showNormals: 1
+    showNormalsHelpInfo: 0
+    tabIndex: 0
+  initialized: 1
 --- !u!1 &9217900502249346004
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,13 +436,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9217900502249346004}
-  m_LocalRotation: {x: -0, y: -0.70710695, z: -0, w: 0.70710665}
-  m_LocalPosition: {x: 1.5, y: 1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.0000009536743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 592240166075456438}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 180, y: 89.99999, z: 180}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1394540012600344140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,18 +458,18 @@ MonoBehaviour:
   editorData:
     _bezierPath:
       points:
-      - {x: -12.733398, y: -0.019958496, z: 0.031172752}
-      - {x: -11.733648, y: -0.019916669, z: 0.5312221}
-      - {x: 11.733398, y: 0.019958496, z: -0.5311947}
-      - {x: 12.733398, y: 0.019958496, z: -0.031194568}
+      - {x: 1, y: 0, z: -11}
+      - {x: 1, y: 0, z: -5.5}
+      - {x: 1, y: 0, z: 5.5}
+      - {x: 1, y: 0, z: 11}
       isClosed: 0
       space: 0
-      controlMode: 0
+      controlMode: 2
       autoControlLength: 0.3
       boundsUpToDate: 0
       bounds:
-        m_Center: {x: -0.00000023841858, y: 0, z: -0.00000094622374}
-        m_Extent: {x: 2, y: 0, z: 0.14433756}
+        m_Center: {x: 1.0195472, y: 0.110662825, z: 0}
+        m_Extent: {x: 0.046902865, y: 0.14910787, z: 12}
       perAnchorNormalsAngle:
       - 0
       - 0
