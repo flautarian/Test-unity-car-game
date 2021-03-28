@@ -49,7 +49,7 @@ public class MotorCarreteras : MonoBehaviour
         //Debug.Log("ciclando calle");
         agregarCalleAlFinal(1);
         callesPorRecorrer.Remove(calle);
-        //StartCoroutine(EsperarYDestruirCalle(2.0f, calle));
+        StartCoroutine(EsperarYDestruirCalle(2.0f, calle));
     }
 
     private IEnumerator EsperarYDestruirCalle(float timer, GameObject calle)
