@@ -26,15 +26,22 @@ public class Obstaculo : MonoBehaviour
         if(velocity > 0)
         {
             dstTravelled += velocity * Time.deltaTime;
+            moveWheels(velocity);
             transform.position = pathCreator.path.GetPointAtDistance(dstTravelled);
             Quaternion rot = pathCreator.path.GetRotationAtDistance(dstTravelled);
-            rot.x += 90;
-           rot.y += 90;
 
             transform.rotation = rot;
             if (System.Object.Equals(player , null)) player = GameObject.FindGameObjectWithTag("Player");
             if (player != null && getDistanceBetweenPlayerAndObstacle(player) > 40f)
                 Destroy(this.gameObject);
+        }
+    }
+
+    private void moveWheels(float velocity)
+    {
+        for(int i =0; i < this.transform.childCount; i++)
+        {
+            this.transform.GetChild(i).Rotate(Vector3.right * Time.deltaTime * velocity*50, Space.Self);
         }
     }
 

@@ -65,6 +65,8 @@ public class MotorCarreteras : MonoBehaviour
         agregarCalleAlFinal();
         agregarCalleAlFinal();
         agregarCalleAlFinal();
+        agregarCalleAlFinal();
+        agregarCalleAlFinal();
     }
     void agregarCalleAlFinal()
     {
@@ -72,19 +74,34 @@ public class MotorCarreteras : MonoBehaviour
         nuevaCalle.transform.parent = this.transform;
         if (nuevaCalle != null && callesPorRecorrer.Count > 0)
         {
-            Vector2 pos = callesPorRecorrer[callesPorRecorrer.Count - 1].transform.position;
-            pos.y += getHeightOfCalle(callesPorRecorrer.Count - 1);
-            nuevaCalle.GetComponent<Transform>().Translate(pos);
+            GameObject lastCalle = callesPorRecorrer[callesPorRecorrer.Count - 1];
+            Vector3 pos = lastCalle.transform.position;
+            pos.z += getHeightOfCalle(callesPorRecorrer.Count - 1);
+            nuevaCalle.GetComponent<Transform>().position = pos;
+            //joinPath(lastCalle.GetComponent<Calle>().path, nuevaCalle.GetComponent<Calle>().path);
+            //Destroy(nuevaCalle.GetComponent<Calle>().path);
+            //joinPath(lastCalle.GetComponent<Calle>().counterPath, nuevaCalle.GetComponent<Calle>().counterPath);
+            //Destroy(nuevaCalle.GetComponent<Calle>().counterPath);
             callesPorRecorrer.Add(nuevaCalle);
             procesarNuevosObstaculos(nuevaCalle);
         }
     }
 
+    private void joinPath(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
+    {
+        for (int i = 0; i < pathB.bezierPath.NumSegments; i++)
+        {
+            pathA.bezierPath.AddSegmentToEnd(pathB.bezierPath.GetPointsInSegment(i)[0]);
+            pathA.TriggerPathUpdate();
+        }
+
+    }
+
     private void procesarNuevosObstaculos(GameObject nuevaCalle)
     {
         var random = new System.Random();
-        processNewObstacles(nuevaCalle, random, beredaObstaculos, beredaPowerUps, "beredaSpawnPoint", true, 6 - GameObject.FindGameObjectsWithTag("BeredaObstaculo").Length);
-        processNewObstacles(nuevaCalle, random, calleObstaculos, callePowerUps, "streetSpawnPoint", false, 4 - GameObject.FindGameObjectsWithTag("StreetObstaculo").Length);
+        //processNewObstacles(nuevaCalle, random, beredaObstaculos, beredaPowerUps, "beredaSpawnPoint", true, 6 - GameObject.FindGameObjectsWithTag("BeredaObstaculo").Length);
+        //processNewObstacles(nuevaCalle, random, calleObstaculos, callePowerUps, "streetSpawnPoint", false, 4 - GameObject.FindGameObjectsWithTag("StreetObstaculo").Length);
     }
 
     private void processNewObstacles(GameObject calle, System.Random random, List<GameObject> obstaclesList, List<GameObject> powerUpsList, String spawnNameTag, bool enlazarConPadre, int obstaclesToPlace)
@@ -132,7 +149,7 @@ public class MotorCarreteras : MonoBehaviour
 
     private float getHeightOfCalle(int pos)
     {
-        return callesPorRecorrer[pos].GetComponent<SpriteRenderer>().size.x - 0.5f;
+        return callesPorRecorrer[pos].GetComponent<BoxCollider>().size.z;
     }
 
     private float getWidthOfCalle(int pos)

@@ -78,8 +78,17 @@ public class Player : MonoBehaviour
     {
         if (!endGameFlag){
             if (statusCarVelocity > velocity) velocity += acceleration;
+            moveWheels(velocity);
         }
         else reduceVelocityToZero();
+    }
+
+    private void moveWheels(float velocity)
+    {
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            this.transform.GetChild(i).Rotate(Vector3.right * Time.deltaTime * velocity * 50, Space.Self);
+        }
     }
 
     public void endGame()
@@ -97,13 +106,13 @@ public class Player : MonoBehaviour
     {
         //grip
         if (Input.GetKey("left"))
-            GetComponent<Transform>().Rotate(Vector3.back * round * Time.deltaTime);
+            GetComponent<Transform>().Rotate(Vector3.down * round * Time.deltaTime);
         else if (Input.GetKey("right"))
-            GetComponent<Transform>().Rotate(Vector3.forward * round * Time.deltaTime);
+            GetComponent<Transform>().Rotate(Vector3.up * round * Time.deltaTime);
         else
             GetComponent<Transform>().rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 3.0f * Time.deltaTime);
         
-        target = Input.GetAxis("Horizontal") * Vector2.left * velocity * Time.deltaTime;
+        target = Input.GetAxis("Horizontal") * Vector3.forward * velocity * Time.deltaTime;
 
         //acceleration
         if (startGameFlag)
@@ -112,9 +121,9 @@ public class Player : MonoBehaviour
             else
             {
                 Vector3 eulerRotation = transform.rotation.eulerAngles;
-                GetComponent<Transform>().rotation = Quaternion.Euler(-eulerRotation.x, eulerRotation.y, 0);
+                GetComponent<Transform>().rotation = Quaternion.Euler(-eulerRotation.x, eulerRotation.y, eulerRotation.z);
             }
-           GetComponent<Transform>().Translate(Vector2.up * velocity * Time.deltaTime);
+           GetComponent<Transform>().Translate(Vector3.forward * velocity * Time.deltaTime);
         }      
     }
 
@@ -124,9 +133,9 @@ public class Player : MonoBehaviour
         else velocity = 0;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay(Collider collision)
     {
-        //Debug.Log("dentro de algo!");
+        Debug.Log("dentro de algo!");
         switch(collision.tag){         
             case "Cesped":
                 //TODO: reproducir sonido hierbas
@@ -135,7 +144,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         //Debug.Log("chocando contra algo!");
         switch (collision.tag)
@@ -178,9 +187,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider collision)
     {
-        //Debug.Log("abandonando algo!");
+        Debug.Log("abandonando algo!");
         if (collision.tag.Equals("Calle")) motor.GetComponent<MotorCarreteras>().ciclarCalle(collision.gameObject);
     }
 }

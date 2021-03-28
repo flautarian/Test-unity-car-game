@@ -12,7 +12,7 @@ public class Camera : MonoBehaviour
     void Update()
     {
         // Define a target position above and behind the target transform
-        Vector3 targetPosition = target.TransformPoint(new Vector3(0, 5, 10));
+        Vector3 targetPosition = target.TransformPoint(new Vector3(-1, 8, -7));
 
         targetPosition.x = 0;
         // Smoothly move the camera towards that target position
