@@ -15,7 +15,19 @@ public class Obstaculo : MonoBehaviour
     private float dstTravelled = 0;
     void Start()
     {
-        
+    }
+
+    public void updatePathChangeFunction()
+    {
+        if (pathCreator != null)
+        {
+            pathCreator.pathUpdated += OnPathChanged;
+        }
+    }
+
+    private void OnPathChanged()
+    {
+        //if(pathCreator != null) dstTravelled = pathCreator.path.GetClosestDistanceAlongPath(transform.position);
     }
 
     // Update is called once per frame
@@ -27,10 +39,12 @@ public class Obstaculo : MonoBehaviour
         {
             dstTravelled += velocity * Time.deltaTime;
             moveWheels(velocity);
-            transform.position = pathCreator.path.GetPointAtDistance(dstTravelled);
-            Quaternion rot = pathCreator.path.GetRotationAtDistance(dstTravelled);
-
-            transform.rotation = rot;
+            if(pathCreator != null){
+                transform.position = pathCreator.path.GetPointAtDistance(dstTravelled);
+                Quaternion rot = pathCreator.path.GetRotationAtDistance(dstTravelled);
+                transform.rotation = rot;
+            }
+            else GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
             if (System.Object.Equals(player , null)) player = GameObject.FindGameObjectWithTag("Player");
             if (player != null && getDistanceBetweenPlayerAndObstacle(player) > 40f)
                 Destroy(this.gameObject);

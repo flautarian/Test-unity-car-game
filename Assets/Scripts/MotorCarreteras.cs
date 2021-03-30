@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PathCreation;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class MotorCarreteras : MonoBehaviour
     
     public float timeLapseForDeployPowerUp;
     public PathCreation.PathCreator mainPath;
-    public PathCreation.PathCreator mainCounterPath;
+    private PathCreation.PathCreator mainCounterPath;
     private bool canDeployPowerUps = true;
 
     public GameObject calle0;
@@ -55,6 +56,8 @@ public class MotorCarreteras : MonoBehaviour
     private IEnumerator EsperarYDestruirCalle(float timer, GameObject calle)
     {
         yield return new WaitForSeconds(timer);
+        //if (mainPath != null) mainPath.bezierPath.DeleteSegment(0);
+        if (mainCounterPath != null) mainCounterPath.bezierPath.DeleteSegment(0);
         Destroy(calle);
     }
 
@@ -62,6 +65,7 @@ public class MotorCarreteras : MonoBehaviour
     {
         agregarCalleAlFinal(5);
     }
+
     void agregarCalleAlFinal(int times)
     {
         for (int i = 0; i < times; i++) { 
@@ -73,7 +77,7 @@ public class MotorCarreteras : MonoBehaviour
                 Vector3 pos = lastCalle.transform.position;
                 pos.z += getHeightOfCalle(callesPorRecorrer.Count - 1);
                 nuevaCalle.GetComponent<Transform>().position = pos;
-                //procesarNuevosObstaculos(nuevaCalle);
+                procesarNuevosObstaculos(nuevaCalle);
             }
             callesPorRecorrer.Add(nuevaCalle);
             UpdatePaths(nuevaCalle);
@@ -84,35 +88,38 @@ public class MotorCarreteras : MonoBehaviour
     {
         PathCreation.PathCreator pathB = nuevaCalle.GetComponent<Calle>().path;
         pathB.transform.parent = this.transform;
-        if (!System.Object.Equals(this.mainPath, null)){
-            addSegmentsOfPathBToPathA(this.mainPath, pathB);
-            Destroy(pathB.gameObject);
-        }
-        else
-        {
-            this.mainPath = pathB;
+        if (System.Object.Equals(this.mainPath, null)){
+            this.mainPath = Instantiate(pathB);
+            this.mainPath.InitializeEditorData(false);
+            this.mainPath.transform.position = pathB.transform.position;
+            this.mainPath.transform.rotation = pathB.transform.rotation;
             this.mainPath.transform.parent = this.transform;
             this.mainPath.name = "mainPath";
         }
+        addSegmentsOfPathBToPathA(this.mainPath, pathB);
+        Destroy(pathB.gameObject);
 
         PathCreation.PathCreator pathBCounter = nuevaCalle.GetComponent<Calle>().counterPath;
         pathBCounter.transform.parent = this.transform;
-        if (!System.Object.Equals(this.mainCounterPath, null)){
-            addSegmentsOfPathBToPathA(this.mainCounterPath, pathBCounter);
-            Destroy(pathBCounter.gameObject);
-        }
-        else
-        {
-            this.mainCounterPath = pathBCounter;
+        if (System.Object.Equals(this.mainCounterPath, null)){
+            this.mainCounterPath = Instantiate(pathBCounter);
+            this.mainCounterPath.InitializeEditorData(false);
+            this.mainCounterPath.transform.position = pathBCounter.transform.position;
+            this.mainCounterPath.transform.rotation = pathBCounter.transform.rotation;
             this.mainCounterPath.transform.parent = this.transform;
             this.mainCounterPath.name = "mainCounterPath";
         }
+        addSegmentsOfPathBToPathA(this.mainCounterPath, pathBCounter);
+        Destroy(pathBCounter.gameObject);
     }
 
     private void addSegmentsOfPathBToPathA(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
     {
         joinPath(pathA, pathB);
-        mainPath.TriggerPathUpdate();
+        pathA.bezierPath.NotifyPathModified();
+        //pathA.EditorData.bezierOrVertexPathModified += pathA.TriggerPathUpdate;
+        //pathA.EditorData.bezierOrVertexPathModified -= pathA.TriggerPathUpdate;
+        //pathA.path.UpdateTransform(pathA.transform);
     }
 
     private void joinPath(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
@@ -129,7 +136,7 @@ public class MotorCarreteras : MonoBehaviour
     {
         var random = new System.Random();
         //processNewObstacles(nuevaCalle, random, beredaObstaculos, beredaPowerUps, "beredaSpawnPoint", true, 6 - GameObject.FindGameObjectsWithTag("BeredaObstaculo").Length);
-        //processNewObstacles(nuevaCalle, random, calleObstaculos, callePowerUps, "streetSpawnPoint", false, 4 - GameObject.FindGameObjectsWithTag("StreetObstaculo").Length);
+        processNewObstacles(nuevaCalle, random, calleObstaculos, callePowerUps, "streetSpawnPoint", false, 4 - GameObject.FindGameObjectsWithTag("StreetObstaculo").Length);
     }
 
     private void processNewObstacles(GameObject calle, System.Random random, List<GameObject> obstaclesList, List<GameObject> powerUpsList, String spawnNameTag, bool enlazarConPadre, int obstaclesToPlace)
@@ -145,7 +152,9 @@ public class MotorCarreteras : MonoBehaviour
                     if (randNum > 5)
                     {
                         GameObject obstaculoGO = Instantiate(obstaclesList[random.Next(obstaclesList.Count)]);
-                        obstaculoGO.GetComponent<Transform>().position = obs.transform.position;
+                        obstaculoGO.GetComponent<Obstaculo>().pathCreator = this.mainPath;
+                        obstaculoGO.GetComponent<Obstaculo>().updatePathChangeFunction();
+                        obstaculoGO.GetComponent<Transform>().position = this.mainPath.path.GetClosestPointOnPath(obs.transform.position);
                         if(enlazarConPadre) obstaculoGO.transform.parent = calle.transform;
                         obstaclesToPlace--;
                     }
