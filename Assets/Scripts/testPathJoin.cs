@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +11,13 @@ public class testPathJoin : MonoBehaviour
 
     void Start()
     {
-        joinAllPaths();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (activate) joinAllPaths();
     }
 
     private void joinAllPaths()
@@ -30,11 +32,19 @@ public class testPathJoin : MonoBehaviour
 
     private void joinPath(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
     {
-        for (int i = 0; i < pathB.bezierPath.NumSegments; i++)
+        try
         {
-            pathA.bezierPath.AddSegmentToEnd(pathB.bezierPath.GetPointsInSegment(i)[0]);
-            pathA.TriggerPathUpdate();
+            for (int i = 0; i < pathB.bezierPath.NumSegments; i++)
+            {
+                Vector3 vec = pathB.bezierPath.GetPointsInSegment(i)[0];
+                vec.z += pathB.transform.position.z;
+                pathA.bezierPath.AddSegmentToEnd(vec);
+            }
         }
-        
+        catch (Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+
     }
 }

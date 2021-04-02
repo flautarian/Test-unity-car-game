@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using PathCreation.Utility;
 using UnityEngine;
@@ -16,12 +17,14 @@ namespace PathCreation {
 
     [System.Serializable]
     public class BezierPath {
+        
         public event System.Action OnModified;
         public enum ControlMode { Aligned, Mirrored, Free, Automatic };
 
- #region Fields
-
- [SerializeField, HideInInspector]
+#region Fields
+[SerializeField, HideInInspector]
+public int numberSegmentsToDelete;
+[SerializeField, HideInInspector]
  List<Vector3> points;
  [SerializeField, HideInInspector]
  bool isClosed;
@@ -249,8 +252,12 @@ namespace PathCreation {
             if (controlMode == ControlMode.Automatic) {
                 AutoSetAllAffectedControlPoints (points.Count - 1);
             }
-
-            NotifyPathModified ();
+            if(!isClosed && numberSegmentsToDelete > 0)
+            {
+                DeleteSegment(0);
+                numberSegmentsToDelete--;
+            }
+            else NotifyPathModified ();
         }
 
         /// Add new anchor point to start of the path

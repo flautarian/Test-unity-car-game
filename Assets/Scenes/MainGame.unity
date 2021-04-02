@@ -834,6 +834,28 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2550239045928907650, guid: 5a598df554c7d694e99d28de3856b16d,
+        type: 3}
+      propertyPath: lvl0Roads.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550239045928907650, guid: 5a598df554c7d694e99d28de3856b16d,
+        type: 3}
+      propertyPath: mainPath
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550239045928907650, guid: 5a598df554c7d694e99d28de3856b16d,
+        type: 3}
+      propertyPath: lvl0Roads.Array.data[0]
+      value: 
+      objectReference: {fileID: 592240166601685354, guid: 4ac37791297991049a3dedc094052bca,
+        type: 3}
+    - target: {fileID: 2550239045928907650, guid: 5a598df554c7d694e99d28de3856b16d,
+        type: 3}
+      propertyPath: lvl0Roads.Array.data[1]
+      value: 
+      objectReference: {fileID: 592240166601685354, guid: d7594f39844706240aa16a59bb90589e,
+        type: 3}
     - target: {fileID: 2550239045928907651, guid: 5a598df554c7d694e99d28de3856b16d,
         type: 3}
       propertyPath: m_Name
@@ -1425,6 +1447,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2099459134889117101, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5348750384878692435, guid: e863927783b9658419155e075251fe20,
         type: 3}
       propertyPath: m_UseGravity
@@ -1489,6 +1516,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7286298830024469622, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: maxVelocity
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7286298830024469622, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: statusCarVelocity
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e863927783b9658419155e075251fe20, type: 3}

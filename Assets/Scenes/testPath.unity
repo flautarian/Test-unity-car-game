@@ -244,6 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editorData:
     _bezierPath:
+      numberSegmentsToDelete: 0
       points:
       - {x: -5.0449862, y: 0, z: 2.9027886}
       - {x: -3.1633434, y: 0, z: 3.314384}
@@ -591,6 +592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editorData:
     _bezierPath:
+      numberSegmentsToDelete: 0
       points:
       - {x: 20.305878, y: 0, z: 1.0487832}
       - {x: 19.240559, y: 0, z: 3.0851612}
@@ -711,6 +713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   editorData:
     _bezierPath:
+      numberSegmentsToDelete: 0
       points:
       - {x: -3.0621576, y: 0, z: -1.8248188}
       - {x: -3.058917, y: 0, z: -3.4670444}

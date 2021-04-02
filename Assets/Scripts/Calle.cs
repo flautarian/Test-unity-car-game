@@ -8,9 +8,13 @@ public class Calle : MonoBehaviour
 
     public PathCreation.PathCreator path;
     public PathCreation.PathCreator counterPath;
+
+    private int pathSegmentsNumber;
+    private int counterPathSegmentsNumber;
     void Start()
     {
-        
+        this.pathSegmentsNumber = path.bezierPath.NumSegments;
+        this.counterPathSegmentsNumber = counterPath.bezierPath.NumSegments;
     }
 
     // Update is called once per frame
@@ -19,19 +23,13 @@ public class Calle : MonoBehaviour
         
     }
 
-    public void addSegmentsToCalle(PathCreation.PathCreator pathB)
+    public int getPathSegmentsNumber()
     {
-        joinPath(path, pathB);
-        path.TriggerPathUpdate();
+        return this.pathSegmentsNumber;
     }
 
-
-    private void joinPath(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
+    public int getCounterPathSegmentsNumber()
     {
-        for (int i = 0; i < pathB.bezierPath.NumSegments; i++)
-        {
-            pathA.bezierPath.AddSegmentToEnd(pathB.bezierPath.GetPointsInSegment(i)[0]);
-        }
-        //pathA.TriggerPathUpdate();
+        return this.counterPathSegmentsNumber;
     }
 }
