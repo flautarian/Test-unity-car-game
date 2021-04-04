@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class Cesped : MonoBehaviour
 {
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay(Collider collision)
     {
-        if (collision.collider.GetComponent<Player>() != null)
+        Debug.Log("chocando contra cesped!");
+        if(Object.Equals(collision.tag, "Player"))
         {
-            //Debug.Log("stay");
-            Player pl = collision.collider.GetComponent<Player>();
-            if (pl != null) pl.life -= 1;
+            collision.GetComponent<Player>().ContactedWithGrass();
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if(collision.collider.GetComponent<Player>() != null)
+        if (collision.GetComponent<Player>() != null)
         {
             //Debug.Log("enters");
-            Player pl = collision.collider.GetComponent<Player>();
+            Player pl = collision.GetComponent<Player>();
             if (pl != null) pl.life -= 1;
         }
     }

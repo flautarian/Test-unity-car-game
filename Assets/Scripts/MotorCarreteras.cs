@@ -13,8 +13,6 @@ public class MotorCarreteras : MonoBehaviour
     public List<GameObject> beredaPowerUps;
     public List<GameObject> callePowerUps;
     public int lvl = 0;
-    private int mainSegmentsToRemove = 0;
-    private int counterSegmentsToRemove = 0;
 
     public float timeLapseForDeployPowerUp;
     public PathCreation.PathCreator mainPath;
@@ -47,12 +45,12 @@ public class MotorCarreteras : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    public void ciclarCalle(GameObject calle)
+    public void ciclarCalle(GameObject street)
     {
         //Debug.Log("ciclando calle");
         AddStreetsToRemaining(1);
-        streetsRemaining.Remove(calle);
-        StartCoroutine(EsperarYDestruirCalle(2.0f, calle));
+        streetsRemaining.Remove(street);
+        StartCoroutine(EsperarYDestruirCalle(2.0f, street));
     }
 
     private IEnumerator EsperarYDestruirCalle(float timer, GameObject calle)
@@ -78,6 +76,7 @@ public class MotorCarreteras : MonoBehaviour
     {
         streetsRemaining = new List<GameObject>();
         GameObject street0 = Instantiate(lvl0Roads[0]);
+        street0.transform.parent = this.transform;
         UpdatePaths(street0);
         streetsRemaining.Add(street0);
     }
@@ -189,14 +188,14 @@ public class MotorCarreteras : MonoBehaviour
                         obstaculoGO.GetComponent<Obstaculo>().SubscribePathChanges();
                         obstaclesToPlace--;
                     }
-                    else if(randNum > 3 && canDeployPowerUps)
+                    /*else if(randNum > 3 && canDeployPowerUps)
                     {
                         GameObject powerUpGO = Instantiate(powerUpsList[random.Next(powerUpsList.Count)]);
                         powerUpGO.GetComponent<ParticleSystem>().Play();
                         powerUpGO.GetComponent<Transform>().position = obs.transform.position;
                         powerUpGO.transform.parent = calle.transform;
                         restitutePowerUp();
-                    }
+                    }*/
                 }
                 //Destroy(obs);
             }
@@ -222,7 +221,7 @@ public class MotorCarreteras : MonoBehaviour
 
     private float getWidthOfCalle(int pos)
     {
-        return streetsRemaining[pos].GetComponent<SpriteRenderer>().size.y;
+        return streetsRemaining[pos].GetComponent<BoxCollider>().size.x;
     }
 
     private void enableTimer()

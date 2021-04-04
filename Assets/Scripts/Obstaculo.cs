@@ -15,6 +15,8 @@ public class Obstaculo : MonoBehaviour
     private float dstTravelled = 0;
     void Start()
     {
+        if (System.Object.Equals(player, null)) 
+            player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void SubscribePathChanges()
@@ -42,9 +44,8 @@ public class Obstaculo : MonoBehaviour
                 transform.rotation = rot;
             }
             else GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
-            if (System.Object.Equals(player , null)) player = GameObject.FindGameObjectWithTag("Player");
             if (player != null && getDistanceBetweenPlayerAndObstacle(player) > 40f)
-                Destroy(this.gameObject);
+                destroyGameObject();
         }
     }
 
@@ -58,7 +59,7 @@ public class Obstaculo : MonoBehaviour
 
     private float getDistanceBetweenPlayerAndObstacle(GameObject player)
     {
-        return Math.Abs(player.transform.position.y - transform.position.y);
+        return player.transform.position.z - transform.position.z;
     }
 
     public void destroyGameObject()

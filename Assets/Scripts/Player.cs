@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
                 motor.GetComponent<MotorCarreteras>().detonateAllObstacles();
                 break;
             case "StarButtton":
-                startStartPowerUpEffects();
+                StartPowerUpEffects();
                 break;
             case "BulletButtton":
 
@@ -49,9 +49,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void startStartPowerUpEffects()
+    private void StartPowerUpEffects()
     {
         StartCoroutine(applyStarPowerUpEffects());
+    }
+
+    internal void ContactedWithGrass()
+    {
+        this.velocity = this.statusCarVelocity / 2;
     }
 
     private IEnumerator applyStarPowerUpEffects()
@@ -133,17 +138,6 @@ public class Player : MonoBehaviour
         else velocity = 0;
     }
 
-    private void OnTriggerStay(Collider collision)
-    {
-        //Debug.Log("dentro de algo!");
-        switch(collision.tag){         
-            case "Cesped":
-                //TODO: reproducir sonido hierbas
-                velocity = statusCarVelocity / 2;
-                break;
-        }
-    }
-
     private void OnTriggerEnter(Collider collision)
     {
         //Debug.Log("chocando contra algo!");
@@ -187,9 +181,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider collision)
+    public void EndingStreet(GameObject street)
     {
-        //Debug.Log("abandonando algo!");
-        if (collision.tag.Equals("Calle")) motor.GetComponent<MotorCarreteras>().ciclarCalle(collision.gameObject);
+        //Debug.Log("abandonando una calle!");
+        motor.GetComponent<MotorCarreteras>().ciclarCalle(street);
     }
 }

@@ -32,4 +32,10 @@ public class Calle : MonoBehaviour
     {
         return this.counterPathSegmentsNumber;
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag.Equals("Player"))
+            other.GetComponent<Player>().EndingStreet(this.gameObject);
+    }
 }
