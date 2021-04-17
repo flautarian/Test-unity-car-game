@@ -10,9 +10,12 @@ public class Obstaculo : MonoBehaviour
 
     public float velocity;
     public float penalty;
+    private bool automaticDriving = true;
     public PathCreator path;
     private GameObject player;
+    public Vector3 localPosition;
     private float dstTravelled = 0;
+
     void Start()
     {
         if (System.Object.Equals(player, null)) 
@@ -38,22 +41,34 @@ public class Obstaculo : MonoBehaviour
         {
             dstTravelled += velocity * Time.deltaTime;
             moveWheels(velocity);
-            if(path != null){
-                transform.position = path.path.GetPointAtDistance(dstTravelled);
-                Quaternion rot = path.path.GetRotationAtDistance(dstTravelled);
-                transform.rotation = rot;
+            if (automaticDriving)
+            {
+                if (path != null){
+                    transform.position = path.path.GetPointAtDistance(dstTravelled);
+                    Quaternion rot = path.path.GetRotationAtDistance(dstTravelled);
+                    transform.rotation = rot;
+                }
             }
             else GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
+            
             if (player != null && getDistanceBetweenPlayerAndObstacle(player) > 40f)
                 destroyGameObject();
         }
+    }
+
+    void LateUpdate()
+    {
+        if (!GetComponent<Animation>().isPlaying)
+            return;
+        transform.localPosition += localPosition;
     }
 
     private void moveWheels(float velocity)
     {
         for(int i =0; i < this.transform.childCount; i++)
         {
-            this.transform.GetChild(i).Rotate(Vector3.right * Time.deltaTime * velocity*50, Space.Self);
+            if(this.transform.GetChild(i).name.Contains("wheel"))
+                this.transform.GetChild(i).Rotate(Vector3.right * Time.deltaTime * velocity*50, Space.Self);
         }
     }
 
@@ -66,5 +81,26 @@ public class Obstaculo : MonoBehaviour
     {
         if (path != null) path.pathUpdated -= OnPathChanged;
         Destroy(this.gameObject);
+    }
+
+
+
+    void OnCollisionEnter(Collision c)
+    {
+        // If the object we hit is the enemy
+        if (Equals(c.gameObject.tag, "Player"))
+        {
+            // how much the character should be knocked back
+            var magnitude = 5;
+            // calculate force vector
+            var force = transform.position - c.transform.position;
+            // normalize force vector to get direction only and trim magnitude
+            force.Normalize();
+            //GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponent<Rigidbody>().AddForce(force * magnitude);
+            // start explode animation and disable path follow
+            automaticDriving = false;
+            GetComponent<Animation>().Play();
+        }
     }
 }

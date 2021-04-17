@@ -15,14 +15,16 @@ public class Player : MonoBehaviour
     public float velocity;
     public float grip;
     public float round;
+    
     private bool startPowerUpActivated = false;
-
     private float minX = -8f;
     private float maxX = 8f;
 
     private Vector2 target;
     private bool endGameFlag = false;
     private bool startGameFlag = false;
+
+    private Vector3 rigidBodyPosition, rigidBodyVelocity, rigidBodyAngularVelocity;
 
     GameObject motor;
 
@@ -42,7 +44,6 @@ public class Player : MonoBehaviour
                 StartPowerUpEffects();
                 break;
             case "BulletButtton":
-
                 break;
             default:
                 break;
@@ -72,18 +73,20 @@ public class Player : MonoBehaviour
         // TODO: Desactivar efecto en coche para parecer super y tal 
     }
 
+
     // Update is called once per frame
     void Update()
     {
         controlVelocity();
         controlPlayer();
+        moveWheels(velocity);
     }
+
 
     private void controlVelocity()
     {
         if (!endGameFlag){
             if (statusCarVelocity > velocity) velocity += acceleration;
-            moveWheels(velocity);
         }
         else reduceVelocityToZero();
     }
@@ -109,14 +112,28 @@ public class Player : MonoBehaviour
 
     private void controlPlayer()
     {
+        //acceleration
+        if (Input.GetKey("up"))
+        {
+            if (!endGameFlag)
+            {
+                if (statusCarVelocity > velocity) velocity += acceleration;
+            }
+        }
+        else reduceVelocityToZero();
+
         //grip
         if (Input.GetKey("left"))
+        {
             GetComponent<Transform>().Rotate(Vector3.down * round * Time.deltaTime);
+        }
         else if (Input.GetKey("right"))
+        {
             GetComponent<Transform>().Rotate(Vector3.up * round * Time.deltaTime);
+        }
         else
             GetComponent<Transform>().rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 3.0f * Time.deltaTime);
-        
+       
         target = Input.GetAxis("Horizontal") * Vector3.forward * velocity * Time.deltaTime;
 
         //acceleration
@@ -136,38 +153,6 @@ public class Player : MonoBehaviour
     {
         if (velocity > 1) velocity -= Time.deltaTime * velocity;
         else velocity = 0;
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        //Debug.Log("chocando contra algo!");
-        switch (collision.tag)
-        {
-            case "BeredaObstaculo":
-            case "StreetObstaculo":
-                if (!startPowerUpActivated)
-                {
-                    GetComponent<AudioSource>().clip = crashCar;
-                    GetComponent<AudioSource>().Play();
-                    velocity -= velocity * collision.GetComponent<Obstaculo>().penalty;
-                    statusCarVelocity = velocity;
-                    if(statusCarVelocity < 10 ) statusCarVelocity = 10;
-                }
-                collision.GetComponent<Obstaculo>().destroyGameObject();
-                break;
-            case "PowerUpRepair":
-                statusCarVelocity = maxVelocity;
-                Destroy(collision.gameObject);
-                break;
-            case "PowerUpStar":
-                enablePowerUpButton("StarButton");
-                Destroy(collision.gameObject);
-                break;
-            case "PowerUpThunder":
-                enablePowerUpButton("ThunderButton");
-                Destroy(collision.gameObject);
-                break;
-        }
     }
 
     private void enablePowerUpButton(string v)

@@ -15,7 +15,7 @@ public class MotorCarreteras : MonoBehaviour
     public int lvl = 0;
 
     public float timeLapseForDeployPowerUp;
-    public PathCreation.PathCreator mainPath;
+    private PathCreation.PathCreator mainPath;
     private PathCreation.PathCreator mainCounterPath;
     private bool canDeployPowerUps = true;
 
@@ -25,7 +25,6 @@ public class MotorCarreteras : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Screen.orientation = ScreenOrientation.Portrait;
         InitializeStreetsOfGame();
     }
 
@@ -56,14 +55,17 @@ public class MotorCarreteras : MonoBehaviour
     private IEnumerator EsperarYDestruirCalle(float timer, GameObject calle)
     {
         yield return new WaitForSeconds(timer);
-        addSegmentsToDelete(calle.GetComponent<Calle>());
-        Destroy(calle);
+        if (calle != null)
+        {
+            addSegmentsToDelete(calle.GetComponent<Calle>());
+            Destroy(calle);
+        }
     }
 
     private void addSegmentsToDelete(Calle calle)
     {
-        this.mainPath.bezierPath.numberSegmentsToDelete = this.mainPath.bezierPath.numberSegmentsToDelete + calle.getPathSegmentsNumber();
-        this.mainCounterPath.bezierPath.numberSegmentsToDelete = this.mainCounterPath.bezierPath.numberSegmentsToDelete + calle.getCounterPathSegmentsNumber();
+            this.mainPath.bezierPath.numberSegmentsToDelete = this.mainPath.bezierPath.numberSegmentsToDelete + calle.getPathSegmentsNumber();
+            this.mainCounterPath.bezierPath.numberSegmentsToDelete = this.mainCounterPath.bezierPath.numberSegmentsToDelete + calle.getCounterPathSegmentsNumber();
     }
 
     void InitializeStreetsOfGame()
@@ -90,7 +92,7 @@ public class MotorCarreteras : MonoBehaviour
             {
                 GameObject lastCalle = streetsRemaining[streetsRemaining.Count-1];
                 Vector3 pos = lastCalle.transform.position;
-                pos.z += getHeightOfCalle(streetsRemaining.Count - 1);
+                pos.z += getHeightOfCalle(streetsRemaining.Count - 1) - 1;
                 nuevaCalle.GetComponent<Transform>().position = pos;
                 procesarNuevosObstaculos(nuevaCalle);
             }

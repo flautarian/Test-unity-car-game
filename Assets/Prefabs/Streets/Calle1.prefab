@@ -184,8 +184,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9, y: 1, z: 9}
-  m_Center: {x: 0, y: 0.5, z: -3}
+  m_Size: {x: 9, y: 2, z: 9}
+  m_Center: {x: 0, y: 1, z: -3}
 --- !u!1 &2280832853458184839
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,8 +494,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9, y: 1, z: 18}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 9, y: 2, z: 18}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &3932169980434894919
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,8 +602,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9, y: 1, z: 8}
-  m_Center: {x: 0, y: 0.5, z: 65}
+  m_Size: {x: 9, y: 2, z: 8}
+  m_Center: {x: 0, y: 1, z: 65}
 --- !u!1 &4398937029757983704
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,8 +710,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15, y: 1, z: 42}
-  m_Center: {x: 3, y: 0.5, z: 12}
+  m_Size: {x: 15, y: 2, z: 42}
+  m_Center: {x: 3, y: 1, z: 12}
 --- !u!1 &5532569735929629270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,8 +1004,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9, y: 1, z: 17}
-  m_Center: {x: 17, y: 0.5, z: 60}
+  m_Size: {x: 9, y: 2, z: 17}
+  m_Center: {x: 17, y: 1, z: 60}
 --- !u!1 &9217900502249346004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,7 +1094,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 90
       flipNormals: 0
-    vertexPathUpToDate: 1
+    vertexPathUpToDate: 0
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1
