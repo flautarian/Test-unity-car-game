@@ -5,7 +5,7 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     public Transform target;
-    public float smoothTime = 0.05F;
+    public float smoothTime = 0.1F;
     public float rotationSpeed = 3f;
 
     private Vector3 velocity = Vector3.zero;
@@ -22,12 +22,16 @@ public class Camera : MonoBehaviour
 
     void Update()
     {
-        // Define a target position above and behind the target transform
-        Vector3 targetPosition = target.TransformPoint(new Vector3(0, 10, -10));
         newRot = Quaternion.Euler(new Vector3(45f, target.rotation.eulerAngles.y, 0f));
         rotation = Quaternion.Lerp(rotation, newRot, rotationSpeed * Time.deltaTime);
         if(Mathf.Abs(rotation.y) < 35)
+        {
+            rotation.x = transform.rotation.x;
+            rotation.z = transform.rotation.z;
             transform.rotation = rotation;
+        }
+        // Define a target position above and behind the target transform
+        Vector3 targetPosition = target.TransformPoint(new Vector3(0, 10, -10));
         // Smoothly move the camera towards that target position
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }

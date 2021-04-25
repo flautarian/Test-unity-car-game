@@ -171,4 +171,21 @@ public class Player : MonoBehaviour
         //Debug.Log("abandonando una calle!");
         motor.GetComponent<MotorCarreteras>().ciclarCalle(street);
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
+        {
+            collision.gameObject.GetComponent<Coin>().takeCoin();
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
+        {
+            if (collision.gameObject.GetComponent<Coin>() != null) collision.gameObject.GetComponent<Coin>().takeCoin();
+            else life -= 1;
+        }
+    }
 }

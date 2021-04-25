@@ -20,6 +20,7 @@ TagManager:
   - PowerUpThunder
   - CarsPath
   - CounterCarsPath
+  - PlayerInteractable
   layers:
   - Default
   - TransparentFX

@@ -12,31 +12,23 @@ public class Obstaculo : MonoBehaviour
     public float penalty;
     private bool automaticDriving = true;
     public PathCreator path;
-    private GameObject player;
     public Vector3 localPosition;
-    private float dstTravelled = 0;
+    public float dstTravelled = 0;
 
     void Start()
     {
-        if (System.Object.Equals(player, null)) 
-            player = GameObject.FindGameObjectWithTag("Player");
     }
-
-    public void SubscribePathChanges()
-    {
-        if (path != null)path.pathUpdated += OnPathChanged;
-    }
-
     private void OnPathChanged()
     {
-        if(path != null) dstTravelled = path.path.GetClosestDistanceAlongPath(transform.position);
+        if (path != null)
+        {
+            if(path.bezierPath.GetPoint(0).z > transform.position.z) Destroy(this.gameObject);
+            else dstTravelled = path.path.GetClosestDistanceAlongPath(transform.position);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //GetComponent<Transform>().Translate(Vector2.up * Time.deltaTime * velocity);
-
         if(velocity > 0)
         {
             dstTravelled += velocity * Time.deltaTime;
@@ -44,25 +36,23 @@ public class Obstaculo : MonoBehaviour
             if (automaticDriving)
             {
                 if (path != null){
-                    transform.position = path.path.GetPointAtDistance(dstTravelled);
+                    Vector3 pos = path.path.GetPointAtDistance(dstTravelled);
+                    //no permitimos que los obstaculos que llegan al final vivan
+                    if (pos.z < transform.position.z) Destroy(this.gameObject);
+                    transform.position = pos;
                     Quaternion rot = path.path.GetRotationAtDistance(dstTravelled);
                     transform.rotation = rot;
                 }
             }
             else GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
-            
-            if (player != null && getDistanceBetweenPlayerAndObstacle(player) > 40f)
-                destroyGameObject();
         }
     }
 
     void LateUpdate()
     {
-        if (!GetComponent<Animation>().isPlaying)
-            return;
+        if (!GetComponent<Animation>().isPlaying) return;
         transform.localPosition += localPosition;
     }
-
     private void moveWheels(float velocity)
     {
         for(int i =0; i < this.transform.childCount; i++)
@@ -72,18 +62,10 @@ public class Obstaculo : MonoBehaviour
         }
     }
 
-    private float getDistanceBetweenPlayerAndObstacle(GameObject player)
-    {
-        return player.transform.position.z - transform.position.z;
-    }
-
-    public void destroyGameObject()
+    public void OnDestroy()
     {
         if (path != null) path.pathUpdated -= OnPathChanged;
-        Destroy(this.gameObject);
     }
-
-
 
     void OnCollisionEnter(Collision c)
     {
@@ -101,6 +83,18 @@ public class Obstaculo : MonoBehaviour
             // start explode animation and disable path follow
             automaticDriving = false;
             GetComponent<Animation>().Play();
+        }
+    }
+
+    internal void setPathFromSpawner(PathCreator mainPath, Spawner spawner)
+    {
+        if (mainPath != null)
+        {
+            path = mainPath;
+            transform.parent = spawner.transform.parent;
+            transform.position = mainPath.path.GetClosestPointOnPath(spawner.transform.position);
+            dstTravelled = spawner.dstTravelled;
+            path.pathUpdated += OnPathChanged;
         }
     }
 }

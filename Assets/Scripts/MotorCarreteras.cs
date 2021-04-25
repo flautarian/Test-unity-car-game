@@ -17,11 +17,15 @@ public class MotorCarreteras : MonoBehaviour
     public float timeLapseForDeployPowerUp;
     private PathCreation.PathCreator mainPath;
     private PathCreation.PathCreator mainCounterPath;
+    public GameObject streetSpawnPointRight;
+    public GameObject streetSpawnPointLeft;
+    public GameObject sidewalkSpawnPointRight;
+    public GameObject sidewalkSpawnPointLeft;
     private bool canDeployPowerUps = true;
 
     public bool inicioJuego = false;
     public bool juegoTerminado;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,15 @@ public class MotorCarreteras : MonoBehaviour
     void Update()
     {
         if(inicioJuego) inicializarJuego();
+        if (!juegoTerminado)
+        {
+            iterateSpawners();
+        }
+    }
+
+    private void iterateSpawners()
+    {
+        iterateSpawner(streetSpawnPointRight);
     }
 
     void inicializarJuego()
@@ -64,8 +77,8 @@ public class MotorCarreteras : MonoBehaviour
 
     private void addSegmentsToDelete(Calle calle)
     {
-            this.mainPath.bezierPath.numberSegmentsToDelete = this.mainPath.bezierPath.numberSegmentsToDelete + calle.getPathSegmentsNumber();
-            this.mainCounterPath.bezierPath.numberSegmentsToDelete = this.mainCounterPath.bezierPath.numberSegmentsToDelete + calle.getCounterPathSegmentsNumber();
+        this.mainPath.bezierPath.numberSegmentsToDelete = this.mainPath.bezierPath.numberSegmentsToDelete + calle.getPathSegmentsNumber();
+        this.mainCounterPath.bezierPath.numberSegmentsToDelete = this.mainCounterPath.bezierPath.numberSegmentsToDelete + calle.getCounterPathSegmentsNumber();
     }
 
     void InitializeStreetsOfGame()
@@ -94,7 +107,6 @@ public class MotorCarreteras : MonoBehaviour
                 Vector3 pos = lastCalle.transform.position;
                 pos.z += getHeightOfCalle(streetsRemaining.Count - 1) - 1;
                 nuevaCalle.GetComponent<Transform>().position = pos;
-                procesarNuevosObstaculos(nuevaCalle);
             }
             streetsRemaining.Add(nuevaCalle);
             UpdatePaths(nuevaCalle);
@@ -124,6 +136,7 @@ public class MotorCarreteras : MonoBehaviour
             this.mainPath.transform.rotation = pathB.transform.rotation;
             this.mainPath.transform.parent = this.transform;
             this.mainPath.name = "mainPath";
+            resetPathOfSpawners();
         }
         else addSegmentsOfPathBToPathA(this.mainPath, pathB);
         
@@ -138,10 +151,23 @@ public class MotorCarreteras : MonoBehaviour
             this.mainCounterPath.transform.rotation = pathBCounter.transform.rotation;
             this.mainCounterPath.transform.parent = this.transform;
             this.mainCounterPath.name = "mainCounterPath";
+            resetPathOfCounterSpawners();
         }
         else addSegmentsOfPathBToPathA(this.mainCounterPath, pathBCounter);
         Destroy(pathBCounter.gameObject);
     }
+
+    private void resetPathOfSpawners()
+    {
+        if(streetSpawnPointRight != null) streetSpawnPointRight.GetComponent<Spawner>().setPath(this.mainPath);
+        if(sidewalkSpawnPointRight != null) sidewalkSpawnPointRight.GetComponent<Spawner>().setPath(this.mainPath);
+    }
+    private void resetPathOfCounterSpawners()
+    {
+        if(streetSpawnPointLeft != null) streetSpawnPointLeft.GetComponent<Spawner>().setPath(this.mainCounterPath);
+        if(sidewalkSpawnPointLeft != null) sidewalkSpawnPointLeft.GetComponent<Spawner>().setPath(this.mainCounterPath);
+    }
+
 
     private bool addSegmentsOfPathBToPathA(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
     {
@@ -163,43 +189,20 @@ public class MotorCarreteras : MonoBehaviour
         
     }
 
-
-    private void procesarNuevosObstaculos(GameObject nuevaCalle)
+    private void iterateSpawner(GameObject spawnPoint)
     {
-        var random = new System.Random();
-        //processNewObstacles(nuevaCalle, random, beredaObstaculos, beredaPowerUps, "beredaSpawnPoint", true, 6 - GameObject.FindGameObjectsWithTag("BeredaObstaculo").Length);
-        processNewObstacles(nuevaCalle, random, calleObstaculos, callePowerUps, "streetSpawnPoint", false, 4 - GameObject.FindGameObjectsWithTag("StreetObstaculo").Length);
-    }
-
-    private void processNewObstacles(GameObject calle, System.Random random, List<GameObject> obstaclesList, List<GameObject> powerUpsList, String spawnNameTag, bool enlazarConPadre, int obstaclesToPlace)
-    {
-        if(obstaclesList.Count > 0)
+        Spawner spawner = spawnPoint.GetComponent<Spawner>();
+        if(spawner != null && spawner.isReadyToInstanceObstacle)
         {
-            GameObject[] listaSpawnPointsObstaculos = GameObject.FindGameObjectsWithTag(spawnNameTag);
-            foreach (GameObject obs in listaSpawnPointsObstaculos)
+            if(!spawner.spawnIsOverlappingOtherCollitions())
             {
-                if(obstaclesToPlace > 0 && !obs.GetComponent<Spawner>().spawnIsOverlappingOtherCollitions())
-                {
-                    int randNum = random.Next(10);
-                    if (randNum > 5)
-                    {
-                        GameObject obstaculoGO = Instantiate(obstaclesList[random.Next(obstaclesList.Count)]);
-                        obstaculoGO.GetComponent<Obstaculo>().path = this.mainPath;
-                        if(enlazarConPadre) obstaculoGO.transform.parent = calle.transform;
-                        obstaculoGO.GetComponent<Transform>().position = this.mainPath.path.GetClosestPointOnPath(obs.transform.position);
-                        obstaculoGO.GetComponent<Obstaculo>().SubscribePathChanges();
-                        obstaclesToPlace--;
-                    }
-                    /*else if(randNum > 3 && canDeployPowerUps)
-                    {
-                        GameObject powerUpGO = Instantiate(powerUpsList[random.Next(powerUpsList.Count)]);
-                        powerUpGO.GetComponent<ParticleSystem>().Play();
-                        powerUpGO.GetComponent<Transform>().position = obs.transform.position;
-                        powerUpGO.transform.parent = calle.transform;
-                        restitutePowerUp();
-                    }*/
-                }
-                //Destroy(obs);
+                GameObject obstaculoGO = null;
+                if (spawnPoint.tag.Equals("streetSpawnPoint")) 
+                    obstaculoGO = Instantiate(calleObstaculos[spawner.rand.Next(calleObstaculos.Count)]);
+                else 
+                    obstaculoGO = Instantiate(beredaObstaculos[spawner.rand.Next(beredaObstaculos.Count)]);
+                obstaculoGO.GetComponent<Obstaculo>().setPathFromSpawner(this.mainPath, spawner);
+                spawner.ReSetInstanceTravelledToBeReady();
             }
         }
     }
