@@ -7,12 +7,13 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     bool m_Started;
-    PathCreator path;
     public Vector3 pathOffset;
     public float velocity;
     
     private float dstTravelledToBeReady;
     public LayerMask m_LayerMask;
+
+    public PathCreator path { get; set; }
     public float dstTravelled { get; set; }
     public System.Random rand { get; set; }
     public bool isReadyToInstanceObstacle { get; set; }

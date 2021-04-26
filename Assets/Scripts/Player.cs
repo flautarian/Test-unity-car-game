@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
     public void EndingStreet(GameObject street)
     {
         //Debug.Log("abandonando una calle!");
-        motor.GetComponent<MotorCarreteras>().ciclarCalle(street);
+        StartCoroutine(motor.GetComponent<MotorCarreteras>().ciclarCalle(street));
     }
 
     public void OnCollisionEnter(Collision collision)

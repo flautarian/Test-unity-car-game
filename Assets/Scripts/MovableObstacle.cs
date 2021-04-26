@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstaculo : MonoBehaviour
+public class MovableObstacle: Obstacle
 {
     // Start is called before the first frame update
 
@@ -86,13 +86,13 @@ public class Obstaculo : MonoBehaviour
         }
     }
 
-    internal void setPathFromSpawner(PathCreator mainPath, Spawner spawner)
+    public override void SetPathFromSpawner(Spawner spawner)
     {
-        if (mainPath != null)
+        if (spawner.path != null)
         {
-            path = mainPath;
+            path = spawner.path;
             transform.parent = spawner.transform.parent;
-            transform.position = mainPath.path.GetClosestPointOnPath(spawner.transform.position);
+            transform.position = path.path.GetClosestPointOnPath(spawner.transform.position);
             dstTravelled = spawner.dstTravelled;
             path.pathUpdated += OnPathChanged;
         }

@@ -45,6 +45,9 @@ public class MotorCarreteras : MonoBehaviour
     private void iterateSpawners()
     {
         iterateSpawner(streetSpawnPointRight);
+        //iterateSpawner(streetSpawnPointLeft);
+        iterateSpawner(sidewalkSpawnPointLeft);
+        iterateSpawner(sidewalkSpawnPointRight);
     }
 
     void inicializarJuego()
@@ -57,11 +60,10 @@ public class MotorCarreteras : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    public void ciclarCalle(GameObject street)
+    public IEnumerator ciclarCalle(GameObject street)
     {
-        //Debug.Log("ciclando calle");
+        yield return new WaitForEndOfFrame();
         AddStreetsToRemaining(1);
-        streetsRemaining.Remove(street);
         StartCoroutine(EsperarYDestruirCalle(2.0f, street));
     }
 
@@ -70,6 +72,7 @@ public class MotorCarreteras : MonoBehaviour
         yield return new WaitForSeconds(timer);
         if (calle != null)
         {
+            streetsRemaining.Remove(calle);
             addSegmentsToDelete(calle.GetComponent<Calle>());
             Destroy(calle);
         }
@@ -201,7 +204,7 @@ public class MotorCarreteras : MonoBehaviour
                     obstaculoGO = Instantiate(calleObstaculos[spawner.rand.Next(calleObstaculos.Count)]);
                 else 
                     obstaculoGO = Instantiate(beredaObstaculos[spawner.rand.Next(beredaObstaculos.Count)]);
-                obstaculoGO.GetComponent<Obstaculo>().setPathFromSpawner(this.mainPath, spawner);
+                obstaculoGO.GetComponent<Obstacle>().SetPathFromSpawner(spawner);
                 spawner.ReSetInstanceTravelledToBeReady();
             }
         }
