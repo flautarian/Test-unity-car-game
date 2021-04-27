@@ -16,7 +16,6 @@ public class MotorCarreteras : MonoBehaviour
 
     public float timeLapseForDeployPowerUp;
     private PathCreation.PathCreator mainPath;
-    private PathCreation.PathCreator mainCounterPath;
     public GameObject streetSpawnPointRight;
     public GameObject streetSpawnPointLeft;
     public GameObject sidewalkSpawnPointRight;
@@ -62,7 +61,7 @@ public class MotorCarreteras : MonoBehaviour
 
     public IEnumerator ciclarCalle(GameObject street)
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.1f);
         AddStreetsToRemaining(1);
         StartCoroutine(EsperarYDestruirCalle(2.0f, street));
     }
@@ -81,7 +80,6 @@ public class MotorCarreteras : MonoBehaviour
     private void addSegmentsToDelete(Calle calle)
     {
         this.mainPath.bezierPath.numberSegmentsToDelete = this.mainPath.bezierPath.numberSegmentsToDelete + calle.getPathSegmentsNumber();
-        this.mainCounterPath.bezierPath.numberSegmentsToDelete = this.mainCounterPath.bezierPath.numberSegmentsToDelete + calle.getCounterPathSegmentsNumber();
     }
 
     void InitializeStreetsOfGame()
@@ -144,33 +142,15 @@ public class MotorCarreteras : MonoBehaviour
         else addSegmentsOfPathBToPathA(this.mainPath, pathB);
         
         Destroy(pathB.gameObject);
-
-        PathCreation.PathCreator pathBCounter = nuevaCalle.GetComponent<Calle>().counterPath;
-        pathBCounter.transform.parent = this.transform;
-        if (System.Object.Equals(this.mainCounterPath, null)){
-            this.mainCounterPath = Instantiate(pathBCounter);
-            this.mainCounterPath.InitializeEditorData(false);
-            this.mainCounterPath.transform.position = pathBCounter.transform.position;
-            this.mainCounterPath.transform.rotation = pathBCounter.transform.rotation;
-            this.mainCounterPath.transform.parent = this.transform;
-            this.mainCounterPath.name = "mainCounterPath";
-            resetPathOfCounterSpawners();
-        }
-        else addSegmentsOfPathBToPathA(this.mainCounterPath, pathBCounter);
-        Destroy(pathBCounter.gameObject);
     }
 
     private void resetPathOfSpawners()
     {
-        if(streetSpawnPointRight != null) streetSpawnPointRight.GetComponent<Spawner>().setPath(this.mainPath);
-        if(sidewalkSpawnPointRight != null) sidewalkSpawnPointRight.GetComponent<Spawner>().setPath(this.mainPath);
+        if (streetSpawnPointRight != null) streetSpawnPointRight.GetComponent<Spawner>().setPath(this.mainPath);
+        if (sidewalkSpawnPointRight != null) sidewalkSpawnPointRight.GetComponent<Spawner>().setPath(this.mainPath);
+        if (streetSpawnPointLeft != null) streetSpawnPointLeft.GetComponent<Spawner>().setPath(this.mainPath);
+        if (sidewalkSpawnPointLeft != null) sidewalkSpawnPointLeft.GetComponent<Spawner>().setPath(this.mainPath);
     }
-    private void resetPathOfCounterSpawners()
-    {
-        if(streetSpawnPointLeft != null) streetSpawnPointLeft.GetComponent<Spawner>().setPath(this.mainCounterPath);
-        if(sidewalkSpawnPointLeft != null) sidewalkSpawnPointLeft.GetComponent<Spawner>().setPath(this.mainCounterPath);
-    }
-
 
     private bool addSegmentsOfPathBToPathA(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
     {

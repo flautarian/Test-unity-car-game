@@ -18,6 +18,8 @@ public class Spawner : MonoBehaviour
     public System.Random rand { get; set; }
     public bool isReadyToInstanceObstacle { get; set; }
 
+    public bool sense;
+
     void Start()
     {
         //Use this to ensure that the Gizmos are being drawn when in Play Mode.

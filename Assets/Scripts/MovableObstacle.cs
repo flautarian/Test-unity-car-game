@@ -15,6 +15,7 @@ public class MovableObstacle: Obstacle
     public Vector3 localPosition;
     public float dstTravelled = 0;
 
+    public bool sense { get; set; } = true;
     void Start()
     {
     }
@@ -37,6 +38,8 @@ public class MovableObstacle: Obstacle
             {
                 if (path != null){
                     Vector3 pos = path.path.GetPointAtDistance(dstTravelled);
+                    // desviamos segun el sentido
+                    pos.x += sense ? 1.5f : -1.5f;
                     //no permitimos que los obstaculos que llegan al final vivan
                     if (pos.z < transform.position.z) Destroy(this.gameObject);
                     transform.position = pos;
@@ -93,6 +96,7 @@ public class MovableObstacle: Obstacle
             path = spawner.path;
             transform.parent = spawner.transform.parent;
             transform.position = path.path.GetClosestPointOnPath(spawner.transform.position);
+            sense = spawner.sense;
             dstTravelled = spawner.dstTravelled;
             path.pathUpdated += OnPathChanged;
         }
