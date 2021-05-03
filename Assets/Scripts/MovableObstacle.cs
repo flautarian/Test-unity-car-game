@@ -22,8 +22,8 @@ public class MovableObstacle: Obstacle
     {
         if (path != null)
         {
-            if(path.bezierPath.GetPoint(0).z > transform.position.z) Destroy(this.gameObject);
-            else dstTravelled = path.path.GetClosestDistanceAlongPath(transform.position);
+            /*if(path.bezierPath.GetPoint(0).z > transform.position.z) Destroy(this.gameObject);
+            else*/ dstTravelled = path.path.GetClosestDistanceAlongPath(transform.position);
         }
     }
 

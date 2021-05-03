@@ -23,7 +23,7 @@ namespace PathCreation {
 
 #region Fields
 [SerializeField, HideInInspector]
-public int numberSegmentsToDelete;
+public int numPointsToDelete;
 [SerializeField, HideInInspector]
  List<Vector3> points;
  [SerializeField, HideInInspector]
@@ -252,10 +252,10 @@ public int numberSegmentsToDelete;
             if (controlMode == ControlMode.Automatic) {
                 AutoSetAllAffectedControlPoints (points.Count - 1);
             }
-            if(!isClosed && numberSegmentsToDelete > 0)
+            if(!isClosed && numPointsToDelete > 0)
             {
                 DeleteSegment(0);
-                numberSegmentsToDelete--;
+                numPointsToDelete--;
             }
             else NotifyPathModified ();
         }

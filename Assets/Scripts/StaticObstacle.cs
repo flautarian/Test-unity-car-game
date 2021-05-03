@@ -30,6 +30,7 @@ public class StaticObstacle : Obstacle
         // If the object we hit is the enemy
         if (Equals(c.gameObject.tag, "Player"))
         {
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
             // how much the character should be knocked back
             var magnitude = 500;
             // calculate force vector
