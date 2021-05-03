@@ -165,13 +165,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    public void EndingStreet(GameObject street)
-    {
-        //Debug.Log("abandonando una calle!");
-        StartCoroutine(motor.GetComponent<MotorCarreteras>().ciclarCalle(street));
-    }
-
     public void OnCollisionEnter(Collision collision)
     {
         if(System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))

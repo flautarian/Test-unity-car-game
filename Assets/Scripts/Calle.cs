@@ -6,28 +6,21 @@ public class Calle : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public PathCreation.PathCreator path;
-
-    private int pathSegmentsNumber;
-    void Start()
-    {
-        this.pathSegmentsNumber = path.bezierPath.NumSegments;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public int getPathSegmentsNumber()
-    {
-        return this.pathSegmentsNumber;
-    }
+    public WayPointManager waypointManager;
+    public MotorCarreteras motor { get; set; }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.tag.Equals("Player"))
-            other.GetComponent<Player>().EndingStreet(this.gameObject);
+        {
+            if(motor != null) StartCoroutine(motor.ciclarCalle(this.gameObject));
+            StartCoroutine(DestroyStreet());
+        }
+    }
+
+    public IEnumerator DestroyStreet()
+    {
+        yield return new WaitForSeconds(2.0f);
+        Destroy(this.gameObject);
     }
 }

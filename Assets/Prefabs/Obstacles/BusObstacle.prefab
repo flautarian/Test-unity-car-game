@@ -9703,9 +9703,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 15
   penalty: 0.1
-  path: {fileID: 0}
+  target: {fileID: 0}
   localPosition: {x: 0, y: 0, z: 0}
-  dstTravelled: 0
 --- !u!23 &6577222172534766931
 MeshRenderer:
   m_ObjectHideFlags: 0

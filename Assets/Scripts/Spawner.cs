@@ -6,14 +6,13 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    bool m_Started;
     public Vector3 pathOffset;
     public float velocity;
-    
-    private float dstTravelledToBeReady;
-    public LayerMask m_LayerMask;
 
-    public PathCreator path { get; set; }
+    private Quaternion currentQuaternionRotation;
+    private float dstTravelledToBeReady;
+
+    public Transform target;
     public float dstTravelled { get; set; }
     public System.Random rand { get; set; }
     public bool isReadyToInstanceObstacle { get; set; }
@@ -22,7 +21,6 @@ public class Spawner : MonoBehaviour
     {
         //Use this to ensure that the Gizmos are being drawn when in Play Mode.
         dstTravelledToBeReady = 10;
-        m_Started = true;
         isReadyToInstanceObstacle = false;
         rand = new System.Random(); ;
     }
@@ -33,19 +31,15 @@ public class Spawner : MonoBehaviour
     {
         if (velocity > 0)
         {
-            dstTravelled += velocity * Time.deltaTime;
-            if (path != null)
+            if (target != null)
             {
-                Vector3 pos = path.path.GetPointAtDistance(dstTravelled);
-                if (pos.z > transform.position.z)
-                {
-                    pos += pathOffset;
-                    transform.position = pos;
-                    transform.rotation = path.path.GetRotationAtDistance(dstTravelled);
-                    if(dstTravelled > dstTravelledToBeReady) isReadyToInstanceObstacle = true;
-                }
-                else isReadyToInstanceObstacle = false;
+                dstTravelled += velocity * Time.deltaTime;
+                currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, target.position, velocity * Time.deltaTime);
+                if(dstTravelled > dstTravelledToBeReady) isReadyToInstanceObstacle = true;
             }
+            else isReadyToInstanceObstacle = false;
         }
     }
 
@@ -54,43 +48,20 @@ public class Spawner : MonoBehaviour
         dstTravelledToBeReady= dstTravelled + rand.Next(15, 30);
         isReadyToInstanceObstacle = false;
     }
-
-    private void OnDestroy()
+    private void OnTriggerEnter(Collider other)
     {
-        if (path != null) path.pathUpdated -= OnPathChanged;
-    }
-    private void OnPathChanged()
-    {
-        if (path != null) dstTravelled = path.path.GetClosestDistanceAlongPath(transform.position);
-    }
-
-    public bool spawnIsOverlappingOtherCollitions()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(gameObject.transform.position, transform.localScale, 0, m_LayerMask);
-        foreach(Collider2D col in hitColliders)
+        if (Equals(other.gameObject.tag, "WayPoint") && (other.gameObject.transform == target || target == null))
         {
-            if (!col.tag.Equals("Calle")) return true;
-        }
-        return false;
-    }
-
-    //Draw the Box Overlap as a gizmo to show where it currently is testing. Click the Gizmos button to see this
-    void OnDrawGizmos()
-    {
-        Gizmos.color = isReadyToInstanceObstacle ? Color.green : Color.red;
-        //Check that it is being run in Play Mode, so it doesn't try to draw this in Editor mode
-        if (m_Started)
-            //Draw a cube where the OverlapBox is (positioned where your GameObject is as well as a size)
-            Gizmos.DrawWireCube(transform.position, transform.localScale);
-    }
-
-    public void setPath(PathCreator mainPath)
-    {
-        if (mainPath != null)
-        {
-            path = mainPath;
-            transform.position = mainPath.path.GetClosestPointOnPath(transform.position);
-            path.pathUpdated += OnPathChanged;
+            target = other.gameObject.GetComponent<WayPoint>().nextWayPoint;
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Equals(other.gameObject.tag, "WayPoint") && (other.gameObject.transform != null))
+        {
+            target = other.gameObject.GetComponent<WayPoint>().nextWayPoint;
+        }
+    }
+
 }

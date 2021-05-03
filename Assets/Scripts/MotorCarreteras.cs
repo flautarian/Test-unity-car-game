@@ -41,13 +41,27 @@ public class MotorCarreteras : MonoBehaviour
             iterateSpawners();
         }
     }
+    void InitializeStreetsOfGame()
+    {
+        InitializeFirstStreet();
+        AddStreetsToRemaining(2);
+    }
+
+    private void InitializeFirstStreet()
+    {
+        streetsRemaining = new List<GameObject>();
+        GameObject street0 = Instantiate(lvl0Roads[0]);
+        street0.transform.parent = this.transform;
+        streetsRemaining.Add(street0);
+        InitializeWaypointOfSpawners(street0.GetComponent<Calle>());
+    }
 
     private void iterateSpawners()
     {
-        iterateSpawner(streetSpawnPointRight);
+        //iterateSpawner(streetSpawnPointRight);
         //iterateSpawner(streetSpawnPointLeft);
-        iterateSpawner(sidewalkSpawnPointLeft);
-        iterateSpawner(sidewalkSpawnPointRight);
+        //iterateSpawner(sidewalkSpawnPointLeft);
+       //iterateSpawner(sidewalkSpawnPointRight);
     }
 
     void inicializarJuego()
@@ -64,38 +78,7 @@ public class MotorCarreteras : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         AddStreetsToRemaining(1);
-        StartCoroutine(EsperarYDestruirCalle(2.0f, street));
-    }
-
-    private IEnumerator EsperarYDestruirCalle(float timer, GameObject calle)
-    {
-        yield return new WaitForSeconds(timer);
-        if (calle != null)
-        {
-            streetsRemaining.Remove(calle);
-            addSegmentsToDelete(calle.GetComponent<Calle>());
-            Destroy(calle);
-        }
-    }
-
-    private void addSegmentsToDelete(Calle calle)
-    {
-        this.mainCounterPath.bezierPath.numPointsToDelete = this.mainCounterPath.bezierPath.numPointsToDelete + calle.path.bezierPath.NumPoints;
-    }
-
-    void InitializeStreetsOfGame()
-    {
-        InitializeFirstStreet();
-        AddStreetsToRemaining(2);
-    }
-
-    private void InitializeFirstStreet()
-    {
-        streetsRemaining = new List<GameObject>();
-        GameObject street0 = Instantiate(lvl0Roads[0]);
-        street0.transform.parent = this.transform;
-        UpdatePaths(street0);
-        streetsRemaining.Add(street0);
+        streetsRemaining.Remove(street);
     }
 
     void AddStreetsToRemaining(int times)
@@ -103,15 +86,16 @@ public class MotorCarreteras : MonoBehaviour
         for (int i = 0; i < times; i++) { 
             GameObject nuevaCalle = Instantiate(GetNewRandomRoad());
             nuevaCalle.transform.parent = this.transform;
+            nuevaCalle.GetComponent<Calle>().motor = this;
             if (nuevaCalle != null && streetsRemaining.Count > 0)
             {
                 GameObject lastCalle = streetsRemaining[streetsRemaining.Count-1];
                 Vector3 pos = lastCalle.transform.position;
-                pos.z += getHeightOfCalle(streetsRemaining.Count - 1) - 1;
+                pos.z += getHeightOfCalle(streetsRemaining.Count - 1) -1;
                 nuevaCalle.GetComponent<Transform>().position = pos;
+                UpdatePaths(nuevaCalle, lastCalle);
             }
             streetsRemaining.Add(nuevaCalle);
-            UpdatePaths(nuevaCalle);
         }
     }
 
@@ -126,29 +110,18 @@ public class MotorCarreteras : MonoBehaviour
         }
     }
 
-    private void UpdatePaths(GameObject nuevaCalle)
+    private void UpdatePaths(GameObject nuevaCalle, GameObject lastCalle)
     {
-        PathCreation.PathCreator pathB = nuevaCalle.GetComponent<Calle>().path;
-        pathB.transform.parent = this.transform;
-        if (System.Object.Equals(this.mainPath, null))
-        {
-            this.mainPath = Instantiate(pathB);
-            this.mainPath.InitializeEditorData(false);
-            this.mainPath.transform.position = pathB.transform.position;
-            this.mainPath.transform.rotation = pathB.transform.rotation;
-            this.mainPath.transform.parent = this.transform;
-            this.mainPath.name = "mainPath";
-            resetPathOfSpawners();
-        }
-        else addSegmentsOfPathBToPathA(this.mainPath, pathB);
-        
-        Destroy(pathB.gameObject);
+        Calle lastStreet = lastCalle.GetComponent<Calle>();
+        WayPointManager wayPointManager= nuevaCalle.GetComponent<Calle>().waypointManager;
+        //wayPointManager.transform.parent = this.transform;
+        lastStreet.waypointManager.lastWayPoint.nextWayPoint = wayPointManager.firstWayPoint.transform;
     }
 
-    private void resetPathOfSpawners()
+    private void InitializeWaypointOfSpawners(Calle calleInicial)
     {
-        if(streetSpawnPointRight != null) streetSpawnPointRight.GetComponent<Spawner>().setPath(this.mainPath);
-        if(sidewalkSpawnPointRight != null) sidewalkSpawnPointRight.GetComponent<Spawner>().setPath(this.mainPath);
+        if(streetSpawnPointRight != null) streetSpawnPointRight.GetComponent<Spawner>().target = calleInicial.waypointManager.lastWayPoint.transform;
+        if(sidewalkSpawnPointRight != null) sidewalkSpawnPointRight.GetComponent<Spawner>().target = calleInicial.waypointManager.lastWayPoint.transform;
     }
 
 
@@ -177,8 +150,6 @@ public class MotorCarreteras : MonoBehaviour
         Spawner spawner = spawnPoint.GetComponent<Spawner>();
         if(spawner != null && spawner.isReadyToInstanceObstacle)
         {
-            if(!spawner.spawnIsOverlappingOtherCollitions())
-            {
                 GameObject obstaculoGO = null;
                 if (spawnPoint.tag.Equals("streetSpawnPoint")) 
                     obstaculoGO = Instantiate(calleObstaculos[spawner.rand.Next(calleObstaculos.Count)]);
@@ -186,7 +157,6 @@ public class MotorCarreteras : MonoBehaviour
                     obstaculoGO = Instantiate(beredaObstaculos[spawner.rand.Next(beredaObstaculos.Count)]);
                 obstaculoGO.GetComponent<Obstacle>().SetPathFromSpawner(spawner);
                 spawner.ReSetInstanceTravelledToBeReady();
-            }
         }
     }
 

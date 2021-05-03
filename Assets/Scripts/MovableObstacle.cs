@@ -11,38 +11,34 @@ public class MovableObstacle: Obstacle
     public float velocity;
     public float penalty;
     private bool automaticDriving = true;
-    public PathCreator path;
+    private Quaternion currentQuaternionRotation;
+    public Transform target;
+
+    internal void changeToNextPoint(Transform nextWayPoint)
+    {
+        target = nextWayPoint;
+    }
+
     public Vector3 localPosition;
-    public float dstTravelled = 0;
 
     void Start()
     {
-    }
-    private void OnPathChanged()
-    {
-        if (path != null)
-        {
-            /*if(path.bezierPath.GetPoint(0).z > transform.position.z) Destroy(this.gameObject);
-            else*/ dstTravelled = path.path.GetClosestDistanceAlongPath(transform.position);
-        }
     }
 
     void Update()
     {
         if(velocity > 0)
         {
-            dstTravelled += velocity * Time.deltaTime;
             moveWheels(velocity);
             if (automaticDriving)
             {
-                if (path != null){
-                    Vector3 pos = path.path.GetPointAtDistance(dstTravelled);
-                    //no permitimos que los obstaculos que llegan al final vivan
-                    if (pos.z < transform.position.z) Destroy(this.gameObject);
-                    transform.position = pos;
-                    Quaternion rot = path.path.GetRotationAtDistance(dstTravelled);
-                    transform.rotation = rot;
+                if (target != null)
+                {
+                    currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, target.position, velocity * Time.deltaTime);
                 }
+                else Destroy(this.gameObject);
             }
             else GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
         }
@@ -60,11 +56,6 @@ public class MovableObstacle: Obstacle
             if(this.transform.GetChild(i).name.Contains("wheel"))
                 this.transform.GetChild(i).Rotate(Vector3.right * Time.deltaTime * velocity*50, Space.Self);
         }
-    }
-
-    public void OnDestroy()
-    {
-        if (path != null) path.pathUpdated -= OnPathChanged;
     }
 
     void OnCollisionEnter(Collision c)
@@ -86,15 +77,23 @@ public class MovableObstacle: Obstacle
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (Equals(other.gameObject.tag, "WayPoint") && other.gameObject.transform == target)
+        {
+            target = other.gameObject.GetComponent<WayPoint>().nextWayPoint;
+        }
+    }
+
     public override void SetPathFromSpawner(Spawner spawner)
     {
-        if (spawner.path != null)
+        /*if (spawner.path != null)
         {
             path = spawner.path;
             transform.parent = spawner.transform.parent;
             transform.position = path.path.GetClosestPointOnPath(spawner.transform.position);
             dstTravelled = spawner.dstTravelled;
             path.pathUpdated += OnPathChanged;
-        }
+        }*/
     }
 }

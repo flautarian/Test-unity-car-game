@@ -21,6 +21,7 @@ TagManager:
   - CarsPath
   - CounterCarsPath
   - PlayerInteractable
+  - WayPoint
   layers:
   - Default
   - TransparentFX
