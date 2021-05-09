@@ -5,5 +5,7 @@ using UnityEngine;
 public class WayPoint : MonoBehaviour
 {
     public Transform nextWayPoint;
+    public Transform previousWayPoint;
+    public bool isReverse;
 
 }

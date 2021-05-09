@@ -15,12 +15,8 @@ public class MotorCarreteras : MonoBehaviour
     public int lvl = 0;
 
     public float timeLapseForDeployPowerUp;
-    private PathCreation.PathCreator mainPath;
-    private PathCreation.PathCreator mainCounterPath;
     public GameObject streetSpawnPointRight;
     public GameObject streetSpawnPointLeft;
-    public GameObject sidewalkSpawnPointRight;
-    public GameObject sidewalkSpawnPointLeft;
     private bool canDeployPowerUps = true;
 
     public bool inicioJuego = false;
@@ -45,6 +41,7 @@ public class MotorCarreteras : MonoBehaviour
     {
         InitializeFirstStreet();
         AddStreetsToRemaining(2);
+        InitializeWaypointOfSpawners(streetsRemaining[streetsRemaining.Count-1].GetComponent<Calle>());
     }
 
     private void InitializeFirstStreet()
@@ -53,15 +50,12 @@ public class MotorCarreteras : MonoBehaviour
         GameObject street0 = Instantiate(lvl0Roads[0]);
         street0.transform.parent = this.transform;
         streetsRemaining.Add(street0);
-        InitializeWaypointOfSpawners(street0.GetComponent<Calle>());
     }
 
     private void iterateSpawners()
     {
-        //iterateSpawner(streetSpawnPointRight);
-        //iterateSpawner(streetSpawnPointLeft);
-        //iterateSpawner(sidewalkSpawnPointLeft);
-       //iterateSpawner(sidewalkSpawnPointRight);
+        IterateSpawner(streetSpawnPointRight);
+        IterateSpawner(streetSpawnPointLeft);
     }
 
     void inicializarJuego()
@@ -113,50 +107,43 @@ public class MotorCarreteras : MonoBehaviour
     private void UpdatePaths(GameObject nuevaCalle, GameObject lastCalle)
     {
         Calle lastStreet = lastCalle.GetComponent<Calle>();
-        WayPointManager wayPointManager= nuevaCalle.GetComponent<Calle>().waypointManager;
-        //wayPointManager.transform.parent = this.transform;
-        lastStreet.waypointManager.lastWayPoint.nextWayPoint = wayPointManager.firstWayPoint.transform;
+        Calle newStreet = nuevaCalle.GetComponent<Calle>();
+        lastStreet.waypointManager.lastWayPoint.nextWayPoint = newStreet.waypointManager.firstWayPoint.transform;
+        newStreet.waypointManager.firstWayPoint.previousWayPoint = lastStreet.waypointManager.lastWayPoint.transform;
+        newStreet.waypointManager.lastWayReversalPoint.nextWayPoint = lastStreet.waypointManager.firstWayReversalPoint.transform;
+        lastStreet.waypointManager.firstWayReversalPoint.previousWayPoint = newStreet.waypointManager.lastWayReversalPoint.transform;
     }
 
     private void InitializeWaypointOfSpawners(Calle calleInicial)
     {
-        if(streetSpawnPointRight != null) streetSpawnPointRight.GetComponent<Spawner>().target = calleInicial.waypointManager.lastWayPoint.transform;
-        if(sidewalkSpawnPointRight != null) sidewalkSpawnPointRight.GetComponent<Spawner>().target = calleInicial.waypointManager.lastWayPoint.transform;
+        if (streetSpawnPointRight != null) InitilizeWaypoint(streetSpawnPointRight, calleInicial.waypointManager.lastWayPoint.transform);
+        if (streetSpawnPointLeft != null) InitilizeWaypoint(streetSpawnPointLeft, calleInicial.waypointManager.firstWayReversalPoint.transform);
     }
 
-
-    private bool addSegmentsOfPathBToPathA(PathCreation.PathCreator pathA, PathCreation.PathCreator pathB)
+    private void InitilizeWaypoint(GameObject spawner, Transform target)
     {
-        try
-        {
-            for (int i = 0; i < pathB.bezierPath.NumSegments; i++)
-            {
-                Vector3 vec = pathB.bezierPath.GetPointsInSegment(i)[0];
-                vec.z += pathB.transform.position.z;
-                pathA.bezierPath.AddSegmentToEnd(vec);
-            }
-            return true;
-        }
-        catch(Exception e)
-        {
-            Debug.Log(e.Message);
-        }
-        return false;
-        
+        spawner.GetComponent<Spawner>().target = target;
+        spawner.transform.LookAt(target);
+        spawner.transform.position = target.position;
     }
 
-    private void iterateSpawner(GameObject spawnPoint)
+    private void IterateSpawner(GameObject spawnPoint)
     {
         Spawner spawner = spawnPoint.GetComponent<Spawner>();
-        if(spawner != null && spawner.isReadyToInstanceObstacle)
+        if(spawner != null)
         {
-                GameObject obstaculoGO = null;
-                if (spawnPoint.tag.Equals("streetSpawnPoint")) 
-                    obstaculoGO = Instantiate(calleObstaculos[spawner.rand.Next(calleObstaculos.Count)]);
-                else 
-                    obstaculoGO = Instantiate(beredaObstaculos[spawner.rand.Next(beredaObstaculos.Count)]);
-                obstaculoGO.GetComponent<Obstacle>().SetPathFromSpawner(spawner);
-                spawner.ReSetInstanceTravelledToBeReady();
+            if (spawner.isReadyToInstanceMovableObstacle)
+            {
+                GameObject obstaculoGO = Instantiate(calleObstaculos[spawner.rand.Next(calleObstaculos.Count)]);    
+                obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(spawner);
+                spawner.ReSetMovableSpawnerTrigger();
+            }
+            else if (spawner.isReadyToInstanceStaticObstacle)
+            {
+                GameObject obstaculoGO = Instantiate(beredaObstaculos[spawner.rand.Next(beredaObstaculos.Count)]);
+                obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(spawner);
+                spawner.ReSetStaticSpawnerTrigger();
+            }
         }
     }
 

@@ -11,6 +11,7 @@ public class MovableObstacle: Obstacle
     public float velocity;
     public float penalty;
     private bool automaticDriving = true;
+    public bool isReverseObstacle;
     private Quaternion currentQuaternionRotation;
     public Transform target;
 
@@ -40,7 +41,11 @@ public class MovableObstacle: Obstacle
                 }
                 else Destroy(this.gameObject);
             }
-            else GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
+            else
+            {
+                GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
+                if (transform.position.y < 0f) Destroy(this.gameObject);
+            }
         }
     }
 
@@ -81,19 +86,18 @@ public class MovableObstacle: Obstacle
     {
         if (Equals(other.gameObject.tag, "WayPoint") && other.gameObject.transform == target)
         {
-            target = other.gameObject.GetComponent<WayPoint>().nextWayPoint;
+            WayPoint wayPoint = other.gameObject.GetComponent<WayPoint>();
+            target = wayPoint.nextWayPoint;
         }
     }
 
-    public override void SetPathFromSpawner(Spawner spawner)
+    public override void SetPositioAndTargetFromSpawner(Spawner spawner)
     {
-        /*if (spawner.path != null)
+        if (spawner.target != null)
         {
-            path = spawner.path;
-            transform.parent = spawner.transform.parent;
-            transform.position = path.path.GetClosestPointOnPath(spawner.transform.position);
-            dstTravelled = spawner.dstTravelled;
-            path.pathUpdated += OnPathChanged;
-        }*/
+            target = spawner.lastTarget != null ? spawner.lastTarget : spawner.target;
+            transform.position = spawner.transform.position;
+            transform.LookAt(target);
+        }
     }
 }

@@ -15,14 +15,15 @@ public class StaticObstacle : Obstacle
     void Update()
     {
         if (transform.position.y < 0f) Destroy(this.gameObject);
-        //if (!GetComponent<Animation>().isPlaying) return;
-        //transform.localPosition += localPosition;
     }
 
-    public override void SetPathFromSpawner(Spawner spawner)
+    public override void SetPositioAndTargetFromSpawner(Spawner spawner)
     {
-        transform.parent = spawner.transform.parent;
-        transform.position = spawner.transform.position;
+        if (spawner.target != null)
+        {
+            transform.position = spawner.transform.position + spawner.sidewalkOffset;
+            transform.LookAt(spawner.transform);
+        }
     }
 
     void OnCollisionEnter(Collision c)
