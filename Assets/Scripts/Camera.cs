@@ -5,35 +5,23 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     public Transform target;
-    public float smoothTime = 0.1F;
-    public float rotationSpeed = 3f;
-
-    private Vector3 velocity = Vector3.zero;
-    float distance;
-    Vector3 position;
-    Vector3 newPos;
-    Quaternion rotation;
-    Quaternion newRot;
+    public float smoothTime = 0.5F;
+    private Vector3 cameraOffset;
+    private bool lookToTarget = false;
 
     void Start()
     {
-        rotation = Quaternion.Euler(new Vector3(45, target.rotation.eulerAngles.y, 0f));
+        cameraOffset = transform.position - target.transform.position;
     }
 
-    void Update()
+    void LateUpdate()
     {
-        newRot = Quaternion.Euler(new Vector3(45f, target.rotation.eulerAngles.y, 0f));
-        rotation = Quaternion.Lerp(rotation, newRot, rotationSpeed * Time.deltaTime);
-        if(Mathf.Abs(rotation.y) < 35)
-        {
-            rotation.x = transform.rotation.x;
-            rotation.z = transform.rotation.z;
-            transform.rotation = rotation;
-        }
         // Define a target position above and behind the target transform
-        Vector3 targetPosition = target.TransformPoint(new Vector3(0, 10, -10));
+        Vector3 targetPosition = target.transform.position + cameraOffset;
         // Smoothly move the camera towards that target position
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        transform.position = Vector3.Slerp(transform.position, targetPosition, smoothTime);
+        
+            transform.LookAt(target);
     }
 
     public IEnumerator PlayCameraShakeAnimation(float duration, float magnitude)

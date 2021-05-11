@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8372480389960588182}
   m_Layer: 0
   m_Name: SignalRight
-  m_TagString: Untagged
+  m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

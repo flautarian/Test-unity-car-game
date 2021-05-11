@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public float round;
     
     private bool startPowerUpActivated = false;
+    public bool playerIsTouchingEarth = false;
     private float minX = -8f;
     private float maxX = 8f;
 
@@ -112,7 +113,7 @@ public class Player : MonoBehaviour
 
     private void controlPlayer()
     {
-        //acceleration
+        // ACCELERATION
         if (Input.GetKey("up"))
         {
             if (!endGameFlag)
@@ -122,17 +123,19 @@ public class Player : MonoBehaviour
         }
         else reduceVelocityToZero();
 
-        //grip
-        if (Input.GetKey("left"))
-        {
-            GetComponent<Transform>().Rotate(Vector3.down * round * Time.deltaTime);
-        }
-        else if (Input.GetKey("right"))
-        {
-            GetComponent<Transform>().Rotate(Vector3.up * round * Time.deltaTime);
-        }
-        else
-            GetComponent<Transform>().rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 3.0f * Time.deltaTime);
+        
+            // COMMAND CAR
+            if (Input.GetKey("left") && IsGrounded())
+            {
+                GetComponent<Transform>().Rotate(Vector3.down * round * Time.deltaTime);
+            }
+            else if (Input.GetKey("right") && IsGrounded())
+            {
+                GetComponent<Transform>().Rotate(Vector3.up * round * Time.deltaTime);
+            }
+            else
+                GetComponent<Transform>().rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 3.0f * Time.deltaTime);
+        
        
         target = Input.GetAxis("Horizontal") * Vector3.forward * velocity * Time.deltaTime;
 
@@ -145,7 +148,8 @@ public class Player : MonoBehaviour
                 Vector3 eulerRotation = transform.rotation.eulerAngles;
                 GetComponent<Transform>().rotation = Quaternion.Euler(-eulerRotation.x, eulerRotation.y, eulerRotation.z);
             }
-           GetComponent<Transform>().Translate(Vector3.forward * velocity * Time.deltaTime);
+            GetComponent<Transform>().Translate(Vector3.forward * velocity * Time.deltaTime);
+            
         }      
     }
 
@@ -167,13 +171,17 @@ public class Player : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        if(System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
+        if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
         {
             collision.gameObject.GetComponent<Coin>().takeCoin();
         }
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private bool IsGrounded(){
+        return Physics.Raycast(transform.position, -Vector3.up, 0.25f);
+    }
+
+private void OnTriggerEnter(Collider collision)
     {
         if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
         {
