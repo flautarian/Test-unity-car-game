@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
     public float grip;
     public float round;
     
-    private bool startPowerUpActivated = false;
-    public bool playerIsTouchingEarth = false;
+    private bool playerIsTouchingEarth = false;
+    private Rigidbody playerRigidbody;
     private float minX = -8f;
     private float maxX = 8f;
 
@@ -25,13 +25,12 @@ public class Player : MonoBehaviour
     private bool endGameFlag = false;
     private bool startGameFlag = false;
 
-    private Vector3 rigidBodyPosition, rigidBodyVelocity, rigidBodyAngularVelocity;
-
     GameObject motor;
 
     void Start()
     {
         motor = GameObject.FindGameObjectWithTag("motorCarreteras");
+        playerRigidbody = GetComponent<Rigidbody>();
     }
 
     internal void executePowerUp(string powerUpButtonName)
@@ -39,10 +38,8 @@ public class Player : MonoBehaviour
         switch (powerUpButtonName)
         {
             case "ThunderButtton":
-                motor.GetComponent<MotorCarreteras>().detonateAllObstacles();
                 break;
             case "StarButtton":
-                StartPowerUpEffects();
                 break;
             case "BulletButtton":
                 break;
@@ -51,29 +48,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void StartPowerUpEffects()
-    {
-        StartCoroutine(applyStarPowerUpEffects());
-    }
 
     internal void ContactedWithGrass()
     {
         this.velocity = this.statusCarVelocity / 2;
     }
-
-    private IEnumerator applyStarPowerUpEffects()
-    {
-        // TODO: Activar sonido efecto power up
-        // TODO: Activar efecto en coche para parecer super y tal 
-        startPowerUpActivated = true;
-        statusCarVelocity = maxVelocity + 10f;
-        yield return new WaitForSeconds(5f);
-        startPowerUpActivated = false;
-        statusCarVelocity -= maxVelocity;
-        // TODO: Desactivar sonido efecto power up
-        // TODO: Desactivar efecto en coche para parecer super y tal 
-    }
-
 
     // Update is called once per frame
     void Update()
@@ -123,8 +102,10 @@ public class Player : MonoBehaviour
         }
         else reduceVelocityToZero();
 
-        
-            // COMMAND CAR
+
+        // COMMAND CAR
+        if (IsGrounded())
+        {
             if (Input.GetKey("left") && IsGrounded())
             {
                 GetComponent<Transform>().Rotate(Vector3.down * round * Time.deltaTime);
@@ -133,17 +114,18 @@ public class Player : MonoBehaviour
             {
                 GetComponent<Transform>().Rotate(Vector3.up * round * Time.deltaTime);
             }
-            else
-                GetComponent<Transform>().rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 3.0f * Time.deltaTime);
-        
-       
+            else GetComponent<Transform>().rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 3.0f * Time.deltaTime);
+            if(Math.Abs(GetComponent<Transform>().rotation.z) > 10.0f) GetComponent<Transform>().rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f), round * Time.deltaTime);
+        }
+        else GetComponent<Transform>().rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f), 8.5f * Time.deltaTime);
+
+
         target = Input.GetAxis("Horizontal") * Vector3.forward * velocity * Time.deltaTime;
 
         //acceleration
         if (startGameFlag)
         {
-            if (transform.position.x + target.x > minX && transform.position.x + target.x < maxX) GetComponent<Transform>().Translate(target);
-            else
+            if (transform.position.x + target.x <= minX && transform.position.x + target.x < maxX)
             {
                 Vector3 eulerRotation = transform.rotation.eulerAngles;
                 GetComponent<Transform>().rotation = Quaternion.Euler(-eulerRotation.x, eulerRotation.y, eulerRotation.z);

@@ -20,8 +20,7 @@ public class Camera : MonoBehaviour
         Vector3 targetPosition = target.transform.position + cameraOffset;
         // Smoothly move the camera towards that target position
         transform.position = Vector3.Slerp(transform.position, targetPosition, smoothTime);
-        
-            transform.LookAt(target);
+        transform.LookAt(target);
     }
 
     public IEnumerator PlayCameraShakeAnimation(float duration, float magnitude)
