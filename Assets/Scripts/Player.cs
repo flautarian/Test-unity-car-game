@@ -9,13 +9,24 @@ public class Player : MonoBehaviour
     public AudioClip turnUpCar;
     public AudioClip crashCar;
     public float life;
-    public float maxVelocity;
     public float statusCarVelocity;
     public float acceleration;
     public float velocity;
-    public float grip;
+    public float steeringAngle;
     public float round;
-    
+
+    public float maxSteeringAngle = 30;
+    public float motorForce;
+    public float verticalInput, horizontalInput;
+
+    public WheelCollider frontDriverWheel, frontPassengerWheel;
+    public WheelCollider rearDriverWheel, rearPassengerWheel;
+
+    public Transform frontDriverT, frontPassengerT;
+    public Transform rearDriverT, rearPassengerT;
+    public Vector3 centerOfMass;
+
+
     private bool playerIsTouchingEarth = false;
     private Rigidbody playerRigidbody;
     private float minX = -8f;
@@ -31,6 +42,7 @@ public class Player : MonoBehaviour
     {
         motor = GameObject.FindGameObjectWithTag("motorCarreteras");
         playerRigidbody = GetComponent<Rigidbody>();
+        playerRigidbody.centerOfMass = centerOfMass;
     }
 
     internal void executePowerUp(string powerUpButtonName)
@@ -48,6 +60,41 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void GetInput()
+    {
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+    }
+    private void Steer()
+    {
+        steeringAngle = maxSteeringAngle * horizontalInput;
+        frontDriverWheel.steerAngle = steeringAngle;
+        frontPassengerWheel.steerAngle = steeringAngle;
+    }
+    private void Accelerate()
+    {
+        frontDriverWheel.motorTorque = verticalInput * motorForce;
+        frontPassengerWheel.motorTorque = verticalInput * motorForce;
+        rearDriverWheel.motorTorque = verticalInput * motorForce;
+        rearPassengerWheel.motorTorque = verticalInput * motorForce;
+    }
+    private void UpdateWheelPoses()
+    {
+        UpdateWheelPose(frontDriverWheel, frontDriverT);
+        UpdateWheelPose(frontPassengerWheel, frontPassengerT);
+        UpdateWheelPose(rearDriverWheel, rearDriverT);
+        UpdateWheelPose(rearPassengerWheel, rearPassengerT);
+
+    }
+
+    private void UpdateWheelPose(WheelCollider _collider, Transform _transform)
+    {
+        Vector3 _pos = _transform.position;
+        Quaternion _quat = _transform.rotation;
+        _collider.GetWorldPose(out _pos, out _quat);
+        _transform.position = _pos;
+        _transform.rotation = _quat;
+    }
 
     internal void ContactedWithGrass()
     {
@@ -55,11 +102,22 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        controlVelocity();
-        controlPlayer();
-        moveWheels(velocity);
+        /*controlVelocity();
+        controlPlayer();*/
+        playerRigidbody.centerOfMass = centerOfMass;
+        GetInput();
+        Steer();
+        Accelerate();
+        UpdateWheelPoses();
+        //moveWheels(velocity);
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position + transform.rotation * playerRigidbody.centerOfMass, 0.1f);
     }
 
 
@@ -130,7 +188,8 @@ public class Player : MonoBehaviour
                 Vector3 eulerRotation = transform.rotation.eulerAngles;
                 GetComponent<Transform>().rotation = Quaternion.Euler(-eulerRotation.x, eulerRotation.y, eulerRotation.z);
             }
-            GetComponent<Transform>().Translate(Vector3.forward * velocity * Time.deltaTime);
+            GetComponent<Rigidbody>().AddForce(transform.forward * velocity);
+            //GetComponent<Transform>().Translate(Vector3.forward * velocity * Time.deltaTime);
             
         }      
     }

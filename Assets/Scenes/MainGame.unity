@@ -1731,15 +1731,55 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1918093677}
     m_Modifications:
-    - target: {fileID: 5348750384878692435, guid: e863927783b9658419155e075251fe20,
+    - target: {fileID: 932456880110884564, guid: e863927783b9658419155e075251fe20,
         type: 3}
-      propertyPath: m_Mass
-      value: 70
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 932456880110884564, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 932456880110884564, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314171373557535416, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314171373557535416, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314171373557535416, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5348750384878692435, guid: e863927783b9658419155e075251fe20,
         type: 3}
-      propertyPath: m_AngularDrag
-      value: 0.05
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322366504518934820, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322366504518934820, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322366504518934820, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7286298830024469608, guid: e863927783b9658419155e075251fe20,
         type: 3}
@@ -1800,6 +1840,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7802847526374972183, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7802847526374972183, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7802847526374972183, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e863927783b9658419155e075251fe20, type: 3}
