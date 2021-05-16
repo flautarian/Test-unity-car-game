@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7063069064960566923}
   - component: {fileID: 8240459798609594908}
   - component: {fileID: 5747880131913516061}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ramp
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}

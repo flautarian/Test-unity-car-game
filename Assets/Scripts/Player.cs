@@ -13,11 +13,20 @@ public class Player : MonoBehaviour
     public float statusCarVelocity;
     public float acceleration;
     public float velocity;
-    public float grip;
     public float round;
     
-    private bool playerIsTouchingEarth = false;
-    private Rigidbody playerRigidbody;
+
+    public bool grounded = false;
+    public LayerMask whatIsGround;
+    public float groundRayLength;
+    public Transform groundRayPoint;
+    public float forwardAccel, reverseAccel, maxSpeed, turnStrength, gravityForce, dragGroundValue, maxWheelTurn;
+    public Transform frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel;
+    public Rigidbody playerRigidbody;
+    private float speedInput, turnInput;
+    private float VerticalAxis, HorizontalAxis;
+
+
     private float minX = -8f;
     private float maxX = 8f;
 
@@ -30,7 +39,59 @@ public class Player : MonoBehaviour
     void Start()
     {
         motor = GameObject.FindGameObjectWithTag("motorCarreteras");
-        playerRigidbody = GetComponent<Rigidbody>();
+        playerRigidbody.transform.parent = null;
+        Physics.IgnoreLayerCollision(0, 9);
+    }
+
+    
+
+    // Update is called once per frame
+    void Update()
+    {
+        //controlVelocity();
+        //controlPlayer();
+        //moveWheels(velocity);
+        VerticalAxis = Input.GetAxis("Vertical");
+        if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
+        else if(VerticalAxis < 0) speedInput = VerticalAxis * reverseAccel * 1000f;
+
+        HorizontalAxis = Input.GetAxis("Horizontal");
+        // position set
+        transform.position = playerRigidbody.transform.position;
+        // rotation set
+        if(grounded)transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + (Vector3.up * HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis));
+
+        // top wheels rotation set
+        frontLeftWheel.localRotation = Quaternion.Euler(frontLeftWheel.localRotation.eulerAngles.x, (HorizontalAxis * maxWheelTurn) - 180, frontLeftWheel.localRotation.eulerAngles.z);
+        frontRightWheel.localRotation = Quaternion.Euler(frontRightWheel.localRotation.eulerAngles.x, HorizontalAxis * maxWheelTurn, frontRightWheel.localRotation.eulerAngles.z);
+        frontLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
+        frontRightWheel.Rotate(speedInput, 0, 0, Space.Self);
+        rearLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
+        rearRightWheel.Rotate(speedInput, 0, 0, Space.Self);
+
+
+    }
+
+    private void FixedUpdate()
+    {
+        RaycastHit hit;
+        grounded = false;
+        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround))
+        {
+            grounded = true;
+            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        }
+
+        if (grounded)
+        {
+            playerRigidbody.drag = dragGroundValue;
+            if (Math.Abs(speedInput) > 0) playerRigidbody.AddForce(transform.forward * speedInput);
+        }
+        else
+        {
+            playerRigidbody.drag = 0.1f;
+            playerRigidbody.AddForce(Vector3.up * -gravityForce * 100f);
+        }
     }
 
     internal void executePowerUp(string powerUpButtonName)
@@ -54,13 +115,6 @@ public class Player : MonoBehaviour
         this.velocity = this.statusCarVelocity / 2;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        controlVelocity();
-        controlPlayer();
-        moveWheels(velocity);
-    }
 
 
     private void controlVelocity()
@@ -69,14 +123,6 @@ public class Player : MonoBehaviour
             if (statusCarVelocity > velocity) velocity += acceleration;
         }
         else reduceVelocityToZero();
-    }
-
-    private void moveWheels(float velocity)
-    {
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            this.transform.GetChild(i).Rotate(Vector3.right * Time.deltaTime * velocity * 50, Space.Self);
-        }
     }
 
     public void endGame()
@@ -159,8 +205,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool IsGrounded(){
-        return Physics.Raycast(transform.position, -Vector3.up, 0.25f);
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(groundRayPoint.position, -transform.up, groundRayLength, whatIsGround);
     }
 
 private void OnTriggerEnter(Collider collision)

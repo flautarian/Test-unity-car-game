@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 3006873280254613556}
   - component: {fileID: 6143957947161911014}
   - component: {fileID: 3701390252172644292}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Calle3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -919,7 +919,7 @@ GameObject:
   - component: {fileID: 4539924239701724038}
   - component: {fileID: 2312843075271116497}
   - component: {fileID: 2392735712390637795}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Calle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1012,7 +1012,7 @@ GameObject:
   - component: {fileID: 5471359076465575353}
   - component: {fileID: 5012030798893485623}
   - component: {fileID: 6764956099947244687}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Calle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
