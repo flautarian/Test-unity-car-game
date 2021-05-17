@@ -14,8 +14,8 @@ public class Player : MonoBehaviour
     public float acceleration;
     public float velocity;
     public float round;
-    
 
+    public Vector3 com;
     public bool grounded = false;
     public LayerMask whatIsGround;
     public float groundRayLength;
@@ -59,17 +59,24 @@ public class Player : MonoBehaviour
         // position set
         transform.position = playerRigidbody.transform.position;
         // rotation set
-        if(grounded)transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + (Vector3.up * HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis));
+        if (grounded && VerticalAxis > 0)transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + (Vector3.up * HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis));
 
         // top wheels rotation set
         frontLeftWheel.localRotation = Quaternion.Euler(frontLeftWheel.localRotation.eulerAngles.x, (HorizontalAxis * maxWheelTurn) - 180, frontLeftWheel.localRotation.eulerAngles.z);
         frontRightWheel.localRotation = Quaternion.Euler(frontRightWheel.localRotation.eulerAngles.x, HorizontalAxis * maxWheelTurn, frontRightWheel.localRotation.eulerAngles.z);
-        frontLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
-        frontRightWheel.Rotate(speedInput, 0, 0, Space.Self);
-        rearLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
-        rearRightWheel.Rotate(speedInput, 0, 0, Space.Self);
+        if(VerticalAxis != 0)
+        {
+            frontLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
+            frontRightWheel.Rotate(speedInput, 0, 0, Space.Self);
+            rearLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
+            rearRightWheel.Rotate(speedInput, 0, 0, Space.Self);
+        }
+    }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
     }
 
     private void FixedUpdate()
