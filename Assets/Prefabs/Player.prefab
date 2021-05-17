@@ -156,7 +156,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.45
+  m_Radius: 0.35
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5912388740614719570
 Rigidbody:
@@ -168,7 +168,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 70
   m_Drag: 3
-  m_AngularDrag: 4
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -487,9 +487,9 @@ WheelCollider:
   m_Radius: 0.25
   m_SuspensionSpring:
     spring: 90000
-    damper: 4500
-    targetPosition: 0.9
-  m_SuspensionDistance: 0.3
+    damper: 450
+    targetPosition: 0.2
+  m_SuspensionDistance: 0
   m_ForceAppPointDistance: 0
   m_Mass: 10
   m_WheelDampingRate: 0.2
@@ -548,9 +548,9 @@ WheelCollider:
   m_Radius: 0.25
   m_SuspensionSpring:
     spring: 90000
-    damper: 4500
-    targetPosition: 0.9
-  m_SuspensionDistance: 0.3
+    damper: 450
+    targetPosition: 0.2
+  m_SuspensionDistance: 0
   m_ForceAppPointDistance: 0
   m_Mass: 10
   m_WheelDampingRate: 0.2
@@ -609,9 +609,9 @@ WheelCollider:
   m_Radius: 0.25
   m_SuspensionSpring:
     spring: 90000
-    damper: 4500
-    targetPosition: 0.9
-  m_SuspensionDistance: 0.3
+    damper: 450
+    targetPosition: 0.2
+  m_SuspensionDistance: 0
   m_ForceAppPointDistance: 0
   m_Mass: 10
   m_WheelDampingRate: 0.2
@@ -702,9 +702,9 @@ WheelCollider:
   m_Radius: 0.25
   m_SuspensionSpring:
     spring: 90000
-    damper: 4500
-    targetPosition: 0.9
-  m_SuspensionDistance: 0.3
+    damper: 450
+    targetPosition: 0.2
+  m_SuspensionDistance: 0
   m_ForceAppPointDistance: 0
   m_Mass: 10
   m_WheelDampingRate: 0.2
@@ -732,9 +732,10 @@ GameObject:
   - component: {fileID: 7286298830024469620}
   - component: {fileID: 7286298830024469622}
   - component: {fileID: 1828126548}
-  - component: {fileID: 836198109}
   - component: {fileID: 836198111}
   - component: {fileID: 836198112}
+  - component: {fileID: 1538582322}
+  - component: {fileID: 1538582319}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -786,7 +787,7 @@ MonoBehaviour:
     m_Bits: 256
   groundRayLength: 0.5
   groundRayPoint: {fileID: 3989603810220738593}
-  forwardAccel: 4
+  forwardAccel: 6
   reverseAccel: 2
   maxSpeed: 10
   turnStrength: 180
@@ -894,20 +895,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!64 &836198109
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7286298830024469608}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2432090755550338912, guid: 75624dce639c8f54b8c3db2d39e16e1f, type: 3}
 --- !u!23 &836198111
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -955,6 +942,35 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7286298830024469608}
   m_Mesh: {fileID: -2432090755550338912, guid: 75624dce639c8f54b8c3db2d39e16e1f, type: 3}
+--- !u!54 &1538582322
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7286298830024469608}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1538582319
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7286298830024469608}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.4, z: 1.6}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8990898714765195707
 GameObject:
   m_ObjectHideFlags: 0
