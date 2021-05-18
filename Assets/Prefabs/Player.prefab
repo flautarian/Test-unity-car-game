@@ -637,9 +637,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5544565900380456474}
+  - component: {fileID: 1735672988}
+  - component: {fileID: 1735672987}
+  - component: {fileID: 1735672990}
+  - component: {fileID: 1735672991}
+  - component: {fileID: 1735672989}
   m_Layer: 0
   m_Name: CarPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -660,6 +665,97 @@ Transform:
   m_Father: {fileID: 7286298830024469620}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1735672988
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6571605274983931760}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1735672987
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6571605274983931760}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.4, z: 1.6}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1735672990
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6571605274983931760}
+  m_Mesh: {fileID: -2432090755550338912, guid: 75624dce639c8f54b8c3db2d39e16e1f, type: 3}
+--- !u!23 &1735672991
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6571605274983931760}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -8469494145858465668, guid: edbd95e839572af4c95d788367ec09c4, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &1735672989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6571605274983931760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b20b53a854c098429bd5a58f6338b7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 1000
+  maxVelocity: 20
+  statusCarVelocity: 20
 --- !u!1 &6737779936488653657
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,15 +826,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7286298830024469620}
-  - component: {fileID: 7286298830024469622}
   - component: {fileID: 1828126548}
-  - component: {fileID: 836198111}
-  - component: {fileID: 836198112}
-  - component: {fileID: 1538582322}
-  - component: {fileID: 1538582319}
+  - component: {fileID: 1309327813}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -760,45 +852,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7286298830024469622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7286298830024469608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b20b53a854c098429bd5a58f6338b7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnUpCar: {fileID: 8300000, guid: ef540f04db14d40d19b9ff8b5704d13d, type: 3}
-  crashCar: {fileID: 8300000, guid: dce89aebdd23b42b3990f8383cc69b09, type: 3}
-  life: 1000
-  maxVelocity: 20
-  statusCarVelocity: 20
-  acceleration: 0.09
-  velocity: 0
-  round: 55
-  com: {x: 0, y: 0, z: 0}
-  grounded: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
-  groundRayLength: 0.5
-  groundRayPoint: {fileID: 3989603810220738593}
-  forwardAccel: 6
-  reverseAccel: 2
-  maxSpeed: 10
-  turnStrength: 180
-  gravityForce: 10
-  dragGroundValue: 3
-  maxWheelTurn: 30
-  frontLeftWheel: {fileID: 4094770681432882654}
-  frontRightWheel: {fileID: 3541875495675619042}
-  rearLeftWheel: {fileID: 3118598069109268794}
-  rearRightWheel: {fileID: 3898660074660470440}
-  playerRigidbody: {fileID: 5912388740614719570}
 --- !u!82 &1828126548
 AudioSource:
   m_ObjectHideFlags: 0
@@ -895,82 +948,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!23 &836198111
-MeshRenderer:
+--- !u!114 &1309327813
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7286298830024469608}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: -8469494145858465668, guid: edbd95e839572af4c95d788367ec09c4, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &836198112
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7286298830024469608}
-  m_Mesh: {fileID: -2432090755550338912, guid: 75624dce639c8f54b8c3db2d39e16e1f, type: 3}
---- !u!54 &1538582322
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7286298830024469608}
-  serializedVersion: 2
-  m_Mass: 1000
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &1538582319
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7286298830024469608}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.4, z: 1.6}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed116ef96ba87448a5490661a71287e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnUpCar: {fileID: 8300000, guid: ef540f04db14d40d19b9ff8b5704d13d, type: 3}
+  crashCar: {fileID: 8300000, guid: dce89aebdd23b42b3990f8383cc69b09, type: 3}
+  com: {x: 0, y: 0, z: 0}
+  grounded: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+  groundRayLength: 0.5
+  groundRayPoint: {fileID: 3989603810220738593}
+  forwardAccel: 6
+  reverseAccel: 2
+  maxSpeed: 10
+  turnStrength: 150
+  gravityForce: 10
+  dragGroundValue: 3
+  maxWheelTurn: 30
+  frontLeftWheel: {fileID: 4094770681432882654}
+  frontRightWheel: {fileID: 3541875495675619042}
+  rearLeftWheel: {fileID: 3118598069109268794}
+  rearRightWheel: {fileID: 3898660074660470440}
+  playerRigidbody: {fileID: 5912388740614719570}
 --- !u!1 &8990898714765195707
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,19 +10,17 @@ public class Timer : MonoBehaviour
 
     public bool startCount = false;
 
-    private GameObject player;
-
+    public PlayerController player;
     public GameObject distance;
     public GameObject time;
     private void Start()
     {
-        this.player = GameObject.FindGameObjectWithTag("Player");
     }
     void Update()
     {
         if (startCount) {
             currentTime -= Time.deltaTime; 
-            currentDistance += Time.deltaTime * player.GetComponent<Player>().velocity;        
+            currentDistance += player.playerRigidbody.velocity.z;        
         }
         
         time.GetComponent<UnityEngine.UI.Text>().text = displayTime();
@@ -33,7 +31,7 @@ public class Timer : MonoBehaviour
     private void setGameOver()
     {
         this.startCount = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().endGame();
+        player.EndGame();
     }
 
     private string displayTime()
@@ -43,7 +41,7 @@ public class Timer : MonoBehaviour
     public void startCountTime()
     {
         this.startCount = true;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().startGame();
+        player.StartGame();
     }
 
     float displaySeconds()
