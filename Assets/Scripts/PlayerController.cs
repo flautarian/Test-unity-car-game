@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
+    public StreetType streetType = StreetType.asphalt;
     public AudioClip turnUpCar;
     public AudioClip crashCar;
 
@@ -13,6 +15,22 @@ public class PlayerController : MonoBehaviour
     public bool grounded = false;
     public LayerMask whatIsGround;
     public float groundRayLength;
+
+    public void SphereEnterCollides(Collision collision)
+    {
+        if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
+        {
+            collision.gameObject.GetComponent<Coin>().takeCoin();
+        }
+        else if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
+        {
+            if (System.Object.Equals(collision.gameObject.tag, "Cesped"))
+                streetType = StreetType.grass;
+            else
+                streetType = StreetType.asphalt;
+        }
+    }
+
     public Transform groundRayPoint;
     public float forwardAccel, reverseAccel, maxSpeed, turnStrength, gravityForce, dragGroundValue, maxWheelTurn;
     public Transform frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel;
@@ -42,13 +60,13 @@ public class PlayerController : MonoBehaviour
         // top wheels rotation set
         frontLeftWheel.localRotation = Quaternion.Euler(frontLeftWheel.localRotation.eulerAngles.x, (HorizontalAxis * maxWheelTurn) - 180, frontLeftWheel.localRotation.eulerAngles.z);
         frontRightWheel.localRotation = Quaternion.Euler(frontRightWheel.localRotation.eulerAngles.x, HorizontalAxis * maxWheelTurn, frontRightWheel.localRotation.eulerAngles.z);
-        if (VerticalAxis != 0)
+        /*if (VerticalAxis != 0)
         {
             frontLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
             frontRightWheel.Rotate(speedInput, 0, 0, Space.Self);
             rearLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
             rearRightWheel.Rotate(speedInput, 0, 0, Space.Self);
-        }
+        }*/
     }
 
     private void OnDrawGizmos()

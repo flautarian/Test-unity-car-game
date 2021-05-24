@@ -85,7 +85,7 @@ public class MotorCarreteras : MonoBehaviour
             {
                 GameObject lastCalle = streetsRemaining[streetsRemaining.Count-1];
                 Vector3 pos = lastCalle.transform.position;
-                pos.z += getHeightOfCalle(streetsRemaining.Count - 1) -1;
+                pos.z += getHeightOfCalle(streetsRemaining.Count - 1) - 0.5f;
                 nuevaCalle.GetComponent<Transform>().position = pos;
                 UpdatePaths(nuevaCalle, lastCalle);
             }

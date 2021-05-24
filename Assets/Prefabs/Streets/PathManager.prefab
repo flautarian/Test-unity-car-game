@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint: {fileID: 0}
+  previousWayPoint: {fileID: 0}
+  isReverse: 0
 --- !u!135 &8930750538222915138
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -104,3 +106,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstWayPoint: {fileID: 0}
   lastWayPoint: {fileID: 0}
+  firstWayReversalPoint: {fileID: 0}
+  lastWayReversalPoint: {fileID: 0}

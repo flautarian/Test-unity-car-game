@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 2549565840354074932}
   - component: {fileID: 3246500586271394184}
   - component: {fileID: 5912388740614719570}
+  - component: {fileID: 408809569}
   m_Layer: 9
   m_Name: PlayerSphere
   m_TagString: Untagged
@@ -174,6 +175,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &408809569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2481428503480704969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a450873e1b444d43ab417b4d3cb2c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 1309327813}
 --- !u!1 &3357301196778438498
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed116ef96ba87448a5490661a71287e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  streetType: 0
   turnUpCar: {fileID: 8300000, guid: ef540f04db14d40d19b9ff8b5704d13d, type: 3}
   crashCar: {fileID: 8300000, guid: dce89aebdd23b42b3990f8383cc69b09, type: 3}
   com: {x: 0, y: 0, z: 0}
