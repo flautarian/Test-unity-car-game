@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     public float groundRayLength;
 
+    public float turnZAxisEffect = 0;
+    public Quaternion driftRotation = Quaternion.Euler(0,0,0);
+
     public void SphereEnterCollides(Collision collision)
     {
         if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
@@ -36,7 +39,7 @@ public class PlayerController : MonoBehaviour
     public Transform frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel;
     public Rigidbody playerRigidbody;
     private float speedInput;
-    private float VerticalAxis, HorizontalAxis;
+    public float VerticalAxis, HorizontalAxis;
 
     void Start()
     {
@@ -49,13 +52,14 @@ public class PlayerController : MonoBehaviour
     {
         VerticalAxis = Input.GetAxis("Vertical");
         if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
-        else if (VerticalAxis < 0) speedInput = VerticalAxis * reverseAccel * 1000f;
-
+        
         HorizontalAxis = Input.GetAxis("Horizontal");
         // position set
         transform.position = playerRigidbody.transform.position;
         // rotation set
-        if (grounded && VerticalAxis > 0) transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + (Vector3.up * HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis));
+        turnZAxisEffect = HorizontalAxis * (grounded ? 5 : 1);
+        turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
 
         // top wheels rotation set
         frontLeftWheel.localRotation = Quaternion.Euler(frontLeftWheel.localRotation.eulerAngles.x, (HorizontalAxis * maxWheelTurn) - 180, frontLeftWheel.localRotation.eulerAngles.z);
@@ -77,6 +81,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // rotation set
+        //transform.rotation = Quaternion.Euler(driftRotation.eulerAngles);
+
+        // Raycast
         RaycastHit hit;
         grounded = false;
         if (Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround))
@@ -88,7 +96,7 @@ public class PlayerController : MonoBehaviour
         if (grounded)
         {
             playerRigidbody.drag = dragGroundValue;
-            if (Math.Abs(speedInput) > 0) playerRigidbody.AddForce(transform.forward * speedInput);
+            if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerRigidbody.AddForce(transform.forward * speedInput);
         }
         else
         {
