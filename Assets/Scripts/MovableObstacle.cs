@@ -41,11 +41,11 @@ public class MovableObstacle: Obstacle
                 }
                 else Destroy(this.gameObject);
             }
-            //else
-            //{
-            //    GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
-            //    if (transform.position.y < 0f) Destroy(this.gameObject);
-            //}
+            else
+            {
+                GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
+                if (transform.position.y < -1f) Destroy(this.gameObject);
+            }
         }
     }
 

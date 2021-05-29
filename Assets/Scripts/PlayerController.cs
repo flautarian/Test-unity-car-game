@@ -12,27 +12,12 @@ public class PlayerController : MonoBehaviour
     public AudioClip crashCar;
 
     public Vector3 com;
-    public bool grounded = false;
+    public bool grounded = false, canMove = false;
     public LayerMask whatIsGround;
     public float groundRayLength;
 
     public float turnZAxisEffect = 0;
     public Quaternion driftRotation = Quaternion.Euler(0,0,0);
-
-    public void SphereEnterCollides(Collision collision)
-    {
-        if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
-        {
-            collision.gameObject.GetComponent<Coin>().takeCoin();
-        }
-        else if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
-        {
-            if (System.Object.Equals(collision.gameObject.tag, "Cesped"))
-                streetType = StreetType.grass;
-            else
-                streetType = StreetType.asphalt;
-        }
-    }
 
     public Transform groundRayPoint;
     public float forwardAccel, reverseAccel, maxSpeed, turnStrength, gravityForce, dragGroundValue, maxWheelTurn;
@@ -56,21 +41,24 @@ public class PlayerController : MonoBehaviour
         HorizontalAxis = Input.GetAxis("Horizontal");
         // position set
         transform.position = playerRigidbody.transform.position;
-        // rotation set
-        turnZAxisEffect = HorizontalAxis * (grounded ? 5 : 1);
-        turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
+        if (canMove)
+        {
+            // rotation set
+            turnZAxisEffect = HorizontalAxis * (grounded ? 5 : 1);
+            turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
+        }
 
         // top wheels rotation set
         frontLeftWheel.localRotation = Quaternion.Euler(frontLeftWheel.localRotation.eulerAngles.x, (HorizontalAxis * maxWheelTurn) - 180, frontLeftWheel.localRotation.eulerAngles.z);
         frontRightWheel.localRotation = Quaternion.Euler(frontRightWheel.localRotation.eulerAngles.x, HorizontalAxis * maxWheelTurn, frontRightWheel.localRotation.eulerAngles.z);
-        /*if (VerticalAxis != 0)
+        if (VerticalAxis != 0)
         {
             frontLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
             frontRightWheel.Rotate(speedInput, 0, 0, Space.Self);
             rearLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
             rearRightWheel.Rotate(speedInput, 0, 0, Space.Self);
-        }*/
+        }
     }
 
     private void OnDrawGizmos()
@@ -81,37 +69,51 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // rotation set
-        //transform.rotation = Quaternion.Euler(driftRotation.eulerAngles);
+        if (canMove)
+        {
+            // Raycast
+            RaycastHit hit;
+            grounded = false;
+            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround))
+            {
+                grounded = true;
+                transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            }
 
-        // Raycast
-        RaycastHit hit;
-        grounded = false;
-        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround))
-        {
-            grounded = true;
-            transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
-        }
-
-        if (grounded)
-        {
-            playerRigidbody.drag = dragGroundValue;
-            if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerRigidbody.AddForce(transform.forward * speedInput);
-        }
-        else
-        {
-            playerRigidbody.drag = 0.1f;
-            playerRigidbody.AddForce(Vector3.up * -gravityForce * 100f);
+            if (grounded)
+            {
+                playerRigidbody.drag = dragGroundValue;
+                if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerRigidbody.AddForce(transform.forward * speedInput);
+            }
+            else
+            {
+                playerRigidbody.drag = 0.1f;
+                playerRigidbody.AddForce(Vector3.up * -gravityForce * 100f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+            }
         }
     }
-
+    public void SphereEnterCollides(Collision collision)
+    {
+        if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
+        {
+            collision.gameObject.GetComponent<Coin>().takeCoin();
+        }
+        else if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
+        {
+            if (System.Object.Equals(collision.gameObject.tag, "Cesped"))
+                streetType = StreetType.grass;
+            else
+                streetType = StreetType.asphalt;
+        }
+    }
     public void EndGame()
     {
-
+        canMove = false;
     }
 
     public void StartGame()
     {
-
+        canMove = true;
     }
 }
