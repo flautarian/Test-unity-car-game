@@ -8,7 +8,7 @@ public class PlayerDestructablePart : MonoBehaviour
     // Start is called before the first frame update
     public PlayerController playerCar;
     private Rigidbody rbPart;
-    private bool destroyed = false;
+    internal bool destroyed = false;
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -36,16 +36,17 @@ public class PlayerDestructablePart : MonoBehaviour
         rbPart.useGravity = true;
         rbPart.mass = 10;
         rbPart.AddForce(Vector3.up * 3000f);
-        destroyed = true;
     }
 
     internal void Inhabilite()
     {
         this.GetComponent<Renderer>().enabled =false;
+        destroyed = true;
     }
 
     internal void Recover()
     {
         this.GetComponent<Renderer>().enabled = true;
+        destroyed = false;
     }
 }

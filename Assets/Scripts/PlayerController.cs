@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip turnUpCar;
     public AudioClip crashCar;
 
+    public ParticleSystem hitParticle;
+
     public bool grounded = false, canMove = true;
 
     public float groundRayLength;
@@ -25,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody playerRigidbody;
 
-    private List<GameObject> destroyedParts = new List<GameObject>();
+    public List<GameObject> destructableParts = new List<GameObject>();
     
     private float speedInput;
     public float VerticalAxis, HorizontalAxis;
@@ -63,12 +65,6 @@ public class PlayerController : MonoBehaviour
             rearLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
             rearRightWheel.Rotate(speedInput, 0, 0, Space.Self);
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        //Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
     }
 
     private void FixedUpdate()
@@ -111,21 +107,53 @@ public class PlayerController : MonoBehaviour
                 streetType = StreetType.asphalt;
         }
     }
+
+    internal void communicatePlayerBaseCollition(Collision collision)
+    {
+        if (collision.gameObject.tag.Contains("Obstaculo"))
+        {
+            GameObject partToDestroy = findPartNotDestroyed();
+            if (partToDestroy != null) ComunicateCollisionPart(partToDestroy);
+            else
+            {
+                //GAME OVER BY COLLITION
+            }
+        }
+    }
+
+    private GameObject findPartNotDestroyed()
+    {
+        foreach(GameObject part in destructableParts)
+        {
+            if (!part.GetComponent<PlayerDestructablePart>().destroyed) return part;
+        }
+        return null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        //Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
+    }
     internal void ComunicateCollisionPart(GameObject partDestroyed)
     {
-        destroyedParts.Add(partDestroyed);
-        GameObject falseDestroyPart = Instantiate(partDestroyed);
-        falseDestroyPart.transform.parent = null;
-        falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
-        partDestroyed.GetComponent<PlayerDestructablePart>().Inhabilite();
+        if (!GetComponent<Animator>().GetBool("hit"))
+        {
+            hitParticle.transform.position = partDestroyed.transform.position;
+            hitParticle.Play();
+            GetComponent<Animator>().SetBool("hit", true);
+            GameObject falseDestroyPart = Instantiate(partDestroyed);
+            falseDestroyPart.transform.parent = null;
+            falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
+            partDestroyed.GetComponent<PlayerDestructablePart>().Inhabilite();
+        }
     }
 
     internal void RecoverParts()
     {
-        foreach(GameObject dp in destroyedParts){
+        foreach (GameObject dp in destructableParts) {
             dp.GetComponent<PlayerDestructablePart>().Recover();
         }
-        destroyedParts.Clear();
     }
     public void EndGame()
     {

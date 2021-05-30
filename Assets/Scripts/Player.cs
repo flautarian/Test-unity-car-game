@@ -9,12 +9,10 @@ public class Player : MonoBehaviour
     public float life;
     public float maxVelocity;
     public float statusCarVelocity;
-
-    GameObject motor;
+    public PlayerController controller;
 
     void Start()
     {
-        motor = GameObject.FindGameObjectWithTag("motorCarreteras");
     }
 
     // Update is called once per frame
@@ -55,13 +53,14 @@ public class Player : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
+        if(controller != null)
         {
-            collision.gameObject.GetComponent<Coin>().takeCoin();
+            controller.communicatePlayerBaseCollition(collision);
         }
+        
     }
 
-private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
         {
