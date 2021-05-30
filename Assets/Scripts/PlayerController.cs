@@ -8,21 +8,25 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
     public StreetType streetType = StreetType.asphalt;
+
     public AudioClip turnUpCar;
     public AudioClip crashCar;
 
-    public Vector3 com;
-    public bool grounded = false, canMove = false;
-    public LayerMask whatIsGround;
-    public float groundRayLength;
+    public bool grounded = false, canMove = true;
 
+    public float groundRayLength;
     public float turnZAxisEffect = 0;
-    public Quaternion driftRotation = Quaternion.Euler(0,0,0);
+    public float forwardAccel, reverseAccel, maxSpeed, turnStrength, gravityForce, dragGroundValue, maxWheelTurn;
+
+    public LayerMask whatIsGround;
 
     public Transform groundRayPoint;
-    public float forwardAccel, reverseAccel, maxSpeed, turnStrength, gravityForce, dragGroundValue, maxWheelTurn;
     public Transform frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel;
+
     public Rigidbody playerRigidbody;
+
+    private List<GameObject> destroyedParts = new List<GameObject>();
+    
     private float speedInput;
     public float VerticalAxis, HorizontalAxis;
 
@@ -64,13 +68,11 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
+        //Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
     }
 
     private void FixedUpdate()
     {
-        if (canMove)
-        {
             // Raycast
             RaycastHit hit;
             grounded = false;
@@ -82,8 +84,11 @@ public class PlayerController : MonoBehaviour
 
             if (grounded)
             {
-                playerRigidbody.drag = dragGroundValue;
-                if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerRigidbody.AddForce(transform.forward * speedInput);
+            if (canMove)
+                {
+                    playerRigidbody.drag = dragGroundValue;
+                    if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerRigidbody.AddForce(transform.forward * speedInput);
+                }
             }
             else
             {
@@ -91,7 +96,6 @@ public class PlayerController : MonoBehaviour
                 playerRigidbody.AddForce(Vector3.up * -gravityForce * 100f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
             }
-        }
     }
     public void SphereEnterCollides(Collision collision)
     {
@@ -106,6 +110,22 @@ public class PlayerController : MonoBehaviour
             else
                 streetType = StreetType.asphalt;
         }
+    }
+    internal void ComunicateCollisionPart(GameObject partDestroyed)
+    {
+        destroyedParts.Add(partDestroyed);
+        GameObject falseDestroyPart = Instantiate(partDestroyed);
+        falseDestroyPart.transform.parent = null;
+        falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
+        partDestroyed.GetComponent<PlayerDestructablePart>().Inhabilite();
+    }
+
+    internal void RecoverParts()
+    {
+        foreach(GameObject dp in destroyedParts){
+            dp.GetComponent<PlayerDestructablePart>().Recover();
+        }
+        destroyedParts.Clear();
     }
     public void EndGame()
     {
