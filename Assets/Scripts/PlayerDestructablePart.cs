@@ -18,6 +18,10 @@ public class PlayerDestructablePart : MonoBehaviour
             {
                 playerCar.ComunicateCollisionPart(this.gameObject);
             }
+            else if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
+            {
+                collision.gameObject.GetComponent<InteractableObject>().TakeObject(playerCar);
+            }
         }
     }
 

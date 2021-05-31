@@ -20,9 +20,17 @@ public class PlayerController : MonoBehaviour
     public float turnZAxisEffect = 0;
     public float forwardAccel, reverseAccel, maxSpeed, turnStrength, gravityForce, dragGroundValue, maxWheelTurn;
 
+    public int coins;
+
     public LayerMask whatIsGround;
 
     public Transform groundRayPoint;
+
+    internal void AddCoins(int number)
+    {
+        coins += number;
+    }
+
     public Transform frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel;
 
     public Rigidbody playerRigidbody;
@@ -97,7 +105,7 @@ public class PlayerController : MonoBehaviour
     {
         if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
         {
-            collision.gameObject.GetComponent<Coin>().takeCoin();
+            collision.gameObject.GetComponent<InteractableObject>().TakeObject(this);
         }
         else if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
         {
@@ -152,7 +160,8 @@ public class PlayerController : MonoBehaviour
     internal void RecoverParts()
     {
         foreach (GameObject dp in destructableParts) {
-            dp.GetComponent<PlayerDestructablePart>().Recover();
+            if(dp.GetComponent<PlayerDestructablePart>().destroyed) 
+                dp.GetComponent<PlayerDestructablePart>().Recover();
         }
     }
     public void EndGame()

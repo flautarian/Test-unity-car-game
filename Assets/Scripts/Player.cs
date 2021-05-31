@@ -64,8 +64,7 @@ public class Player : MonoBehaviour
     {
         if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
         {
-            if (collision.gameObject.GetComponent<Coin>() != null) collision.gameObject.GetComponent<Coin>().takeCoin();
-            else life -= 1;
+            collision.gameObject.GetComponent<InteractableObject>().TakeObject(controller);
         }
     }
 }

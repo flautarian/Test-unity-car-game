@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Coin : InteractableObject
 {
     // Start is called before the first frame update
 
@@ -15,11 +15,9 @@ public class Coin : MonoBehaviour
         transform.localPosition += animPosition;
     }
 
-    public int takeCoin ()
+    public override void TakeObject(PlayerController controller)
     {
         GetComponent<Animator>().SetBool("hasBeenTaken", true);
-        return value;
+        controller.AddCoins(1);
     }
-
-
 }
