@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : InteractableObject
+public class Gas : InteractableObject
 {
-    // Start is called before the first frame update
 
     public Vector3 animPosition;
-    public int value;
+    public float value;
 
     void LateUpdate()
     {
         if (!GetComponent<Animator>().GetBool("hasBeenTaken")) return;
         transform.localPosition += animPosition;
     }
-
     public override void TakeObject(PlayerController controller)
     {
-        if (!GetComponent<Animator>().GetBool("hasBeenTaken"))
-        {
-            GetComponent<Animator>().SetBool("hasBeenTaken", true);
-            controller.AddCoins(value);
-        }
+        GetComponent<Animator>().SetBool("hasBeenTaken", true);
+        GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>().AddSeconds(value);
     }
 }

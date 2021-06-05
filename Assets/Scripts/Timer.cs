@@ -13,6 +13,12 @@ public class Timer : MonoBehaviour
     public PlayerController player;
     public GameObject distance;
     public GameObject time;
+
+    internal void AddSeconds(float value)
+    {
+        currentTime += value;
+    }
+
     private void Start()
     {
     }
@@ -20,7 +26,7 @@ public class Timer : MonoBehaviour
     {
         if (startCount) {
             currentTime -= Time.deltaTime; 
-            currentDistance += player.playerRigidbody.velocity.z;        
+            currentDistance += player.playerSphereRigidBody.velocity.z;        
         }
         
         time.GetComponent<UnityEngine.UI.Text>().text = displayTime();

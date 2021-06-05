@@ -94,7 +94,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: 3d0ac3a099ada95468f2381421bd0023, type: 3}
+  - {fileID: -8469494145858465668, guid: 82085e08c7a767949a6ddb731fb9c94f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -202,7 +202,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: 3d0ac3a099ada95468f2381421bd0023, type: 3}
+  - {fileID: -8469494145858465668, guid: 82085e08c7a767949a6ddb731fb9c94f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,7 +310,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: 3d0ac3a099ada95468f2381421bd0023, type: 3}
+  - {fileID: -8469494145858465668, guid: 82085e08c7a767949a6ddb731fb9c94f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -972,6 +972,7 @@ MonoBehaviour:
   life: 1000
   maxVelocity: 20
   statusCarVelocity: 20
+  controller: {fileID: 1309327813}
 --- !u!1 &6737779936488653657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,6 +1156,7 @@ MonoBehaviour:
   hitParticle: {fileID: 5620330440644820605}
   grounded: 0
   canMove: 1
+  hit: 0
   groundRayLength: 0.5
   turnZAxisEffect: 0
   forwardAccel: 6
@@ -1164,6 +1166,7 @@ MonoBehaviour:
   gravityForce: 10
   dragGroundValue: 3
   maxWheelTurn: 30
+  coins: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
@@ -1172,7 +1175,8 @@ MonoBehaviour:
   frontRightWheel: {fileID: 3541875495675619042}
   rearLeftWheel: {fileID: 3118598069109268794}
   rearRightWheel: {fileID: 3898660074660470440}
-  playerRigidbody: {fileID: 5912388740614719570}
+  playerSphereRigidBody: {fileID: 5912388740614719570}
+  playerBoxCollider: {fileID: 1735672987}
   destructableParts:
   - {fileID: 1043322703507780549}
   - {fileID: 7544640272606764135}
@@ -1259,7 +1263,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: 3d0ac3a099ada95468f2381421bd0023, type: 3}
+  - {fileID: -8469494145858465668, guid: 82085e08c7a767949a6ddb731fb9c94f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6129,7 +6133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3989603810220738593}
   m_Layer: 0
-  m_Name: RayPoint
+  m_Name: RayGroundPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public StreetType streetType = StreetType.asphalt;
 
     public AudioClip turnUpCar;
+
     public AudioClip crashCar;
 
     public ParticleSystem hitParticle;
@@ -33,7 +34,9 @@ public class PlayerController : MonoBehaviour
 
     public Transform frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel;
 
-    public Rigidbody playerRigidbody;
+    public Rigidbody playerSphereRigidBody;
+
+    public BoxCollider playerBoxCollider;
 
     public List<GameObject> destructableParts = new List<GameObject>();
     
@@ -42,19 +45,24 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        playerRigidbody.transform.parent = null;
+        playerSphereRigidBody.transform.parent = null;
         Physics.IgnoreLayerCollision(0, 9);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Collition when we are collided
+        if (GetComponent<Animator>().GetBool("hit") && !playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = true;
+        else if (!GetComponent<Animator>().GetBool("hit") && playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = false;
+
+        //keys capture
         VerticalAxis = Input.GetAxis("Vertical");
         if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
         
         HorizontalAxis = Input.GetAxis("Horizontal");
         // position set
-        transform.position = playerRigidbody.transform.position;
+        transform.position = playerSphereRigidBody.transform.position;
         if (canMove)
         {
             // rotation set
@@ -78,26 +86,26 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
             // Raycast
-            RaycastHit hit;
+            RaycastHit hitRayCast;
             grounded = false;
-            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hit, groundRayLength, whatIsGround))
+            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
             {
                 grounded = true;
-                transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+                transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
             }
 
             if (grounded)
             {
             if (canMove)
                 {
-                    playerRigidbody.drag = dragGroundValue;
-                    if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerRigidbody.AddForce(transform.forward * speedInput);
+                    playerSphereRigidBody.drag = dragGroundValue;
+                    if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
                 }
             }
             else
             {
-                playerRigidbody.drag = 0.1f;
-                playerRigidbody.AddForce(Vector3.up * -gravityForce * 100f);
+                playerSphereRigidBody.drag = 0.1f;
+                playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
             }
     }
