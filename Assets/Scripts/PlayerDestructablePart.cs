@@ -16,7 +16,7 @@ public class PlayerDestructablePart : MonoBehaviour
         {
             if (collision.gameObject.tag.Contains("Obstaculo"))
             {
-                playerCar.ComunicateCollisionPart(this.gameObject);
+                playerCar.ComunicateCollisionPart(this.gameObject, collision);
             }
             else if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
             {

@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 1666121360}
   m_Layer: 0
   m_Name: botRight
-  m_TagString: Untagged
+  m_TagString: PlayerPart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 1590077458}
   m_Layer: 0
   m_Name: topLeft
-  m_TagString: Untagged
+  m_TagString: PlayerPart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 1298010088}
   m_Layer: 0
   m_Name: botLeft
-  m_TagString: Untagged
+  m_TagString: PlayerPart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1156,7 +1156,6 @@ MonoBehaviour:
   hitParticle: {fileID: 5620330440644820605}
   grounded: 0
   canMove: 1
-  hit: 0
   groundRayLength: 0.5
   turnZAxisEffect: 0
   forwardAccel: 6
@@ -1218,7 +1217,7 @@ GameObject:
   - component: {fileID: 1511827431}
   m_Layer: 0
   m_Name: topRight
-  m_TagString: Untagged
+  m_TagString: PlayerPart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

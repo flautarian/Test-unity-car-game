@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Contains("Obstaculo"))
         {
             GameObject partToDestroy = findPartNotDestroyed();
-            if (partToDestroy != null) ComunicateCollisionPart(partToDestroy);
+            if (partToDestroy != null) ComunicateCollisionPart(partToDestroy, collision.collider);
             else
             {
                 //GAME OVER BY COLLITION
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         //Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
     }
-    internal void ComunicateCollisionPart(GameObject partDestroyed)
+    internal void ComunicateCollisionPart(GameObject partDestroyed, Collider collision)
     {
         if (!GetComponent<Animator>().GetBool("hit"))
         {
@@ -161,6 +161,7 @@ public class PlayerController : MonoBehaviour
             GameObject falseDestroyPart = Instantiate(partDestroyed);
             falseDestroyPart.transform.parent = null;
             falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
+            collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
             partDestroyed.GetComponent<PlayerDestructablePart>().Inhabilite();
         }
     }

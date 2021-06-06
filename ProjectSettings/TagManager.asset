@@ -23,6 +23,7 @@ TagManager:
   - PlayerInteractable
   - WayPoint
   - asphalt
+  - PlayerPart
   layers:
   - Default
   - TransparentFX

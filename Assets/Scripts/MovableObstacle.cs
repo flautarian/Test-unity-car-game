@@ -40,11 +40,11 @@ public class MovableObstacle: Obstacle
                 }
                 else Destroy(this.gameObject);
             }
-            else
+            /*else
             {
                 GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
                 if (transform.position.y < -1f) Destroy(this.gameObject);
-            }
+            }*/
         }
     }
 
@@ -59,25 +59,6 @@ public class MovableObstacle: Obstacle
         {
             if(this.transform.GetChild(i).name.Contains("wheel"))
                 this.transform.GetChild(i).Rotate(Vector3.right * Time.deltaTime * velocity*50, Space.Self);
-        }
-    }
-
-    void OnCollisionEnter(Collision c)
-    {
-        // If the object we hit is the enemy
-        if (Equals(c.gameObject.tag, "Player"))
-        {
-            // how much the character should be knocked back
-            var magnitude = 5;
-            // calculate force vector
-            var force = transform.position - c.transform.position;
-            // normalize force vector to get direction only and trim magnitude
-            force.Normalize();
-            //GetComponent<MeshRenderer>().enabled = false;
-            gameObject.GetComponent<Rigidbody>().AddForce(force * magnitude);
-            // start explode animation and disable path follow
-            automaticDriving = false;
-            GetComponent<Animation>().Play();
         }
     }
 
@@ -97,6 +78,36 @@ public class MovableObstacle: Obstacle
             target = spawner.lastTarget != null ? spawner.lastTarget : spawner.target;
             transform.position = spawner.transform.position;
             transform.LookAt(target);
+        }
+    }
+
+    public override void Collide(Transform c)
+    {
+        MovableCollition(c);
+    }
+
+    void OnCollisionEnter(Collision c)
+    {
+        MovableCollition(c.transform);
+    }
+
+    private void MovableCollition(Transform c)
+    {
+        // If the object we hit is the enemy
+        if (Equals(c.gameObject.tag, "Player"))
+        {
+            // start explode animation and disable path follow
+            automaticDriving = false;
+            // how much the character should be knocked back
+            var magnitude = 5500;
+            // calculate force vector
+            var force = c.forward;
+            force.y += 5;
+            // normalize force vector to get direction only and trim magnitude
+            force.Normalize();
+            //GetComponent<MeshRenderer>().enabled = false;
+            gameObject.GetComponent<Rigidbody>().AddForce(force * magnitude);
+            GetComponent<Animation>().Play();
         }
     }
 }

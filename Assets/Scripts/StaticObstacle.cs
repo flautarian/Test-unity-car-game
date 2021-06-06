@@ -29,31 +29,28 @@ public class StaticObstacle : Obstacle
 
     private void OnCollisionStay(Collision c)
     {
-        if (Equals(c.gameObject.tag, "Player"))
-        {
-            gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            // how much the character should be knocked back
-            var magnitude = 500;
-            // calculate force vector
-            var force = transform.position + Vector3.one;
-            // normalize force vector to get direction only and trim magnitude
-            force.Normalize();
-            //GetComponent<MeshRenderer>().enabled = false;
-            gameObject.GetComponent<Rigidbody>().AddForce(force * magnitude);
-            // start explode animation and disable path follow
-        }
+        StaticCollition(c.transform);
     }
-
     void OnCollisionEnter(Collision c)
     {
+        StaticCollition(c.transform);
+    }
+
+    public override void Collide(Transform c)
+    {
+        StaticCollition(c);
+    }
+
+    private void StaticCollition(Transform c)
+    {
         // If the object we hit is the enemy
-        if (Equals(c.gameObject.tag, "Player"))
+        if (Equals(c.gameObject.tag, "Player") || Equals(c.gameObject.tag, "PlayerPart"))
         {
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
             // how much the character should be knocked back
-            var magnitude = 500;
+            var magnitude = 2500;
             // calculate force vector
-            var force = transform.position + Vector3.one;
+            var force = c.forward;
             // normalize force vector to get direction only and trim magnitude
             force.Normalize();
             //GetComponent<MeshRenderer>().enabled = false;

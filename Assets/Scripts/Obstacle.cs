@@ -5,4 +5,6 @@ using UnityEngine;
 public abstract class Obstacle : MonoBehaviour
 {
     public abstract void SetPositioAndTargetFromSpawner(Spawner spawner);
+
+    public abstract void Collide(Transform c);
 }
