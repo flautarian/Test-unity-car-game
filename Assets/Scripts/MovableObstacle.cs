@@ -32,7 +32,7 @@ public class MovableObstacle: Obstacle
             moveWheels(velocity);
             if (automaticDriving)
             {
-                if (target != null)
+                if (target != null && transform.position != Vector3.zero)
                 {
                     currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);

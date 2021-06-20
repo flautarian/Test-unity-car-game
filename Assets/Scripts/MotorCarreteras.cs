@@ -9,8 +9,7 @@ public class MotorCarreteras : MonoBehaviour
     public List<GameObject> lvl0Roads;
     public List<GameObject> beredaObstaculos;
     public List<GameObject> calleObstaculos;
-    public List<GameObject> beredaPowerUps;
-    public List<GameObject> callePowerUps;
+    public List<GameObject> powerUps;
     public int lvl = 0;
 
     public float timeLapseForDeployPowerUp;
@@ -80,6 +79,7 @@ public class MotorCarreteras : MonoBehaviour
             GameObject nuevaCalle = Instantiate(GetNewRandomRoad());
             nuevaCalle.transform.parent = this.transform;
             nuevaCalle.GetComponent<Calle>().motor = this;
+            nuevaCalle.GetComponent<Calle>().initializePowerUps(this.powerUps);
             if (nuevaCalle != null && streetsRemaining.Count > 0)
             {
                 GameObject lastCalle = streetsRemaining[streetsRemaining.Count-1];

@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class Sun : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float sunLight;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

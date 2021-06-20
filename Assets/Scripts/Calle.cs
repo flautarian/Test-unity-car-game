@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,5 +42,17 @@ public class Calle : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         Destroy(this.gameObject);
+    }
+
+    internal void initializePowerUps(List<GameObject> powerUps)
+    {
+        GameObject[] pows = GameObject.FindGameObjectsWithTag("powerUpSpawnPoint");
+        foreach(GameObject pow in pows)
+        {
+            GameObject newItem = Instantiate(powerUps[UnityEngine.Random.Range(0, powerUps.Count)]);
+            newItem.transform.position = pow.transform.position;
+            newItem.transform.parent = pow.transform.parent;
+            Destroy(pow);
+        }
     }
 }

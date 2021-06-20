@@ -13,6 +13,8 @@ public class Spawner : MonoBehaviour
     public Vector3 sidewalkOffset;
     public Transform target;
     public Transform lastTarget;
+    public SpawnerOrientation orientation;
+
     public float dstTravelled { get; set; }
     public System.Random rand { get; set; }
     public bool isReadyToInstanceMovableObstacle { get; set; }
@@ -37,7 +39,7 @@ public class Spawner : MonoBehaviour
         GetComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().materials[isReadyToInstanceMovableObstacle? 1 : 0];
         if (velocity > 0)
         {
-            if (target != null)
+            if (target != null && transform.position != Vector3.zero)
             {
                 dstTravelled += velocity * Time.deltaTime;
                 currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);

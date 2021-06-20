@@ -24,6 +24,8 @@ public class StaticObstacle : Obstacle
         {
             transform.position = spawner.transform.position + spawner.sidewalkOffset;
             transform.LookAt(spawner.transform);
+            if(spawner.orientation == SpawnerOrientation.LEFT)transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
+            else transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
         }
     }
 

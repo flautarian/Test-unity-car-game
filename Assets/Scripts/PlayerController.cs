@@ -15,7 +15,9 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem hitParticle;
 
-    public bool grounded = false, canMove = true;
+    public ParticleSystem landingParticle;
+
+    public bool grounded = false, canMove = false;
 
     public float groundRayLength;
     public float turnZAxisEffect = 0;
@@ -85,29 +87,35 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-            // Raycast
-            RaycastHit hitRayCast;
-            grounded = false;
-            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
+        // Raycast
+        RaycastHit hitRayCast;
+        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
+        {
+            if (!grounded)
             {
-                grounded = true;
-                transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
+                Debug.Log("Test");
+                landingParticle.gameObject.SetActive(true);
             }
+            grounded = true;
+        }
+        else grounded = false;
+        transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
+        
 
-            if (grounded)
-            {
+        if (grounded)
+        {
             if (canMove)
-                {
-                    playerSphereRigidBody.drag = dragGroundValue;
-                    if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
-                }
-            }
-            else
             {
-                playerSphereRigidBody.drag = 0.1f;
-                playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+                playerSphereRigidBody.drag = dragGroundValue;
+                if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
             }
+        }
+        else
+        {
+            playerSphereRigidBody.drag = 0.1f;
+            playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+        }
     }
     public void SphereEnterCollides(Collision collision)
     {

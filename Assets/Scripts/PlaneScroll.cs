@@ -15,7 +15,7 @@ public class PlaneScroll: MonoBehaviour
     }
     void Update()
     {
-        scroll.y = playerController.VerticalAxis*0.75f;
+        scroll.y = playerController.VerticalAxis*0.25f;
         var pos = playerController.transform.position + playerOffset;
         if (pos.y > -2) pos.y = -2;
         transform.position = pos;
