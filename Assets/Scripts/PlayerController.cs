@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem hitParticle;
 
+    public ParticleSystem smokeHitParticle;
+
     public ParticleSystem landingParticle;
 
     public bool grounded = false, canMove = false;
@@ -87,34 +89,34 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Raycast
-        RaycastHit hitRayCast;
-        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
+        if (canMove)
         {
-            if (!grounded)
+            // Raycast
+            RaycastHit hitRayCast;
+            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
             {
-                Debug.Log("Test");
-                landingParticle.gameObject.SetActive(true);
+                if (!grounded)
+                {
+                    Debug.Log("Test");
+                    landingParticle.gameObject.SetActive(true);
+                }
+                grounded = true;
             }
-            grounded = true;
-        }
-        else grounded = false;
-        transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
+            else grounded = false;
+            transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
         
 
-        if (grounded)
-        {
-            if (canMove)
+            if (grounded)
             {
                 playerSphereRigidBody.drag = dragGroundValue;
                 if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
             }
-        }
-        else
-        {
-            playerSphereRigidBody.drag = 0.1f;
-            playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+            else
+            {
+                playerSphereRigidBody.drag = 0.1f;
+                playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+            }
         }
     }
     public void SphereEnterCollides(Collision collision)
@@ -140,7 +142,8 @@ public class PlayerController : MonoBehaviour
             if (partToDestroy != null) ComunicateCollisionPart(partToDestroy, collision.collider);
             else
             {
-                //GAME OVER BY COLLITION
+                GameObject gui = GameObject.FindGameObjectWithTag("GUI");
+                if (gui != null) gui.GetComponent<GUIPlayer>().startGameOver("Vehicle destroyed");
             }
         }
     }
@@ -164,7 +167,9 @@ public class PlayerController : MonoBehaviour
         if (!GetComponent<Animator>().GetBool("hit"))
         {
             hitParticle.transform.position = partDestroyed.transform.position;
-            hitParticle.Play();
+            hitParticle.gameObject.SetActive(true);
+            smokeHitParticle.transform.position = partDestroyed.transform.position;
+            smokeHitParticle.gameObject.SetActive(true);
             GetComponent<Animator>().SetBool("hit", true);
             GameObject falseDestroyPart = Instantiate(partDestroyed);
             falseDestroyPart.transform.parent = null;
@@ -181,12 +186,12 @@ public class PlayerController : MonoBehaviour
                 dp.GetComponent<PlayerDestructablePart>().Recover();
         }
     }
-    public void EndGame()
+    public void startGameOver()
     {
         canMove = false;
     }
 
-    public void StartGame()
+    public void startGame()
     {
         canMove = true;
     }

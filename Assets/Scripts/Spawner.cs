@@ -39,10 +39,10 @@ public class Spawner : MonoBehaviour
         GetComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().materials[isReadyToInstanceMovableObstacle? 1 : 0];
         if (velocity > 0)
         {
-            if (target != null && transform.position != Vector3.zero)
+            if (target != null)
             {
                 dstTravelled += velocity * Time.deltaTime;
-                currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                if((target.transform.position - transform.position) != Vector3.zero) currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);
                 transform.position = Vector3.MoveTowards(transform.position, target.position, velocity * Time.deltaTime);
                 if (dstTravelled > dstTravelledToInstanceMovable) isReadyToInstanceMovableObstacle = true;

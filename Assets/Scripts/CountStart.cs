@@ -32,7 +32,8 @@ public class CountStart : MonoBehaviour
         GetComponent<AudioSource>().clip = audioClips[1];
         GetComponent<AudioSource>().Play();
 
-        motor.GetComponent<MotorCarreteras>().inicioJuego = true;
+        GameObject timer = GameObject.FindGameObjectWithTag("GUI");
+        if (timer != null) timer.GetComponent<GUIPlayer>().startGame();
         yield return new WaitForSeconds(2);
         GetComponent<SpriteRenderer>().enabled = false;
         Destroy(this.gameObject);

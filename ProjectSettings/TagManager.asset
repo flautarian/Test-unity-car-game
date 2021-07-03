@@ -25,6 +25,7 @@ TagManager:
   - asphalt
   - PlayerPart
   - powerUpSpawnPoint
+  - GUI
   layers:
   - Default
   - TransparentFX

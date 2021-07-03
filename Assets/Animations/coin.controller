@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!1107 &-6514639716441962966
 AnimatorStateMachine:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -39,7 +39,7 @@ AnimatorStateMachine:
   m_DefaultState: {fileID: -2610902237227397357}
 --- !u!1102 &-2610902237227397357
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,7 +94,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
 --- !u!1102 &2367127515444556479
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -113,7 +113,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 1a4b082acc3ac8a4480d15d64d57a979, type: 2}
+  m_Motion: {fileID: 7400000, guid: 0dc1be13d5077bc46aafa4de43116f98, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

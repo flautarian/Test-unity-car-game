@@ -15,10 +15,9 @@ public class MotorCarreteras : MonoBehaviour
     public float timeLapseForDeployPowerUp;
     public GameObject streetSpawnPointRight;
     public GameObject streetSpawnPointLeft;
-    private bool canDeployPowerUps = true;
+    private bool canDeployPowerUps = true,
+        gameStarted = false;
 
-    public bool inicioJuego = false;
-    public bool juegoTerminado;
 
     // Start is called before the first frame update
     void Start()
@@ -29,8 +28,7 @@ public class MotorCarreteras : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(inicioJuego) inicializarJuego();
-        if (!juegoTerminado)
+        if (gameStarted)
         {
             iterateSpawners();
         }
@@ -54,11 +52,6 @@ public class MotorCarreteras : MonoBehaviour
     {
         IterateSpawner(streetSpawnPointRight);
         IterateSpawner(streetSpawnPointLeft);
-    }
-
-    void inicializarJuego()
-    {
-        enableTimer();
     }
 
     internal void detonateAllObstacles()
@@ -168,17 +161,14 @@ public class MotorCarreteras : MonoBehaviour
         return streetsRemaining[pos].GetComponent<BoxCollider>().size.x;
     }
 
-    private void enableTimer()
+    public void startGame()
     {
-        GameObject timer = GameObject.FindGameObjectWithTag("Timer");
-        if (timer != null)
-            timer.GetComponent<Timer>().startCountTime();
+        gameStarted = true;
     }
 
-    public void endGame()
+    public void startGameOver()
     {
-        inicioJuego = false;
+        gameStarted = false;
     }
-
 
 }
