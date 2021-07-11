@@ -3,18 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUIPlayer : MonoBehaviour
+public class GUIController : MonoBehaviour
 {
     public GameObject player;
     public GameObject gasIndicator;
     public GameObject motorCarreteras;
-    public Vector3 cameraOffset;
-    public Vector3 cameraVelocityOffset;
+    public GameObject coinsIndicator;
+    public GameObject carPartsIndicator;
+    public Animator cmvStateDriveCameraAnimator;
 
-    void Start()
+    private void Start()
     {
-    }
 
+        // init de controlador de partes de coche;
+        if (carPartsIndicator.GetComponent<CarPartsIndicator>() != null)
+            carPartsIndicator.GetComponent<CarPartsIndicator>().startGame(player.GetComponent<PlayerController>().destructableParts.Count);
+    }
     // Update is called once per frame
     void LateUpdate()
     {
@@ -31,14 +35,26 @@ public class GUIPlayer : MonoBehaviour
 
     public void startGame()
     {
-        if(gasIndicator.GetComponent<GasIndicator>() != null)
+        if (cmvStateDriveCameraAnimator != null)
+            cmvStateDriveCameraAnimator.Play("MainGameCamera");
+
+        if (gasIndicator.GetComponent<GasIndicator>() != null)
             gasIndicator.GetComponent<GasIndicator>().startGame();
 
         if(player.GetComponent<PlayerController>() != null)
-            player.GetComponent<PlayerController>().startGame();
+            player.GetComponent<PlayerController>().startGame();        
 
-        if(motorCarreteras.GetComponent<MotorCarreteras>() != null)
+        if (motorCarreteras.GetComponent<MotorCarreteras>() != null)
             motorCarreteras.GetComponent<MotorCarreteras>().startGame();
+
+        if (coinsIndicator.GetComponent<CoinsIndicator>() != null)
+            coinsIndicator.GetComponent<CoinsIndicator>().startGame();
+
+    }
+
+    internal void addCoins(int number)
+    {
+        coinsIndicator.GetComponent<CoinsIndicator>().addCoins(number);
     }
 
     public void startGameOver(String msg)
@@ -52,5 +68,14 @@ public class GUIPlayer : MonoBehaviour
 
         if (motorCarreteras.GetComponent<MotorCarreteras>() != null)
             motorCarreteras.GetComponent<MotorCarreteras>().startGameOver();
+
+        if (coinsIndicator.GetComponent<CoinsIndicator>() != null)
+            coinsIndicator.GetComponent<CoinsIndicator>().startGameOver();
+
+        if (carPartsIndicator.GetComponent<CarPartsIndicator>() != null)
+            carPartsIndicator.GetComponent<CarPartsIndicator>().startGameOver();
+
+        if (cmvStateDriveCameraAnimator != null)
+            cmvStateDriveCameraAnimator.Play("GameOverCamera");
     }
 }

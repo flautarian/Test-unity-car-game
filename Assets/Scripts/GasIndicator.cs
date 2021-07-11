@@ -7,6 +7,7 @@ public class GasIndicator : MonoBehaviour
 {
     public float currentTime;
     public float maxTime;
+    private int timeToAdd;
     public bool gameStarted = false;
     public Transform indicator;
     public Vector3 maxIndicatorPosition;
@@ -16,36 +17,47 @@ public class GasIndicator : MonoBehaviour
 
     internal void AddSeconds(float value)
     {
-        currentTime += value;
-        if (currentTime > 120) currentTime = 120;
+        timeToAdd += (int)value;
     }
 
     private void Start()
     {
         indicator.localPosition = minIndicatorPosition;
         indicator.localRotation = minIndicatorRotation;
+        timeToAdd += (int)maxTime;
     }
     void Update()
     {
-        if (gameStarted) {
-            currentTime -= Time.deltaTime;     
-            if (currentTime > 0)
-            {
-                float arrowPosition = (currentTime / maxTime);
-                indicator.localPosition = Vector3.Lerp(minIndicatorPosition, maxIndicatorPosition, arrowPosition);
-                indicator.localRotation = Quaternion.Lerp(minIndicatorRotation, maxIndicatorRotation, arrowPosition);
-            }
-            else
-            {
-                GameObject gui = GameObject.FindGameObjectWithTag("GUI");
-                if (gui != null) gui.GetComponent<GUIPlayer>().startGameOver("Gas Off!");
-            }
+        if (gameStarted)
+        {
+            currentTime -= Time.deltaTime;
+        }
+
+        if (timeToAdd > 0)
+        {
+            var fractionOfTime = timeToAdd / 4;
+            timeToAdd -= fractionOfTime;
+            if (currentTime < 120) currentTime += fractionOfTime;
+        }
+
+        if (currentTime > 0)
+        {
+            float arrowPosition = (currentTime / maxTime);
+            indicator.localPosition = Vector3.Lerp(minIndicatorPosition, maxIndicatorPosition, arrowPosition);
+            indicator.localRotation = Quaternion.Lerp(minIndicatorRotation, maxIndicatorRotation, arrowPosition);
+        }
+        else
+        {
+            GameObject gui = GameObject.FindGameObjectWithTag("GUI");
+            if (gui != null) gui.GetComponent<GUIController>().startGameOver("Gas Off!");
         }
     }
 
     public void startGameOver()
     {
         this.gameStarted = false;
+        gameObject.SetActive(false);
+        indicator.gameObject.SetActive(false);
     }
 
     public void startGame()

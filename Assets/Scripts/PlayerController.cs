@@ -19,22 +19,17 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem landingParticle;
 
+    public GUIController guiPlayer;
+
     public bool grounded = false, canMove = false;
 
     public float groundRayLength;
     public float turnZAxisEffect = 0;
     public float forwardAccel, reverseAccel, maxSpeed, turnStrength, gravityForce, dragGroundValue, maxWheelTurn;
 
-    public int coins;
-
     public LayerMask whatIsGround;
 
     public Transform groundRayPoint;
-
-    internal void AddCoins(int number)
-    {
-        coins += number;
-    }
 
     public Transform frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel;
 
@@ -89,35 +84,34 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove)
-        {
-            // Raycast
-            RaycastHit hitRayCast;
-            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
-            {
-                if (!grounded)
-                {
-                    Debug.Log("Test");
-                    landingParticle.gameObject.SetActive(true);
-                }
-                grounded = true;
-            }
-            else grounded = false;
-            transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
         
-
-            if (grounded)
+        // Raycast
+        RaycastHit hitRayCast;
+        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
+        {
+            if (!grounded)
             {
-                playerSphereRigidBody.drag = dragGroundValue;
-                if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
+                Debug.Log("Test");
+                landingParticle.gameObject.SetActive(true);
             }
-            else
-            {
-                playerSphereRigidBody.drag = 0.1f;
-                playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
-            }
+            grounded = true;
         }
+        else grounded = false;
+        transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
+
+        if (grounded && canMove)
+        {
+            playerSphereRigidBody.drag = dragGroundValue;
+            if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
+        }
+        else
+        {
+            playerSphereRigidBody.drag = 0.1f;
+            playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+        }
+        if (!canMove) playerSphereRigidBody.velocity = Vector3.zero;
+        
     }
     public void SphereEnterCollides(Collision collision)
     {
@@ -133,6 +127,10 @@ public class PlayerController : MonoBehaviour
                 streetType = StreetType.asphalt;
         }
     }
+    internal void AddCoins(int number)
+    {
+        if (guiPlayer != null) guiPlayer.addCoins(number);
+    }
 
     internal void communicatePlayerBaseCollition(Collision collision)
     {
@@ -142,8 +140,9 @@ public class PlayerController : MonoBehaviour
             if (partToDestroy != null) ComunicateCollisionPart(partToDestroy, collision.collider);
             else
             {
+                GetComponent<Animator>().SetBool("explode", true);
                 GameObject gui = GameObject.FindGameObjectWithTag("GUI");
-                if (gui != null) gui.GetComponent<GUIPlayer>().startGameOver("Vehicle destroyed");
+                if (gui != null) gui.GetComponent<GUIController>().startGameOver("Vehicle destroyed");
             }
         }
     }
@@ -166,11 +165,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!GetComponent<Animator>().GetBool("hit"))
         {
+            GetComponent<Animator>().SetBool("hit", true);
             hitParticle.transform.position = partDestroyed.transform.position;
             hitParticle.gameObject.SetActive(true);
             smokeHitParticle.transform.position = partDestroyed.transform.position;
             smokeHitParticle.gameObject.SetActive(true);
-            GetComponent<Animator>().SetBool("hit", true);
+            GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
+            if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().decrementPart();
             GameObject falseDestroyPart = Instantiate(partDestroyed);
             falseDestroyPart.transform.parent = null;
             falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
@@ -185,6 +186,8 @@ public class PlayerController : MonoBehaviour
             if(dp.GetComponent<PlayerDestructablePart>().destroyed) 
                 dp.GetComponent<PlayerDestructablePart>().Recover();
         }
+        GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
+        if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().resetIndicator();
     }
     public void startGameOver()
     {

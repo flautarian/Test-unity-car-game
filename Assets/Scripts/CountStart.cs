@@ -33,7 +33,7 @@ public class CountStart : MonoBehaviour
         GetComponent<AudioSource>().Play();
 
         GameObject timer = GameObject.FindGameObjectWithTag("GUI");
-        if (timer != null) timer.GetComponent<GUIPlayer>().startGame();
+        if (timer != null) timer.GetComponent<GUIController>().startGame();
         yield return new WaitForSeconds(2);
         GetComponent<SpriteRenderer>().enabled = false;
         Destroy(this.gameObject);
