@@ -26,6 +26,7 @@ TagManager:
   - PlayerPart
   - powerUpSpawnPoint
   - GUI
+  - water
   layers:
   - Default
   - TransparentFX

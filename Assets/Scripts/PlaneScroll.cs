@@ -17,7 +17,7 @@ public class PlaneScroll: MonoBehaviour
     void Update()
     {
         waterPosition = playerController.transform.position + playerOffset;
-        if (waterPosition.y > -2) waterPosition.y = -2;
+        if (waterPosition.y > -2 || waterPosition.y < -2) waterPosition.y = -2;
         transform.position = waterPosition;
         if(playerController.VerticalAxis == 0 || playerController.VerticalAxis == 1)
         {

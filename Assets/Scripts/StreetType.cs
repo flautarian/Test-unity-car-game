@@ -6,6 +6,7 @@ namespace Assets.Scripts
     public enum StreetType
     {
         asphalt,
-        grass
+        grass,
+        water
     }
 }

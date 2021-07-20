@@ -19,8 +19,24 @@ public class GUIController : MonoBehaviour
         if (carPartsIndicator.GetComponent<CarPartsIndicator>() != null)
             carPartsIndicator.GetComponent<CarPartsIndicator>().startGame(player.GetComponent<PlayerController>().destructableParts.Count);
     }
-    // Update is called once per frame
-    void LateUpdate()
+
+    internal void propagueFisicButton(FisicButtonController fisicButtonController)
+    {
+        switch (fisicButtonController.actionButton)
+        {
+            case ActionButtonType.left:
+                player.GetComponent<PlayerController>().turnLeft();
+                break;
+            case ActionButtonType.right:
+                player.GetComponent<PlayerController>().turnRight();
+                break;
+            case ActionButtonType.brake:
+                break;
+        }
+    }
+
+        // Update is called once per frame
+        void LateUpdate()
     {
         float playerAcceleration = 0;
         float playerBrake = 0;
@@ -78,4 +94,5 @@ public class GUIController : MonoBehaviour
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("GameOverCamera");
     }
+    
 }

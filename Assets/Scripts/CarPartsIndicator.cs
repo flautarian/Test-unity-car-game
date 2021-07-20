@@ -38,6 +38,7 @@ public class CarPartsIndicator : MonoBehaviour
     {
         if(actualNumberParts >= 0)
         {
+            repairItems[actualNumberParts].GetComponent<Animator>().Play("RotatingIcon");
             repairItems[actualNumberParts].GetComponent<Animator>().SetBool("action", true);
             actualNumberParts--;
         }

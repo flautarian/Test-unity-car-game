@@ -81,6 +81,15 @@ public class PlayerController : MonoBehaviour
             rearRightWheel.Rotate(speedInput, 0, 0, Space.Self);
         }
     }
+    internal void turnLeft()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void turnRight()
+    {
+        throw new NotImplementedException();
+    }
 
     private void FixedUpdate()
     {
@@ -91,7 +100,6 @@ public class PlayerController : MonoBehaviour
         {
             if (!grounded)
             {
-                Debug.Log("Test");
                 landingParticle.gameObject.SetActive(true);
             }
             grounded = true;
@@ -123,10 +131,23 @@ public class PlayerController : MonoBehaviour
         {
             if (System.Object.Equals(collision.gameObject.tag, "Cesped"))
                 streetType = StreetType.grass;
-            else
+            else if(System.Object.Equals(collision.gameObject.tag, "asphalt"))
                 streetType = StreetType.asphalt;
+            else if (System.Object.Equals(collision.gameObject.tag, "water"))
+            {
+                streetType = StreetType.water;
+                destroyPlayer("Vehicle drowned");
+            }
+                
         }
     }
+    private void destroyPlayer(string reason)
+    {
+        GetComponent<Animator>().SetBool("explode", true);
+        GameObject gui = GameObject.FindGameObjectWithTag("GUI");
+        if (gui != null) gui.GetComponent<GUIController>().startGameOver(reason);
+    }
+
     internal void AddCoins(int number)
     {
         if (guiPlayer != null) guiPlayer.addCoins(number);
@@ -140,9 +161,7 @@ public class PlayerController : MonoBehaviour
             if (partToDestroy != null) ComunicateCollisionPart(partToDestroy, collision.collider);
             else
             {
-                GetComponent<Animator>().SetBool("explode", true);
-                GameObject gui = GameObject.FindGameObjectWithTag("GUI");
-                if (gui != null) gui.GetComponent<GUIController>().startGameOver("Vehicle destroyed");
+                destroyPlayer("Vehicle destroyed");
             }
         }
     }

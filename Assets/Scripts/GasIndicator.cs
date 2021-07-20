@@ -8,12 +8,15 @@ public class GasIndicator : MonoBehaviour
     public float currentTime;
     public float maxTime;
     private int timeToAdd;
+    private Animation arrowAnimation;
     public bool gameStarted = false;
     public Transform indicator;
     public Vector3 maxIndicatorPosition;
     public Quaternion maxIndicatorRotation;
     public Vector3 minIndicatorPosition;
     public Quaternion minIndicatorRotation;
+
+    private static float MIN_GAS = 20;
 
     internal void AddSeconds(float value)
     {
@@ -25,12 +28,24 @@ public class GasIndicator : MonoBehaviour
         indicator.localPosition = minIndicatorPosition;
         indicator.localRotation = minIndicatorRotation;
         timeToAdd += (int)maxTime;
+        arrowAnimation = GetComponent<Animation>();
     }
     void Update()
     {
         if (gameStarted)
         {
             currentTime -= Time.deltaTime;
+
+            if (arrowAnimation != null)
+            {
+                if (currentTime < MIN_GAS && !arrowAnimation.isPlaying)
+                    arrowAnimation.Play();
+                else if (currentTime > MIN_GAS && arrowAnimation.isPlaying)
+                {
+                    arrowAnimation.Rewind();
+                    arrowAnimation.Stop();
+                }
+            }
         }
 
         if (timeToAdd > 0)

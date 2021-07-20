@@ -5342,7 +5342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a450873e1b444d43ab417b4d3cb2c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
+  playerController: {fileID: 1309327813}
 --- !u!1 &2522747655703840358
 GameObject:
   m_ObjectHideFlags: 0
@@ -25229,7 +25229,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 2.09e-43, y: 1.525e-41, z: 1.02e-43, w: 0}
+  m_BoundingSphereOverride: {x: 1.7748036e+28, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -30178,7 +30178,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: edbd95e839572af4c95d788367ec09c4, type: 3}
+  - {fileID: -8469494145858465668, guid: 82085e08c7a767949a6ddb731fb9c94f, type: 3}
+  - {fileID: 2100000, guid: d984a3722820a4741bf89054882dbc70, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -35537,8 +35538,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.2187549e-32, y: 1.3563156e-19, z: 1.3563156e-19,
-    w: 1.1692525e-19}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: -4.0599117e+21, z: 4.5905e-41, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
