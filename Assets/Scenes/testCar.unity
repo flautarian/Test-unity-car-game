@@ -403,6 +403,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1309327813, guid: e863927783b9658419155e075251fe20, type: 3}
+      propertyPath: canMove
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7286298830024469608, guid: e863927783b9658419155e075251fe20,
         type: 3}
       propertyPath: m_Name
@@ -774,7 +778,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 0
-    m_SensorSize: {x: 1.6666666, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1928,8 +1932,8 @@ Camera:
   m_GameObject: {fileID: 1154287061}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0.016950607, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1950,7 +1954,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1993,10 +1997,10 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 823
   m_VolumeTrigger: {fileID: 0}
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
@@ -2178,7 +2182,7 @@ PrefabInstance:
     - target: {fileID: 446457690893311140, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 3.4e-44
+      value: 8e-45
       objectReference: {fileID: 0}
     - target: {fileID: 446457690893311140, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
@@ -2188,7 +2192,7 @@ PrefabInstance:
     - target: {fileID: 446457690893311140, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: NaN
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 446457690893311140, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
@@ -2218,7 +2222,7 @@ PrefabInstance:
     - target: {fileID: 1729197792873312093, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.95
+      value: 8.53
       objectReference: {fileID: 0}
     - target: {fileID: 1729197792873312093, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
@@ -2255,25 +2259,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1971596807073599591, guid: b3e5d6e7f73a12744abd227552390b55,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 6.832976e+27
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971596807073599591, guid: b3e5d6e7f73a12744abd227552390b55,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971596807073599591, guid: b3e5d6e7f73a12744abd227552390b55,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 1.7369512e-16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971596807073599591, guid: b3e5d6e7f73a12744abd227552390b55,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 7.9e-43
+      objectReference: {fileID: 0}
     - target: {fileID: 8804309428951890485, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0
+      value: 3.2e-44
       objectReference: {fileID: 0}
     - target: {fileID: 8804309428951890485, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.02e-43
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8804309428951890485, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.1784892e-21
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8804309428951890485, guid: b3e5d6e7f73a12744abd227552390b55,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 4.5905e-41
+      value: 3.1e-44
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3e5d6e7f73a12744abd227552390b55, type: 3}
@@ -3317,6 +3341,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fa14fc829106c24cb209a2fee9d145d, type: 3}
+--- !u!1 &1865189497
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1865189499}
+  - component: {fileID: 1865189498}
+  m_Layer: 0
+  m_Name: GlobalVariables
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1865189498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865189497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07b7499bd8b26b48b7ed719eee1a3e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLight: 1
+--- !u!4 &1865189499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865189497}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.530862, y: 5.844853, z: 46.44086}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1873427118 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7814420362523637603, guid: 80b7b1914c8d06045875fb36f49d1544,

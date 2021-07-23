@@ -15,6 +15,7 @@ public class Sun : MonoBehaviour
     private void Update()
     {
         //Debug.Log("" + light.color.r);
+        GlobalVariables.Instance.currentLight = sunLight;
     }
 
 }

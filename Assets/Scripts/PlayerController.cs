@@ -189,8 +189,11 @@ public class PlayerController : MonoBehaviour
             hitParticle.gameObject.SetActive(true);
             smokeHitParticle.transform.position = partDestroyed.transform.position;
             smokeHitParticle.gameObject.SetActive(true);
-            GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
-            if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().decrementPart();
+            if (guiPlayer != null)
+            {
+                GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
+                if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().decrementPart();
+            }
             GameObject falseDestroyPart = Instantiate(partDestroyed);
             falseDestroyPart.transform.parent = null;
             falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
@@ -205,8 +208,11 @@ public class PlayerController : MonoBehaviour
             if(dp.GetComponent<PlayerDestructablePart>().destroyed) 
                 dp.GetComponent<PlayerDestructablePart>().Recover();
         }
-        GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
-        if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().resetIndicator();
+        if (guiPlayer != null)
+        {
+            GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
+            if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().resetIndicator();
+        }
     }
     public void startGameOver()
     {
