@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PublicLight : MonoBehaviour
 {
-    Light light;
+    private new Light light;
     private float lightIndex;
     void Start()
     {
