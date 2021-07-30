@@ -49,7 +49,7 @@ public class CarPartsIndicator : MonoBehaviour
         foreach (GameObject item in repairItems)
         {
             item.GetComponent<Animator>().SetBool("action", false);
-            //item.GetComponent<Animator>().Play("StartIconAnimation");
+            item.GetComponent<Animator>().Play("StartIconAnimation");
             item.SetActive(true);
         }
         actualNumberParts = repairItems.Count - 1;

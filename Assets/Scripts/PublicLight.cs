@@ -17,7 +17,7 @@ public class PublicLight : MonoBehaviour
     {
         if(light != null)
         {
-            light.intensity = lightIndex * (GlobalVariables.Instance.currentLight != null ? GlobalVariables.Instance.currentLight : 1);
+            light.intensity = lightIndex * GlobalVariables.Instance.currentLight;
         }
     }
 }
