@@ -12,6 +12,9 @@ public class GUIController : MonoBehaviour
     public GameObject carPartsIndicator;
     public Animator cmvStateDriveCameraAnimator;
 
+    private float cameraXAxisOffset = 20;
+    private float cameraYAxisOffset = 5;
+
     private void Start()
     {
 
@@ -45,8 +48,8 @@ public class GUIController : MonoBehaviour
             playerAcceleration = player.GetComponent<PlayerController>().VerticalAxis;
             playerBrake = player.GetComponent<PlayerController>().HorizontalAxis;
         }
-        transform.LookAt(player.transform);
-        //transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + cameraOffset.z * playerBrake);
+        //transform.LookAt(player.transform);
+        transform.rotation = Quaternion.Euler(transform.rotation.x + (cameraXAxisOffset * playerAcceleration), transform.rotation.y + (cameraYAxisOffset * playerBrake), transform.rotation.z);
     }
 
     public void startGame()

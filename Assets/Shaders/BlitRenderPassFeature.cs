@@ -67,7 +67,7 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
     public override void Create()
     {
         m_ScriptablePass = new CustomRenderPass(settings.material, settings.materialPassIndex, settings.profilingName);
-        m_ScriptablePass.renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
+        m_ScriptablePass.renderPassEvent = RenderPassEvent.BeforeRenderingTransparents;
     }
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
