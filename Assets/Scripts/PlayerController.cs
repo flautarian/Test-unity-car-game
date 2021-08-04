@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts;
 using System;
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,22 +24,25 @@ public class PlayerController : MonoBehaviour
     public bool grounded = false, canMove = false;
 
     public float groundRayLength;
+
     public float turnZAxisEffect = 0;
+
     public float forwardAccel, reverseAccel, maxSpeed, turnStrength, gravityForce, dragGroundValue, maxWheelTurn;
 
     public LayerMask whatIsGround;
 
     public Transform groundRayPoint;
 
-    public Transform frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel;
-
     public Rigidbody playerSphereRigidBody;
 
     public BoxCollider playerBoxCollider;
 
     public List<GameObject> destructableParts = new List<GameObject>();
-    
+
+    private Color touchingColor;
+
     private float speedInput;
+
     public float VerticalAxis, HorizontalAxis;
 
     void Start()
@@ -51,36 +54,27 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Collition when we are collided
+        //Activem l'animacio de 'vehicle xocat' en cas de haver xocat amb el vehicle
         if (GetComponent<Animator>().GetBool("hit") && !playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = true;
         else if (!GetComponent<Animator>().GetBool("hit") && playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = false;
 
-        //keys capture
+        //Captura de tecles
         VerticalAxis = Input.GetAxis("Vertical");
         if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
-        
         HorizontalAxis = Input.GetAxis("Horizontal");
-        // position set
+        
+        //Refresc de posició
         transform.position = playerSphereRigidBody.transform.position;
         if (canMove)
         {
-            // rotation set
             turnZAxisEffect = HorizontalAxis * (grounded ? 5 : 1);
             turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
         }
 
-        // top wheels rotation set
-        frontLeftWheel.localRotation = Quaternion.Euler(frontLeftWheel.localRotation.eulerAngles.x, (HorizontalAxis * maxWheelTurn) - 180, frontLeftWheel.localRotation.eulerAngles.z);
-        frontRightWheel.localRotation = Quaternion.Euler(frontRightWheel.localRotation.eulerAngles.x, HorizontalAxis * maxWheelTurn, frontRightWheel.localRotation.eulerAngles.z);
-        if (VerticalAxis != 0)
-        {
-            frontLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
-            frontRightWheel.Rotate(speedInput, 0, 0, Space.Self);
-            rearLeftWheel.Rotate(speedInput, 0, 0, Space.Self);
-            rearRightWheel.Rotate(speedInput, 0, 0, Space.Self);
-        }
     }
+
+
     internal void turnLeft()
     {
         throw new NotImplementedException();
@@ -93,15 +87,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         // Raycast
         RaycastHit hitRayCast;
         if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
         {
-            if (!grounded)
-            {
-                landingParticle.gameObject.SetActive(true);
-            }
+            if (!grounded) landingParticle.gameObject.SetActive(true);
             grounded = true;
         }
         else grounded = false;
@@ -118,8 +108,8 @@ public class PlayerController : MonoBehaviour
             playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
         }
-        if (!canMove) playerSphereRigidBody.velocity = Vector3.zero;
-        
+        if (!canMove) playerSphereRigidBody.drag = 3.5f;
+
     }
     public void SphereEnterCollides(Collision collision)
     {
@@ -166,22 +156,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        //Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
+    }
     private GameObject findPartNotDestroyed()
     {
+        //return destructableParts.Where(part => !part.GetComponent<PlayerDestructablePart>().destroyed).First();
         foreach(GameObject part in destructableParts)
         {
             if (!part.GetComponent<PlayerDestructablePart>().destroyed) return part;
         }
         return null;
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        //Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
-    }
     internal void ComunicateCollisionPart(GameObject partDestroyed, Collider collision)
     {
+        int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
+        GlobalVariables.Instance.currentBrokenScreen = 0.08f * (indexPartToDestroy + 1);
+        GlobalVariables.Instance.shakeParam += 3f;
         if (!GetComponent<Animator>().GetBool("hit"))
         {
             GetComponent<Animator>().SetBool("hit", true);
@@ -222,5 +215,15 @@ public class PlayerController : MonoBehaviour
     public void startGame()
     {
         canMove = true;
+    }
+
+    public float getSpeedInput()
+    {
+        return speedInput;
+    }
+
+    public Color getTouchingColor()
+    {
+        return touchingColor;
     }
 }

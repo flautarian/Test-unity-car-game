@@ -19,7 +19,7 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
             this.material = material;
             this.materialPassIndex = passIndex;
             this.name = profName;
-            tempRenderTargetHandler.Init("_TemporaryColorTexture");
+            tempRenderTargetHandler.Init("_MainTex");
         }
 
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
@@ -29,11 +29,10 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             CommandBuffer commandBuffer = CommandBufferPool.Get(name);
+            commandBuffer.Clear();
             commandBuffer.GetTemporaryRT(tempRenderTargetHandler.id, renderingData.cameraData.cameraTargetDescriptor);
-
             Blit(commandBuffer, source, tempRenderTargetHandler.Identifier(), material, materialPassIndex);
             Blit(commandBuffer, tempRenderTargetHandler.Identifier(), source);
-
             context.ExecuteCommandBuffer(commandBuffer);
             CommandBufferPool.Release(commandBuffer);
         }

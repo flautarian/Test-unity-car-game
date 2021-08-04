@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8685593782909526069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a937645b74af96488d46a5df2ec7b34, type: 3}
+  m_Name: ScreenBrokenFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    material: {fileID: 2100000, guid: 9614adb33ff6a0c449fb5f86c1a9dbae, type: 2}
+    profilingName: ScreenBroken
+    materialPassIndex: -1
 --- !u!114 &-6962484274534730190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,7 +65,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RendererFeatures:
   - {fileID: -769569724544271237}
-  m_RendererFeatureMap: 7bbca4b269f051f5
+  - {fileID: -8685593782909526069}
+  m_RendererFeatureMap: 7bbca4b269f051f5cb1f560279927687
   postProcessData: {fileID: 11400000, guid: 287f844063697c846b7f54e83bd3319a, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:

@@ -18,7 +18,6 @@ public class RadialBlur : MonoBehaviour
 
 	#endregion
 
-
 	void Start()
 	{
 		FindShaders();

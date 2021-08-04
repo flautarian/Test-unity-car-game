@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 using System.Linq;
 using UnityEngine;
@@ -8,24 +6,13 @@ public class RadialBlurController : MonoBehaviour
 {
     [SerializeField] private ForwardRendererData rendererData = null;
     [SerializeField] private string featureName = null;
+    [Range(0f, 2f)] private float currentIntensity = 0;
 
-    private bool transitioning;
-
-    [Header("Attributes")]
-
-    [Range(0f, 2f)]
-    private float currentIntensity = 0;
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Vertical") != 0f) currentIntensity += 0.05f;
-        else currentIntensity -= 0.1f;
+        //if (Input.GetAxis("Vertical") != 0f) currentIntensity += 0.05f;
+        //else currentIntensity -= 0.1f;
+        currentIntensity = GlobalVariables.Instance.currentRadialBlur;
         currentIntensity = Mathf.Clamp(currentIntensity, 0, 2);
         if (TryGetFeature(out var feature))
         {

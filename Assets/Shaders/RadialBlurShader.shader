@@ -1,4 +1,4 @@
-Shader "PengLu/ImageEffect/Unlit/RadialBlur" {
+Shader "Custom/RenderImage/RadialBlur" {
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}

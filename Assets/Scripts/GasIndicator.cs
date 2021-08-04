@@ -40,10 +40,10 @@ public class GasIndicator : MonoBehaviour
             {
                 if (currentTime < MIN_GAS && !arrowAnimation.isPlaying)
                     arrowAnimation.Play();
-                else if (currentTime > MIN_GAS && arrowAnimation.isPlaying)
+                else if (currentTime > MIN_GAS)
                 {
                     arrowAnimation.Rewind();
-                    arrowAnimation.Stop();
+                    if(arrowAnimation.isPlaying) arrowAnimation.Stop();
                 }
             }
         }
