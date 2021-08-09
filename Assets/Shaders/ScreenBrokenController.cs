@@ -16,7 +16,7 @@ public class ScreenBrokenController : MonoBehaviour
         if (brokeScaleSentinel != GlobalVariables.Instance.currentBrokenScreen) brokenScale = GlobalVariables.Instance.currentBrokenScreen;
         brokeScaleSentinel = GlobalVariables.Instance.currentBrokenScreen;
         updateBrokenScale();
-        if (brokenScale > 0) brokenScale -= 0.001f;
+        if (brokenScale > 0) brokenScale -= 0.005f;
         else brokenScale = 0;
     }
 

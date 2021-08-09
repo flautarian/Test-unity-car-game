@@ -100,16 +100,31 @@ public class MotorCarreteras : MonoBehaviour
     {
         Calle lastStreet = lastCalle.GetComponent<Calle>();
         Calle newStreet = nuevaCalle.GetComponent<Calle>();
-        lastStreet.waypointManager.lastWayPoint.nextWayPoint = newStreet.waypointManager.firstWayPoint.transform;
+        WayPointManager lastWpm = lastStreet.waypointManager;
+        WayPointManager newWpm = newStreet.waypointManager;
+
+        for (int i = 0; i < lastWpm.firstWayPoint.Count; i++)
+        {
+            lastWpm.addToNextWayPoint(newWpm.firstWayPoint[i].transform, i);
+            lastWpm.addNextReversalWayPoint(newWpm.lastWayReversalPoint[i].transform, i);
+        }
+
+        for (int i = 0; i < newWpm.firstWayPoint.Count; i++)
+        {
+            newWpm.addPreviousWayPoint(lastWpm.lastWayPoint[i].transform, i);
+            newWpm.addPreviousReversalWayPoint(lastWpm.firstWayReversalPoint[i].transform, i);
+        }
+
+        /*lastStreet.waypointManager.lastWayPoint.nextWayPoint = newStreet.waypointManager.firstWayPoint.transform;
         newStreet.waypointManager.firstWayPoint.previousWayPoint = lastStreet.waypointManager.lastWayPoint.transform;
         newStreet.waypointManager.lastWayReversalPoint.nextWayPoint = lastStreet.waypointManager.firstWayReversalPoint.transform;
-        lastStreet.waypointManager.firstWayReversalPoint.previousWayPoint = newStreet.waypointManager.lastWayReversalPoint.transform;
+        lastStreet.waypointManager.firstWayReversalPoint.previousWayPoint = newStreet.waypointManager.lastWayReversalPoint.transform;*/
     }
 
     private void InitializeWaypointOfSpawners(Calle calleInicial)
     {
-        if (streetSpawnPointRight != null) InitilizeWaypoint(streetSpawnPointRight, calleInicial.waypointManager.lastWayPoint.transform);
-        if (streetSpawnPointLeft != null) InitilizeWaypoint(streetSpawnPointLeft, calleInicial.waypointManager.firstWayReversalPoint.transform);
+        if (streetSpawnPointRight != null) InitilizeWaypoint(streetSpawnPointRight, calleInicial.waypointManager.lastWayPoint[0].transform);
+        if (streetSpawnPointLeft != null) InitilizeWaypoint(streetSpawnPointLeft, calleInicial.waypointManager.firstWayReversalPoint[0].transform);
     }
 
     private void InitilizeWaypoint(GameObject spawner, Transform target)

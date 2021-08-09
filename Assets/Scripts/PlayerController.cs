@@ -173,15 +173,16 @@ public class PlayerController : MonoBehaviour
     internal void ComunicateCollisionPart(GameObject partDestroyed, Collider collision)
     {
         int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
-        GlobalVariables.Instance.currentBrokenScreen = 0.08f * (indexPartToDestroy + 1);
-        GlobalVariables.Instance.shakeParam += 3f;
+        // shader effects
+        GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
+        GlobalVariables.Instance.shakeParam += 2.5f;
+
+        // car conseqüences
         if (!GetComponent<Animator>().GetBool("hit"))
         {
             GetComponent<Animator>().SetBool("hit", true);
             hitParticle.transform.position = partDestroyed.transform.position;
-            hitParticle.gameObject.SetActive(true);
             smokeHitParticle.transform.position = partDestroyed.transform.position;
-            smokeHitParticle.gameObject.SetActive(true);
             if (guiPlayer != null)
             {
                 GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;

@@ -21,7 +21,7 @@ public class CinemachineShake : MonoBehaviour
         if (GlobalVariables.Instance.shakeParam > 0)
         {
             cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = GlobalVariables.Instance.shakeParam;
-            GlobalVariables.Instance.shakeParam -= 0.3f;
+            GlobalVariables.Instance.shakeParam -= 0.5f;
         }
         else cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0;
     }

@@ -79,14 +79,16 @@ public class Spawner : MonoBehaviour
     {
         if (wayPoint.isReverse)
         {
-            if(wayPoint.previousWayPoint != null && wayPoint.previousWayPoint != target)
+            if(wayPoint.previousWayPoint != null && wayPoint.previousWayPoint.Count > 0 && wayPoint.previousWayPoint[0] != target)
             {
                 lastTarget = target;
-                target = wayPoint.previousWayPoint;
+                target = wayPoint.previousWayPoint[0];
             }
         }
-        else if ( wayPoint.nextWayPoint != target)
-            target = wayPoint.nextWayPoint;
+        else if (wayPoint.nextWayPoint != null && wayPoint.nextWayPoint.Count > 0 && wayPoint.nextWayPoint[0] != target )
+        {
+            target = wayPoint.nextWayPoint[0];
+        }
     }
 
     void OnCollisionEnter(Collision c)

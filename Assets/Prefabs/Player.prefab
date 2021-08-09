@@ -19710,6 +19710,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7286298830024469620}
     m_Modifications:
+    - target: {fileID: 442969341075314624, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1.02e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 442969341075314624, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 1.0298448e+27
+      objectReference: {fileID: 0}
+    - target: {fileID: 442969341075314624, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 4.5904e-41
+      objectReference: {fileID: 0}
     - target: {fileID: 1588184534020562286, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
       propertyPath: controller
@@ -19718,7 +19733,7 @@ PrefabInstance:
     - target: {fileID: 3295259949877023858, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
       propertyPath: m_Name
-      value: CarPlayer
+      value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 4213772856914742552, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
@@ -19774,6 +19789,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383049514537633510, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798028992995554412, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 1.02e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798028992995554412, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 1.0298448e+27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798028992995554412, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 4.5904e-41
       objectReference: {fileID: 0}
     - target: {fileID: 7213631388939268900, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}

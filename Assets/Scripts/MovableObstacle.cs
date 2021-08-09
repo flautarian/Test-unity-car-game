@@ -67,7 +67,8 @@ public class MovableObstacle: Obstacle
         if (Equals(other.gameObject.tag, "WayPoint") && other.gameObject.transform == target)
         {
             WayPoint wayPoint = other.gameObject.GetComponent<WayPoint>();
-            target = wayPoint.nextWayPoint;
+            if (wayPoint.nextWayPoint != null && wayPoint.nextWayPoint.Count > 0) target = wayPoint.nextWayPoint[0];
+            else target = null;
         }
     }
 

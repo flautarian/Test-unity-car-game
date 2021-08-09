@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class WayPoint : MonoBehaviour
 {
-    public Transform nextWayPoint;
-    public Transform previousWayPoint;
+
+    [SerializeField]
+    public List<Transform> nextWayPoint;
+
+    [SerializeField]
+    public List<Transform> previousWayPoint;
+
+    [SerializeField]
     public bool isReverse;
+
+    [SerializeField]
+    public int order;
 
 }
