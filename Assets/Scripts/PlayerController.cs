@@ -146,14 +146,7 @@ public class PlayerController : MonoBehaviour
     internal void communicatePlayerBaseCollition(Collision collision)
     {
         if (collision.gameObject.tag.Contains("Obstaculo"))
-        {
-            GameObject partToDestroy = findPartNotDestroyed();
-            if (partToDestroy != null) ComunicateCollisionPart(partToDestroy, collision.collider);
-            else
-            {
-                destroyPlayer("Vehicle destroyed");
-            }
-        }
+            ComunicateCollisionPart(null, collision.collider);
     }
 
     private void OnDrawGizmos()
@@ -172,27 +165,39 @@ public class PlayerController : MonoBehaviour
     }
     internal void ComunicateCollisionPart(GameObject partDestroyed, Collider collision)
     {
-        int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
-        // shader effects
-        GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
-        GlobalVariables.Instance.shakeParam += 2.5f;
-
-        // car conseqüences
-        if (!GetComponent<Animator>().GetBool("hit"))
+        Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
+        if (obstacle != null && obstacle.penalizableObstacle)
         {
-            GetComponent<Animator>().SetBool("hit", true);
-            hitParticle.transform.position = partDestroyed.transform.position;
-            smokeHitParticle.transform.position = partDestroyed.transform.position;
-            if (guiPlayer != null)
+            if (partDestroyed == null) partDestroyed = findPartNotDestroyed();
+            if (partDestroyed != null)
             {
-                GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
-                if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().decrementPart();
+                int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
+
+                // car conseqüences
+                if (!GetComponent<Animator>().GetBool("hit"))
+                {
+                    // shader effects
+                    GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
+                    GlobalVariables.Instance.shakeParam += 2.5f;
+                    GetComponent<Animator>().SetBool("hit", true);
+                    hitParticle.transform.position = partDestroyed.transform.position;
+                    smokeHitParticle.transform.position = partDestroyed.transform.position;
+                    if (guiPlayer != null)
+                    {
+                        GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
+                        if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().decrementPart();
+                    }
+                    GameObject falseDestroyPart = Instantiate(partDestroyed);
+                    falseDestroyPart.transform.parent = null;
+                    falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
+                    collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
+                    partDestroyed.GetComponent<PlayerDestructablePart>().Inhabilite();
+                }
             }
-            GameObject falseDestroyPart = Instantiate(partDestroyed);
-            falseDestroyPart.transform.parent = null;
-            falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
-            collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
-            partDestroyed.GetComponent<PlayerDestructablePart>().Inhabilite();
+            else
+            {
+                destroyPlayer("Vehicle destroyed");
+            }
         }
     }
 

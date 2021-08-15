@@ -48,6 +48,8 @@ MonoBehaviour:
   - {fileID: 1854340216569255863}
   previousWayPoint: []
   isReverse: 0
+  isOccuped: 0
+  vehicleLockingWaypoint: {fileID: 0}
   order: 0
 --- !u!135 &5415283271475388250
 SphereCollider:
@@ -143,6 +145,8 @@ MonoBehaviour:
   - {fileID: 6895192290586856716}
   previousWayPoint: []
   isReverse: 1
+  isOccuped: 0
+  vehicleLockingWaypoint: {fileID: 0}
   order: 0
 --- !u!135 &335835953262936932
 SphereCollider:
@@ -366,6 +370,8 @@ MonoBehaviour:
   previousWayPoint:
   - {fileID: 1597318256785275912}
   isReverse: 1
+  isOccuped: 0
+  vehicleLockingWaypoint: {fileID: 0}
   order: 0
 --- !u!135 &2493785237715735620
 SphereCollider:
@@ -428,6 +434,8 @@ MonoBehaviour:
   previousWayPoint:
   - {fileID: 875784151046739402}
   isReverse: 0
+  isOccuped: 0
+  vehicleLockingWaypoint: {fileID: 0}
   order: 0
 --- !u!135 &4173560642395567791
 SphereCollider:

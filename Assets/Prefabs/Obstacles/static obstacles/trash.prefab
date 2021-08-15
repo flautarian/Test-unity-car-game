@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb6e3c6453c7604a8b4f16de5d8125b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  penalizableObstacle: 1
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
 --- !u!54 &4735823960297732726
@@ -241,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb6e3c6453c7604a8b4f16de5d8125b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  penalizableObstacle: 0
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
 --- !u!54 &435022299

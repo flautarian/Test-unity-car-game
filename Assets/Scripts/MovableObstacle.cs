@@ -8,35 +8,40 @@ public class MovableObstacle: Obstacle
     // Start is called before the first frame update
 
     public float velocity;
-    public float penalty;
-    private bool automaticDriving = true;
+    private bool automaticDriving = true, isOtherCarInFront = false;
+    private MovableObstacleBumber frontalBumper;
     public bool isReverseObstacle;
+    public int streetNumber = 0;
     private Quaternion currentQuaternionRotation;
-    public Transform target;
+    public WayPoint actualWaypoint;
+    public Transform vehicleTarget;
 
-    internal void changeToNextPoint(Transform nextWayPoint)
+    internal void changeToNextPoint(WayPoint nextWayPoint)
     {
-        target = nextWayPoint;
+        actualWaypoint = nextWayPoint;
     }
 
     public Vector3 localPosition;
 
     void Start()
     {
+        frontalBumper = GetComponentInChildren<MovableObstacleBumber>();
     }
 
     void Update()
     {
-        if(velocity > 0)
+        tryLockTargetIfNotLocked();
+        var vel = checkVelocity();
+        if(vel > 0)
         {
-            moveWheels(velocity);
+            moveWheels(vel);
             if (automaticDriving)
             {
-                if (target != null && transform.position != Vector3.zero)
+                if (vehicleTarget != null && transform.position != Vector3.zero)
                 {
-                    currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);
-                    transform.position = Vector3.MoveTowards(transform.position, target.position, velocity * Time.deltaTime);
+                    currentQuaternionRotation = Quaternion.LookRotation(vehicleTarget.transform.position - transform.position);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, vel * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, vehicleTarget.position, vel * Time.deltaTime);
                 }
                 else Destroy(this.gameObject);
             }
@@ -46,6 +51,49 @@ public class MovableObstacle: Obstacle
                 if (transform.position.y < -1f) Destroy(this.gameObject);
             }*/
         }
+    }
+
+    private float checkVelocity()
+    {
+        if (actualWaypoint != null)
+        {
+            if (isVehicleLockedWaypoint())
+            {
+                return frontalBumper != null && frontalBumper.bumpDetected ? frontalBumper.velocityOfFrontVehicle : velocity;
+            }
+            return 0;
+        }
+        else return velocity;
+    }
+
+    private bool isVehicleLockedWaypoint()
+    {
+        if (actualWaypoint != null && actualWaypoint.isAPreludeOfIncorporation())
+        {
+            WayPoint wp = actualWaypoint.nextWayPoint[0].GetComponent<WayPoint>();
+            if(wp != null)
+            {
+                return wp.isOccuped && this.gameObject.Equals(wp.vehicleLockingWaypoint);
+            }
+        }       
+        return true;
+    }
+
+    private void tryLockTargetIfNotLocked()
+    {
+        if(actualWaypoint != null)
+        {
+            if (!actualWaypoint.isAPreludeOfIncorporation()) return;
+            if (!isVehicleLockedWaypoint())
+            {
+                tryLockIncorporation();
+            }
+        }
+    }
+
+    private bool tryLockIncorporation()
+    {
+        return actualWaypoint.tryLockIncorporation(this.gameObject);
     }
 
     void LateUpdate()
@@ -64,21 +112,48 @@ public class MovableObstacle: Obstacle
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Equals(other.gameObject.tag, "WayPoint") && other.gameObject.transform == target)
+        if (Equals(other.gameObject.tag, "WayPoint"))
         {
             WayPoint wayPoint = other.gameObject.GetComponent<WayPoint>();
-            if (wayPoint.nextWayPoint != null && wayPoint.nextWayPoint.Count > 0) target = wayPoint.nextWayPoint[0];
-            else target = null;
+            if (isSameWayPointThanVehicleTarget(wayPoint))
+            {
+                assignNewVehicleTarget(wayPoint);
+                if (actualWaypoint != null && actualWaypoint.isAnIncorporation()) actualWaypoint.unlockWaypoint();
+                actualWaypoint = wayPoint;
+                actualWaypoint.tryLockIncorporation(this.gameObject);
+            }
+
         }
+    }
+
+    private bool isSameWayPointThanVehicleTarget(WayPoint wayPoint)
+    {
+        if(vehicleTarget != null)
+        {
+            GameObject targetWP = vehicleTarget.gameObject;
+            WayPoint wp = targetWP.GetComponent<WayPoint>();
+            return wp.Equals(wayPoint);
+        }
+        return false;
+    }
+
+    private void assignNewVehicleTarget(WayPoint wayPoint)
+    {
+        if (wayPoint.nextWayPoint != null && wayPoint.nextWayPoint.Count > 0)
+        {
+            if (wayPoint.nextWayPoint.Count > streetNumber) vehicleTarget = wayPoint.nextWayPoint[streetNumber];
+            else vehicleTarget = wayPoint.nextWayPoint[0];
+        }
+        else vehicleTarget = null;
     }
 
     public override void SetPositioAndTargetFromSpawner(Spawner spawner)
     {
         if (spawner.target != null)
         {
-            target = spawner.lastTarget != null ? spawner.lastTarget : spawner.target;
+            vehicleTarget = spawner.lastTarget != null ? spawner.lastTarget : spawner.target;
             transform.position = spawner.transform.position;
-            transform.LookAt(target);
+            transform.LookAt(vehicleTarget);
         }
     }
 

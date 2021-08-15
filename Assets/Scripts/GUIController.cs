@@ -11,6 +11,7 @@ public class GUIController : MonoBehaviour
     public GameObject coinsIndicator;
     public GameObject carPartsIndicator;
     public Animator cmvStateDriveCameraAnimator;
+    public bool forceStartGame = false;
 
     private float cameraXAxisOffset = 20;
     private float cameraYAxisOffset = 5;
@@ -21,6 +22,7 @@ public class GUIController : MonoBehaviour
         // init de controlador de partes de coche;
         if (carPartsIndicator.GetComponent<CarPartsIndicator>() != null)
             carPartsIndicator.GetComponent<CarPartsIndicator>().startGame(player.GetComponent<PlayerController>().destructableParts.Count);
+        if (forceStartGame) startGame();
     }
 
     internal void propagueFisicButton(FisicButtonController fisicButtonController)
@@ -57,16 +59,16 @@ public class GUIController : MonoBehaviour
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("MainGameCamera");
 
-        if (gasIndicator.GetComponent<GasIndicator>() != null)
+        if (gasIndicator != null && gasIndicator.GetComponent<GasIndicator>() != null)
             gasIndicator.GetComponent<GasIndicator>().startGame();
 
-        if(player.GetComponent<PlayerController>() != null)
+        if(player != null && player.GetComponent<PlayerController>() != null)
             player.GetComponent<PlayerController>().startGame();        
 
-        if (motorCarreteras.GetComponent<MotorCarreteras>() != null)
+        if (motorCarreteras != null && motorCarreteras.GetComponent<MotorCarreteras>() != null)
             motorCarreteras.GetComponent<MotorCarreteras>().startGame();
 
-        if (coinsIndicator.GetComponent<CoinsIndicator>() != null)
+        if (coinsIndicator != null && coinsIndicator.GetComponent<CoinsIndicator>() != null)
             coinsIndicator.GetComponent<CoinsIndicator>().startGame();
 
     }
@@ -79,19 +81,19 @@ public class GUIController : MonoBehaviour
     public void startGameOver(String msg)
     {
         Debug.LogWarning("game ended by: " + msg);
-        if (gasIndicator.GetComponent<GasIndicator>() != null)
+        if (gasIndicator != null && gasIndicator.GetComponent<GasIndicator>() != null)
             gasIndicator.GetComponent<GasIndicator>().startGameOver();
 
-        if (player.GetComponent<PlayerController>() != null)
+        if (player != null && player.GetComponent<PlayerController>() != null)
             player.GetComponent<PlayerController>().startGameOver();
 
-        if (motorCarreteras.GetComponent<MotorCarreteras>() != null)
+        if (motorCarreteras != null && motorCarreteras.GetComponent<MotorCarreteras>() != null)
             motorCarreteras.GetComponent<MotorCarreteras>().startGameOver();
 
-        if (coinsIndicator.GetComponent<CoinsIndicator>() != null)
+        if (coinsIndicator != null && coinsIndicator.GetComponent<CoinsIndicator>() != null)
             coinsIndicator.GetComponent<CoinsIndicator>().startGameOver();
 
-        if (carPartsIndicator.GetComponent<CarPartsIndicator>() != null)
+        if (carPartsIndicator != null && carPartsIndicator.GetComponent<CarPartsIndicator>() != null)
             carPartsIndicator.GetComponent<CarPartsIndicator>().startGameOver();
 
         if (cmvStateDriveCameraAnimator != null)

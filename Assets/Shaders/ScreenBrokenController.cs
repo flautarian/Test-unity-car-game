@@ -10,13 +10,14 @@ public class ScreenBrokenController : MonoBehaviour
     [SerializeField] private ForwardRendererData rendererData = null;
     [SerializeField] private string featureName = null;
     [Range(0f, 2f)] private float brokenScale = 0, brokeScaleSentinel =0;
+    [SerializeField] private float screenTimeRecover = 0.003f;
 
     void Update()
     {
         if (brokeScaleSentinel != GlobalVariables.Instance.currentBrokenScreen) brokenScale = GlobalVariables.Instance.currentBrokenScreen;
         brokeScaleSentinel = GlobalVariables.Instance.currentBrokenScreen;
         updateBrokenScale();
-        if (brokenScale > 0) brokenScale -= 0.005f;
+        if (brokenScale > 0) brokenScale -= screenTimeRecover;
         else brokenScale = 0;
     }
 
@@ -39,10 +40,6 @@ public class ScreenBrokenController : MonoBehaviour
     private bool TryGetFeature(out ScriptableRendererFeature feature)
     {
         feature = rendererData.rendererFeatures.Where((f) => f.name == featureName).FirstOrDefault();
-        foreach (ScriptableRendererFeature renderF in rendererData.rendererFeatures)
-        {
-            Debug.Log(renderF.name);
-        }
         return feature != null;
     }
 }

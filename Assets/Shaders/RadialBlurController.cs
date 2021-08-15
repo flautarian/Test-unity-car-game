@@ -29,9 +29,6 @@ public class RadialBlurController : MonoBehaviour
     private bool TryGetFeature(out ScriptableRendererFeature feature)
     {
         feature = rendererData.rendererFeatures.Where((f) => f.name == featureName).FirstOrDefault();
-        foreach(ScriptableRendererFeature renderF in rendererData.rendererFeatures){
-            Debug.Log(renderF.name);
-        }
         return feature != null;
     }
 }

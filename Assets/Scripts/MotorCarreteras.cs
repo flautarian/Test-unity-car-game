@@ -6,7 +6,10 @@ using UnityEngine;
 public class MotorCarreteras : MonoBehaviour
 {
     private List<GameObject> streetsRemaining;
-    public List<GameObject> lvl0Roads;
+    public List<GameObject> oneToOneWayRoads;
+    public List<GameObject> oneToTwoWayRoads;
+    public List<GameObject> twoToOneWayRoads;
+    public List<GameObject> twoToTwoWayRoads;
     public List<GameObject> beredaObstaculos;
     public List<GameObject> calleObstaculos;
     public List<GameObject> powerUps;
@@ -36,14 +39,14 @@ public class MotorCarreteras : MonoBehaviour
     void InitializeStreetsOfGame()
     {
         InitializeFirstStreet();
-        AddStreetsToRemaining(2);
+        AddStreetsToRemaining(6);
         InitializeWaypointOfSpawners(streetsRemaining[streetsRemaining.Count-1].GetComponent<Calle>());
     }
 
     private void InitializeFirstStreet()
     {
         streetsRemaining = new List<GameObject>();
-        GameObject street0 = Instantiate(lvl0Roads[0]);
+        GameObject street0 = Instantiate(oneToOneWayRoads[0]);
         street0.transform.parent = this.transform;
         streetsRemaining.Add(street0);
     }
@@ -69,7 +72,7 @@ public class MotorCarreteras : MonoBehaviour
     void AddStreetsToRemaining(int times)
     {
         for (int i = 0; i < times; i++) { 
-            GameObject nuevaCalle = Instantiate(GetNewRandomRoad());
+            GameObject nuevaCalle = Instantiate(GetNewRandomRoad(streetsRemaining[streetsRemaining.Count - 1].GetComponent<Calle>()));
             nuevaCalle.transform.parent = this.transform;
             nuevaCalle.GetComponent<Calle>().motor = this;
             nuevaCalle.GetComponent<Calle>().initializePowerUps(this.powerUps);
@@ -85,15 +88,19 @@ public class MotorCarreteras : MonoBehaviour
         }
     }
 
-    private GameObject GetNewRandomRoad()
+    private GameObject GetNewRandomRoad(Calle lastStreet)
     {
-        switch (lvl)
+        WayPointManager wpLastStreet = lastStreet.waypointManager;
+        if(wpLastStreet != null)
         {
-            case 0:
-                return lvl0Roads[UnityEngine.Random.Range(0, lvl0Roads.Count)];
-            default:
-                return lvl0Roads[UnityEngine.Random.Range(0, lvl0Roads.Count)];
+            int leftSideStreetsNumber = wpLastStreet.lastWayReversalPoint.Count;
+            int rightSideStreetsNumber = wpLastStreet.lastWayPoint.Count;
+            if(leftSideStreetsNumber == 1 && rightSideStreetsNumber == 1) return oneToOneWayRoads[UnityEngine.Random.Range(0, oneToOneWayRoads.Count)];
+            else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 1) return twoToOneWayRoads[UnityEngine.Random.Range(0, twoToOneWayRoads.Count)];
+            else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 2) return twoToTwoWayRoads[UnityEngine.Random.Range(0, twoToTwoWayRoads.Count)];
+            else if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 2) return oneToTwoWayRoads[UnityEngine.Random.Range(0, oneToTwoWayRoads.Count)];
         }
+        return oneToOneWayRoads[UnityEngine.Random.Range(0, oneToOneWayRoads.Count)];
     }
 
     private void UpdatePaths(GameObject nuevaCalle, GameObject lastCalle)
@@ -102,19 +109,12 @@ public class MotorCarreteras : MonoBehaviour
         Calle newStreet = nuevaCalle.GetComponent<Calle>();
         WayPointManager lastWpm = lastStreet.waypointManager;
         WayPointManager newWpm = newStreet.waypointManager;
-
-        for (int i = 0; i < lastWpm.firstWayPoint.Count; i++)
-        {
-            lastWpm.addToNextWayPoint(newWpm.firstWayPoint[i].transform, i);
-            lastWpm.addNextReversalWayPoint(newWpm.lastWayReversalPoint[i].transform, i);
-        }
-
-        for (int i = 0; i < newWpm.firstWayPoint.Count; i++)
-        {
-            newWpm.addPreviousWayPoint(lastWpm.lastWayPoint[i].transform, i);
-            newWpm.addPreviousReversalWayPoint(lastWpm.firstWayReversalPoint[i].transform, i);
-        }
-
+        // interconnectem els carrils dels npcs entre l'ultima street i la nova que entra
+        newWpm.addPreviousWayPoint(lastWpm.lastWayPoint);
+        lastWpm.addToNextWayPoint(newWpm.firstWayPoint);
+        lastWpm.addNextReversalWayPoint(newWpm.lastWayReversalPoint);
+        newWpm.addPreviousReversalWayPoint(lastWpm.firstWayReversalPoint);
+        
         /*lastStreet.waypointManager.lastWayPoint.nextWayPoint = newStreet.waypointManager.firstWayPoint.transform;
         newStreet.waypointManager.firstWayPoint.previousWayPoint = lastStreet.waypointManager.lastWayPoint.transform;
         newStreet.waypointManager.lastWayReversalPoint.nextWayPoint = lastStreet.waypointManager.firstWayReversalPoint.transform;
