@@ -13,9 +13,8 @@ public class Gas : InteractableObject
         if (!GetComponent<Animator>().GetBool("hasBeenTaken")) return;
         transform.localPosition += animPosition;
     }
-    public override void TakeObject(PlayerController controller)
+    public override void Execute(PlayerController controller)
     {
-        GetComponent<Animator>().SetBool("hasBeenTaken", true);
         if(GameObject.FindGameObjectWithTag("Timer") != null) 
             GameObject.FindGameObjectWithTag("Timer").GetComponent<GasIndicator>().AddSeconds(value);
     }

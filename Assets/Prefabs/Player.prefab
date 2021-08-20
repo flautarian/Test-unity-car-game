@@ -14750,12 +14750,12 @@ MonoBehaviour:
   groundRayLength: 0.5
   turnZAxisEffect: 0
   forwardAccel: 6
+  normalForwardAccel: 0
   reverseAccel: 2
-  maxSpeed: 10
   turnStrength: 180
+  maxWheelTurn: 30
   gravityForce: 10
   dragGroundValue: 3
-  maxWheelTurn: 30
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
@@ -19830,6 +19830,26 @@ PrefabInstance:
       propertyPath: controller
       value: 
       objectReference: {fileID: 1309327813}
+    - target: {fileID: 8541100166479450015, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: forwardAccel
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541100166479450015, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: maxWheelTurn
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541100166479450015, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: reverseAccel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541100166479450015, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: turnStrength
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 8541100167118701802, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
       propertyPath: playerCar

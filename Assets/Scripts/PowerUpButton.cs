@@ -7,7 +7,7 @@ public class PowerUpButton : MonoBehaviour
 {
     public Sprite alterSprite;
     public string powerUpName;
-    private bool enabled = false;
+    //private bool enabled = false;
     public void enable()
     {
         switchSprite();

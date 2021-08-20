@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class GlobalVariables : MonoBehaviour
     public static GlobalVariables Instance { get; private set; }
 
     public float currentLight = 0;
+
+    public int totalCoins = 0;
 
     public float currentBrokenScreen = 0;
 
@@ -25,5 +28,10 @@ public class GlobalVariables : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    internal void addCoins(int number)
+    {
+        totalCoins += number;
     }
 }

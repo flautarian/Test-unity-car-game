@@ -18,8 +18,7 @@ public class MotorCarreteras : MonoBehaviour
     public float timeLapseForDeployPowerUp;
     public GameObject streetSpawnPointRight;
     public GameObject streetSpawnPointLeft;
-    private bool canDeployPowerUps = true,
-        gameStarted = false;
+    private bool gameStarted = false;
 
 
     // Start is called before the first frame update
@@ -152,18 +151,6 @@ public class MotorCarreteras : MonoBehaviour
                 spawner.ReSetStaticSpawnerTrigger();
             }
         }
-    }
-
-    private void restitutePowerUp()
-    {
-        StartCoroutine(resetPowerUpDeploy());
-    }
-
-    private IEnumerator resetPowerUpDeploy()
-    {
-        canDeployPowerUps = false;
-        yield return new WaitForSeconds(timeLapseForDeployPowerUp);
-        canDeployPowerUps = true;
     }
 
     private float getHeightOfCalle(int pos)

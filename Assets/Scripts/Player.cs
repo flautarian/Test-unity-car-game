@@ -6,10 +6,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float life;
-    public float maxVelocity;
-    public float statusCarVelocity;
     public PlayerController controller;
+
+    public float forwardAccel;
+    public float reverseAccel;
+    public float turnStrength;
+    public float maxWheelTurn;
+
 
     void Start()
     {

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Repair : InteractableObject
 {
-    public override void TakeObject(PlayerController controller)
+    public override void Execute(PlayerController controller)
     {
-        GetComponent<Animator>().SetBool("hasBeenTaken", true);
         controller.RecoverParts();
     }
 }

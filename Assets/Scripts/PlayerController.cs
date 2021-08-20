@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,7 +28,9 @@ public class PlayerController : MonoBehaviour
 
     public float turnZAxisEffect = 0;
 
-    public float forwardAccel, reverseAccel, maxSpeed, turnStrength, gravityForce, dragGroundValue, maxWheelTurn;
+    public float forwardAccel, normalForwardAccel, reverseAccel, turnStrength, maxWheelTurn;
+
+    public float gravityForce, dragGroundValue;
 
     public LayerMask whatIsGround;
 
@@ -45,18 +48,33 @@ public class PlayerController : MonoBehaviour
 
     public float VerticalAxis, HorizontalAxis;
 
+    private Player player;
+
+    private Animator playerAnimator;
+
     void Start()
     {
         playerSphereRigidBody.transform.parent = null;
         Physics.IgnoreLayerCollision(0, 9);
+        player = GetComponentInChildren<Player>();
+        // Adapting playerController to the car type chosen
+        if(player != null)
+        {
+            forwardAccel = player.forwardAccel;
+            normalForwardAccel = forwardAccel;
+            reverseAccel = player.reverseAccel;
+            turnStrength = player.turnStrength;
+            maxWheelTurn = player.maxWheelTurn;
+        }
+        playerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //Activem l'animacio de 'vehicle xocat' en cas de haver xocat amb el vehicle
-        if (GetComponent<Animator>().GetBool("hit") && !playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = true;
-        else if (!GetComponent<Animator>().GetBool("hit") && playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = false;
+        if (playerAnimator.GetBool("hit") && !playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = true;
+        else if (!playerAnimator.GetBool("hit") && playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = false;
 
         //Captura de tecles
         VerticalAxis = Input.GetAxis("Vertical");
@@ -70,10 +88,11 @@ public class PlayerController : MonoBehaviour
             turnZAxisEffect = HorizontalAxis * (grounded ? 5 : 1);
             turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
+            // manipulacio de shader de radial blur en cas de potenciador de velocitat
+            manageNitro();
         }
 
     }
-
 
     internal void turnLeft()
     {
@@ -133,14 +152,14 @@ public class PlayerController : MonoBehaviour
     }
     private void destroyPlayer(string reason)
     {
-        GetComponent<Animator>().SetBool("explode", true);
+        playerAnimator.SetBool("explode", true);
         GameObject gui = GameObject.FindGameObjectWithTag("GUI");
         if (gui != null) gui.GetComponent<GUIController>().startGameOver(reason);
     }
 
     internal void AddCoins(int number)
     {
-        if (guiPlayer != null) guiPlayer.addCoins(number);
+        GlobalVariables.Instance.addCoins(number);
     }
 
     internal void communicatePlayerBaseCollition(Collision collision)
@@ -168,35 +187,39 @@ public class PlayerController : MonoBehaviour
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
         if (obstacle != null && obstacle.penalizableObstacle)
         {
-            if (partDestroyed == null) partDestroyed = findPartNotDestroyed();
-            if (partDestroyed != null)
-            {
-                int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
-
-                // car conseqüences
-                if (!GetComponent<Animator>().GetBool("hit"))
-                {
-                    // shader effects
-                    GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
-                    GlobalVariables.Instance.shakeParam += 2.5f;
-                    GetComponent<Animator>().SetBool("hit", true);
-                    hitParticle.transform.position = partDestroyed.transform.position;
-                    smokeHitParticle.transform.position = partDestroyed.transform.position;
-                    if (guiPlayer != null)
-                    {
-                        GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
-                        if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().decrementPart();
-                    }
-                    GameObject falseDestroyPart = Instantiate(partDestroyed);
-                    falseDestroyPart.transform.parent = null;
-                    falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
-                    collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
-                    partDestroyed.GetComponent<PlayerDestructablePart>().Inhabilite();
-                }
-            }
+            if (obstacle.lethal) destroyPlayer("collitioned with lethal object");
             else
             {
-                destroyPlayer("Vehicle destroyed");
+                if (partDestroyed == null) partDestroyed = findPartNotDestroyed();
+                if (partDestroyed != null)
+                {
+                    int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
+
+                    // car conseqüences
+                    if (!playerAnimator.GetBool("hit"))
+                    {
+                        // shader effects
+                        GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
+                        GlobalVariables.Instance.shakeParam += 2.5f;
+                        playerAnimator.SetBool("hit", true);
+                        hitParticle.transform.position = partDestroyed.transform.position;
+                        smokeHitParticle.transform.position = partDestroyed.transform.position;
+                        if (guiPlayer != null)
+                        {
+                            GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
+                            if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().decrementPart();
+                        }
+                        GameObject falseDestroyPart = Instantiate(partDestroyed);
+                        falseDestroyPart.transform.parent = null;
+                        falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
+                        collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
+                        partDestroyed.GetComponent<PlayerDestructablePart>().Inhabilite();
+                    }
+                }
+                else
+                {
+                    destroyPlayer("Vehicle destroyed");
+                }
             }
         }
     }
@@ -231,5 +254,31 @@ public class PlayerController : MonoBehaviour
     public Color getTouchingColor()
     {
         return touchingColor;
+    }
+
+    internal void AddNitro()
+    {
+        playerAnimator.SetBool("nitro", true);
+    }
+    private void manageNitro()
+    {
+        if (!playerAnimator.GetBool("nitro"))
+        {
+            forwardAccel = normalForwardAccel;
+            GlobalVariables.Instance.currentRadialBlur = 0;
+        }
+        else
+        {
+            float valRadial = GlobalVariables.Instance.currentRadialBlur;
+            if (forwardAccel > normalForwardAccel)
+                valRadial += 0.01f;
+            else
+            {
+                if (valRadial > 0)
+                    valRadial -= 0.03f;
+                else valRadial = 0;
+            }
+            GlobalVariables.Instance.currentRadialBlur = valRadial;
+        }
     }
 }

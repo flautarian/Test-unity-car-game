@@ -10,10 +10,19 @@ public class CoinsIndicator : MonoBehaviour
 
     public void addCoins(int quantity)
     {
+        
+    }
+
+    private void Update()
+    {
         if (gameStarted)
         {
-            coins += quantity;
-            if (numberIndicator != null) numberIndicator.updateNumber(coins);
+            int externalCoins = GlobalVariables.Instance.totalCoins;
+            if(externalCoins != coins)
+            {
+                coins = externalCoins;
+                if (numberIndicator != null) numberIndicator.updateNumber(coins);
+            }
         }
     }
 

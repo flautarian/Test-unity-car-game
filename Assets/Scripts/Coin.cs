@@ -15,12 +15,8 @@ public class Coin : InteractableObject
         transform.localPosition += animPosition;
     }
 
-    public override void TakeObject(PlayerController controller)
+    public override void Execute(PlayerController controller)
     {
-        if (!GetComponent<Animator>().GetBool("hasBeenTaken"))
-        {
-            GetComponent<Animator>().SetBool("hasBeenTaken", true);
-            controller.AddCoins(value);
-        }
+        controller.AddCoins(value);
     }
 }

@@ -9837,10 +9837,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   penalizableObstacle: 1
+  apparitionLevel: 0
   velocity: 15
   isReverseObstacle: 0
   streetNumber: 0
-  target: {fileID: 0}
+  actualWaypoint: {fileID: 0}
+  vehicleTarget: {fileID: 0}
   localPosition: {x: 0, y: 0, z: 0}
 --- !u!23 &6577222172534766931
 MeshRenderer:

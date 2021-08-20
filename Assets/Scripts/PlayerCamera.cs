@@ -7,7 +7,6 @@ public class PlayerCamera : MonoBehaviour
     public Transform target;
     public float smoothTime = 0.5F;
     private Vector3 cameraOffset;
-    private bool lookToTarget = false;
 
     void Start()
     {

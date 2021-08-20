@@ -5319,10 +5319,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   penalizableObstacle: 1
+  apparitionLevel: 0
   velocity: 15
   isReverseObstacle: 0
   streetNumber: 1
-  target: {fileID: 0}
+  actualWaypoint: {fileID: 0}
+  vehicleTarget: {fileID: 0}
   localPosition: {x: 0, y: 0, z: 0}
 --- !u!23 &3412019276144784532
 MeshRenderer:
@@ -5387,7 +5389,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -2432090755550338912, guid: 98a82ba17258d52448abe289bf848093, type: 3}
+  m_Mesh: {fileID: -2432090755550338912, guid: c2d0f44228ca0d74a879dd9ab043e033, type: 3}
 --- !u!54 &254488259337345407
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ public class CinemachineShake : MonoBehaviour
 
     private CinemachineVirtualCamera cinemachineVirtualCamera;
     private CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
-    private float amplitudeGain = 0;
 
     private void Awake()
     {

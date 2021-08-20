@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   penalizableObstacle: 0
+  lethal: 0
+  apparitionLevel: 0
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
 --- !u!54 &1747541742527509280
@@ -348,4 +350,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blinks: 1
   secondsBetweenBlinks: 1
-  lightInitialStatus: 1
+  lightInitialStatus: 0

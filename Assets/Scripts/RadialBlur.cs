@@ -44,7 +44,7 @@ public class RadialBlur : MonoBehaviour
 
 	bool Supported()
 	{
-		return (SystemInfo.supportsImageEffects && SystemInfo.supportsRenderTextures && RadialBlurShader.isSupported);
+		return RadialBlurShader.isSupported;
 	}
 
 
