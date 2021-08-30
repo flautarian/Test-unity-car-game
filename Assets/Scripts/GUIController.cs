@@ -18,10 +18,10 @@ public class GUIController : MonoBehaviour
 
     private void Start()
     {
-
         // init de controlador de partes de coche;
         if (carPartsIndicator.GetComponent<CarPartsIndicator>() != null)
             carPartsIndicator.GetComponent<CarPartsIndicator>().startGame(player.GetComponent<PlayerController>().destructableParts.Count);
+        // force startGame for edit actions
         if (forceStartGame) startGame();
     }
 

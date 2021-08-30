@@ -10,18 +10,24 @@ public class StaticObstacle : Obstacle
 
     void Start()
     {
-        if (rigidBodySlept) GetComponent<Rigidbody>().Sleep();
+        localPosition = transform.localPosition;
+        GetComponent<Rigidbody>().Sleep();
     }
 
     void Update()
     {
-        if (transform.position.y < 0f) Destroy(this.gameObject);
+        if (transform.position.y < -100f)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     public override void SetPositioAndTargetFromSpawner(Spawner spawner)
     {
         if (spawner.target != null)
         {
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            if (GetComponent<Animation>() != null && GetComponent<Animation>().isPlaying) GetComponent<Animation>().Stop();
             transform.position = spawner.transform.position + spawner.sidewalkOffset;
             transform.LookAt(spawner.transform);
             if(spawner.orientation == SpawnerOrientation.LEFT)transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
@@ -48,6 +54,7 @@ public class StaticObstacle : Obstacle
         // If the object we hit is the enemy
         if (Equals(c.gameObject.tag, "Player") || Equals(c.gameObject.tag, "PlayerPart"))
         {
+            rigidBodySlept = false;
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
             // how much the character should be knocked back
             var magnitude = 2500;
@@ -59,5 +66,10 @@ public class StaticObstacle : Obstacle
             gameObject.GetComponent<Rigidbody>().AddForce(force * magnitude);
             // start explode animation and disable path follow
         }
+        else if (rigidBodySlept && !GetComponent<Rigidbody>().IsSleeping())
+        {
+            GetComponent<Rigidbody>().Sleep();
+        }
     }
+
 }

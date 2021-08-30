@@ -21,6 +21,11 @@ public class MovableObstacle: Obstacle
         actualWaypoint = nextWayPoint;
     }
 
+    private void Awake()
+    {
+        
+    }
+
     public Vector3 localPosition;
 
     void Start()
@@ -37,19 +42,15 @@ public class MovableObstacle: Obstacle
             moveWheels(vel);
             if (automaticDriving)
             {
-                if (vehicleTarget != null && transform.position != Vector3.zero)
+                if (vehicleTarget != null && vehicleTarget.transform.position - transform.position != Vector3.zero)
                 {
                     currentQuaternionRotation = Quaternion.LookRotation(vehicleTarget.transform.position - transform.position);
                     transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, vel * Time.deltaTime);
                     transform.position = Vector3.MoveTowards(transform.position, vehicleTarget.position, vel * Time.deltaTime);
                 }
-                else Destroy(this.gameObject);
+                if(transform.position.y < -100)
+                    this.gameObject.SetActive(false);
             }
-            /*else
-            {
-                GetComponent<Transform>().Translate(Vector3.forward * Time.deltaTime * velocity);
-                if (transform.position.y < -1f) Destroy(this.gameObject);
-            }*/
         }
     }
 
@@ -144,17 +145,17 @@ public class MovableObstacle: Obstacle
             if (wayPoint.nextWayPoint.Count > streetNumber) vehicleTarget = wayPoint.nextWayPoint[streetNumber];
             else vehicleTarget = wayPoint.nextWayPoint[0];
         }
-        else vehicleTarget = null;
+        // end of road reached, deactivating obstacle
+        else gameObject.SetActive(false);
     }
 
     public override void SetPositioAndTargetFromSpawner(Spawner spawner)
     {
-        if (spawner.target != null)
-        {
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            if(GetComponent<Animation>() != null && GetComponent<Animation>().isPlaying) GetComponent<Animation>().Stop();
             vehicleTarget = spawner.lastTarget != null ? spawner.lastTarget : spawner.target;
             transform.position = spawner.transform.position;
             transform.LookAt(vehicleTarget);
-        }
     }
 
     public override void Collide(Transform c)

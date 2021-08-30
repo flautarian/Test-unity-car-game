@@ -27,14 +27,11 @@ public class MotorCarreteras : MonoBehaviour
         InitializeStreetsOfGame();
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator WaitForSecondsWrapper(float secs)
     {
-        if (gameStarted)
-        {
-            iterateSpawners();
-        }
+        yield return new UnityEngine.WaitForSeconds(secs);
     }
+
     void InitializeStreetsOfGame()
     {
         InitializeFirstStreet();
@@ -48,12 +45,6 @@ public class MotorCarreteras : MonoBehaviour
         GameObject street0 = Instantiate(oneToOneWayRoads[0]);
         street0.transform.parent = this.transform;
         streetsRemaining.Add(street0);
-    }
-
-    private void iterateSpawners()
-    {
-        IterateSpawner(streetSpawnPointRight);
-        IterateSpawner(streetSpawnPointLeft);
     }
 
     internal void detonateAllObstacles()
@@ -71,10 +62,10 @@ public class MotorCarreteras : MonoBehaviour
     void AddStreetsToRemaining(int times)
     {
         for (int i = 0; i < times; i++) { 
-            GameObject nuevaCalle = Instantiate(GetNewRandomRoad(streetsRemaining[streetsRemaining.Count - 1].GetComponent<Calle>()));
+            GameObject nuevaCalle = GetNewRandomRoad(streetsRemaining[streetsRemaining.Count - 1].GetComponent<Calle>());
             nuevaCalle.transform.parent = this.transform;
             nuevaCalle.GetComponent<Calle>().motor = this;
-            nuevaCalle.GetComponent<Calle>().initializePowerUps(this.powerUps);
+            //nuevaCalle.GetComponent<Calle>().initializePowerUps(this.powerUps);
             if (nuevaCalle != null && streetsRemaining.Count > 0)
             {
                 GameObject lastCalle = streetsRemaining[streetsRemaining.Count-1];
@@ -94,10 +85,10 @@ public class MotorCarreteras : MonoBehaviour
         {
             int leftSideStreetsNumber = wpLastStreet.lastWayReversalPoint.Count;
             int rightSideStreetsNumber = wpLastStreet.lastWayPoint.Count;
-            if(leftSideStreetsNumber == 1 && rightSideStreetsNumber == 1) return oneToOneWayRoads[UnityEngine.Random.Range(0, oneToOneWayRoads.Count)];
-            else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 1) return twoToOneWayRoads[UnityEngine.Random.Range(0, twoToOneWayRoads.Count)];
-            else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 2) return twoToTwoWayRoads[UnityEngine.Random.Range(0, twoToTwoWayRoads.Count)];
-            else if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 2) return oneToTwoWayRoads[UnityEngine.Random.Range(0, oneToTwoWayRoads.Count)];
+            if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 1) return PoolManager.Instance.SpawnFromPool("oneToOneWayRoads", transform.position, transform.rotation);
+            else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 1) return PoolManager.Instance.SpawnFromPool("twoToOneWayRoads", transform.position, transform.rotation);
+            else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 2) return PoolManager.Instance.SpawnFromPool("twoToTwoWayRoads", transform.position, transform.rotation);
+            else if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 2) return PoolManager.Instance.SpawnFromPool("oneToTwoWayRoads", transform.position, transform.rotation);
         }
         return oneToOneWayRoads[UnityEngine.Random.Range(0, oneToOneWayRoads.Count)];
     }
@@ -113,11 +104,6 @@ public class MotorCarreteras : MonoBehaviour
         lastWpm.addToNextWayPoint(newWpm.firstWayPoint);
         lastWpm.addNextReversalWayPoint(newWpm.lastWayReversalPoint);
         newWpm.addPreviousReversalWayPoint(lastWpm.firstWayReversalPoint);
-        
-        /*lastStreet.waypointManager.lastWayPoint.nextWayPoint = newStreet.waypointManager.firstWayPoint.transform;
-        newStreet.waypointManager.firstWayPoint.previousWayPoint = lastStreet.waypointManager.lastWayPoint.transform;
-        newStreet.waypointManager.lastWayReversalPoint.nextWayPoint = lastStreet.waypointManager.firstWayReversalPoint.transform;
-        lastStreet.waypointManager.firstWayReversalPoint.previousWayPoint = newStreet.waypointManager.lastWayReversalPoint.transform;*/
     }
 
     private void InitializeWaypointOfSpawners(Calle calleInicial)
@@ -131,26 +117,6 @@ public class MotorCarreteras : MonoBehaviour
         spawner.GetComponent<Spawner>().target = target;
         spawner.transform.LookAt(target);
         spawner.transform.position = target.position;
-    }
-
-    private void IterateSpawner(GameObject spawnPoint)
-    {
-        Spawner spawner = spawnPoint.GetComponent<Spawner>();
-        if(spawner != null)
-        {
-            if (spawner.isReadyToInstanceMovableObstacle)
-            {
-                GameObject obstaculoGO = Instantiate(calleObstaculos[spawner.rand.Next(calleObstaculos.Count)]);    
-                obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(spawner);
-                spawner.ReSetMovableSpawnerTrigger();
-            }
-            else if (spawner.isReadyToInstanceStaticObstacle)
-            {
-                GameObject obstaculoGO = Instantiate(beredaObstaculos[spawner.rand.Next(beredaObstaculos.Count)]);
-                obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(spawner);
-                spawner.ReSetStaticSpawnerTrigger();
-            }
-        }
     }
 
     private float getHeightOfCalle(int pos)

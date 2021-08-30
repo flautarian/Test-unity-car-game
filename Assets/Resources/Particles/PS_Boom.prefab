@@ -14450,7 +14450,7 @@ GameObject:
   - component: {fileID: 889304380926856686}
   - component: {fileID: 889304380926856687}
   m_Layer: 0
-  m_Name: PS_Hit
+  m_Name: PS_Boom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

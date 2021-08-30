@@ -34,18 +34,55 @@ public class Calle : MonoBehaviour
     {
         if (other.tag.Equals("Player"))
         {
-            if(motor != null) StartCoroutine(motor.ciclarCalle(this.gameObject));
-            StartCoroutine(DestroyStreet());
+            Calle lastCalle = GlobalVariables.Instance.lastCalle;
+            if(lastCalle != null)
+            {
+                lastCalle.generateNextStreet(1);
+                StartCoroutine(DestroyStreet());
+            }
         }
     }
 
     public IEnumerator DestroyStreet()
     {
         yield return new WaitForSeconds(2.0f);
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
+        //Destroy(this.gameObject);
     }
 
-    internal void initializePowerUps(List<GameObject> powerUps)
+    public void generateNextStreet(int streetsRemainingToGenerate)
+    {
+        GameObject newStreet = generateNextStreetGO();
+        streetsRemainingToGenerate--;
+        
+        Calle newCalle = newStreet.GetComponent<Calle>();
+        if(newCalle != null)
+        {
+            GlobalVariables.Instance.lastCalle = newCalle;
+            if (streetsRemainingToGenerate > 0) newCalle.generateNextStreet(streetsRemainingToGenerate);
+        }
+    }
+
+    private GameObject generateNextStreetGO()
+    {
+        String nextStreetGroupTagName = getNextStreetTagName();
+        return PoolManager.Instance.SpawnFromPool(nextStreetGroupTagName,
+            new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<BoxCollider>().size.z - 0.5f),
+            Quaternion.Euler(0,0,0));
+    }
+
+    private string getNextStreetTagName()
+    {
+        int leftSideStreetsNumber = waypointManager.lastWayReversalPoint.Count;
+        int rightSideStreetsNumber = waypointManager.lastWayPoint.Count;
+        if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 1) return "oneToOneWayRoads";
+        else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 1) return "twoToOneWayRoads";
+        else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 2) return "twoToTwoWayRoads";
+        else if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 2) return "oneToTwoWayRoads";
+        else return "oneToOneWayRoads";
+    }
+
+    /*internal void initializePowerUps(List<GameObject> powerUps)
     {
         GameObject[] pows = GameObject.FindGameObjectsWithTag("powerUpSpawnPoint");
         foreach(GameObject pow in pows)
@@ -55,5 +92,5 @@ public class Calle : MonoBehaviour
             newItem.transform.parent = pow.transform.parent;
             Destroy(pow);
         }
-    }
+    }*/
 }

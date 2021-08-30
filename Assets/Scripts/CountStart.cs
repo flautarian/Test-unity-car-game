@@ -7,11 +7,10 @@ public class CountStart : MonoBehaviour
 {
     public Sprite[] spriteArray;
     public AudioClip[] audioClips;
-    public GameObject motor;
 
     private void Start()
     {
-        if (motor != null) StartCoroutine(backCountTime());
+        StartCoroutine(backCountTime());
     }
 
     private IEnumerator backCountTime()

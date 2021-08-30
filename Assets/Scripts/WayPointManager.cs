@@ -59,4 +59,24 @@ public class WayPointManager : MonoBehaviour
             lastWayReversalPoint[i].nextWayPoint.Add(firstWayReversalPoint[i].transform);
         }
     }
+
+    private void OnDisable()
+    {
+        foreach (WayPoint wp in firstWayPoint)
+        {
+            wp.previousWayPoint.Clear();
+        }
+        foreach (WayPoint wp in firstWayReversalPoint)
+        {
+            wp.previousWayPoint.Clear();
+        }
+        foreach (WayPoint wp in lastWayPoint)
+        {
+            wp.nextWayPoint.Clear();
+        }
+        foreach (WayPoint wp in lastWayReversalPoint)
+        {
+            wp.nextWayPoint.Clear();
+        }
+    }
 }

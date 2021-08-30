@@ -19,7 +19,7 @@ GameObject:
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2330563281925032115
 Transform:
@@ -55,7 +55,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: 8d80b3fede75b8b48866cc4dae074bf9, type: 3}
+  - {fileID: 2100000, guid: 511376d1cd06ed2438f10aecfe300290, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,7 +84,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032128832397014795}
-  m_Mesh: {fileID: -2432090755550338912, guid: 6650f34865a3620499df8e5e92d8a5a0, type: 3}
+  m_Mesh: {fileID: -2432090755550338912, guid: 76a7b1ba9d8a441459a42a3cd6ca70a2, type: 3}
 --- !u!114 &467837239453365965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   penalizableObstacle: 1
+  lethal: 0
+  apparitionLevel: 0
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 0
 --- !u!54 &4864636268836005010

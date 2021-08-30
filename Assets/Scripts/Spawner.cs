@@ -9,11 +9,14 @@ public class Spawner : MonoBehaviour
     private Quaternion currentQuaternionRotation;
     private float dstTravelledToInstanceMovable;
     private float dstTravelledToInstanceStatic;
+    private bool spawnerArrivedToTarget;
 
     public Vector3 sidewalkOffset;
     public Transform target;
     public Transform lastTarget;
     public SpawnerOrientation orientation;
+    public List<string> poolTagsOfMovableObstacles;
+    public List<string> poolTagsOfStaticObstacles;
 
     public float dstTravelled { get; set; }
     public System.Random rand { get; set; }
@@ -34,7 +37,7 @@ public class Spawner : MonoBehaviour
 
     public int MyProdstTravelledperty { get; set; }
 
-    void Update()
+    private void FixedUpdate()
     {
         GetComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().materials[isReadyToInstanceMovableObstacle? 1 : 0];
         if (velocity > 0)
@@ -42,16 +45,15 @@ public class Spawner : MonoBehaviour
             if (target != null)
             {
                 dstTravelled += velocity * Time.deltaTime;
-                if((target.transform.position - transform.position) != Vector3.zero) currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                spawnerArrivedToTarget = (target.transform.position - transform.position) == Vector3.zero;
+                if (!spawnerArrivedToTarget)
+                {
+                    currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                    if (dstTravelled > dstTravelledToInstanceMovable) isReadyToInstanceMovableObstacle = true;
+                    if (dstTravelled > dstTravelledToInstanceStatic) isReadyToInstanceStaticObstacle = true;
+                }
                 transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);
                 transform.position = Vector3.MoveTowards(transform.position, target.position, velocity * Time.deltaTime);
-                if (dstTravelled > dstTravelledToInstanceMovable) isReadyToInstanceMovableObstacle = true;
-                if (dstTravelled > dstTravelledToInstanceStatic) isReadyToInstanceStaticObstacle = true;
-            }
-            else
-            {
-                isReadyToInstanceMovableObstacle = false;
-                isReadyToInstanceStaticObstacle = false;
             }
         }
     }
@@ -67,13 +69,6 @@ public class Spawner : MonoBehaviour
         dstTravelledToInstanceStatic = dstTravelled + rand.Next(100, 250);
         isReadyToInstanceStaticObstacle = false;
     }
-    private void OnTriggerEnter(Collider c)
-    {
-        if (Equals(c.gameObject.tag, "WayPoint") && (c.gameObject.transform == target || target == null))
-        {
-            updateTarget(c.gameObject.GetComponent<WayPoint>());
-        }
-    }
 
     private void updateTarget(WayPoint wayPoint)
     {
@@ -87,28 +82,69 @@ public class Spawner : MonoBehaviour
         }
         else if (wayPoint.nextWayPoint != null && wayPoint.nextWayPoint.Count > 0 && wayPoint.nextWayPoint[0] != target )
         {
+            lastTarget = target;
             target = wayPoint.nextWayPoint[0];
+        }
+
+        CheckAndDeployObstacles();
+    }
+
+    private void CheckAndDeployObstacles()
+    {
+        if (target != null)
+        {
+            if (isReadyToInstanceMovableObstacle)
+            {
+                GameObject obstaculoGO = PoolManager.Instance.SpawnFromPool("StreetObstaculo", transform.position, transform.rotation);
+                if (obstaculoGO != null)
+                {
+                    obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(this);
+                    ReSetMovableSpawnerTrigger();
+                }
+            }
+
+            if (isReadyToInstanceStaticObstacle)
+            {
+                GameObject obstaculoGO = PoolManager.Instance.SpawnFromPool("BeredaObstaculo", transform.position, transform.rotation); ;
+                if (obstaculoGO != null)
+                {
+                    obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(this);
+                    ReSetStaticSpawnerTrigger();
+                }
+            }
         }
     }
 
     void OnCollisionEnter(Collision c)
     {
-        // If the object we hit is an obstacle
+        checkSpawnerCollidersWithObstables(c);
+    }
+
+    void OnCollisionStay(Collision c)
+    {
+        checkSpawnerCollidersWithObstables(c);
+    }
+
+    void OnCollisionExit(Collision c)
+    {
+        checkSpawnerCollidersWithObstables(c);
+    }
+
+    private void checkSpawnerCollidersWithObstables(Collision c)
+    {
         if (Equals(c.gameObject.tag, "StreetObstaculo") || Equals(c.gameObject.tag, "BeredaObstaculo"))
         {
             isReadyToInstanceMovableObstacle = false;
         }
     }
 
-    void OnCollisionExit(Collision c)
+    private void OnTriggerEnter(Collider c)
     {
-        // If the object we hit is an obstacle
-        if (Equals(c.gameObject.tag, "StreetObstaculo") || Equals(c.gameObject.tag, "BeredaObstaculo"))
+        if (Equals(c.gameObject.tag, "WayPoint") && (c.gameObject.transform == target || target == null))
         {
-            isReadyToInstanceMovableObstacle = true;
+            updateTarget(c.gameObject.GetComponent<WayPoint>());
         }
     }
-
     private void OnTriggerStay(Collider other)
     {
         if (Equals(other.gameObject.tag, "WayPoint"))

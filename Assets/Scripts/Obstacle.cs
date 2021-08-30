@@ -9,7 +9,11 @@ public abstract class Obstacle : MonoBehaviour
 
     public bool lethal = false;
 
-    public int apparitionLevel = 0;
+    public int apparitionLevel;
+
+    public Vector3 initialLocalPosition;
+
+    public Quaternion initialLocalRotation;
     public abstract void SetPositioAndTargetFromSpawner(Spawner spawner);
 
     public abstract void Collide(Transform c);
@@ -19,8 +23,17 @@ public abstract class Obstacle : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void Start()
+    private void Awake()
     {
-        if (GlobalVariables.Instance.totalCoins < apparitionLevel) Destroy(this.gameObject);
+        initialLocalPosition = transform.position;
+        initialLocalRotation = transform.rotation;
+
+        this.gameObject.SetActive(GlobalVariables.Instance.totalCoins >= apparitionLevel);
+    }
+
+    private void OnEnable()
+    {
+        transform.localPosition = initialLocalPosition;
+        transform.localRotation = initialLocalRotation;
     }
 }

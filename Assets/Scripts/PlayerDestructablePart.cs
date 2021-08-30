@@ -33,13 +33,15 @@ public class PlayerDestructablePart : MonoBehaviour
     internal void ejectPart(GameObject originalPart)
     {
         this.gameObject.name = originalPart.name + "-destroyed";
-        //GetComponent<MeshCollider>().isTrigger = false;
         transform.position = originalPart.transform.position;
         transform.rotation = originalPart.transform.rotation;
         rbPart = this.gameObject.AddComponent(typeof(Rigidbody)) as Rigidbody;
-        rbPart.useGravity = true;
-        rbPart.mass = 10;
-        rbPart.AddForce(Vector3.up * 3000f);
+        if(rbPart != null)
+        {
+            rbPart.useGravity = true;
+            rbPart.mass = 10;
+            rbPart.AddForce(Vector3.up * 3000f);
+        }
     }
 
     internal void Inhabilite()
