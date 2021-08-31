@@ -10,6 +10,10 @@ public abstract class Obstacle : MonoBehaviour
     public bool lethal = false;
 
     public int apparitionLevel;
+    
+    internal Animation animation;
+    
+    internal Rigidbody rigidBody;
 
     public Vector3 initialLocalPosition;
 
@@ -27,7 +31,8 @@ public abstract class Obstacle : MonoBehaviour
     {
         initialLocalPosition = transform.position;
         initialLocalRotation = transform.rotation;
-
+        rigidBody = GetComponent<Rigidbody>();
+        animation = GetComponent<Animation>();
         this.gameObject.SetActive(GlobalVariables.Instance.totalCoins >= apparitionLevel);
     }
 

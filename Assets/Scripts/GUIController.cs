@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class GUIController : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject gasIndicator;
-    public GameObject motorCarreteras;
-    public GameObject coinsIndicator;
-    public GameObject carPartsIndicator;
+    public PlayerController playerController;
+    public GasIndicator gasIndicator;
+    public CoinsIndicator coinsIndicator;
+    public CarPartsIndicator carPartsIndicator;
     public Animator cmvStateDriveCameraAnimator;
     public bool forceStartGame = false;
 
@@ -19,8 +18,9 @@ public class GUIController : MonoBehaviour
     private void Start()
     {
         // init de controlador de partes de coche;
-        if (carPartsIndicator.GetComponent<CarPartsIndicator>() != null)
-            carPartsIndicator.GetComponent<CarPartsIndicator>().startGame(player.GetComponent<PlayerController>().destructableParts.Count);
+        if (carPartsIndicator != null)
+            carPartsIndicator.startGame(playerController.destructableParts.Count);
+
         // force startGame for edit actions
         if (forceStartGame) startGame();
     }
@@ -30,10 +30,10 @@ public class GUIController : MonoBehaviour
         switch (fisicButtonController.actionButton)
         {
             case ActionButtonType.left:
-                player.GetComponent<PlayerController>().turnLeft();
+                playerController.turnLeft();
                 break;
             case ActionButtonType.right:
-                player.GetComponent<PlayerController>().turnRight();
+                playerController.turnRight();
                 break;
             case ActionButtonType.brake:
                 break;
@@ -45,10 +45,10 @@ public class GUIController : MonoBehaviour
     {
         float playerAcceleration = 0;
         float playerBrake = 0;
-        if (player != null)
+        if (playerController != null)
         {
-            playerAcceleration = player.GetComponent<PlayerController>().VerticalAxis;
-            playerBrake = player.GetComponent<PlayerController>().HorizontalAxis;
+            playerAcceleration = playerController.VerticalAxis;
+            playerBrake = playerController.HorizontalAxis;
         }
         //transform.LookAt(player.transform);
         transform.rotation = Quaternion.Euler(transform.rotation.x + (cameraXAxisOffset * playerAcceleration), transform.rotation.y + (cameraYAxisOffset * playerBrake), transform.rotation.z);
@@ -59,42 +59,36 @@ public class GUIController : MonoBehaviour
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("MainGameCamera");
 
-        if (gasIndicator != null && gasIndicator.GetComponent<GasIndicator>() != null)
-            gasIndicator.GetComponent<GasIndicator>().startGame();
+        if (gasIndicator != null)
+            gasIndicator.startGame();
 
-        if(player != null && player.GetComponent<PlayerController>() != null)
-            player.GetComponent<PlayerController>().startGame();        
+        if(playerController != null)
+            playerController.startGame();        
 
-        if (motorCarreteras != null && motorCarreteras.GetComponent<MotorCarreteras>() != null)
-            motorCarreteras.GetComponent<MotorCarreteras>().startGame();
-
-        if (coinsIndicator != null && coinsIndicator.GetComponent<CoinsIndicator>() != null)
-            coinsIndicator.GetComponent<CoinsIndicator>().startGame();
+        if (coinsIndicator)
+            coinsIndicator.startGame();
 
     }
 
     internal void addCoins(int number)
     {
-        coinsIndicator.GetComponent<CoinsIndicator>().addCoins(number);
+        coinsIndicator.addCoins(number);
     }
 
     public void startGameOver(String msg)
     {
         Debug.LogWarning("game ended by: " + msg);
-        if (gasIndicator != null && gasIndicator.GetComponent<GasIndicator>() != null)
-            gasIndicator.GetComponent<GasIndicator>().startGameOver();
+        if (gasIndicator != null)
+            gasIndicator.startGameOver();
 
-        if (player != null && player.GetComponent<PlayerController>() != null)
-            player.GetComponent<PlayerController>().startGameOver();
+        if (playerController != null)
+            playerController.startGameOver();
 
-        if (motorCarreteras != null && motorCarreteras.GetComponent<MotorCarreteras>() != null)
-            motorCarreteras.GetComponent<MotorCarreteras>().startGameOver();
+        if (coinsIndicator != null)
+            coinsIndicator.startGameOver();
 
-        if (coinsIndicator != null && coinsIndicator.GetComponent<CoinsIndicator>() != null)
-            coinsIndicator.GetComponent<CoinsIndicator>().startGameOver();
-
-        if (carPartsIndicator != null && carPartsIndicator.GetComponent<CarPartsIndicator>() != null)
-            carPartsIndicator.GetComponent<CarPartsIndicator>().startGameOver();
+        if (carPartsIndicator != null )
+            carPartsIndicator.startGameOver();
 
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("GameOverCamera");

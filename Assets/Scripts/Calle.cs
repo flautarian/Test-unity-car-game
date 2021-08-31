@@ -9,25 +9,17 @@ public class Calle : MonoBehaviour
     // Start is called before the first frame update
 
     public WayPointManager waypointManager;
-    public MotorCarreteras motor { get; set; }
+    private BoxCollider calleBounds;
 
-    void Start()
+    private void Awake()
     {
-        /*MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
-        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
-        Debug.Log("total meshes to combine in street: " + meshFilters.Length);
-        int i = 0;
-        while (i < meshFilters.Length)
-        {
-            combine[i].mesh = meshFilters[i].sharedMesh;
-            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
-            meshFilters[i].gameObject.SetActive(false);
+        calleBounds = GetComponent<BoxCollider>();
+    }
 
-            i++;
-        }
-        transform.GetComponent<MeshFilter>().mesh = new Mesh();
-        transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
-        transform.gameObject.SetActive(true);*/
+    private void OnEnable()
+    {
+        // com es l'ultima que es lleva es l'ultim carrer
+        GlobalVariables.Instance.lastCalle = this;
     }
 
     private void OnTriggerExit(Collider other)
@@ -55,19 +47,29 @@ public class Calle : MonoBehaviour
         GameObject newStreet = generateNextStreetGO();
         streetsRemainingToGenerate--;
         
-        Calle newCalle = newStreet.GetComponent<Calle>();
-        if(newCalle != null)
+        if(newStreet != null)
         {
-            GlobalVariables.Instance.lastCalle = newCalle;
+            Calle newCalle = GlobalVariables.Instance.lastCalle;
+            updatePaths(newCalle);
             if (streetsRemainingToGenerate > 0) newCalle.generateNextStreet(streetsRemainingToGenerate);
         }
+    }
+
+    private void updatePaths(Calle newStreet)
+    {
+        WayPointManager newWpm = newStreet.waypointManager;
+        // interconnectem els carrils dels npcs entre l'ultima street i la nova que entra
+        newWpm.addPreviousWayPoint(waypointManager.lastWayPoint);
+        waypointManager.addToNextWayPoint(newWpm.firstWayPoint);
+        waypointManager.addNextReversalWayPoint(newWpm.lastWayReversalPoint);
+        newWpm.addPreviousReversalWayPoint(waypointManager.firstWayReversalPoint);
     }
 
     private GameObject generateNextStreetGO()
     {
         String nextStreetGroupTagName = getNextStreetTagName();
         return PoolManager.Instance.SpawnFromPool(nextStreetGroupTagName,
-            new Vector3(transform.position.x, transform.position.y, transform.position.z + GetComponent<BoxCollider>().size.z - 0.5f),
+            new Vector3(transform.position.x, transform.position.y, transform.position.z + calleBounds.size.z - 0.5f),
             Quaternion.Euler(0,0,0));
     }
 

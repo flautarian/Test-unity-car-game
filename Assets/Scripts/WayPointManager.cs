@@ -29,7 +29,7 @@ public class WayPointManager : MonoBehaviour
         // Afegim connexio del final de la via normal d'aquest minimapa amb el principi de la via normal del seguent minimapa
         for (int i = 0; i < firstWayPoint.Count; i++)
         {
-            firstWayPoint[i].previousWayPoint.Add(previuosWayPoints[i].transform);
+            firstWayPoint[i].previousWayPoint.Add(previuosWayPoints[i]);
         }
     }
 
@@ -38,7 +38,7 @@ public class WayPointManager : MonoBehaviour
         // Afegim connexio del principi de la via normal d'aquest minimapa amb el final de la via normal del minimapa anterior
         for (int i = 0; i < lastWayPoint.Count; i++)
         {
-            lastWayPoint[i].nextWayPoint.Add(newFirstWayPoints[i].transform);
+            lastWayPoint[i].nextWayPoint.Add(newFirstWayPoints[i]);
         }
     }
 
@@ -47,7 +47,7 @@ public class WayPointManager : MonoBehaviour
         // Afegim connexio del principi de la via contraria del minimapa amb el waypoint del final del seguent minimapa
         for (int i = 0; i < firstWayReversalPoint.Count; i++)
         {
-            firstWayReversalPoint[i].previousWayPoint.Add(lastWayReversalPoint[i].transform);
+            firstWayReversalPoint[i].previousWayPoint.Add(lastWayReversalPoint[i]);
         }
     }
 
@@ -56,7 +56,7 @@ public class WayPointManager : MonoBehaviour
         // Afegim connexio del final de la via contraria del minimapa amb el principi la via contraria del minimap anterior
         for (int i = 0; i < lastWayReversalPoint.Count; i++)
         {
-            lastWayReversalPoint[i].nextWayPoint.Add(firstWayReversalPoint[i].transform);
+            lastWayReversalPoint[i].nextWayPoint.Add(firstWayReversalPoint[i]);
         }
     }
 

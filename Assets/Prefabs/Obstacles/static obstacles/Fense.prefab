@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2321471331729806138}
   m_Layer: 0
   m_Name: Fense4
-  m_TagString: Untagged
+  m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -129,6 +129,8 @@ MonoBehaviour:
   penalizableObstacle: 0
   lethal: 0
   apparitionLevel: 0
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
 --- !u!1 &4355099375947453263
@@ -147,7 +149,7 @@ GameObject:
   - component: {fileID: 1446273139591938505}
   m_Layer: 0
   m_Name: Fense3
-  m_TagString: Untagged
+  m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -260,6 +262,8 @@ MonoBehaviour:
   penalizableObstacle: 0
   lethal: 0
   apparitionLevel: 0
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
 --- !u!1 &6725996561428777437
@@ -278,7 +282,7 @@ GameObject:
   - component: {fileID: 5566997259275574945}
   m_Layer: 0
   m_Name: Fense5
-  m_TagString: Untagged
+  m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -391,6 +395,8 @@ MonoBehaviour:
   penalizableObstacle: 0
   lethal: 0
   apparitionLevel: 0
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
 --- !u!1 &7068586468227492326
@@ -409,7 +415,7 @@ GameObject:
   - component: {fileID: 5163182275082034082}
   m_Layer: 0
   m_Name: Fense2
-  m_TagString: Untagged
+  m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -522,6 +528,8 @@ MonoBehaviour:
   penalizableObstacle: 0
   lethal: 0
   apparitionLevel: 0
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
 --- !u!1 &7541905374217708211
@@ -628,6 +636,8 @@ MonoBehaviour:
   penalizableObstacle: 0
   lethal: 0
   apparitionLevel: 0
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
 --- !u!54 &3853594898000349412

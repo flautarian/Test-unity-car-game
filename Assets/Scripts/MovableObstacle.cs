@@ -7,12 +7,12 @@ public class MovableObstacle: Obstacle
 {
     // Start is called before the first frame update
 
-    public float velocity;
     private bool automaticDriving = true, isOtherCarInFront = false;
-    private MovableObstacleBumber frontalBumper;
+    private Quaternion currentQuaternionRotation;
+
+    public float velocity;
     public bool isReverseObstacle;
     public int streetNumber = 0;
-    private Quaternion currentQuaternionRotation;
     public WayPoint actualWaypoint;
     public Transform vehicleTarget;
 
@@ -21,17 +21,8 @@ public class MovableObstacle: Obstacle
         actualWaypoint = nextWayPoint;
     }
 
-    private void Awake()
-    {
-        
-    }
-
     public Vector3 localPosition;
 
-    void Start()
-    {
-        frontalBumper = GetComponentInChildren<MovableObstacleBumber>();
-    }
 
     void Update()
     {
@@ -60,7 +51,7 @@ public class MovableObstacle: Obstacle
         {
             if (isVehicleLockedWaypoint())
             {
-                return frontalBumper != null && frontalBumper.bumpDetected ? frontalBumper.velocityOfFrontVehicle : velocity;
+                return velocity;
             }
             return 0;
         }
@@ -99,7 +90,7 @@ public class MovableObstacle: Obstacle
 
     void LateUpdate()
     {
-        if (!GetComponent<Animation>().isPlaying) return;
+        if (!animation.isPlaying) return;
         transform.localPosition += localPosition;
     }
     private void moveWheels(float velocity)
@@ -142,8 +133,8 @@ public class MovableObstacle: Obstacle
     {
         if (wayPoint.nextWayPoint != null && wayPoint.nextWayPoint.Count > 0)
         {
-            if (wayPoint.nextWayPoint.Count > streetNumber) vehicleTarget = wayPoint.nextWayPoint[streetNumber];
-            else vehicleTarget = wayPoint.nextWayPoint[0];
+            if (wayPoint.nextWayPoint.Count > streetNumber) vehicleTarget = wayPoint.nextWayPoint[streetNumber].transform;
+            else vehicleTarget = wayPoint.nextWayPoint[0].transform;
         }
         // end of road reached, deactivating obstacle
         else gameObject.SetActive(false);
@@ -151,8 +142,8 @@ public class MovableObstacle: Obstacle
 
     public override void SetPositioAndTargetFromSpawner(Spawner spawner)
     {
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            if(GetComponent<Animation>() != null && GetComponent<Animation>().isPlaying) GetComponent<Animation>().Stop();
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            if(animation != null && animation.isPlaying) animation.Stop();
             vehicleTarget = spawner.lastTarget != null ? spawner.lastTarget : spawner.target;
             transform.position = spawner.transform.position;
             transform.LookAt(vehicleTarget);
@@ -183,7 +174,7 @@ public class MovableObstacle: Obstacle
             // normalize force vector to get direction only and trim magnitude
             force.Normalize();
             //GetComponent<MeshRenderer>().enabled = false;
-            gameObject.GetComponent<Rigidbody>().AddForce(force * magnitude);
+            GetComponent<Rigidbody>().AddForce(force * magnitude);
             GetComponent<Animation>().Play();
         }
     }

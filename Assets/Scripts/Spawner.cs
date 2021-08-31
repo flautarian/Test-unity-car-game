@@ -6,6 +6,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public float velocity;
+    private bool startedSpawnerMovement = false;
     private Quaternion currentQuaternionRotation;
     private float dstTravelledToInstanceMovable;
     private float dstTravelledToInstanceStatic;
@@ -15,11 +16,10 @@ public class Spawner : MonoBehaviour
     public Transform target;
     public Transform lastTarget;
     public SpawnerOrientation orientation;
-    public List<string> poolTagsOfMovableObstacles;
-    public List<string> poolTagsOfStaticObstacles;
 
     public float dstTravelled { get; set; }
     public System.Random rand { get; set; }
+
     public bool isReadyToInstanceMovableObstacle { get; set; }
     public bool isReadyToInstanceStaticObstacle { get; set; }
 
@@ -39,21 +39,39 @@ public class Spawner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().materials[isReadyToInstanceMovableObstacle? 1 : 0];
+        GetComponent<MeshRenderer>().material.color = isReadyToInstanceMovableObstacle ? Color.green : Color.red;
         if (velocity > 0)
         {
             if (target != null)
             {
                 dstTravelled += velocity * Time.deltaTime;
-                spawnerArrivedToTarget = (target.transform.position - transform.position) == Vector3.zero;
+                spawnerArrivedToTarget = (target.position - transform.position) == Vector3.zero;
                 if (!spawnerArrivedToTarget)
                 {
-                    currentQuaternionRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                    currentQuaternionRotation = Quaternion.LookRotation(target.position - transform.position);
                     if (dstTravelled > dstTravelledToInstanceMovable) isReadyToInstanceMovableObstacle = true;
                     if (dstTravelled > dstTravelledToInstanceStatic) isReadyToInstanceStaticObstacle = true;
                 }
                 transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);
                 transform.position = Vector3.MoveTowards(transform.position, target.position, velocity * Time.deltaTime);
+            }
+            else if(!startedSpawnerMovement)
+            {
+                Calle calle = GlobalVariables.Instance.lastCalle;
+                if(calle != null)
+                {
+                    WayPointManager wpm = calle.waypointManager;
+                    if(wpm != null)
+                    {
+                        Transform firstTarget = SpawnerOrientation.RIGHT.Equals(orientation) ? wpm.firstWayPoint[0].transform : wpm.lastWayReversalPoint[0].transform;
+                        if(firstTarget != null)
+                        {
+                            transform.LookAt(firstTarget);
+                            transform.position = firstTarget.position;
+                        }
+                    }
+                }
+                startedSpawnerMovement = false;
             }
         }
     }
@@ -77,13 +95,13 @@ public class Spawner : MonoBehaviour
             if(wayPoint.previousWayPoint != null && wayPoint.previousWayPoint.Count > 0 && wayPoint.previousWayPoint[0] != target)
             {
                 lastTarget = target;
-                target = wayPoint.previousWayPoint[0];
+                target = wayPoint.previousWayPoint[0].transform;
             }
         }
         else if (wayPoint.nextWayPoint != null && wayPoint.nextWayPoint.Count > 0 && wayPoint.nextWayPoint[0] != target )
         {
             lastTarget = target;
-            target = wayPoint.nextWayPoint[0];
+            target = wayPoint.nextWayPoint[0].transform;
         }
 
         CheckAndDeployObstacles();

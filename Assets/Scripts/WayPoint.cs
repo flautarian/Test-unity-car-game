@@ -7,10 +7,10 @@ public class WayPoint : MonoBehaviour
 {
 
     [SerializeField]
-    public List<Transform> nextWayPoint;
+    public List<WayPoint> nextWayPoint;
 
     [SerializeField]
-    public List<Transform> previousWayPoint;
+    public List<WayPoint> previousWayPoint;
 
     [SerializeField]
     public bool isReverse;
@@ -40,9 +40,7 @@ public class WayPoint : MonoBehaviour
     {
         if (isAPreludeOfIncorporation())
         {
-            GameObject nextIncorpCand = nextWayPoint[0].gameObject;
-            WayPoint wpCand = nextIncorpCand.GetComponent<WayPoint>();
-            if (!wpCand.isOccuped) return wpCand.lockWaypoint(lockerCandidate);
+            if (!nextWayPoint[0].isOccuped) return nextWayPoint[0].lockWaypoint(lockerCandidate);
             else return false;
         }
         return true;
@@ -54,9 +52,7 @@ public class WayPoint : MonoBehaviour
         else
         {
             if (nextWayPoint[0] == null || nextWayPoint[0].gameObject == null) return false;
-            GameObject nextIncorpCand = nextWayPoint[0].gameObject;
-            WayPoint wpCand = nextIncorpCand.GetComponent<WayPoint>();
-            return wpCand.previousWayPoint.Count > 1;
+            return nextWayPoint[0].previousWayPoint.Count > 1;
         }
     }
 
@@ -65,9 +61,7 @@ public class WayPoint : MonoBehaviour
         if (nextWayPoint.Count > 1) return false;
         else
         {
-            GameObject previousIncorpCand = previousWayPoint[0].gameObject;
-            WayPoint wpCand = previousIncorpCand.GetComponent<WayPoint>();
-            return wpCand.previousWayPoint.Count > 1;
+            return nextWayPoint[0].previousWayPoint.Count > 1;
         }
     }
 

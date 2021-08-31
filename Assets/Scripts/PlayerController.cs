@@ -217,11 +217,8 @@ public class PlayerController : MonoBehaviour
                             // executing particles from GlobalVaraibles
                             GlobalVariables.RequestAndExecuteParticleSystem("HitParticle", partDestroyed.transform.position);
                             GlobalVariables.RequestAndExecuteParticleSystem("SmokeHitParticle", partDestroyed.transform.position);
-                            if (guiPlayer != null)
-                            {
-                                GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
-                                if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().decrementPart();
-                            }
+                            if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
+                                guiPlayer.carPartsIndicator.decrementPart();
                             GameObject falseDestroyPart = Instantiate(partDestroyed);
                             falseDestroyPart.transform.parent = null;
                             falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
@@ -249,10 +246,9 @@ public class PlayerController : MonoBehaviour
             if(dp.GetComponent<PlayerDestructablePart>().destroyed) 
                 dp.GetComponent<PlayerDestructablePart>().Recover();
         }
-        if (guiPlayer != null)
+        if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
         {
-            GameObject partsGUI = guiPlayer.GetComponent<GUIController>().carPartsIndicator;
-            if (partsGUI != null) partsGUI.GetComponent<CarPartsIndicator>().resetIndicator();
+            guiPlayer.carPartsIndicator.resetIndicator();
         }
     }
     public void startGameOver()

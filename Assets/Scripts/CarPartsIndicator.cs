@@ -8,7 +8,7 @@ public class CarPartsIndicator : MonoBehaviour
     public GameObject iconRepair;
     public int numberParts;
     public int actualNumberParts;
-    public List<GameObject> repairItems;
+    public List<Animator> repairItems;
     
     public void startGame(int np)
     {
@@ -22,15 +22,15 @@ public class CarPartsIndicator : MonoBehaviour
             ri.transform.position = pos;
             ri.SetActive(true);
             pos.x -= 0.12f;
-            repairItems.Add(ri);
+            repairItems.Add(ri.GetComponent<Animator>());
         }
     }
 
     public void startGameOver()
     {
-        foreach(GameObject item in repairItems)
+        foreach(Animator item in repairItems)
         {
-            item.SetActive(false);
+            item.gameObject.SetActive(false);
         }
     }
 
@@ -38,28 +38,19 @@ public class CarPartsIndicator : MonoBehaviour
     {
         if(actualNumberParts >= 0)
         {
-            //repairItems[actualNumberParts].GetComponent<Animator>().Play("RotatingIcon");
-            repairItems[actualNumberParts].GetComponent<Animator>().SetBool("action", true);
+            repairItems[actualNumberParts].SetBool("action", true);
             actualNumberParts--;
         }
     }
 
     public void resetIndicator()
     {
-        foreach (GameObject item in repairItems)
+        foreach (Animator item in repairItems)
         {
-            item.GetComponent<Animator>().SetBool("action", false);
-            item.SetActive(true);
-            item.GetComponent<Animator>().Play("StartIconAnimation");
+            item.SetBool("action", false);
+            item.gameObject.SetActive(true);
+            item.Play("StartIconAnimation");
         }
         actualNumberParts = repairItems.Count - 1;
-    }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 6135853125317398969}
+  - {fileID: 1224489416914192502}
   previousWayPoint: []
   isReverse: 1
   isOccuped: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextWayPoint: []
   previousWayPoint:
-  - {fileID: 3661597990252673237}
+  - {fileID: 3081992392155469791}
   isReverse: 1
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextWayPoint: []
   previousWayPoint:
-  - {fileID: 1395211108419452939}
+  - {fileID: 5601741484336809279}
   isReverse: 0
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
@@ -311,9 +311,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 5039350649539104710}
+  - {fileID: 4061182044052724411}
   previousWayPoint:
-  - {fileID: 7696014920287483858}
+  - {fileID: 2134053773166117186}
   isReverse: 0
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 1064790044839808372}
+  - {fileID: 3822004148921448755}
   previousWayPoint: []
   isReverse: 0
   isOccuped: 0
@@ -620,9 +620,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 7221912943299592827}
+  - {fileID: 7120695104054196768}
   previousWayPoint:
-  - {fileID: 3021355225785919610}
+  - {fileID: 9111529545751092559}
   isReverse: 1
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
@@ -963,9 +963,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 3661597990252673237}
+  - {fileID: 3081992392155469791}
   previousWayPoint:
-  - {fileID: 4083494063712746864}
+  - {fileID: 7643285423550202272}
   isReverse: 1
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
@@ -1081,9 +1081,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 6239490900344334911}
+  - {fileID: 8937499990132840454}
   previousWayPoint:
-  - {fileID: 1064790044839808372}
+  - {fileID: 3822004148921448755}
   isReverse: 0
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
@@ -1146,9 +1146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 8243632054353628191}
+  - {fileID: 201494837215313160}
   previousWayPoint:
-  - {fileID: 6239490900344334911}
+  - {fileID: 8937499990132840454}
   isReverse: 0
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
@@ -1246,9 +1246,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 1395211108419452939}
+  - {fileID: 5601741484336809279}
   previousWayPoint:
-  - {fileID: 5039350649539104710}
+  - {fileID: 4061182044052724411}
   isReverse: 0
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
@@ -1311,9 +1311,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 3021355225785919610}
+  - {fileID: 9111529545751092559}
   previousWayPoint:
-  - {fileID: 6135853125317398969}
+  - {fileID: 1224489416914192502}
   isReverse: 1
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
@@ -1458,9 +1458,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextWayPoint:
-  - {fileID: 4083494063712746864}
+  - {fileID: 7643285423550202272}
   previousWayPoint:
-  - {fileID: 4575495395510113391}
+  - {fileID: 1168323403666838352}
   isReverse: 1
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}

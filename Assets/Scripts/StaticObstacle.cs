@@ -14,20 +14,14 @@ public class StaticObstacle : Obstacle
         GetComponent<Rigidbody>().Sleep();
     }
 
-    void Update()
-    {
-        if (transform.position.y < -100f)
-        {
-            this.gameObject.SetActive(false);
-        }
-    }
 
     public override void SetPositioAndTargetFromSpawner(Spawner spawner)
     {
         if (spawner.target != null)
         {
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            if (GetComponent<Animation>() != null && GetComponent<Animation>().isPlaying) GetComponent<Animation>().Stop();
+            rigidBody.velocity = Vector3.zero;
+            if ( GetComponent<Animation>() != null && GetComponent<Animation>().isPlaying) 
+                GetComponent<Animation>().Stop();
             transform.position = spawner.transform.position + spawner.sidewalkOffset;
             transform.LookAt(spawner.transform);
             if(spawner.orientation == SpawnerOrientation.LEFT)transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
@@ -55,7 +49,7 @@ public class StaticObstacle : Obstacle
         if (Equals(c.gameObject.tag, "Player") || Equals(c.gameObject.tag, "PlayerPart"))
         {
             rigidBodySlept = false;
-            gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            rigidBody.isKinematic = false;
             // how much the character should be knocked back
             var magnitude = 2500;
             // calculate force vector
@@ -63,12 +57,12 @@ public class StaticObstacle : Obstacle
             // normalize force vector to get direction only and trim magnitude
             force.Normalize();
             //GetComponent<MeshRenderer>().enabled = false;
-            gameObject.GetComponent<Rigidbody>().AddForce(force * magnitude);
+            rigidBody.AddForce(force * magnitude);
             // start explode animation and disable path follow
         }
-        else if (rigidBodySlept && !GetComponent<Rigidbody>().IsSleeping())
+        else if (rigidBodySlept && !rigidBody.IsSleeping())
         {
-            GetComponent<Rigidbody>().Sleep();
+            rigidBody.Sleep();
         }
     }
 
