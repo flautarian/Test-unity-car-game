@@ -11,12 +11,12 @@ public class Coin : InteractableObject
 
     void LateUpdate()
     {
-        if (!GetComponent<Animator>().GetBool("hasBeenTaken")) return;
+        if (!animator.GetBool("hasBeenTaken")) return;
         transform.localPosition += animPosition;
     }
 
-    public override void Execute(PlayerController controller)
+    public override void Execute()
     {
-        controller.AddCoins(value);
+        GlobalVariables.Instance.addCoins(value);
     }
 }

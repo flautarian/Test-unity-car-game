@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class Nitro : InteractableObject
 {
-    public override void Execute(PlayerController controller)
+    private GUIController guiController;
+
+    void Start()
     {
-        controller.AddNitro();
+        var guigo = GameObject.FindGameObjectWithTag("GUI");
+        if(guigo != null)
+            guiController = guigo.GetComponent<GUIController>();
+    }
+
+    public override void Execute()
+    {
+        if(guiController != null)
+            guiController.AddNitro();
     }
 }

@@ -93,5 +93,19 @@ public class GUIController : MonoBehaviour
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("GameOverCamera");
     }
+
+    public void RecoverCarPlayerParts()
+    {
+        if(playerController != null)
+            playerController.RecoverParts();
+        if(carPartsIndicator != null )
+            carPartsIndicator.resetIndicator();
+    }
+
+    public void AddNitro()
+    {
+        if(playerController != null)
+            playerController.AddNitro();
+    }
     
 }

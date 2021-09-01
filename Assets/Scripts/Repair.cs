@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class Repair : InteractableObject
 {
-    public override void Execute(PlayerController controller)
+    private GUIController guiController;
+
+    void Start()
     {
-        controller.RecoverParts();
+        var guigo = GameObject.FindGameObjectWithTag("GUI");
+        if(guigo != null)
+            guiController = guigo.GetComponent<GUIController>();
+    }
+
+    public override void Execute()
+    {
+        if(guiController != null)
+            guiController.RecoverCarPlayerParts();
     }
 }

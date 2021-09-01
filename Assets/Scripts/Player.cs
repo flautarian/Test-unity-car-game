@@ -52,11 +52,4 @@ public class Player : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
-        {
-            collision.gameObject.GetComponent<InteractableObject>().TakeObject(controller);
-        }
-    }
 }

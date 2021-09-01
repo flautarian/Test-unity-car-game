@@ -5,15 +5,12 @@ using UnityEngine;
 
 public class WheelController : MonoBehaviour
 {
-    [SerializeField]
     private bool isFrontWheel;
 
-    [SerializeField]
     private bool isLeftWheel;
 
-    private DriftWheelController driftWheel;
+    private ParticleSystem driftEffect;
 
-    [SerializeField]
     private float maxWheelTurn;
 
     [SerializeField]
@@ -23,7 +20,7 @@ public class WheelController : MonoBehaviour
 
     void Start()
     {
-        driftWheel = GetComponentInChildren<DriftWheelController>(true);
+        driftEffect = GetComponent<ParticleSystem>();
     }
     
     void Update()
@@ -36,13 +33,15 @@ public class WheelController : MonoBehaviour
         {
             transform.Rotate(controller.getSpeedInput(), 0, 0, Space.Self);
         }
-        if (driftWheel != null) manageDriftEffect();
+        if (driftEffect != null) manageDriftEffect();
         
     }
 
     private void manageDriftEffect()
     {
-        driftWheel.Drift(controller.turnZAxisEffect, controller.grounded, controller.getTouchingColor());
+        var em = driftEffect.emission;
+        if (controller.turnZAxisEffect != 0 && controller.grounded) em.enabled = true;
+        else if(controller.turnZAxisEffect == 0 || !controller.grounded) em.enabled = false;
     }
 
 }

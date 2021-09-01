@@ -40,7 +40,8 @@ public class PlayerController : MonoBehaviour
 
     public BoxCollider playerBoxCollider;
 
-    public List<GameObject> destructableParts = new List<GameObject>();
+    [SerializeField]
+    internal List<PlayerDestructablePart> destructableParts;
 
     private Color touchingColor;
 
@@ -135,11 +136,7 @@ public class PlayerController : MonoBehaviour
     }
     public void SphereEnterCollides(Collision collision)
     {
-        if (System.Object.Equals(collision.gameObject.tag, "PlayerInteractable"))
-        {
-            collision.gameObject.GetComponent<InteractableObject>().TakeObject(this);
-        }
-        else if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
+        if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
         {
             if (System.Object.Equals(collision.gameObject.tag, "Cesped"))
                 streetType = StreetType.grass;
@@ -181,15 +178,15 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         //Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
     }
-    private GameObject findPartNotDestroyed()
+    private PlayerDestructablePart findPartNotDestroyed()
     {
-        foreach(GameObject part in destructableParts)
+        foreach(PlayerDestructablePart part in destructableParts)
         {
-            if (!part.GetComponent<PlayerDestructablePart>().destroyed) return part;
+            if (!part.destroyed) return part;
         }
         return null;
     }
-    internal void ComunicateCollisionPart(GameObject partDestroyed, Collider collision)
+    internal void ComunicateCollisionPart(PlayerDestructablePart partDestroyed, Collider collision)
     {
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
         if (obstacle != null && obstacle.penalizableObstacle)
@@ -219,11 +216,11 @@ public class PlayerController : MonoBehaviour
                             GlobalVariables.RequestAndExecuteParticleSystem("SmokeHitParticle", partDestroyed.transform.position);
                             if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
                                 guiPlayer.carPartsIndicator.decrementPart();
-                            GameObject falseDestroyPart = Instantiate(partDestroyed);
+                            GameObject falseDestroyPart = Instantiate(partDestroyed.gameObject);
                             falseDestroyPart.transform.parent = null;
-                            falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed);
+                            falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed.gameObject);
                             collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
-                            partDestroyed.GetComponent<PlayerDestructablePart>().Inhabilite();
+                            partDestroyed.Inhabilite();
                         }
                     }
                     else
@@ -242,15 +239,12 @@ public class PlayerController : MonoBehaviour
 
     internal void RecoverParts()
     {
-        foreach (GameObject dp in destructableParts) {
-            if(dp.GetComponent<PlayerDestructablePart>().destroyed) 
-                dp.GetComponent<PlayerDestructablePart>().Recover();
-        }
-        if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
-        {
-            guiPlayer.carPartsIndicator.resetIndicator();
+        foreach (PlayerDestructablePart dp in destructableParts) {
+            if(dp.destroyed) 
+                dp.Recover();
         }
     }
+
     public void startGameOver()
     {
         canMove = false;

@@ -3,19 +3,41 @@ using UnityEngine;
 
 public abstract class InteractableObject : MonoBehaviour
 {
-    Vector3 initialPos;
+    internal Vector3 initialLocalPosition;
+    internal Quaternion initialLocalRotation;
+    internal Vector3 initialLocalScale;
+    internal Animator animator;
 
     private void Awake()
     {
-        initialPos = transform.localPosition;
+        initialLocalPosition = transform.position;
+        initialLocalRotation = transform.rotation;
+        initialLocalScale = transform.lossyScale;
+        animator = GetComponent<Animator>();
     }
-    public abstract void Execute(PlayerController controller);
-    public void TakeObject(PlayerController controller)
+
+    private void OnEnable()
     {
-        if (!GetComponent<Animator>().GetBool("hasBeenTaken"))
+        transform.localPosition = initialLocalPosition;
+        transform.localRotation = initialLocalRotation;
+        transform.localScale = initialLocalScale;
+        animator.SetBool("hasBeenTaken", false);
+    }
+
+    public abstract void Execute();
+
+    public void TakeObject()
+    {
+        if (!animator.GetBool("hasBeenTaken"))
         {
-            GetComponent<Animator>().SetBool("hasBeenTaken", true);
-            Execute(controller);
+            animator.SetBool("hasBeenTaken", true);
+            Execute();
         }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if(Equals(collision.gameObject.tag, "Player") || Equals(collision.gameObject.tag, "PlayerPart")) 
+            TakeObject();
     }
 }
