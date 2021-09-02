@@ -265,16 +265,17 @@ public class PlayerController : MonoBehaviour
         return touchingColor;
     }
 
-    internal void AddNitro()
-    {
-        playerAnimator.SetBool("nitro", true);
-    }
     private void manageNitro()
     {
         if (!playerAnimator.GetBool("nitro"))
         {
             forwardAccel = normalForwardAccel;
             GlobalVariables.Instance.currentRadialBlur = 0;
+            if (GlobalVariables.Instance.nitroflag)
+            {
+                playerAnimator.SetBool("nitro", true);
+                GlobalVariables.Instance.nitroflag = false;
+            }
         }
         else
         {

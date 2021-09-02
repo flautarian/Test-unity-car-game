@@ -16,6 +16,10 @@ public class GlobalVariables : MonoBehaviour
 
     public int totalCoins = 0;
 
+    public bool nitroflag = false;
+
+    public bool repairflag = false;
+
     public float currentBrokenScreen = 0;
 
     public float currentRadialBlur = 0;

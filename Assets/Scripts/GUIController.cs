@@ -49,6 +49,12 @@ public class GUIController : MonoBehaviour
         {
             playerAcceleration = playerController.VerticalAxis;
             playerBrake = playerController.HorizontalAxis;
+
+            if (GlobalVariables.Instance.repairflag)
+            {
+                RecoverCarPlayerParts();
+                GlobalVariables.Instance.repairflag = false;
+            }
         }
         //transform.LookAt(player.transform);
         transform.rotation = Quaternion.Euler(transform.rotation.x + (cameraXAxisOffset * playerAcceleration), transform.rotation.y + (cameraYAxisOffset * playerBrake), transform.rotation.z);
@@ -100,12 +106,6 @@ public class GUIController : MonoBehaviour
             playerController.RecoverParts();
         if(carPartsIndicator != null )
             carPartsIndicator.resetIndicator();
-    }
-
-    public void AddNitro()
-    {
-        if(playerController != null)
-            playerController.AddNitro();
     }
     
 }
