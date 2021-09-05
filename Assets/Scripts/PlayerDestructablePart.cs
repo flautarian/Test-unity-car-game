@@ -23,15 +23,17 @@ public class PlayerDestructablePart : MonoBehaviour
 
     public void Update()
     {
-        if (destroyed && transform.position.y < -1f) Destroy(this.gameObject);
+        if ( transform.position.y < -1f && this.name.Contains("-destroyed")) Destroy(this.gameObject);
     }
 
-    internal void ejectPart(GameObject originalPart)
+    internal void ejectPart()
     {
-        this.gameObject.name = originalPart.name + "-destroyed";
-        transform.position = originalPart.transform.position;
-        transform.rotation = originalPart.transform.rotation;
-        rbPart = this.gameObject.AddComponent(typeof(Rigidbody)) as Rigidbody;
+        GameObject falseDestroyPart = Instantiate(this.gameObject);
+        falseDestroyPart.transform.parent = null;
+        falseDestroyPart.name = this.name + "-destroyed";
+        falseDestroyPart.transform.position = transform.position;
+        falseDestroyPart.transform.rotation = transform.rotation;
+        rbPart = falseDestroyPart.AddComponent(typeof(Rigidbody)) as Rigidbody;
         if(rbPart != null)
         {
             rbPart.useGravity = true;

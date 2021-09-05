@@ -63,7 +63,7 @@ public class GasIndicator : MonoBehaviour
         }
         else
         {
-            GameObject gui = GameObject.FindGameObjectWithTag("GUI");
+            GameObject gui = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
             if (gui != null) gui.GetComponent<GUIController>().startGameOver("Gas Off!");
         }
     }

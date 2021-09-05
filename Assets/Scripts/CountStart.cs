@@ -7,34 +7,38 @@ public class CountStart : MonoBehaviour
 {
     public Sprite[] spriteArray;
     public AudioClip[] audioClips;
+    private AudioSource audioSource;
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         StartCoroutine(backCountTime());
     }
 
     private IEnumerator backCountTime()
     {
 
-        GetComponent<AudioSource>().Play();
+        audioSource.Play();
 
         yield return new WaitForSeconds(1);
-        GetComponent<SpriteRenderer>().sprite = spriteArray[1];
-        GetComponent<AudioSource>().Play();
+        spriteRenderer.sprite = spriteArray[1];
+        audioSource.Play();
 
         yield return new WaitForSeconds(1);
-        GetComponent<SpriteRenderer>().sprite = spriteArray[0];
-        GetComponent<AudioSource>().Play();
+        spriteRenderer.sprite = spriteArray[0];
+        audioSource.Play();
 
         yield return new WaitForSeconds(1);
-        GetComponent<SpriteRenderer>().sprite = spriteArray[3];
-        GetComponent<AudioSource>().clip = audioClips[1];
-        GetComponent<AudioSource>().Play();
+        spriteRenderer.sprite = spriteArray[3];
+        audioSource.clip = audioClips[1];
+        audioSource.Play();
 
-        GameObject timer = GameObject.FindGameObjectWithTag("GUI");
+        GameObject timer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
         if (timer != null) timer.GetComponent<GUIController>().startGame();
         yield return new WaitForSeconds(2);
-        GetComponent<SpriteRenderer>().enabled = false;
+        spriteRenderer.enabled = false;
         Destroy(this.gameObject);
     }
 }

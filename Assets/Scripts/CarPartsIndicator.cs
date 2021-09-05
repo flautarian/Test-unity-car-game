@@ -38,7 +38,7 @@ public class CarPartsIndicator : MonoBehaviour
     {
         if(actualNumberParts >= 0)
         {
-            repairItems[actualNumberParts].SetBool("action", true);
+            repairItems[actualNumberParts].SetBool(Constants.ANIMATION_START_PART_ANIMATION_BOOL, true);
             actualNumberParts--;
         }
     }
@@ -47,9 +47,9 @@ public class CarPartsIndicator : MonoBehaviour
     {
         foreach (Animator item in repairItems)
         {
-            item.SetBool("action", false);
+            item.SetBool(Constants.ANIMATION_START_PART_ANIMATION_BOOL, false);
             item.gameObject.SetActive(true);
-            item.Play("StartIconAnimation");
+            item.Play(Constants.ANIMATION_START_ICON_ANIMATION);
         }
         actualNumberParts = repairItems.Count - 1;
     }

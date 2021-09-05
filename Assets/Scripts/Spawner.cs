@@ -15,7 +15,10 @@ public class Spawner : MonoBehaviour
     public Vector3 sidewalkOffset;
     public Transform target;
     public Transform lastTarget;
+    private WayPoint nextWayPoint;
+    private Transform obstaclesContainer;
     public SpawnerOrientation orientation;
+    private float lastTimeManagedSpawner;
 
     public float dstTravelled { get; set; }
     public System.Random rand { get; set; }
@@ -33,6 +36,9 @@ public class Spawner : MonoBehaviour
         dstTravelledToInstanceStatic = 25;
         isReadyToInstanceMovableObstacle = false;
         rand = new System.Random();
+        var obsgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_OBSTACLE_CONTAINER);
+        if (obsgo != null) obstaclesContainer = obsgo.transform;
+        lastTimeManagedSpawner = Time.time;
     }
 
     public int MyProdstTravelledperty { get; set; }
@@ -40,6 +46,17 @@ public class Spawner : MonoBehaviour
     private void FixedUpdate()
     {
         GetComponent<MeshRenderer>().material.color = isReadyToInstanceMovableObstacle ? Color.green : Color.red;
+        if(Time.time - lastTimeManagedSpawner >= 0.2f) manageSpawner();
+        if(target != null)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target.position, velocity * Time.deltaTime);
+        }
+    }
+
+    private void manageSpawner()
+    {
+        lastTimeManagedSpawner = Time.time;
         if (velocity > 0)
         {
             if (target != null)
@@ -52,8 +69,6 @@ public class Spawner : MonoBehaviour
                     if (dstTravelled > dstTravelledToInstanceMovable) isReadyToInstanceMovableObstacle = true;
                     if (dstTravelled > dstTravelledToInstanceStatic) isReadyToInstanceStaticObstacle = true;
                 }
-                transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);
-                transform.position = Vector3.MoveTowards(transform.position, target.position, velocity * Time.deltaTime);
             }
             else if(!startedSpawnerMovement)
             {
@@ -88,20 +103,21 @@ public class Spawner : MonoBehaviour
         isReadyToInstanceStaticObstacle = false;
     }
 
-    private void updateTarget(WayPoint wayPoint)
+    private void updateTarget()
     {
-        if (wayPoint.isReverse)
+        velocity = GlobalVariables.Instance.playerCurrentVelocity != 0 ? GlobalVariables.Instance.playerCurrentVelocity * 1.2f : velocity;
+        if (nextWayPoint.isReverse)
         {
-            if(wayPoint.previousWayPoint != null && wayPoint.previousWayPoint.Count > 0 && wayPoint.previousWayPoint[0] != target)
+            if(nextWayPoint.previousWayPoint != null && nextWayPoint.previousWayPoint.Count > 0 && nextWayPoint.previousWayPoint[0] != target)
             {
                 lastTarget = target;
-                target = wayPoint.previousWayPoint[0].transform;
+                target = nextWayPoint.previousWayPoint[0].transform;
             }
         }
-        else if (wayPoint.nextWayPoint != null && wayPoint.nextWayPoint.Count > 0 && wayPoint.nextWayPoint[0] != target )
+        else if (nextWayPoint.nextWayPoint != null && nextWayPoint.nextWayPoint.Count > 0 && nextWayPoint.nextWayPoint[0] != target )
         {
             lastTarget = target;
-            target = wayPoint.nextWayPoint[0].transform;
+            target = nextWayPoint.nextWayPoint[0].transform;
         }
 
         CheckAndDeployObstacles();
@@ -113,7 +129,7 @@ public class Spawner : MonoBehaviour
         {
             if (isReadyToInstanceMovableObstacle)
             {
-                GameObject obstaculoGO = PoolManager.Instance.SpawnFromPool("StreetObstaculo", transform.position, transform.rotation);
+                GameObject obstaculoGO = PoolManager.Instance.SpawnFromPool(Constants.POOL_STREET_OBSTACLE, transform.position, transform.rotation, obstaclesContainer);
                 if (obstaculoGO != null)
                 {
                     obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(this);
@@ -123,7 +139,7 @@ public class Spawner : MonoBehaviour
 
             if (isReadyToInstanceStaticObstacle)
             {
-                GameObject obstaculoGO = PoolManager.Instance.SpawnFromPool("BeredaObstaculo", transform.position, transform.rotation); ;
+                GameObject obstaculoGO = PoolManager.Instance.SpawnFromPool(Constants.POOL_BEREDA_OBSTACLE, transform.position, transform.rotation, obstaclesContainer);
                 if (obstaculoGO != null)
                 {
                     obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(this);
@@ -150,7 +166,7 @@ public class Spawner : MonoBehaviour
 
     private void checkSpawnerCollidersWithObstables(Collision c)
     {
-        if (Equals(c.gameObject.tag, "StreetObstaculo") || Equals(c.gameObject.tag, "BeredaObstaculo"))
+        if (Equals(c.gameObject.tag, Constants.POOL_STREET_OBSTACLE) || Equals(c.gameObject.tag, Constants.POOL_BEREDA_OBSTACLE))
         {
             isReadyToInstanceMovableObstacle = false;
         }
@@ -158,16 +174,19 @@ public class Spawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider c)
     {
-        if (Equals(c.gameObject.tag, "WayPoint") && (c.gameObject.transform == target || target == null))
-        {
-            updateTarget(c.gameObject.GetComponent<WayPoint>());
-        }
+        ManageSpawnerTriggerCollider(c);
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider c)
     {
-        if (Equals(other.gameObject.tag, "WayPoint"))
+        ManageSpawnerTriggerCollider(c);
+    }
+
+    private void ManageSpawnerTriggerCollider(Collider c)
+    {
+        if (Equals(c.gameObject.tag, Constants.GO_TAG_WAYPOINT) && (c.gameObject.transform == target || target == null))
         {
-            updateTarget(other.gameObject.GetComponent<WayPoint>());
+           nextWayPoint = c.gameObject.GetComponent<WayPoint>();
+           if(nextWayPoint != null && nextWayPoint.isReverse.Equals(orientation.Equals(SpawnerOrientation.LEFT)))updateTarget();
         }
     }
 

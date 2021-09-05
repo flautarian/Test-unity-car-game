@@ -17,9 +17,12 @@ public class PoolManager : MonoBehaviour
     #region Singleton
 
     public static PoolManager Instance;
+    private Transform poolContainer;
 
     private void Awake()
     {
+        var goPc = GameObject.FindGameObjectWithTag("PoolContainer");
+        if(goPc != null) poolContainer = goPc.transform;
         poolDictionary = new Dictionary<string, List<GameObject>>();
         foreach (Pool pool in pools)
         {
@@ -30,6 +33,7 @@ public class PoolManager : MonoBehaviour
                 if (prefabLoop < pool.prefabs.Length - 1) prefabLoop++;
                 else prefabLoop = 0;
                 GameObject prefab = Instantiate(pool.prefabs[prefabLoop]);
+                prefab.transform.parent = poolContainer;
                 prefab.SetActive(false);
                 queueOfPool.Add(prefab);
             }
@@ -40,12 +44,13 @@ public class PoolManager : MonoBehaviour
 
     #endregion
 
+    #region pool manager
+
     public List<Pool> pools;
 
     public Dictionary<string, List<GameObject>> poolDictionary;
 
-
-    public GameObject SpawnFromPool( string tag, Vector3 position, Quaternion rotation)
+    public GameObject SpawnFromPool( string tag, Vector3 position, Quaternion rotation, Transform origin)
     {
         if(poolDictionary != null) { 
             if (!poolDictionary.ContainsKey(tag))
@@ -66,15 +71,12 @@ public class PoolManager : MonoBehaviour
                 dequeueObject.SetActive(true);
                 dequeueObject.transform.position = position;
                 dequeueObject.transform.rotation = rotation;
+                if(origin != null)dequeueObject.transform.parent = origin;
             }
             return dequeueObject;
         }
         return null;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }

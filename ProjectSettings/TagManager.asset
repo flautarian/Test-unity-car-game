@@ -28,6 +28,10 @@ TagManager:
   - GUI
   - water
   - Particles
+  - StreetsContainer
+  - ParticlesContainer
+  - ObstaclesContainer
+  - PoolContainer
   layers:
   - Default
   - TransparentFX

@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour
 
     public bool grounded = false, canMove = false;
 
-    public float groundRayLength;
-
     public float turnZAxisEffect = 0;
 
     public float forwardAccel, normalForwardAccel, reverseAccel, turnStrength, maxWheelTurn;
@@ -34,7 +32,11 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask whatIsGround;
 
+    RaycastHit hitRayCast;
+
     public Transform groundRayPoint;
+    
+    public float groundRayLength;
 
     public Rigidbody playerSphereRigidBody;
 
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
     private Player player;
 
     private Animator playerAnimator;
+
 
     void Start()
     {
@@ -74,13 +77,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Activem l'animacio de 'vehicle xocat' en cas de haver xocat amb el vehicle
-        if (playerAnimator.GetBool("hit") && !playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = true;
-        else if (!playerAnimator.GetBool("hit") && playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = false;
+        if (playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) && !playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = true;
+        else if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) && playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = false;
 
         //Captura de tecles
-        VerticalAxis = Input.GetAxis("Vertical");
+        VerticalAxis = Input.GetAxis(Constants.AXIS_VERTICAL);
         if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
-        HorizontalAxis = Input.GetAxis("Horizontal");
+        HorizontalAxis = Input.GetAxis(Constants.AXIS_HORIZONTAL);
         
         //Refresc de posició
         transform.position = playerSphereRigidBody.transform.position;
@@ -107,13 +110,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Raycast
-        RaycastHit hitRayCast;
         if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
         {
             if (!grounded)
             {
-                GlobalVariables.RequestAndExecuteParticleSystem("LandingCarParticle", transform.position);
+                GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
                 grounded = true;
             }
         }
@@ -129,37 +130,43 @@ public class PlayerController : MonoBehaviour
         {
             playerSphereRigidBody.drag = 0.1f;
             playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+            ManageAerialTricks();
         }
         if (!canMove) playerSphereRigidBody.drag = 3.5f;
 
     }
+
+    private void ManageAerialTricks()
+    {
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
+    }
+
     public void SphereEnterCollides(Collision collision)
     {
         if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
         {
-            if (System.Object.Equals(collision.gameObject.tag, "Cesped"))
+            if (System.Object.Equals(collision.gameObject.tag, Constants.CESPED))
                 streetType = StreetType.grass;
-            else if(System.Object.Equals(collision.gameObject.tag, "asphalt"))
+            else if(System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT))
                 streetType = StreetType.asphalt;
-            else if (System.Object.Equals(collision.gameObject.tag, "water"))
+            else if (System.Object.Equals(collision.gameObject.tag, Constants.WATER))
             {
                 streetType = StreetType.water;
-                destroyPlayer("Vehicle drowned");
+                destroyPlayer(Constants.GAME_OVER_VEHICLE_DROWNED);
             }
                 
         }
     }
     private void destroyPlayer(string reason)
     {
-        playerAnimator.SetBool("explode", true);
-        GameObject gui = GameObject.FindGameObjectWithTag("GUI");
+        playerAnimator.SetBool(Constants.ANIMATION_NAME_EXPLODE_BOOL, true);
+        GameObject gui = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
         if (gui != null) gui.GetComponent<GUIController>().startGameOver(reason);
     }
 
     public void executeCarExplosionParticle()
     {
-        GlobalVariables.RequestAndExecuteParticleSystem("PS_Boom", transform.position);
+        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, transform.position);
     }
 
     internal void AddCoins(int number)
@@ -169,7 +176,7 @@ public class PlayerController : MonoBehaviour
 
     internal void communicatePlayerBaseCollition(Collision collision)
     {
-        if (collision.gameObject.tag.Contains("Obstaculo"))
+        if (collision.gameObject.tag.Contains(Constants.GO_TAG_CONTAINS_OBSTACULO))
             ComunicateCollisionPart(null, collision.collider);
     }
 
@@ -193,8 +200,7 @@ public class PlayerController : MonoBehaviour
         {
             if (obstacle.penalizableObstacle)
             {
-
-                if (obstacle.lethal) destroyPlayer("collitioned with lethal object");
+                if (obstacle.lethal) destroyPlayer(Constants.GAME_OVER_LETHAL_OBS_COLLIDED);
                 else
                 {
                     if (partDestroyed == null) 
@@ -204,28 +210,26 @@ public class PlayerController : MonoBehaviour
                         int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
 
                         // car conseqüences
-                        if (!playerAnimator.GetBool("hit"))
+                        if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
                         {
                             // shader effects
                             GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
                             GlobalVariables.Instance.shakeParam += 2.5f;
                             // enabling animation pass to animator Player
-                            playerAnimator.SetBool("hit", true);
+                            playerAnimator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
                             // executing particles from GlobalVaraibles
-                            GlobalVariables.RequestAndExecuteParticleSystem("HitParticle", partDestroyed.transform.position);
-                            GlobalVariables.RequestAndExecuteParticleSystem("SmokeHitParticle", partDestroyed.transform.position);
+                            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, partDestroyed.transform.position);
+                            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, partDestroyed.transform.position);
                             if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
                                 guiPlayer.carPartsIndicator.decrementPart();
-                            GameObject falseDestroyPart = Instantiate(partDestroyed.gameObject);
-                            falseDestroyPart.transform.parent = null;
-                            falseDestroyPart.GetComponent<PlayerDestructablePart>().ejectPart(partDestroyed.gameObject);
-                            collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
+                            partDestroyed.ejectPart();
+                            //collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
                             partDestroyed.Inhabilite();
                         }
                     }
                     else
                     {
-                        destroyPlayer("Vehicle destroyed");
+                        destroyPlayer(Constants.GAME_OVER_VEHICLE_DESTROYED);
                     }
                 }
             }
@@ -267,13 +271,14 @@ public class PlayerController : MonoBehaviour
 
     private void manageNitro()
     {
-        if (!playerAnimator.GetBool("nitro"))
+        GlobalVariables.Instance.playerCurrentVelocity = playerSphereRigidBody.velocity.z;
+        if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_NITRO_BOOL))
         {
             forwardAccel = normalForwardAccel;
             GlobalVariables.Instance.currentRadialBlur = 0;
             if (GlobalVariables.Instance.nitroflag)
             {
-                playerAnimator.SetBool("nitro", true);
+                playerAnimator.SetBool(Constants.ANIMATION_NAME_NITRO_BOOL, true);
                 GlobalVariables.Instance.nitroflag = false;
             }
         }

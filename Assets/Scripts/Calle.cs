@@ -24,7 +24,7 @@ public class Calle : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals("Player"))
+        if (other.tag.Equals(Constants.GO_TAG_PLAYER))
         {
             Calle lastCalle = GlobalVariables.Instance.lastCalle;
             if(lastCalle != null)
@@ -57,8 +57,8 @@ public class Calle : MonoBehaviour
 
     private void updatePaths(Calle newStreet)
     {
-        WayPointManager newWpm = newStreet.waypointManager;
         // interconnectem els carrils dels npcs entre l'ultima street i la nova que entra
+        WayPointManager newWpm = newStreet.waypointManager;
         newWpm.addPreviousWayPoint(waypointManager.lastWayPoint);
         waypointManager.addToNextWayPoint(newWpm.firstWayPoint);
         waypointManager.addNextReversalWayPoint(newWpm.lastWayReversalPoint);
@@ -70,29 +70,18 @@ public class Calle : MonoBehaviour
         String nextStreetGroupTagName = getNextStreetTagName();
         return PoolManager.Instance.SpawnFromPool(nextStreetGroupTagName,
             new Vector3(transform.position.x, transform.position.y, transform.position.z + calleBounds.size.z - 0.5f),
-            Quaternion.Euler(0,0,0));
+            Quaternion.Euler(0,0,0), transform.parent);
     }
 
     private string getNextStreetTagName()
     {
         int leftSideStreetsNumber = waypointManager.lastWayReversalPoint.Count;
         int rightSideStreetsNumber = waypointManager.lastWayPoint.Count;
-        if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 1) return "oneToOneWayRoads";
-        else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 1) return "twoToOneWayRoads";
-        else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 2) return "twoToTwoWayRoads";
-        else if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 2) return "oneToTwoWayRoads";
-        else return "oneToOneWayRoads";
+        if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 1) return Constants.POOL_ONE_TO_ONE_STREET;
+        else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 1) return Constants.POOL_TWO_TO_ONE_STREET;
+        else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 2) return Constants.POOL_TWO_TO_TWO_STREET ;
+        else if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 2) return Constants.POOL_ONE_TO_TWO_STREET ;
+        else return Constants.POOL_ONE_TO_ONE_STREET;
     }
 
-    /*internal void initializePowerUps(List<GameObject> powerUps)
-    {
-        GameObject[] pows = GameObject.FindGameObjectsWithTag("powerUpSpawnPoint");
-        foreach(GameObject pow in pows)
-        {
-            GameObject newItem = Instantiate(powerUps[UnityEngine.Random.Range(0, powerUps.Count)]);
-            newItem.transform.position = pow.transform.position;
-            newItem.transform.parent = pow.transform.parent;
-            Destroy(pow);
-        }
-    }*/
 }

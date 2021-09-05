@@ -7,12 +7,12 @@ public class Gas : InteractableObject
 
     public Vector3 animPosition;
     public float value;
-    private GasIndicator gasIndicator;
+    private GUIController guiController;
 
     void Start()
     {
-        if(GameObject.FindGameObjectWithTag("Timer") != null) 
-           gasIndicator= GameObject.FindGameObjectWithTag("Timer").GetComponent<GasIndicator>();
+        var go = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
+        if(go != null) guiController = go.GetComponent<GUIController>();
     }
 
     void LateUpdate()
@@ -22,7 +22,7 @@ public class Gas : InteractableObject
     }
     public override void Execute()
     {
-        if(gasIndicator != null) 
-            gasIndicator.AddSeconds(value);
+        if(guiController != null) 
+            guiController.AddSeconds(value);
     }
 }

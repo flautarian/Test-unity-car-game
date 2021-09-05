@@ -26,15 +26,17 @@ public class GlobalVariables : MonoBehaviour
 
     public float shakeParam = 0;
 
-    public static GameObject particlesPlace;
+    public float playerCurrentVelocity;
+
+    public static Transform particlesContainer;
+
+    private Transform streetsContainer;
 
     private static Hashtable particleSystems = new Hashtable();
 
     public GameMode gameMode;
 
     public Calle lastCalle;
-
-    public bool isGameInfinite;
 
     private void Awake()
     {
@@ -47,13 +49,17 @@ public class GlobalVariables : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        particlesPlace = GameObject.FindGameObjectWithTag("Particles");
+        var strgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_STREET_CONTAINER);
+        if (strgo != null) streetsContainer = strgo.transform;
+
+        var partgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PARTICLE_CONTAINER);
+        if (partgo != null) particlesContainer = partgo.transform;
     }
 
     void Start()
     {
         if(gameMode == GameMode.INFINITERUNNER) { 
-            GameObject firstStreet = PoolManager.Instance.SpawnFromPool("oneToOneWayRoads", Vector3.zero, Quaternion.Euler(0, 0, 0));
+            GameObject firstStreet = PoolManager.Instance.SpawnFromPool(Constants.POOL_ONE_TO_ONE_STREET, Vector3.zero, Quaternion.Euler(0, 0, 0), streetsContainer);
             Calle firstStreetCalle = firstStreet.GetComponent<Calle>();
             lastCalle = firstStreetCalle;
             if (firstStreetCalle != null)
@@ -67,7 +73,6 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public static UnityEngine.Object RequestParticleSystem(String identifier) {
-        //return null;
       if ( !particleSystems.Contains(identifier ) ) {
             particleSystems.Add(identifier, Resources.Load( "Particles/" + identifier ) );
           }
@@ -80,7 +85,7 @@ public class GlobalVariables : MonoBehaviour
         if(PartObject != null)
         {
             GameObject newParticle = (GameObject)Instantiate(PartObject);
-            if (particlesPlace != null) newParticle.transform.parent = particlesPlace.transform;
+            if (particlesContainer != null) newParticle.transform.parent = particlesContainer.transform;
             newParticle.transform.position = position;
             newParticle.gameObject.SetActive(true);
         }

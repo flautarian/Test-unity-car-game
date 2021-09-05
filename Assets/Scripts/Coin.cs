@@ -11,7 +11,7 @@ public class Coin : InteractableObject
 
     void LateUpdate()
     {
-        if (!animator.GetBool("hasBeenTaken")) return;
+        if (!animator.GetBool(Constants.ANIMATION_NAME_TAKEN_BOOL)) return;
         transform.localPosition += animPosition;
     }
 

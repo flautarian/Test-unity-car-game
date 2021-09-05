@@ -11,13 +11,14 @@ public abstract class Obstacle : MonoBehaviour
 
     public int apparitionLevel;
     
-    internal Animation animation;
+    internal Animator animator;
     
     internal Rigidbody rigidBody;
 
     public Vector3 initialLocalPosition;
 
     public Quaternion initialLocalRotation;
+
     public abstract void SetPositioAndTargetFromSpawner(Spawner spawner);
 
     public abstract void Collide(Transform c);
@@ -32,7 +33,7 @@ public abstract class Obstacle : MonoBehaviour
         initialLocalPosition = transform.position;
         initialLocalRotation = transform.rotation;
         rigidBody = GetComponent<Rigidbody>();
-        animation = GetComponent<Animation>();
+        animator = GetComponent<Animator>();
         this.gameObject.SetActive(GlobalVariables.Instance.totalCoins >= apparitionLevel);
     }
 

@@ -5121,63 +5121,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!1 &1617698739885049515
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8584152556493580714}
-  - component: {fileID: 8486170137046759039}
-  - component: {fileID: 4131121128687526670}
-  m_Layer: 0
-  m_Name: Bumper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!4 &8584152556493580714
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617698739885049515}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5715967116229162364}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8486170137046759039
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617698739885049515}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.2, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 2.3}
---- !u!114 &4131121128687526670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617698739885049515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221a01ba522fb9440944eb70abc9836c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1747990061829990599
 GameObject:
   m_ObjectHideFlags: 0
@@ -5273,8 +5216,8 @@ GameObject:
   - component: {fileID: 3412019276144784532}
   - component: {fileID: 2707358199423430797}
   - component: {fileID: 254488259337345407}
-  - component: {fileID: 4252399481932280059}
   - component: {fileID: 7159290865781251822}
+  - component: {fileID: 790179362559164365}
   m_Layer: 0
   m_Name: SpeedCarObstacle
   m_TagString: StreetObstaculo
@@ -5302,7 +5245,6 @@ Transform:
   - {fileID: 3865685624207070194}
   - {fileID: 4012018331701315662}
   - {fileID: 8351838693411592934}
-  - {fileID: 8584152556493580714}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5321,12 +5263,13 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 0
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   velocity: 15
   isReverseObstacle: 0
   streetNumber: 1
   actualWaypoint: {fileID: 0}
   vehicleTarget: {fileID: 0}
-  localPosition: {x: 0, y: 0, z: 0}
 --- !u!23 &3412019276144784532
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5393,22 +5336,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!111 &4252399481932280059
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963379630226781654}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: c01e8472bf550db40a210444e3d416ab, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: c01e8472bf550db40a210444e3d416ab, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!65 &7159290865781251822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5422,6 +5349,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1, y: 0.39, z: 2.6}
   m_Center: {x: -0.05, y: 0.2, z: -0.057}
+--- !u!95 &790179362559164365
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963379630226781654}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 07f77e55a0bf42e42b3d95b25aed6488, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2992259263566531216
 GameObject:
   m_ObjectHideFlags: 0

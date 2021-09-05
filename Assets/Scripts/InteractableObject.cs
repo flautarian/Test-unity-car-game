@@ -21,23 +21,23 @@ public abstract class InteractableObject : MonoBehaviour
         transform.localPosition = initialLocalPosition;
         transform.localRotation = initialLocalRotation;
         transform.localScale = initialLocalScale;
-        animator.SetBool("hasBeenTaken", false);
+        animator.SetBool(Constants.ANIMATION_NAME_TAKEN_BOOL, false);
     }
 
     public abstract void Execute();
 
     public void TakeObject()
     {
-        if (!animator.GetBool("hasBeenTaken"))
+        if (!animator.GetBool(Constants.ANIMATION_NAME_TAKEN_BOOL))
         {
-            animator.SetBool("hasBeenTaken", true);
+            animator.SetBool(Constants.ANIMATION_NAME_TAKEN_BOOL, true);
             Execute();
         }
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if(Equals(collision.gameObject.tag, "Player") || Equals(collision.gameObject.tag, "PlayerPart")) 
+        if(Equals(collision.gameObject.tag, Constants.GO_TAG_PLAYER) || Equals(collision.gameObject.tag, Constants.GO_TAG_PLAYER_PART)) 
             TakeObject();
     }
 }

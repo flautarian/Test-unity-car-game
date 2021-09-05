@@ -60,6 +60,8 @@ public class GUIController : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.x + (cameraXAxisOffset * playerAcceleration), transform.rotation.y + (cameraYAxisOffset * playerBrake), transform.rotation.z);
     }
 
+    #region Triggers game init
+
     public void startGame()
     {
         if (cmvStateDriveCameraAnimator != null)
@@ -76,10 +78,6 @@ public class GUIController : MonoBehaviour
 
     }
 
-    internal void addCoins(int number)
-    {
-        coinsIndicator.addCoins(number);
-    }
 
     public void startGameOver(String msg)
     {
@@ -100,12 +98,28 @@ public class GUIController : MonoBehaviour
             cmvStateDriveCameraAnimator.Play("GameOverCamera");
     }
 
-    public void RecoverCarPlayerParts()
+    #endregion
+
+    #region PowerUps Bridge functions
+    
+    internal void AddSeconds(float value)
+    {
+        gasIndicator.AddSeconds(value);
+    }
+
+    internal void addCoins(int number)
+    {
+        coinsIndicator.addCoins(number);
+    }
+
+    internal void RecoverCarPlayerParts()
     {
         if(playerController != null)
             playerController.RecoverParts();
         if(carPartsIndicator != null )
             carPartsIndicator.resetIndicator();
     }
+
+    #endregion
     
 }

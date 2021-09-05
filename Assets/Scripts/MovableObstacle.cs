@@ -9,7 +9,6 @@ public class MovableObstacle: Obstacle
 
     private bool automaticDriving = true, isOtherCarInFront = false;
     private Quaternion currentQuaternionRotation;
-
     public float velocity;
     public bool isReverseObstacle;
     public int streetNumber = 0;
@@ -20,9 +19,6 @@ public class MovableObstacle: Obstacle
     {
         actualWaypoint = nextWayPoint;
     }
-
-    public Vector3 localPosition;
-
 
     void Update()
     {
@@ -88,23 +84,14 @@ public class MovableObstacle: Obstacle
         return actualWaypoint.tryLockIncorporation(this.gameObject);
     }
 
-    void LateUpdate()
-    {
-        if (!animation.isPlaying) return;
-        transform.localPosition += localPosition;
-    }
     private void moveWheels(float velocity)
     {
-        for(int i =0; i < this.transform.childCount; i++)
-        {
-            if(this.transform.GetChild(i).name.Contains("wheel"))
-                this.transform.GetChild(i).Rotate(Vector3.right * Time.deltaTime * velocity*50, Space.Self);
-        }
+        animator.SetFloat(Constants.ANIMATION_MOVABLE_OBSTACLE_VELOCITY_PARAM, velocity > 0 ? 1 : 0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Equals(other.gameObject.tag, "WayPoint"))
+        if (Equals(other.gameObject.tag, Constants.GO_TAG_WAYPOINT))
         {
             WayPoint wayPoint = other.gameObject.GetComponent<WayPoint>();
             if (isSameWayPointThanVehicleTarget(wayPoint))
@@ -143,7 +130,6 @@ public class MovableObstacle: Obstacle
     public override void SetPositioAndTargetFromSpawner(Spawner spawner)
     {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
-            if(animation != null && animation.isPlaying) animation.Stop();
             vehicleTarget = spawner.lastTarget != null ? spawner.lastTarget : spawner.target;
             transform.position = spawner.transform.position;
             transform.LookAt(vehicleTarget);
@@ -165,6 +151,7 @@ public class MovableObstacle: Obstacle
         if (Equals(c.gameObject.tag, "Player"))
         {
             // start explode animation and disable path follow
+            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, transform.position);
             automaticDriving = false;
             // how much the character should be knocked back
             var magnitude = 5500;
@@ -175,7 +162,6 @@ public class MovableObstacle: Obstacle
             force.Normalize();
             //GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Rigidbody>().AddForce(force * magnitude);
-            GetComponent<Animation>().Play();
         }
     }
 }

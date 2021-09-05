@@ -117,6 +117,8 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 0
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
 --- !u!65 &1484484998
