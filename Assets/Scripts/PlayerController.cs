@@ -185,6 +185,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         //Gizmos.DrawCube(com, new Vector3(0.25f, 0.25f, 0.25f));
     }
+
     private PlayerDestructablePart findPartNotDestroyed()
     {
         foreach(PlayerDestructablePart part in destructableParts)

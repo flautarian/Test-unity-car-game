@@ -667,7 +667,7 @@ Transform:
   m_LocalPosition: {x: 0.04699707, y: -2.692871, z: 4.6728516}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1422900367216007466}
+  - {fileID: 7662554819515095409}
   m_Father: {fileID: 7682165906158344583}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1622,23 +1622,13 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3904188893435567506}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4105013328297224718
+--- !u!1001 &4692217022932527701
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 2212953335476462166}
     m_Modifications:
-    - target: {fileID: 968706769427985218, guid: d3f977921757e6a43822100f9a349633,
-        type: 3}
-      propertyPath: animPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 968706769427985218, guid: d3f977921757e6a43822100f9a349633,
-        type: 3}
-      propertyPath: animPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3118962125490926372, guid: d3f977921757e6a43822100f9a349633,
         type: 3}
       propertyPath: m_RootOrder
@@ -1652,7 +1642,7 @@ PrefabInstance:
     - target: {fileID: 3118962125490926372, guid: d3f977921757e6a43822100f9a349633,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 7.75
       objectReference: {fileID: 0}
     - target: {fileID: 3118962125490926372, guid: d3f977921757e6a43822100f9a349633,
         type: 3}
@@ -1699,23 +1689,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jewel
       objectReference: {fileID: 0}
-    - target: {fileID: 4742113636825633865, guid: d3f977921757e6a43822100f9a349633,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 7879218872292333097, guid: d3f977921757e6a43822100f9a349633,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3f977921757e6a43822100f9a349633, type: 3}
---- !u!4 &1422900367216007466 stripped
+--- !u!4 &7662554819515095409 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3118962125490926372, guid: d3f977921757e6a43822100f9a349633,
     type: 3}
-  m_PrefabInstance: {fileID: 4105013328297224718}
+  m_PrefabInstance: {fileID: 4692217022932527701}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4845443559412474257
 PrefabInstance:

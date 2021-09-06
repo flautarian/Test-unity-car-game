@@ -24,7 +24,7 @@ public class Calle : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Equals(Constants.GO_TAG_PLAYER))
+        if (other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.gameMode.Equals(GameMode.INFINITERUNNER))
         {
             Calle lastCalle = GlobalVariables.Instance.lastCalle;
             if(lastCalle != null)
@@ -75,7 +75,7 @@ public class Calle : MonoBehaviour
 
     private string getNextStreetTagName()
     {
-        int leftSideStreetsNumber = waypointManager.lastWayReversalPoint.Count;
+        int leftSideStreetsNumber = waypointManager.firstWayReversalPoint.Count;
         int rightSideStreetsNumber = waypointManager.lastWayPoint.Count;
         if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 1) return Constants.POOL_ONE_TO_ONE_STREET;
         else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 1) return Constants.POOL_TWO_TO_ONE_STREET;

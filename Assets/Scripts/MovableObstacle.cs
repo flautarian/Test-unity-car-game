@@ -148,7 +148,8 @@ public class MovableObstacle: Obstacle
     private void MovableCollition(Transform c)
     {
         // If the object we hit is the enemy
-        if (Equals(c.gameObject.tag, "Player"))
+        if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) || 
+            Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER_PART))
         {
             // start explode animation and disable path follow
             GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, transform.position);

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4028187147973773173}
   - component: {fileID: 5976985020725088879}
   - component: {fileID: 726692279871327109}
+  - component: {fileID: 4783115359712352874}
   m_Layer: 0
   m_Name: Tree1
   m_TagString: BeredaObstaculo
@@ -100,6 +101,8 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 0
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 0
 --- !u!54 &5976985020725088879
@@ -131,3 +134,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.101002574, y: 0.9, z: 0.104972005}
   m_Center: {x: 0.25319695, y: 0.45, z: 0.24930838}
+--- !u!95 &4783115359712352874
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116576672233973832}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

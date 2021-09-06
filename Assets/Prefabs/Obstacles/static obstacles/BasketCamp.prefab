@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5506044427946619493}
   - component: {fileID: 1488001648363447855}
   - component: {fileID: 5806257346970865144}
-  - component: {fileID: 3104358142773745989}
   m_Layer: 0
   m_Name: BasketCamp
   m_TagString: BeredaObstaculo
@@ -83,22 +82,3 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2659702974692026215}
   m_Mesh: {fileID: -2432090755550338912, guid: b1f5f8e71b415754896969b5d2be12ce, type: 3}
---- !u!114 &3104358142773745989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2659702974692026215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb6e3c6453c7604a8b4f16de5d8125b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  penalizableObstacle: 0
-  lethal: 0
-  apparitionLevel: 0
-  initialLocalPosition: {x: 0, y: 0, z: 0}
-  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-  localPosition: {x: 0, y: 0, z: 0}
-  rigidBodySlept: 1

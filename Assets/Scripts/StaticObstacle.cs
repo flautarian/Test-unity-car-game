@@ -48,6 +48,8 @@ public class StaticObstacle : Obstacle
         // If the object we hit is the enemy
         if (Equals(c.gameObject.tag, "Player") || Equals(c.gameObject.tag, "PlayerPart"))
         {
+            // start explode animation and disable path follow
+            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, transform.position);
             rigidBodySlept = false;
             rigidBody.isKinematic = false;
             // how much the character should be knocked back
