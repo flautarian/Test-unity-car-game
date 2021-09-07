@@ -1822,7 +1822,7 @@ PrefabInstance:
         type: 3}
       propertyPath: firstWayReversalPoint.Array.data[1]
       value: 
-      objectReference: {fileID: 5878350469876093123}
+      objectReference: {fileID: 1015563790480645411}
     - target: {fileID: 8930750538277202254, guid: 2025c0420cba60b44989d227267e39a6,
         type: 3}
       propertyPath: m_RootOrder

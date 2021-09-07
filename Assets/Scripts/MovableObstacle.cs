@@ -152,7 +152,6 @@ public class MovableObstacle: Obstacle
             Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER_PART))
         {
             // start explode animation and disable path follow
-            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, transform.position);
             automaticDriving = false;
             // how much the character should be knocked back
             var magnitude = 5500;

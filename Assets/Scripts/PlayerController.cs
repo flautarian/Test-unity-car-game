@@ -199,46 +199,44 @@ public class PlayerController : MonoBehaviour
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
         if (obstacle != null && obstacle.penalizableObstacle)
         {
-            if (obstacle.penalizableObstacle)
-            {
-                if (obstacle.lethal) destroyPlayer(Constants.GAME_OVER_LETHAL_OBS_COLLIDED);
-                else
-                {
-                    if (partDestroyed == null) 
-                        partDestroyed = findPartNotDestroyed();
-                    if (partDestroyed != null)
-                    {
-                        int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
-
-                        // car conseqüences
-                        if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
-                        {
-                            // shader effects
-                            GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
-                            GlobalVariables.Instance.shakeParam += 2.5f;
-                            // enabling animation pass to animator Player
-                            playerAnimator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
-                            // executing particles from GlobalVaraibles
-                            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, partDestroyed.transform.position);
-                            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, partDestroyed.transform.position);
-                            if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
-                                guiPlayer.carPartsIndicator.decrementPart();
-                            partDestroyed.ejectPart();
-                            //collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
-                            partDestroyed.Inhabilite();
-                        }
-                    }
-                    else
-                    {
-                        destroyPlayer(Constants.GAME_OVER_VEHICLE_DESTROYED);
-                    }
-                }
-            }
+            if (obstacle.lethal) destroyPlayer(Constants.GAME_OVER_LETHAL_OBS_COLLIDED);
             else
             {
-                hitParticle.gameObject.SetActive(true);
-                hitParticle.transform.position = collision.transform.position;
+                if (partDestroyed == null) 
+                    partDestroyed = findPartNotDestroyed();
+                if (partDestroyed != null)
+                {
+                    GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, partDestroyed.transform.position);
+                    int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
+
+                    // car conseqüences
+                    if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
+                    {
+                        // shader effects
+                        GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
+                        GlobalVariables.Instance.shakeParam += 2.5f;
+                        // enabling animation pass to animator Player
+                        playerAnimator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
+                        // executing particles from GlobalVaraibles
+                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, partDestroyed.transform.position);
+                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, partDestroyed.transform.position);
+                        if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
+                            guiPlayer.carPartsIndicator.decrementPart();
+                        partDestroyed.ejectPart();
+                        //collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
+                        partDestroyed.Inhabilite();
+                    }
+                }
+                else
+                {
+                    destroyPlayer(Constants.GAME_OVER_VEHICLE_DESTROYED);
+                }
             }
+        }
+        else
+        {
+            hitParticle.gameObject.SetActive(true);
+            hitParticle.transform.position = collision.transform.position;
         }
     }
 

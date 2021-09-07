@@ -105,7 +105,7 @@ public class Spawner : MonoBehaviour
 
     private void updateTarget()
     {
-        velocity = GlobalVariables.Instance.playerCurrentVelocity != 0 ? GlobalVariables.Instance.playerCurrentVelocity * 1.2f : velocity;
+        velocity = GlobalVariables.Instance.playerCurrentVelocity > 20 ? GlobalVariables.Instance.playerCurrentVelocity * 1.2f : 20;
         if (nextWayPoint.isReverse)
         {
             if(nextWayPoint.previousWayPoint != null && nextWayPoint.previousWayPoint.Count > 0 && nextWayPoint.previousWayPoint[0] != target)
