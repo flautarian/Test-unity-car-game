@@ -14,12 +14,6 @@ public class PlayerController : MonoBehaviour
 
     public AudioClip crashCar;
 
-    public ParticleSystem hitParticle;
-
-    public ParticleSystem smokeHitParticle;
-
-    public ParticleSystem landingParticle;
-
     public GUIController guiPlayer;
 
     public bool grounded = false, canMove = false;
@@ -206,12 +200,13 @@ public class PlayerController : MonoBehaviour
                     partDestroyed = findPartNotDestroyed();
                 if (partDestroyed != null)
                 {
-                    GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, partDestroyed.transform.position);
                     int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
 
                     // car conseqüences
                     if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
                     {
+                        // explosion particle init
+                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, partDestroyed.transform.position);
                         // shader effects
                         GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
                         GlobalVariables.Instance.shakeParam += 2.5f;
@@ -235,8 +230,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            hitParticle.gameObject.SetActive(true);
-            hitParticle.transform.position = collision.transform.position;
+            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
         }
     }
 

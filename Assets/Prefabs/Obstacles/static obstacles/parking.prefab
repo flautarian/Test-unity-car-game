@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4160512174099797819
 Transform:
@@ -98,7 +98,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1151306258729059603
 Transform:
@@ -180,7 +180,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1591062324412667440
 Transform:
@@ -263,7 +263,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4649529417904600294
 Transform:
@@ -359,7 +359,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1633223298272111043
 Transform:
@@ -416,7 +416,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8941172931541933741
 Transform:
@@ -501,7 +501,7 @@ GameObject:
   m_TagString: StreetObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8484942693976279492
 Transform:
@@ -586,6 +586,8 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 70
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   TriggerController: {fileID: 5307510116918442987}
 --- !u!95 &9217002628587567127
 Animator:
@@ -635,7 +637,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7161034387319776218
 Transform:
@@ -718,7 +720,7 @@ GameObject:
   m_TagString: StreetObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7787394536485273046
 Transform:
@@ -753,6 +755,8 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 1
   apparitionLevel: 45
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 0
 --- !u!54 &7335823258343723668

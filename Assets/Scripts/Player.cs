@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+
     public void OnCollisionEnter(Collision collision)
     {
         if(controller != null)

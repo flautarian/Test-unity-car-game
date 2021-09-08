@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PublicLight : MonoBehaviour
 {
-    private new Light light;
+    private Light light;
     private float lightIndex;
+    private float intensity;
+
     void Start()
     {
         light = GetComponent<Light>();
@@ -17,7 +19,9 @@ public class PublicLight : MonoBehaviour
     {
         if(light != null)
         {
-            light.intensity = lightIndex * GlobalVariables.Instance.currentLight;
+            intensity = lightIndex * GlobalVariables.Instance.currentLight;
+            light.intensity = intensity;
+            light.enabled = intensity > 0;
         }
     }
 }

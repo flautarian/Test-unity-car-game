@@ -19,7 +19,7 @@ GameObject:
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8768192835510015959
 Transform:
@@ -114,6 +114,8 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 0
+  initialLocalPosition: {x: 0, y: 0, z: 0}
+  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
   localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 0
 --- !u!54 &7260646536804954518
@@ -148,7 +150,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1304091283226392976
 Transform:

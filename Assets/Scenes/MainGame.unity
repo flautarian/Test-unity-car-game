@@ -495,7 +495,7 @@ LightingSettings:
   m_Name: Settings.lighting
   serializedVersion: 3
   m_GIWorkflowMode: 0
-  m_EnableBakedLightmaps: 1
+  m_EnableBakedLightmaps: 0
   m_EnableRealtimeLightmaps: 0
   m_RealtimeEnvironmentLighting: 1
   m_BounceScale: 1
@@ -503,7 +503,7 @@ LightingSettings:
   m_IndirectOutputScale: 1
   m_UsingShadowmask: 1
   m_BakeBackend: 1
-  m_LightmapMaxSize: 512
+  m_LightmapMaxSize: 2048
   m_BakeResolution: 16
   m_Padding: 2
   m_TextureCompression: 0
@@ -6408,12 +6408,12 @@ PrefabInstance:
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016540765
+      value: 0.000000016540765
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000004739479
+      value: -0.000000004739479
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
@@ -12281,7 +12281,7 @@ PrefabInstance:
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: field of view
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
@@ -12291,12 +12291,12 @@ PrefabInstance:
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: far clip plane
-      value: 5000
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: near clip plane
-      value: 0.1
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
@@ -12316,32 +12316,32 @@ PrefabInstance:
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 5.31
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 0.29999995
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.1935109
+      value: 0.96131575
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.031860285
+      value: 0.27544892
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.96755445
+      value: 0.000000016540765
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.1593014
+      value: -0.000000004739479
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104767, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
