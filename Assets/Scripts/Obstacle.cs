@@ -10,14 +10,14 @@ public abstract class Obstacle : MonoBehaviour
     public bool lethal = false;
 
     public int apparitionLevel;
-    
+
     internal Animator animator;
-    
+
     internal Rigidbody rigidBody;
 
-    public Vector3 initialLocalPosition;
+    internal Vector3 initialLocalPosition;
 
-    public Quaternion initialLocalRotation;
+    internal Quaternion initialLocalRotation;
 
     public abstract void SetPositioAndTargetFromSpawner(Spawner spawner);
 
@@ -30,16 +30,25 @@ public abstract class Obstacle : MonoBehaviour
 
     private void Awake()
     {
-        initialLocalPosition = transform.position;
-        initialLocalRotation = transform.rotation;
-        rigidBody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        this.gameObject.SetActive(GlobalVariables.Instance.totalCoins >= apparitionLevel);
+        StartCoroutine(initializeObstacle());
     }
 
     private void OnEnable()
     {
-        transform.localPosition = initialLocalPosition;
-        transform.localRotation = initialLocalRotation;
+        if (GlobalVariables.Instance != null)
+        {
+            transform.localPosition = initialLocalPosition;
+            transform.localRotation = initialLocalRotation;
+        }
+    }
+
+    private IEnumerator initializeObstacle()
+    {
+        initialLocalPosition = transform.localPosition;
+        initialLocalRotation = transform.localRotation;
+        rigidBody = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        while (GlobalVariables.Instance == null) yield return null;
+        this.gameObject.SetActive(GlobalVariables.Instance.totalCoins >= apparitionLevel);
     }
 }

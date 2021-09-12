@@ -271,8 +271,7 @@ public class PlayerController : MonoBehaviour
             GlobalVariables.Instance.currentRadialBlur = 0;
             if (GlobalVariables.Instance.nitroflag)
             {
-                playerAnimator.SetBool(Constants.ANIMATION_NAME_NITRO_BOOL, true);
-                GlobalVariables.Instance.nitroflag = false;
+                StartCoroutine(initializeNitro());
             }
         }
         else
@@ -288,5 +287,13 @@ public class PlayerController : MonoBehaviour
             }
             GlobalVariables.Instance.currentRadialBlur = valRadial;
         }
+    }
+
+    private IEnumerator initializeNitro()
+    {
+        forwardAccel +=2;
+        yield return new WaitForSeconds(3f);
+        forwardAccel -=2;
+        GlobalVariables.Instance.nitroflag = false;
     }
 }

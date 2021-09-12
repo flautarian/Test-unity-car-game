@@ -3,10 +3,10 @@ using UnityEngine;
 
 public abstract class InteractableObject : MonoBehaviour
 {
-    internal Vector3 initialLocalPosition;
+    public Vector3 initialLocalPosition;
     internal Quaternion initialLocalRotation;
     internal Vector3 initialLocalScale;
-    internal Animator animator;
+    internal Animator animator; 
 
     private void Awake()
     {

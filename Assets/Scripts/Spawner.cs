@@ -8,8 +8,8 @@ public class Spawner : MonoBehaviour
     public float velocity;
     private bool startedSpawnerMovement = false;
     private Quaternion currentQuaternionRotation;
-    private float dstTravelledToInstanceMovable;
-    private float dstTravelledToInstanceStatic;
+    public float dstTravelledToInstanceMovable;
+    public float dstTravelledToInstanceStatic;
     private bool spawnerArrivedToTarget;
 
     public Vector3 sidewalkOffset;
@@ -57,7 +57,7 @@ public class Spawner : MonoBehaviour
     private void manageSpawner()
     {
         lastTimeManagedSpawner = Time.time;
-        if (velocity > 0)
+        if (velocity > 0 || orientation == SpawnerOrientation.LEFT)
         {
             if (target != null)
             {
@@ -88,18 +88,19 @@ public class Spawner : MonoBehaviour
                 }
                 startedSpawnerMovement = false;
             }
+            CheckAndDeployObstacles();
         }
     }
 
     public void ReSetMovableSpawnerTrigger()
     {
-        dstTravelledToInstanceMovable = dstTravelled + rand.Next(50, 75);
+        dstTravelledToInstanceMovable = dstTravelled + rand.Next(1, 5);
         isReadyToInstanceMovableObstacle = false;
     }
 
     public void ReSetStaticSpawnerTrigger()
     {
-        dstTravelledToInstanceStatic = dstTravelled + rand.Next(100, 250);
+        dstTravelledToInstanceStatic = dstTravelled + rand.Next(15, 30);
         isReadyToInstanceStaticObstacle = false;
     }
 
@@ -120,7 +121,6 @@ public class Spawner : MonoBehaviour
             target = nextWayPoint.nextWayPoint[0].transform;
         }
 
-        CheckAndDeployObstacles();
     }
 
     private void CheckAndDeployObstacles()
@@ -135,6 +135,7 @@ public class Spawner : MonoBehaviour
                     obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(this);
                     ReSetMovableSpawnerTrigger();
                 }
+                else Debug.Log("MEK, sin vehiculos en el pool!!");
             }
 
             if (isReadyToInstanceStaticObstacle)
@@ -145,6 +146,7 @@ public class Spawner : MonoBehaviour
                     obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(this);
                     ReSetStaticSpawnerTrigger();
                 }
+                else Debug.Log("MEK, sin obstaculos estaticos en el pool!!");
             }
         }
     }
@@ -159,16 +161,15 @@ public class Spawner : MonoBehaviour
         checkSpawnerCollidersWithObstables(c);
     }
 
-    void OnCollisionExit(Collision c)
-    {
-        checkSpawnerCollidersWithObstables(c);
-    }
-
     private void checkSpawnerCollidersWithObstables(Collision c)
     {
-        if (Equals(c.gameObject.tag, Constants.POOL_STREET_OBSTACLE) || Equals(c.gameObject.tag, Constants.POOL_BEREDA_OBSTACLE))
+        if (Equals(c.gameObject.tag, Constants.POOL_STREET_OBSTACLE) && orientation != SpawnerOrientation.LEFT)
         {
             isReadyToInstanceMovableObstacle = false;
+        }
+        else if(Equals(c.gameObject.tag, Constants.POOL_BEREDA_OBSTACLE))
+        {
+            isReadyToInstanceStaticObstacle = false;
         }
     }
 

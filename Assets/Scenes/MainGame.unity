@@ -25,8 +25,8 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 03db45bbb24fa234ea87fdd303d8d0aa, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2126913248}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.23049572, g: 0.5631172, b: 0.5976021, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &64666399 stripped
 RectTransform:
@@ -484,7 +484,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &490728616
 LightingSettings:
@@ -495,16 +495,16 @@ LightingSettings:
   m_Name: Settings.lighting
   serializedVersion: 3
   m_GIWorkflowMode: 0
-  m_EnableBakedLightmaps: 0
+  m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 0
   m_RealtimeEnvironmentLighting: 1
   m_BounceScale: 1
   m_AlbedoBoost: 1
   m_IndirectOutputScale: 1
-  m_UsingShadowmask: 1
-  m_BakeBackend: 1
-  m_LightmapMaxSize: 2048
-  m_BakeResolution: 16
+  m_UsingShadowmask: 0
+  m_BakeBackend: 0
+  m_LightmapMaxSize: 1024
+  m_BakeResolution: 50
   m_Padding: 2
   m_TextureCompression: 0
   m_AO: 1
@@ -512,13 +512,13 @@ LightingSettings:
   m_CompAOExponent: 1
   m_CompAOExponentDirect: 0
   m_ExtractAO: 0
-  m_MixedBakeMode: 2
+  m_MixedBakeMode: 1
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
   m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
   m_ExportTrainingData: 0
   m_TrainingDataDestination: TrainingData
-  m_RealtimeResolution: 2
+  m_RealtimeResolution: 1
   m_ForceWhiteAlbedo: 0
   m_ForceUpdates: 0
   m_FinalGather: 0
@@ -593,7 +593,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &718261153 stripped
 RectTransform:
@@ -654,7 +654,7 @@ PrefabInstance:
     - target: {fileID: 4557236535082374776, guid: 639db28c5bd8407408b013fecec20c5a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4557236535082374776, guid: 639db28c5bd8407408b013fecec20c5a,
         type: 3}
@@ -1075,7 +1075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLight: 0
-  totalCoins: 0
+  totalCoins: 100
   nitroflag: 0
   repairflag: 0
   currentBrokenScreen: 0
@@ -1115,7 +1115,7 @@ MonoBehaviour:
     prefabs:
     - {fileID: 1729197792873312081, guid: b3e5d6e7f73a12744abd227552390b55, type: 3}
     - {fileID: 1963379630226781654, guid: 2ef34c96b0eb82944af8739694298ce0, type: 3}
-    size: 10
+    size: 30
   - tag: BeredaObstaculo
     prefabs:
     - {fileID: 735370548887096935, guid: 3bceef0f10f6a874badc44d9ca1dac00, type: 3}
@@ -1131,7 +1131,9 @@ MonoBehaviour:
     - {fileID: 8576166286522046699, guid: 3ce46d6b30872064ab6a016f2bef3921, type: 3}
     - {fileID: 2495235069071229409, guid: b1f78483852553c4f96357b4e4c42509, type: 3}
     - {fileID: 4279574560694448092, guid: d66491276502bf44babe79111a884485, type: 3}
-    size: 8
+    - {fileID: 8922796690247880333, guid: 72831ef7915ac624e888175f4e2ec81c, type: 3}
+    - {fileID: 1488806345672771280, guid: 7f508acf917af2a43828e30dccfb2cc4, type: 3}
+    size: 11
   - tag: oneToTwoWayRoads
     prefabs:
     - {fileID: 5800499906245276675, guid: fb83b18a8d6533a44865fd901ea80350, type: 3}
@@ -1283,7 +1285,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1792445654 stripped
 Transform:
@@ -1350,7 +1352,7 @@ PrefabInstance:
     - target: {fileID: 4557236535082374776, guid: 639db28c5bd8407408b013fecec20c5a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4557236535082374776, guid: 639db28c5bd8407408b013fecec20c5a,
         type: 3}
@@ -7018,6 +7020,11 @@ PrefabInstance:
       propertyPath: m_BoundingSphereOverride.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3624410025806808788, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3784164735099581121, guid: e863927783b9658419155e075251fe20,
         type: 3}
       propertyPath: m_IsActive
@@ -7038,10 +7045,20 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6571605274983931760, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7286298830024469608, guid: e863927783b9658419155e075251fe20,
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7286298830024469608, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7286298830024469620, guid: e863927783b9658419155e075251fe20,
         type: 3}
@@ -12277,6 +12294,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Camera-container
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}

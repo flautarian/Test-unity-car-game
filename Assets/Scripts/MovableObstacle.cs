@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovableObstacle: Obstacle
+public class MovableObstacle : Obstacle
 {
     // Start is called before the first frame update
 
-    private bool automaticDriving = true, isOtherCarInFront = false;
+    public bool automaticDriving = true, frontalCarDetected = false;
     private Quaternion currentQuaternionRotation;
-    public float velocity;
+    public float velocity, frontalCarVelocity, vel;
     public bool isReverseObstacle;
     public int streetNumber = 0;
     public WayPoint actualWaypoint;
@@ -23,10 +23,10 @@ public class MovableObstacle: Obstacle
     void Update()
     {
         tryLockTargetIfNotLocked();
-        var vel = checkVelocity();
-        if(vel > 0)
+        vel = checkVelocity();
+        moveWheels(vel);
+        if (vel > 0)
         {
-            moveWheels(vel);
             if (automaticDriving)
             {
                 if (vehicleTarget != null && vehicleTarget.transform.position - transform.position != Vector3.zero)
@@ -35,7 +35,7 @@ public class MovableObstacle: Obstacle
                     transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, vel * Time.deltaTime);
                     transform.position = Vector3.MoveTowards(transform.position, vehicleTarget.position, vel * Time.deltaTime);
                 }
-                if(transform.position.y < -100)
+                if (transform.position.y < -100)
                     this.gameObject.SetActive(false);
             }
         }
@@ -47,11 +47,11 @@ public class MovableObstacle: Obstacle
         {
             if (isVehicleLockedWaypoint())
             {
-                return velocity;
+                return frontalCarDetected ? frontalCarVelocity : velocity;
             }
             return 0;
         }
-        else return velocity;
+        else return frontalCarDetected ? frontalCarVelocity : velocity;
     }
 
     private bool isVehicleLockedWaypoint()
@@ -59,17 +59,17 @@ public class MovableObstacle: Obstacle
         if (actualWaypoint != null && actualWaypoint.isAPreludeOfIncorporation())
         {
             WayPoint wp = actualWaypoint.nextWayPoint[0].GetComponent<WayPoint>();
-            if(wp != null)
+            if (wp != null)
             {
                 return wp.isOccuped && this.gameObject.Equals(wp.vehicleLockingWaypoint);
             }
-        }       
+        }
         return true;
     }
 
     private void tryLockTargetIfNotLocked()
     {
-        if(actualWaypoint != null)
+        if (actualWaypoint != null)
         {
             if (!actualWaypoint.isAPreludeOfIncorporation()) return;
             if (!isVehicleLockedWaypoint())
@@ -91,6 +91,16 @@ public class MovableObstacle: Obstacle
 
     private void OnTriggerEnter(Collider other)
     {
+        manageNextWayPoint(other);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        manageNextWayPoint(other);
+    }
+
+    private void manageNextWayPoint(Collider other)
+    {
         if (Equals(other.gameObject.tag, Constants.GO_TAG_WAYPOINT))
         {
             WayPoint wayPoint = other.gameObject.GetComponent<WayPoint>();
@@ -107,7 +117,7 @@ public class MovableObstacle: Obstacle
 
     private bool isSameWayPointThanVehicleTarget(WayPoint wayPoint)
     {
-        if(vehicleTarget != null)
+        if (vehicleTarget != null)
         {
             GameObject targetWP = vehicleTarget.gameObject;
             WayPoint wp = targetWP.GetComponent<WayPoint>();
@@ -129,10 +139,10 @@ public class MovableObstacle: Obstacle
 
     public override void SetPositioAndTargetFromSpawner(Spawner spawner)
     {
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-            vehicleTarget = spawner.lastTarget != null ? spawner.lastTarget : spawner.target;
-            transform.position = spawner.transform.position;
-            transform.LookAt(vehicleTarget);
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        vehicleTarget = spawner.lastTarget != null ? spawner.lastTarget : spawner.target;
+        transform.position = spawner.transform.position;
+        transform.LookAt(vehicleTarget);
     }
 
     public override void Collide(Transform c)
@@ -148,7 +158,7 @@ public class MovableObstacle: Obstacle
     private void MovableCollition(Transform c)
     {
         // If the object we hit is the enemy
-        if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) || 
+        if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) ||
             Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER_PART))
         {
             // start explode animation and disable path follow
@@ -163,5 +173,16 @@ public class MovableObstacle: Obstacle
             //GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Rigidbody>().AddForce(force * magnitude);
         }
+    }
+
+    public void frontalCarBumperDetected(float velocityOfCar)
+    {
+        frontalCarVelocity = velocityOfCar;
+        frontalCarDetected = true;
+    }
+
+    public void frontalCarBumperHidden()
+    {
+        frontalCarDetected = false;
     }
 }

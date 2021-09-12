@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AccionableObstacle : Obstacle
+public abstract class AccionableObstacle : MonoBehaviour
 {
     internal Animator actionableAnimator;
 

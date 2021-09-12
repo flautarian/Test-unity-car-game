@@ -13,11 +13,6 @@ public class Player : MonoBehaviour
     public float turnStrength;
     public float maxWheelTurn;
 
-
-    void Start()
-    {
-    }
-
     internal void executePowerUp(string powerUpButtonName)
     {
         switch (powerUpButtonName)

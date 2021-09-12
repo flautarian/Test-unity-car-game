@@ -19,18 +19,26 @@ public class Calle : MonoBehaviour
     private void OnEnable()
     {
         // com es l'ultima que es lleva es l'ultim carrer
-        GlobalVariables.Instance.lastCalle = this;
+        StartCoroutine(initializeCalle());
     }
 
+    private IEnumerator initializeCalle()
+    {
+        while(GlobalVariables.Instance == null) yield return null;
+        GlobalVariables.Instance.lastCalle = this;
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.gameMode.Equals(GameMode.INFINITERUNNER))
         {
-            Calle lastCalle = GlobalVariables.Instance.lastCalle;
-            if(lastCalle != null)
+            if(GlobalVariables.Instance != null)
             {
-                lastCalle.generateNextStreet(1);
-                StartCoroutine(DestroyStreet());
+                Calle lastCalle = GlobalVariables.Instance.lastCalle;
+                if(lastCalle != null)
+                {
+                    lastCalle.generateNextStreet(1);
+                    StartCoroutine(DestroyStreet());
+                }
             }
         }
     }
@@ -39,7 +47,6 @@ public class Calle : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         gameObject.SetActive(false);
-        //Destroy(this.gameObject);
     }
 
     public void generateNextStreet(int streetsRemainingToGenerate)

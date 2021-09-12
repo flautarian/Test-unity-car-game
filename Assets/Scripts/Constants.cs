@@ -60,6 +60,8 @@ public class Constants
     public const string POOL_TWO_TO_TWO_STREET = "twoToTwoWayRoads";
     public const string POOL_ONE_TO_TWO_STREET = "oneToTwoWayRoads";
 
+    // functions for SendMessage
+    public const string SEND_MESSAGE_FRONTAL_CAR_BUMPER_DETECTED = "frontalCarBumperDetected";
 
 
 

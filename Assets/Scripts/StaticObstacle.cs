@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class StaticObstacle : Obstacle
 {
-    public Vector3 localPosition;
-
     public bool rigidBodySlept;
+
+    private Animation animation;
 
     void Start()
     {
-        localPosition = transform.localPosition;
-        GetComponent<Rigidbody>().Sleep();
+        if(rigidBody != null)rigidBody.Sleep();
+        if(GetComponent<Animation>() != null) animation = GetComponent<Animation>();
     }
 
 
@@ -19,9 +19,8 @@ public class StaticObstacle : Obstacle
     {
         if (spawner.target != null)
         {
-            rigidBody.velocity = Vector3.zero;
-            if ( GetComponent<Animation>() != null && GetComponent<Animation>().isPlaying) 
-                GetComponent<Animation>().Stop();
+            if(rigidBody != null) rigidBody.velocity = Vector3.zero;
+            if (animation != null && animation.isPlaying) animation.Stop();
             transform.position = spawner.transform.position + spawner.sidewalkOffset;
             transform.LookAt(spawner.transform);
             if(spawner.orientation == SpawnerOrientation.LEFT)transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
@@ -46,25 +45,33 @@ public class StaticObstacle : Obstacle
     private void StaticCollition(Transform c)
     {
         // If the object we hit is the enemy
-        if (Equals(c.gameObject.tag, "Player") || Equals(c.gameObject.tag, "PlayerPart"))
+        if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) || Equals(c.gameObject.tag,  Constants.GO_TAG_PLAYER_PART))
         {
+            if(rigidBody != null)
+            {
+                // start explode animation and disable path follow
+                rigidBodySlept = false;
+                rigidBody.isKinematic = false;
+                // how much the character should be knocked back
+                var magnitude = 2500;
+                // calculate force vector
+                var force = c.forward;
+                // normalize force vector to get direction only and trim magnitude
+                force.Normalize();
+                //GetComponent<MeshRenderer>().enabled = false;
+                rigidBody.AddForce(force * magnitude);
+            }
             // start explode animation and disable path follow
-            rigidBodySlept = false;
-            rigidBody.isKinematic = false;
-            // how much the character should be knocked back
-            var magnitude = 2500;
-            // calculate force vector
-            var force = c.forward;
-            // normalize force vector to get direction only and trim magnitude
-            force.Normalize();
-            //GetComponent<MeshRenderer>().enabled = false;
-            rigidBody.AddForce(force * magnitude);
-            // start explode animation and disable path follow
+            if(animator != null)
+            {
+                animator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
+            }
         }
-        else if (rigidBodySlept && !rigidBody.IsSleeping())
+        else if (rigidBody != null && rigidBodySlept && !rigidBody.IsSleeping())
         {
             rigidBody.Sleep();
         }
+        
     }
 
 }
