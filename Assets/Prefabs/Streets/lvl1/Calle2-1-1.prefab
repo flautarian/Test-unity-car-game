@@ -169,7 +169,7 @@ Transform:
   - {fileID: 8770192869252745598}
   - {fileID: 3957663745334932800}
   - {fileID: 4247828633608491707}
-  m_Father: {fileID: 8995497170982736884}
+  m_Father: {fileID: 8596703178193708025}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1852075509165191033
@@ -375,6 +375,7 @@ GameObject:
   - component: {fileID: 8995497170982736884}
   - component: {fileID: 7106572926296280731}
   - component: {fileID: 6966080948802107904}
+  - component: {fileID: 2394428826543184784}
   m_Layer: 0
   m_Name: Calle2-1-1
   m_TagString: Untagged
@@ -393,11 +394,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 682062887973664356}
-  - {fileID: 6209437950585781982}
-  - {fileID: 590184990182188090}
-  - {fileID: 3397273506789522450}
-  - {fileID: 8454093497152861162}
+  - {fileID: 8596703178193708025}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -427,6 +424,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointManager: {fileID: 3959503524956682090}
+  secondsUntilDrown: 2
+--- !u!95 &2394428826543184784
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279574560694448092}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 57d67535281d29e45b725db1f0201d7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4641778877243988187
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,7 +539,7 @@ Transform:
   - {fileID: 5666463357826082284}
   - {fileID: 327682347377316749}
   - {fileID: 1393120649888966620}
-  m_Father: {fileID: 8995497170982736884}
+  m_Father: {fileID: 8596703178193708025}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5014791612960975458
@@ -686,7 +703,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8371795163615320245}
-  m_Father: {fileID: 8995497170982736884}
+  m_Father: {fileID: 8596703178193708025}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!23 &2033285195507377813
@@ -835,6 +852,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8130172902558143597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8596703178193708025}
+  m_Layer: 0
+  m_Name: AuxGO
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8596703178193708025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8130172902558143597}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 682062887973664356}
+  - {fileID: 6209437950585781982}
+  - {fileID: 590184990182188090}
+  - {fileID: 3397273506789522450}
+  - {fileID: 8454093497152861162}
+  m_Father: {fileID: 8995497170982736884}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8336912903397546199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,7 +1882,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8995497170982736884}
+    m_TransformParent: {fileID: 8596703178193708025}
     m_Modifications:
     - target: {fileID: 406356464311839358, guid: 6ea6ff1e364f9c64489ef6e02c2f9e59,
         type: 3}
@@ -2270,7 +2322,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8995497170982736884}
+    m_TransformParent: {fileID: 8596703178193708025}
     m_Modifications:
     - target: {fileID: 4986152368287824414, guid: 2025c0420cba60b44989d227267e39a6,
         type: 3}

@@ -21,4 +21,9 @@ public class CountStart : MonoBehaviour
         GameObject timer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
         if (timer != null) timer.GetComponent<GUIController>().startGame();
     }
+
+    public void PlayCountDownSong(int i)
+    {
+        audioSource.PlayOneShot(audioClips[i]);
+    }
 }

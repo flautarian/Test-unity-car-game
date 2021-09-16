@@ -25,7 +25,7 @@ public class BumperController : MonoBehaviour
 
     private void OnTriggerExit(Collider c)
     {
-        if (c.gameObject.Equals(carDetected))
+        if (c.gameObject.Equals(carDetected) && carDetectedClass != null)
         {
             carDetectedClass.frontalCarBumperHidden();
             carDetected = null;

@@ -40,7 +40,7 @@ public class GlobalVariables : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -58,9 +58,11 @@ public class GlobalVariables : MonoBehaviour
 
     void Start()
     {
-        if(gameMode == GameMode.INFINITERUNNER) { 
+        if (gameMode == GameMode.INFINITERUNNER)
+        {
             GameObject firstStreet = PoolManager.Instance.SpawnFromPool(Constants.POOL_ONE_TO_ONE_STREET, Vector3.zero, Quaternion.Euler(0, 0, 0), streetsContainer);
             Calle firstStreetCalle = firstStreet.GetComponent<Calle>();
+            firstStreetCalle.secondsUntilDrown = 8f;
             lastCalle = firstStreetCalle;
             if (firstStreetCalle != null)
                 firstStreetCalle.generateNextStreet(5);
@@ -72,17 +74,19 @@ public class GlobalVariables : MonoBehaviour
         totalCoins += number;
     }
 
-    public static UnityEngine.Object RequestParticleSystem(String identifier) {
-      if ( !particleSystems.Contains(identifier ) ) {
-            particleSystems.Add(identifier, Resources.Load( "Particles/" + identifier ) );
-          }
-      return (UnityEngine.Object)particleSystems[identifier];
+    public static UnityEngine.Object RequestParticleSystem(String identifier)
+    {
+        if (!particleSystems.Contains(identifier))
+        {
+            particleSystems.Add(identifier, Resources.Load("Particles/" + identifier));
+        }
+        return (UnityEngine.Object)particleSystems[identifier];
     }
 
     internal static void RequestAndExecuteParticleSystem(string particlePrefabName, Vector3 position)
     {
         UnityEngine.Object PartObject = GlobalVariables.RequestParticleSystem(particlePrefabName);
-        if(PartObject != null)
+        if (PartObject != null)
         {
             GameObject newParticle = (GameObject)Instantiate(PartObject);
             if (particlesContainer != null) newParticle.transform.parent = particlesContainer.transform;

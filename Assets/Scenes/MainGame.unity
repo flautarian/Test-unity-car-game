@@ -495,7 +495,7 @@ LightingSettings:
   m_Name: Settings.lighting
   serializedVersion: 3
   m_GIWorkflowMode: 0
-  m_EnableBakedLightmaps: 1
+  m_EnableBakedLightmaps: 0
   m_EnableRealtimeLightmaps: 0
   m_RealtimeEnvironmentLighting: 1
   m_BounceScale: 1
@@ -1133,7 +1133,7 @@ MonoBehaviour:
     - {fileID: 4279574560694448092, guid: d66491276502bf44babe79111a884485, type: 3}
     - {fileID: 8922796690247880333, guid: 72831ef7915ac624e888175f4e2ec81c, type: 3}
     - {fileID: 1488806345672771280, guid: 7f508acf917af2a43828e30dccfb2cc4, type: 3}
-    size: 11
+    size: 13
   - tag: oneToTwoWayRoads
     prefabs:
     - {fileID: 5800499906245276675, guid: fb83b18a8d6533a44865fd901ea80350, type: 3}
@@ -6410,12 +6410,12 @@ PrefabInstance:
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016540765
+      value: -0.000000016540765
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000004739479
+      value: 0.000000004739479
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
@@ -12298,7 +12298,7 @@ PrefabInstance:
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: field of view
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
@@ -12308,12 +12308,12 @@ PrefabInstance:
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: far clip plane
-      value: 60
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: near clip plane
-      value: 0.001
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
@@ -12333,32 +12333,32 @@ PrefabInstance:
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.31
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.29999995
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.96131575
+      value: -0.1935109
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.27544892
+      value: -0.031860285
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016540765
+      value: 0.96755445
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000004739479
+      value: -0.1593014
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104767, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}

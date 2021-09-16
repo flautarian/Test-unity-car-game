@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +9,13 @@ public class Calle : MonoBehaviour
     // Start is called before the first frame update
 
     public WayPointManager waypointManager;
+    public float secondsUntilDrown = 3f;
     private BoxCollider calleBounds;
 
+    private Animator streetAnimationController;
     private void Awake()
     {
+        streetAnimationController = GetComponent<Animator>();
         calleBounds = GetComponent<BoxCollider>();
     }
 
@@ -24,43 +27,45 @@ public class Calle : MonoBehaviour
 
     private IEnumerator initializeCalle()
     {
-        while(GlobalVariables.Instance == null) yield return null;
+        while (GlobalVariables.Instance == null) yield return null;
+        //Debug.Log("Ahora last calle es " + this.name);
         GlobalVariables.Instance.lastCalle = this;
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.gameMode.Equals(GameMode.INFINITERUNNER))
+        if (other.tag.Equals(Constants.GO_TAG_PLAYER))
         {
-            if(GlobalVariables.Instance != null)
+            if (GlobalVariables.Instance != null && GlobalVariables.Instance.gameMode.Equals(GameMode.INFINITERUNNER))
             {
                 Calle lastCalle = GlobalVariables.Instance.lastCalle;
-                if(lastCalle != null)
+                if (lastCalle != null)
                 {
                     lastCalle.generateNextStreet(1);
-                    StartCoroutine(DestroyStreet());
+                    StartCoroutine(StartCountDownToDisableStreet());
                 }
             }
         }
     }
 
-    public IEnumerator DestroyStreet()
+    private IEnumerator StartCountDownToDisableStreet()
     {
-        yield return new WaitForSeconds(2.0f);
-        gameObject.SetActive(false);
+        yield return new WaitForSeconds(secondsUntilDrown);
+        streetAnimationController.SetBool("fall", true);
     }
 
     public void generateNextStreet(int streetsRemainingToGenerate)
     {
         GameObject newStreet = generateNextStreetGO();
         streetsRemainingToGenerate--;
-        
-        if(newStreet != null)
+
+        if (newStreet != null)
         {
             Calle newCalle = GlobalVariables.Instance.lastCalle;
             updatePaths(newCalle);
             if (streetsRemainingToGenerate > 0) newCalle.generateNextStreet(streetsRemainingToGenerate);
         }
     }
+
 
     private void updatePaths(Calle newStreet)
     {
@@ -76,8 +81,8 @@ public class Calle : MonoBehaviour
     {
         String nextStreetGroupTagName = getNextStreetTagName();
         return PoolManager.Instance.SpawnFromPool(nextStreetGroupTagName,
-            new Vector3(transform.position.x, transform.position.y, transform.position.z + calleBounds.size.z - 0.5f),
-            Quaternion.Euler(0,0,0), transform.parent);
+            new Vector3(transform.position.x, 0, transform.position.z + calleBounds.size.z - 0.5f),
+            Quaternion.Euler(0, 0, 0), transform.parent);
     }
 
     private string getNextStreetTagName()
@@ -86,8 +91,8 @@ public class Calle : MonoBehaviour
         int rightSideStreetsNumber = waypointManager.lastWayPoint.Count;
         if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 1) return Constants.POOL_ONE_TO_ONE_STREET;
         else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 1) return Constants.POOL_TWO_TO_ONE_STREET;
-        else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 2) return Constants.POOL_TWO_TO_TWO_STREET ;
-        else if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 2) return Constants.POOL_ONE_TO_TWO_STREET ;
+        else if (leftSideStreetsNumber == 2 && rightSideStreetsNumber == 2) return Constants.POOL_TWO_TO_TWO_STREET;
+        else if (leftSideStreetsNumber == 1 && rightSideStreetsNumber == 2) return Constants.POOL_ONE_TO_TWO_STREET;
         else return Constants.POOL_ONE_TO_ONE_STREET;
     }
 

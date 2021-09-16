@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8328449271502931556}
   - component: {fileID: 5495446325167092383}
   - component: {fileID: -384293247554107177}
+  - component: {fileID: 7565776812238562584}
   m_Layer: 0
   m_Name: Calle2-1-3
   m_TagString: Untagged
@@ -29,11 +30,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5856949188777612097}
-  - {fileID: 1450229866583803822}
-  - {fileID: 5044327993450716305}
-  - {fileID: 5321594076239886350}
-  - {fileID: 7934354534325166418}
+  - {fileID: 906274266444518048}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -63,6 +60,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointManager: {fileID: 8581645354132925278}
+  secondsUntilDrown: 2
+--- !u!95 &7565776812238562584
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150669983219398390}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 57d67535281d29e45b725db1f0201d7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1901672766639823423
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +144,41 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1956009267274460861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 906274266444518048}
+  m_Layer: 0
+  m_Name: AuxGO
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &906274266444518048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956009267274460861}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5856949188777612097}
+  - {fileID: 1450229866583803822}
+  - {fileID: 5044327993450716305}
+  - {fileID: 5321594076239886350}
+  - {fileID: 7934354534325166418}
+  m_Father: {fileID: 8328449271502931556}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4645845679403022074
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +559,7 @@ Transform:
   - {fileID: 704369954853090226}
   - {fileID: 5880520428402685982}
   - {fileID: 4227111842721065175}
-  m_Father: {fileID: 8328449271502931556}
+  m_Father: {fileID: 906274266444518048}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7195917970233960941
@@ -734,7 +786,7 @@ Transform:
   - {fileID: 7288812483898792102}
   - {fileID: 8127373804052231331}
   - {fileID: 4829952531204936916}
-  m_Father: {fileID: 8328449271502931556}
+  m_Father: {fileID: 906274266444518048}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8669942450742663572
@@ -832,7 +884,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7806644156123747054}
-  m_Father: {fileID: 8328449271502931556}
+  m_Father: {fileID: 906274266444518048}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!23 &8154975588064095332
@@ -1399,7 +1451,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8328449271502931556}
+    m_TransformParent: {fileID: 906274266444518048}
     m_Modifications:
     - target: {fileID: 4986152368287824414, guid: 2025c0420cba60b44989d227267e39a6,
         type: 3}
@@ -1496,7 +1548,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8328449271502931556}
+    m_TransformParent: {fileID: 906274266444518048}
     m_Modifications:
     - target: {fileID: 406356464311839358, guid: 6ea6ff1e364f9c64489ef6e02c2f9e59,
         type: 3}
