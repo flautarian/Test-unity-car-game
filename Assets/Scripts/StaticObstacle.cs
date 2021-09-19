@@ -6,12 +6,12 @@ public class StaticObstacle : Obstacle
 {
     public bool rigidBodySlept;
 
-    private Animation animation;
+    private Animation obstacleAnimation;
 
     void Start()
     {
-        if(rigidBody != null)rigidBody.Sleep();
-        if(GetComponent<Animation>() != null) animation = GetComponent<Animation>();
+        if (rigidBody != null) rigidBody.Sleep();
+        if (GetComponent<Animation>() != null) obstacleAnimation = GetComponent<Animation>();
     }
 
 
@@ -19,19 +19,15 @@ public class StaticObstacle : Obstacle
     {
         if (spawner.target != null)
         {
-            if(rigidBody != null) rigidBody.velocity = Vector3.zero;
-            if (animation != null && animation.isPlaying) animation.Stop();
+            if (rigidBody != null) rigidBody.velocity = Vector3.zero;
+            if (obstacleAnimation != null && obstacleAnimation.isPlaying) obstacleAnimation.Stop();
             transform.position = spawner.transform.position + spawner.sidewalkOffset;
             transform.LookAt(spawner.transform);
-            if(spawner.orientation == SpawnerOrientation.LEFT)transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
+            if (spawner.orientation == SpawnerOrientation.LEFT) transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
             else transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
         }
     }
 
-    private void OnCollisionStay(Collision c)
-    {
-        StaticCollition(c.transform);
-    }
     void OnCollisionEnter(Collision c)
     {
         StaticCollition(c.transform);
@@ -45,9 +41,9 @@ public class StaticObstacle : Obstacle
     private void StaticCollition(Transform c)
     {
         // If the object we hit is the enemy
-        if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) || Equals(c.gameObject.tag,  Constants.GO_TAG_PLAYER_PART))
+        if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) || Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER_PART))
         {
-            if(rigidBody != null)
+            if (rigidBody != null)
             {
                 // start explode animation and disable path follow
                 rigidBodySlept = false;
@@ -62,7 +58,7 @@ public class StaticObstacle : Obstacle
                 rigidBody.AddForce(force * magnitude);
             }
             // start explode animation and disable path follow
-            if(animator != null)
+            if (animator != null)
             {
                 animator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
             }
@@ -71,7 +67,7 @@ public class StaticObstacle : Obstacle
         {
             rigidBody.Sleep();
         }
-        
+
     }
 
 }

@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Sun : MonoBehaviour
 {
-    public float sunLight;
-    public Light light;
+    public float sunLightIndex;
+    public Light sunLight;
 
     private void Start()
     {
-        light = GetComponent<Light>(); 
+        sunLight = GetComponent<Light>();
     }
 
     private void Update()
     {
-        GlobalVariables.Instance.currentLight = sunLight;
+        GlobalVariables.Instance.currentLight = sunLightIndex;
     }
 
 }

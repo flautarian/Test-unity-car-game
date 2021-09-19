@@ -94,11 +94,6 @@ public class MovableObstacle : Obstacle
         manageNextWayPoint(other);
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        manageNextWayPoint(other);
-    }
-
     private void manageNextWayPoint(Collider other)
     {
         if (Equals(other.gameObject.tag, Constants.GO_TAG_WAYPOINT))
@@ -119,9 +114,7 @@ public class MovableObstacle : Obstacle
     {
         if (vehicleTarget != null)
         {
-            GameObject targetWP = vehicleTarget.gameObject;
-            WayPoint wp = targetWP.GetComponent<WayPoint>();
-            return wp.Equals(wayPoint);
+            return vehicleTarget.gameObject.Equals(wayPoint.gameObject);
         }
         return false;
     }

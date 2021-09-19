@@ -22,15 +22,9 @@ public class Calle : MonoBehaviour
     private void OnEnable()
     {
         // com es l'ultima que es lleva es l'ultim carrer
-        StartCoroutine(initializeCalle());
-    }
-
-    private IEnumerator initializeCalle()
-    {
-        while (GlobalVariables.Instance == null) yield return null;
-        //Debug.Log("Ahora last calle es " + this.name);
         GlobalVariables.Instance.lastCalle = this;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals(Constants.GO_TAG_PLAYER))

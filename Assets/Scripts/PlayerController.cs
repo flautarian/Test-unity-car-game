@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     RaycastHit hitRayCast;
 
     public Transform groundRayPoint;
-    
+
     public float groundRayLength;
 
     public Rigidbody playerSphereRigidBody;
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         Physics.IgnoreLayerCollision(0, 9);
         player = GetComponentInChildren<Player>();
         // Adapting playerController to the car type chosen
-        if(player != null)
+        if (player != null)
         {
             forwardAccel = player.forwardAccel;
             normalForwardAccel = forwardAccel;
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         VerticalAxis = Input.GetAxis(Constants.AXIS_VERTICAL);
         if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
         HorizontalAxis = Input.GetAxis(Constants.AXIS_HORIZONTAL);
-        
+
         //Refresc de posició
         transform.position = playerSphereRigidBody.transform.position;
         if (canMove)
@@ -89,6 +89,21 @@ public class PlayerController : MonoBehaviour
             // manipulacio de shader de radial blur en cas de potenciador de velocitat
             manageNitro();
         }
+
+        transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
+
+        if (grounded && canMove)
+        {
+            playerSphereRigidBody.drag = dragGroundValue;
+            if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
+        }
+        else
+        {
+            playerSphereRigidBody.drag = 0.1f;
+            playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
+            ManageAerialTricks();
+        }
+        if (!canMove) playerSphereRigidBody.drag = 3.5f;
 
     }
 
@@ -113,20 +128,6 @@ public class PlayerController : MonoBehaviour
             }
         }
         else grounded = false;
-        transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
-
-        if (grounded && canMove)
-        {
-            playerSphereRigidBody.drag = dragGroundValue;
-            if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
-        }
-        else
-        {
-            playerSphereRigidBody.drag = 0.1f;
-            playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
-            ManageAerialTricks();
-        }
-        if (!canMove) playerSphereRigidBody.drag = 3.5f;
 
     }
 
@@ -141,14 +142,14 @@ public class PlayerController : MonoBehaviour
         {
             if (System.Object.Equals(collision.gameObject.tag, Constants.CESPED))
                 streetType = StreetType.grass;
-            else if(System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT))
+            else if (System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT))
                 streetType = StreetType.asphalt;
             else if (System.Object.Equals(collision.gameObject.tag, Constants.WATER))
             {
                 streetType = StreetType.water;
                 destroyPlayer(Constants.GAME_OVER_VEHICLE_DROWNED);
             }
-                
+
         }
     }
     private void destroyPlayer(string reason)
@@ -182,7 +183,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerDestructablePart findPartNotDestroyed()
     {
-        foreach(PlayerDestructablePart part in destructableParts)
+        foreach (PlayerDestructablePart part in destructableParts)
         {
             if (!part.destroyed) return part;
         }
@@ -196,7 +197,7 @@ public class PlayerController : MonoBehaviour
             if (obstacle.lethal) destroyPlayer(Constants.GAME_OVER_LETHAL_OBS_COLLIDED);
             else
             {
-                if (partDestroyed == null) 
+                if (partDestroyed == null)
                     partDestroyed = findPartNotDestroyed();
                 if (partDestroyed != null)
                 {
@@ -236,8 +237,9 @@ public class PlayerController : MonoBehaviour
 
     internal void RecoverParts()
     {
-        foreach (PlayerDestructablePart dp in destructableParts) {
-            if(dp.destroyed) 
+        foreach (PlayerDestructablePart dp in destructableParts)
+        {
+            if (dp.destroyed)
                 dp.Recover();
         }
     }
@@ -291,9 +293,9 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator initializeNitro()
     {
-        forwardAccel +=2;
+        forwardAccel += 2;
         yield return new WaitForSeconds(3f);
-        forwardAccel -=2;
+        forwardAccel -= 2;
         GlobalVariables.Instance.nitroflag = false;
     }
 }

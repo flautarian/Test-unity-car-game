@@ -9,29 +9,29 @@ public class DecorationLight : MonoBehaviour
     private float secondsSentinel;
     private bool lightStatus;
     public bool lightInitialStatus;
-    private Light light;
+    private Light decorationLight;
     void Start()
     {
         lightStatus = lightInitialStatus;
-        light = GetComponent<Light>();
+        decorationLight = GetComponent<Light>();
         secondsSentinel = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(light != null)
+        if (decorationLight != null)
         {
             if (blinks)
             {
                 secondsSentinel += Time.deltaTime;
-                if(secondsSentinel % 60 > secondsBetweenBlinks)
+                if (secondsSentinel % 60 > secondsBetweenBlinks)
                 {
                     lightStatus = !lightStatus;
                     secondsSentinel = 0;
                 }
             }
-            light.enabled = lightStatus;
+            decorationLight.enabled = lightStatus;
         }
     }
 }

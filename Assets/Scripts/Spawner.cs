@@ -43,7 +43,7 @@ public class Spawner : MonoBehaviour
 
     public int MyProdstTravelledperty { get; set; }
 
-    private void FixedUpdate()
+    private void Update()
     {
         GetComponent<MeshRenderer>().material.color = isReadyToInstanceMovableObstacle ? Color.green : Color.red;
         if (Time.time - lastTimeManagedSpawner >= 0.2f) manageSpawner();

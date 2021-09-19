@@ -18,11 +18,6 @@ public class BumperController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider c)
-    {
-        if (carDetectedClass != null) carDetectedClass.frontalCarBumperDetected(car.vel);
-    }
-
     private void OnTriggerExit(Collider c)
     {
         if (c.gameObject.Equals(carDetected) && carDetectedClass != null)

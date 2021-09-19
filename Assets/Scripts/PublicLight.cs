@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class PublicLight : MonoBehaviour
 {
-    private Light light;
+    private Light publicLight;
     private float lightIndex;
     private float intensity;
 
     void Start()
     {
-        light = GetComponent<Light>();
-        lightIndex = light.intensity;
+        publicLight = GetComponent<Light>();
+        lightIndex = publicLight.intensity;
     }
 
     // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        if(light != null)
+        if (publicLight != null)
         {
             intensity = lightIndex * GlobalVariables.Instance.currentLight;
-            light.intensity = intensity;
-            light.enabled = intensity > 0;
+            publicLight.intensity = intensity;
+            publicLight.enabled = intensity > 0;
         }
     }
 }
