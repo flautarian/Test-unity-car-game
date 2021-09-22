@@ -8,11 +8,6 @@ public class CoinsIndicator : MonoBehaviour
     private int coins;
     public numberMeshGenerator numberIndicator;
 
-    public void addCoins(int quantity)
-    {
-        
-    }
-
     private void Update()
     {
         if (gameStarted)

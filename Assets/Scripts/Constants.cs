@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Constants
 {
+
     // Terrain types
     public const string CESPED = "Cesped";
     public const string ASPHALT = "asphalt";
@@ -26,6 +27,9 @@ public class Constants
     public const string ANIMATION_NAME_NITRO_BOOL = "nitro";
     public const string ANIMATION_NAME_HIT_BOOL = "hit";
     public const string ANIMATION_NAME_EXPLODE_BOOL = "explode";
+    public const string ANIMATION_NAME_IS_IN_STUNT_BOOL = "isInStunt";
+
+    
     // player parts
     public const string ANIMATION_START_ICON_ANIMATION = "StartIconAnimation";
     public const string ANIMATION_START_PART_ANIMATION_BOOL = "action";
@@ -40,6 +44,9 @@ public class Constants
     // Axis types
     public const string AXIS_VERTICAL = "Vertical";
     public const string AXIS_HORIZONTAL= "Horizontal";
+    public const string INPUT_ACCELERATE = "Accelerate";
+    public const string INPUT_FIRE = "Fire1";
+
 
     // game object tags
     public const string GO_TAG_GUI= "GUI";

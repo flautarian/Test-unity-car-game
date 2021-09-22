@@ -129,5 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca44bbff41102cb46805ef1040a9d4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialLocalPosition: {x: 0, y: 0, z: 0}
   animPosition: {x: 0, y: 0, z: 0}
   value: 10

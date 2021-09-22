@@ -16,6 +16,8 @@ public class GlobalVariables : MonoBehaviour
 
     public int totalCoins = 0;
 
+    public int totalStuntEC = 0;
+
     public bool nitroflag = false;
 
     public bool repairflag = false;
@@ -72,6 +74,12 @@ public class GlobalVariables : MonoBehaviour
     internal void addCoins(int number)
     {
         totalCoins += number;
+    }
+
+    internal void addStuntEC(int number)
+    {
+        totalStuntEC += number;
+        if(totalStuntEC > 100) totalStuntEC = 100;
     }
 
     public static UnityEngine.Object RequestParticleSystem(String identifier)

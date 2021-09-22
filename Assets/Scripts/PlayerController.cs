@@ -36,12 +36,9 @@ public class PlayerController : MonoBehaviour
 
     public BoxCollider playerBoxCollider;
 
-    [SerializeField]
     internal List<PlayerDestructablePart> destructableParts;
 
-    private Color touchingColor;
-
-    private float speedInput;
+    public float speedInput;
 
     public float VerticalAxis, HorizontalAxis;
 
@@ -49,38 +46,51 @@ public class PlayerController : MonoBehaviour
 
     private Animator playerAnimator;
 
+    public GUIController guiController;
 
-    void Start()
-    {
-        playerSphereRigidBody.transform.parent = null;
-        Physics.IgnoreLayerCollision(0, 9);
+    private bool trickMode = false, isTricking = false;
+
+    private void Awake(){
         player = GetComponentInChildren<Player>();
-        // Adapting playerController to the car type chosen
         if (player != null)
         {
+            gravityForce = player.gravityForce;
+            dragGroundValue = player.dragGroundForce;
             forwardAccel = player.forwardAccel;
             normalForwardAccel = forwardAccel;
             reverseAccel = player.reverseAccel;
             turnStrength = player.turnStrength;
             maxWheelTurn = player.maxWheelTurn;
+            destructableParts = player.parts;
         }
-        playerAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
+        playerSphereRigidBody.transform.parent = null;
+        Physics.IgnoreLayerCollision(0, 9);
+        // Adapting playerController to the car type chosen
+        playerAnimator = GetComponent<Animator>();
+        GameObject gui = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
+        if (gui != null) guiController = gui.GetComponent<GUIController>();
+    }
+
+    private void Update() {
+
         //Activem l'animacio de 'vehicle xocat' en cas de haver xocat amb el vehicle
         if (playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) && !playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = true;
         else if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) && playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = false;
 
         //Captura de tecles
-        VerticalAxis = Input.GetAxis(Constants.AXIS_VERTICAL);
-        if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
+        VerticalAxis = Input.GetAxis(Constants.INPUT_ACCELERATE);
         HorizontalAxis = Input.GetAxis(Constants.AXIS_HORIZONTAL);
+
+        // apliquem a variable velocitat
+        if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
 
         //Refresc de posició
         transform.position = playerSphereRigidBody.transform.position;
+
         if (canMove)
         {
             turnZAxisEffect = HorizontalAxis * (grounded ? 5 : 1);
@@ -90,8 +100,28 @@ public class PlayerController : MonoBehaviour
             manageNitro();
         }
 
+        // Tricks del player
+        isTricking = playerAnimator.GetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL);
+        if(!isTricking){
+            // no esta executant un stunt
+        }
+    }
+    
+
+    private void FixedUpdate()
+    {
+        // Mire raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
+        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
+        {
+            if (!grounded) GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+            grounded = true;
+        }
+        else grounded = false;
+
+        // Adaptem la rotacio del vehicle al terreny
         transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
 
+        // apliquem velocitat de rigidbody i gravetat depenent del estat del cotxe
         if (grounded && canMove)
         {
             playerSphereRigidBody.drag = dragGroundValue;
@@ -107,6 +137,18 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    internal void communicateStuntKeyPressed(int keyCode){
+        guiController.communicateNewStuntKeyPressed(keyCode);
+    }
+
+    internal void communicateStuntInitialized(){
+        guiController.communicateStuntInitialized();
+    }
+
+    internal void communicateStuntReset(){
+        guiController.communicateStuntReset();
+    }
+
     internal void turnLeft()
     {
         throw new NotImplementedException();
@@ -117,19 +159,6 @@ public class PlayerController : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    private void FixedUpdate()
-    {
-        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
-        {
-            if (!grounded)
-            {
-                GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
-                grounded = true;
-            }
-        }
-        else grounded = false;
-
-    }
 
     private void ManageAerialTricks()
     {
@@ -155,8 +184,7 @@ public class PlayerController : MonoBehaviour
     private void destroyPlayer(string reason)
     {
         playerAnimator.SetBool(Constants.ANIMATION_NAME_EXPLODE_BOOL, true);
-        GameObject gui = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
-        if (gui != null) gui.GetComponent<GUIController>().startGameOver(reason);
+        guiController.startGameOver(reason);
     }
 
     public void executeCarExplosionParticle()
@@ -213,7 +241,7 @@ public class PlayerController : MonoBehaviour
                         GlobalVariables.Instance.shakeParam += 2.5f;
                         // enabling animation pass to animator Player
                         playerAnimator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
-                        // executing particles from GlobalVaraibles
+                        // executing particles from GlobalVariables
                         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, partDestroyed.transform.position);
                         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, partDestroyed.transform.position);
                         if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
@@ -257,11 +285,6 @@ public class PlayerController : MonoBehaviour
     public float getSpeedInput()
     {
         return speedInput;
-    }
-
-    public Color getTouchingColor()
-    {
-        return touchingColor;
     }
 
     private void manageNitro()

@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public float reverseAccel;
     public float turnStrength;
     public float maxWheelTurn;
+    public float gravityForce;
+    public float dragGroundForce;
+
+    public List<PlayerDestructablePart> parts;
 
     internal void executePowerUp(string powerUpButtonName)
     {

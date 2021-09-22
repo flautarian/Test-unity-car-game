@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class GUIController : MonoBehaviour
 {
+    
     public PlayerController playerController;
     public GasIndicator gasIndicator;
     public CoinsIndicator coinsIndicator;
     public CarPartsIndicator carPartsIndicator;
+
+    public StuntsIndicator stuntsIndicator;
+
+
     public Animator cmvStateDriveCameraAnimator;
     public bool forceStartGame = false;
 
@@ -73,8 +78,11 @@ public class GUIController : MonoBehaviour
         if(playerController != null)
             playerController.startGame();        
 
-        if (coinsIndicator)
+        if (coinsIndicator != null)
             coinsIndicator.startGame();
+
+        if(stuntsIndicator != null)
+            stuntsIndicator.startGame();
 
     }
 
@@ -94,6 +102,9 @@ public class GUIController : MonoBehaviour
         if (carPartsIndicator != null )
             carPartsIndicator.startGameOver();
 
+        if(stuntsIndicator != null)
+            stuntsIndicator.startGameOver();
+
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("GameOverCamera");
     }
@@ -107,9 +118,17 @@ public class GUIController : MonoBehaviour
         gasIndicator.AddSeconds(value);
     }
 
-    internal void addCoins(int number)
+    internal void communicateNewStuntKeyPressed(int keyCode)
     {
-        coinsIndicator.addCoins(number);
+        stuntsIndicator.communicateNewStuntKeyPressed(keyCode);
+    }
+
+    internal void communicateStuntInitialized(){
+        stuntsIndicator.communicateStuntInitialized();
+    }
+
+    internal void communicateStuntReset(){
+        stuntsIndicator.communicateStuntReset();
     }
 
     internal void RecoverCarPlayerParts()
