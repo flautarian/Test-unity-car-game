@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2440674194593056308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8554705470152097014}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8554705470152097014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440674194593056308}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.8330045, y: -1.909261, z: 2.2102833}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7286298830024469620}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2481428503480704969
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +116,7 @@ GameObject:
   - component: {fileID: 7286298830024469620}
   - component: {fileID: 1828126548}
   - component: {fileID: 1309327813}
+  - component: {fileID: 5731058296596815797}
   - component: {fileID: 8997355460136384826}
   m_Layer: 0
   m_Name: Player
@@ -108,6 +139,7 @@ Transform:
   - {fileID: 2549565840354074932}
   - {fileID: 5544565900380456474}
   - {fileID: 3989603810220738593}
+  - {fileID: 8554705470152097014}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -240,13 +272,25 @@ MonoBehaviour:
   groundRayLength: 0.5
   playerSphereRigidBody: {fileID: 5912388740614719570}
   playerBoxCollider: {fileID: 1735672987}
-  destructableParts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  speedInput: 0
   VerticalAxis: 0
   HorizontalAxis: 0
+  guiController: {fileID: 0}
+--- !u!114 &5731058296596815797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7286298830024469608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19635235ebc3f5e4a9c4d9e0c3661cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons: []
+  allowedTimeBetweenButtons: 0.3
+  playerController: {fileID: 1309327813}
 --- !u!95 &8997355460136384826
 Animator:
   serializedVersion: 3
@@ -305,18 +349,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 442969341075314624, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 2.1295864e-12
+      objectReference: {fileID: 0}
+    - target: {fileID: 442969341075314624, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.02e-43
+      value: 1.05e-43
       objectReference: {fileID: 0}
     - target: {fileID: 442969341075314624, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.0298448e+27
+      value: 7.1e-44
       objectReference: {fileID: 0}
     - target: {fileID: 442969341075314624, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 4.5904e-41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1588184534020562286, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
@@ -390,18 +439,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5798028992995554412, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 5.8027924e-16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798028992995554412, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.02e-43
+      value: 1.05e-43
       objectReference: {fileID: 0}
     - target: {fileID: 5798028992995554412, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.0298448e+27
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 5798028992995554412, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 4.5904e-41
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7213631388939268900, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}

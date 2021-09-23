@@ -46,9 +46,11 @@ public class PlayerController : MonoBehaviour
 
     private Animator playerAnimator;
 
-    public GUIController guiController;
+    private GUIController guiController;
 
-    private bool trickMode = false, isTricking = false;
+    private bool trickMode = false;
+
+    private int isTricking = -1;
 
     private void Awake(){
         player = GetComponentInChildren<Player>();
@@ -95,16 +97,23 @@ public class PlayerController : MonoBehaviour
         {
             turnZAxisEffect = HorizontalAxis * (grounded ? 5 : 1);
             turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
+            if(!IsInStuntMode())transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
             // manipulacio de shader de radial blur en cas de potenciador de velocitat
             manageNitro();
         }
+    }
 
-        // Tricks del player
-        isTricking = playerAnimator.GetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL);
-        if(!isTricking){
-            // no esta executant un stunt
-        }
+    internal void UpdatePlayerAnimationStuntMode(bool newState){
+        playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, newState);
+        trickMode = newState;
+    }
+
+    internal bool IsInStuntMode(){
+        return isTricking > -1 && trickMode;
+    }
+    
+    internal void updateTrickState(int state){
+        isTricking = state;
     }
     
 
@@ -131,22 +140,33 @@ public class PlayerController : MonoBehaviour
         {
             playerSphereRigidBody.drag = 0.1f;
             playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
-            ManageAerialTricks();
         }
+        //ManageTricks();
         if (!canMove) playerSphereRigidBody.drag = 3.5f;
 
     }
 
     internal void communicateStuntKeyPressed(int keyCode){
-        guiController.communicateNewStuntKeyPressed(keyCode);
+        if(trickMode && !playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL)){
+            guiController.communicateNewStuntKeyPressed(keyCode, grounded);
+        }
     }
 
     internal void communicateStuntInitialized(){
         guiController.communicateStuntInitialized();
     }
 
+    internal void communicateStuntClose(){
+        guiController.communicateStuntClose();
+    }
+
     internal void communicateStuntReset(){
         guiController.communicateStuntReset();
+    }
+
+    internal void InitStunt(int stunt){
+        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
+        playerAnimator.SetInteger(Constants.ANIMATION_NAME_CAST_STUNT_INT, stunt);
     }
 
     internal void turnLeft()
@@ -160,7 +180,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void ManageAerialTricks()
+    private void ManageTricks()
     {
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
     }
@@ -234,12 +254,14 @@ public class PlayerController : MonoBehaviour
                     // car conseqüences
                     if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
                     {
+                        if(trickMode) communicateStuntReset();
                         // explosion particle init
                         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, partDestroyed.transform.position);
                         // shader effects
                         GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
                         GlobalVariables.Instance.shakeParam += 2.5f;
                         // enabling animation pass to animator Player
+                        if(trickMode) UpdatePlayerAnimationStuntMode(false);
                         playerAnimator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
                         // executing particles from GlobalVariables
                         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, partDestroyed.transform.position);

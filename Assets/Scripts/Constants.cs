@@ -5,6 +5,9 @@ using UnityEngine;
 public class Constants
 {
 
+    //Numbers
+    public const int MAX_BUTTONS_STUNTS_COUNT = 5;
+
     // Terrain types
     public const string CESPED = "Cesped";
     public const string ASPHALT = "asphalt";
@@ -28,6 +31,8 @@ public class Constants
     public const string ANIMATION_NAME_HIT_BOOL = "hit";
     public const string ANIMATION_NAME_EXPLODE_BOOL = "explode";
     public const string ANIMATION_NAME_IS_IN_STUNT_BOOL = "isInStunt";
+    public const string ANIMATION_NAME_CAST_STUNT_INT = "castStunt";
+    public const string ANIMATION_NAME_STUNT_INDICATOR_BOOL = "StuntIndicatorEnabled";
 
     
     // player parts
@@ -39,6 +44,11 @@ public class Constants
     public const string ANIMATION_MOVABLE_OBSTACLE_VELOCITY_PARAM = "velocity";
     // items
     public const string ANIMATION_NAME_TAKEN_BOOL = "hasBeenTaken";
+
+    // stunts
+
+    public const string ANIMATION_NAME_STUNT_WRONG_ICON_BOOL = "wrong";
+    public const string ANIMATION_NAME_STUNT_STUNT_COMPLETED_ICON_BOOL = "correct";
 
 
     // Axis types

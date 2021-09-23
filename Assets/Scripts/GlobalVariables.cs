@@ -22,6 +22,8 @@ public class GlobalVariables : MonoBehaviour
 
     public bool repairflag = false;
 
+    public StuntState castingStunt = StuntState.OFF;
+
     public float currentBrokenScreen = 0;
 
     public float currentRadialBlur = 0;
@@ -81,7 +83,6 @@ public class GlobalVariables : MonoBehaviour
         totalStuntEC += number;
         if(totalStuntEC > 100) totalStuntEC = 100;
     }
-
     public static UnityEngine.Object RequestParticleSystem(String identifier)
     {
         if (!particleSystems.Contains(identifier))

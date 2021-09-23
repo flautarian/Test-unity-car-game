@@ -10,13 +10,11 @@ public class GUIController : MonoBehaviour
     public GasIndicator gasIndicator;
     public CoinsIndicator coinsIndicator;
     public CarPartsIndicator carPartsIndicator;
-
     public StuntsIndicator stuntsIndicator;
 
-
+    private Animator animator;
     public Animator cmvStateDriveCameraAnimator;
     public bool forceStartGame = false;
-
     private float cameraXAxisOffset = 20;
     private float cameraYAxisOffset = 5;
 
@@ -25,6 +23,8 @@ public class GUIController : MonoBehaviour
         // init de controlador de partes de coche;
         if (carPartsIndicator != null)
             carPartsIndicator.startGame(playerController.destructableParts.Count);
+
+        animator = GetComponent<Animator>();
 
         // force startGame for edit actions
         if (forceStartGame) startGame();
@@ -118,17 +118,23 @@ public class GUIController : MonoBehaviour
         gasIndicator.AddSeconds(value);
     }
 
-    internal void communicateNewStuntKeyPressed(int keyCode)
+    internal void communicateNewStuntKeyPressed(int keyCode, bool groundedVehicle)
     {
-        stuntsIndicator.communicateNewStuntKeyPressed(keyCode);
+        stuntsIndicator.communicateNewStuntKeyPressed(keyCode, groundedVehicle);
     }
 
     internal void communicateStuntInitialized(){
+        animator.SetBool(Constants.ANIMATION_NAME_STUNT_INDICATOR_BOOL, true);
         stuntsIndicator.communicateStuntInitialized();
     }
 
     internal void communicateStuntReset(){
         stuntsIndicator.communicateStuntReset();
+    }
+
+    internal void communicateStuntClose(){
+        animator.SetBool(Constants.ANIMATION_NAME_STUNT_INDICATOR_BOOL, false);
+        stuntsIndicator.communicateStuntClose();
     }
 
     internal void RecoverCarPlayerParts()
@@ -137,6 +143,10 @@ public class GUIController : MonoBehaviour
             playerController.RecoverParts();
         if(carPartsIndicator != null )
             carPartsIndicator.resetIndicator();
+    }
+
+    internal void InitStunt(int stunt){
+        playerController.InitStunt(stunt);
     }
 
     #endregion
