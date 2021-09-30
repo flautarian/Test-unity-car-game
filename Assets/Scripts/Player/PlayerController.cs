@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     RaycastHit hitRayCast;
 
+    public float timeSentinelRaycast;
+
     public Transform groundRayPoint;
 
     public float groundRayLength;
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private bool trickMode = false;
 
-    private int isTricking = -1;
+    private int isStunting = -1;
 
     private void Awake(){
         player = GetComponentInChildren<Player>();
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour
             maxWheelTurn = player.maxWheelTurn;
             destructableParts = player.parts;
         }
+        timeSentinelRaycast = Time.time;
     }
 
     void Start()
@@ -109,23 +112,26 @@ public class PlayerController : MonoBehaviour
     }
 
     internal bool IsInStuntMode(){
-        return isTricking > -1 && trickMode;
+        return isStunting > -1 && trickMode;
     }
     
     internal void updateTrickState(int state){
-        isTricking = state;
+        isStunting = state;
     }
     
 
     private void FixedUpdate()
     {
-        // Mire raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
-        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
-        {
-            if (!grounded) GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
-            grounded = true;
+        if(Time.time - timeSentinelRaycast >= 0.2f){
+            // Mire raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
+            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
+            {
+                if (!grounded) GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+                grounded = true;
+            }
+            else grounded = false;
+            timeSentinelRaycast = Time.time;
         }
-        else grounded = false;
 
         // Adaptem la rotacio del vehicle al terreny
         transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
@@ -141,7 +147,7 @@ public class PlayerController : MonoBehaviour
             playerSphereRigidBody.drag = 0.1f;
             playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
         }
-        //ManageTricks();
+        ManageTricks();
         if (!canMove) playerSphereRigidBody.drag = 3.5f;
 
     }
@@ -164,9 +170,28 @@ public class PlayerController : MonoBehaviour
         guiController.communicateStuntReset();
     }
 
-    internal void InitStunt(int stunt){
+    internal void InitStunt(Stunt stunt){
         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
-        playerAnimator.SetInteger(Constants.ANIMATION_NAME_CAST_STUNT_INT, stunt);
+        playerAnimator.SetInteger(Constants.ANIMATION_NAME_CAST_STUNT_INT, stunt.stuntValue);
+        playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, true);
+        switch(stunt.comboKeys.Count){
+            case 2:
+                GlobalVariables.Instance.addStuntEC(5);
+            break;
+            case 3:
+                GlobalVariables.Instance.addStuntEC(10);
+            break;
+            case 4:
+            break;
+            case 5:
+            break;
+            default:
+            break;
+        }
+    }
+
+    public void impulseUpCar(float amount){
+        playerSphereRigidBody.AddForce(transform.up * amount, ForceMode.Impulse);
     }
 
     internal void turnLeft()

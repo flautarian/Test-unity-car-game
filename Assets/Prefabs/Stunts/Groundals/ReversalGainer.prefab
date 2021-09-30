@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5280302360421778013}
   - component: {fileID: 6327469284685916849}
   m_Layer: 0
-  m_Name: BarrelRollLeft
+  m_Name: ReversalGainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fad03b49070c9846ac2170d64d1508c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboKeys: 0200000002000000
-  stuntName: Barrel Roll Left
-  groundStunt: 0
-  stuntValue: 0
+  comboKeys: 000000000100000001000000
+  stuntName: Reversal gainer
+  groundStunt: 1
+  stuntValue: 3

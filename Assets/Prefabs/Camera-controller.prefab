@@ -197,6 +197,7 @@ MonoBehaviour:
   - {fileID: 7930433334952496448, guid: abecce865dc1c084d8d7cfa022972e9c, type: 3}
   buttonsPressed: []
   stuntList: []
+  stuntKeysPressed: 
 --- !u!33 &1026693819781124724
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -258,8 +259,9 @@ GameObject:
   - component: {fileID: 8756256013631113462}
   - component: {fileID: 4705310386043422794}
   - component: {fileID: 2618866656183266437}
+  - component: {fileID: 7402776845100237377}
   m_Layer: 5
-  m_Name: EnergyBar
+  m_Name: StuntBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,7 +301,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 65b6b02b634bcf844949dbede7da4a20, type: 2}
+  - {fileID: 2100000, guid: 6819018aaca4b5c43ab80528fceb8113, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -329,6 +331,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8555222790208296299}
   m_Mesh: {fileID: -2432090755550338912, guid: 56718e19373bc5742817b22ada780022, type: 3}
+--- !u!114 &7402776845100237377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555222790208296299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 670ab61c5b5fdcd4f8cd1a4fe701e1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9068269815719255631
 GameObject:
   m_ObjectHideFlags: 0

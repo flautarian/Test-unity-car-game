@@ -39,6 +39,7 @@ public class MovableObstacle : Obstacle
                     this.gameObject.SetActive(false);
             }
         }
+        if(transform.position.z < GlobalVariables.Instance.minZLimit) inhabiliteObstacle();
     }
 
     private float checkVelocity()

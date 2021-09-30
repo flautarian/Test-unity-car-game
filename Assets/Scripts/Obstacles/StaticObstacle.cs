@@ -6,12 +6,18 @@ public class StaticObstacle : Obstacle
 {
     public bool rigidBodySlept;
 
+    public bool spawnedObstacle;
+
     private Animation obstacleAnimation;
 
     void Start()
     {
         if (rigidBody != null) rigidBody.Sleep();
         if (GetComponent<Animation>() != null) obstacleAnimation = GetComponent<Animation>();
+    }
+
+    private void Update() {
+        if(spawnedObstacle && transform.position.z < GlobalVariables.Instance.minZLimit) inhabiliteObstacle();
     }
 
 
@@ -40,7 +46,7 @@ public class StaticObstacle : Obstacle
 
     private void StaticCollition(Transform c)
     {
-        // If the object we hit is the enemy
+        // If the object we hit is the player
         if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) || Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER_PART))
         {
             if (rigidBody != null)

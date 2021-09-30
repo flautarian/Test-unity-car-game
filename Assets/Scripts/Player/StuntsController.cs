@@ -40,18 +40,17 @@ public class StuntsController : MonoBehaviour
             }
             else
             {
-                if (Time.time > timeLastButtonPressed + allowedTimeBetweenButtons &&
-                GlobalVariables.Instance.castingStunt != StuntState.STUNTCOMPLETED) playerController.communicateStuntReset();
-                if(Input.GetAxis(Constants.AXIS_VERTICAL) > 0) keyPressed= 0;
-                else if(Input.GetAxis(Constants.AXIS_VERTICAL) < 0) keyPressed= 1;
+                if (Time.time > timeLastButtonPressed + allowedTimeBetweenButtons) playerController.communicateStuntReset();
+                if(Input.GetAxisRaw(Constants.AXIS_VERTICAL) > 0) keyPressed= 0;
+                else if(Input.GetAxisRaw(Constants.AXIS_VERTICAL) < 0) keyPressed= 1;
                 else {
                     stuntsKeysState[0] = true;
                     stuntsKeysState[1] = true;
                     keyPressed = -1;
                 }
                 if(keyPressed < 0){
-                    if(Input.GetAxis(Constants.AXIS_HORIZONTAL) > 0) keyPressed= 2;
-                    else if(Input.GetAxis(Constants.AXIS_HORIZONTAL) < 0) keyPressed= 3;
+                    if(Input.GetAxisRaw(Constants.AXIS_HORIZONTAL) > 0) keyPressed= 2;
+                    else if(Input.GetAxisRaw(Constants.AXIS_HORIZONTAL) < 0) keyPressed= 3;
                     else {
                         stuntsKeysState[2] = true;
                         stuntsKeysState[3] = true;

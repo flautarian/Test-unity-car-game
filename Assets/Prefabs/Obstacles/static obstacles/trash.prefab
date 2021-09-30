@@ -51,10 +51,8 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 0
-  initialLocalPosition: {x: 0, y: 0, z: 0}
-  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-  localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
+  spawnedObstacle: 1
 --- !u!54 &4735823960297732726
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -249,10 +247,8 @@ MonoBehaviour:
   penalizableObstacle: 0
   lethal: 0
   apparitionLevel: 0
-  initialLocalPosition: {x: 0, y: 0, z: 0}
-  initialLocalRotation: {x: 0, y: 0, z: 0, w: 0}
-  localPosition: {x: 0, y: 0, z: 0}
   rigidBodySlept: 1
+  spawnedObstacle: 0
 --- !u!54 &435022299
 Rigidbody:
   m_ObjectHideFlags: 0

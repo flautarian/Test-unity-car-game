@@ -22,7 +22,7 @@ public class Calle : MonoBehaviour
     private void OnEnable()
     {
         // com es l'ultima que es lleva es l'ultim carrer
-        GlobalVariables.Instance.lastCalle = this;
+        if(GlobalVariables.Instance != null) GlobalVariables.Instance.lastCalle = this;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,6 +45,7 @@ public class Calle : MonoBehaviour
     {
         yield return new WaitForSeconds(secondsUntilDrown);
         streetAnimationController.SetBool("fall", true);
+        GlobalVariables.Instance.UpdateMinZLimit(transform.position.z);
     }
 
     public void generateNextStreet(int streetsRemainingToGenerate)

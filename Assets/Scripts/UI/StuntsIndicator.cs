@@ -16,11 +16,14 @@ public class StuntsIndicator : MonoBehaviour
     public Stunt[] stuntList;
 
     public List<int> stuntKeysPressed;
+
+    private Vector3 initialStuntKeyPos;
     void Start()
     {
         buttonsPressed = new List<StuntIconController>();
         stuntKeysPressed = new List<int>();
         guiController = transform.parent.transform.parent.GetComponent<GUIController>();
+        initialStuntKeyPos = new Vector3(-3.6f, 1f, 0);
     }
 
     internal void startGame(){
@@ -36,53 +39,46 @@ public class StuntsIndicator : MonoBehaviour
             GlobalVariables.Instance.castingStunt = StuntState.CASTING;
             GameObject newKey = GameObject.Instantiate(buttonsAvailable[keyCode]);
             newKey.transform.parent = this.transform;
-            Vector3 newPos = Vector3.zero;
-            newPos.x = -3.6f + (2f * buttonsPressed.Count);
-            newPos.y = 1f;
+            Vector3 newPos = initialStuntKeyPos;
+            newPos.x += (2f * buttonsPressed.Count);
             newKey.transform.localPosition = newPos;
             var newKeyScript = newKey.GetComponent<StuntIconController>();
             newKeyScript.keyCode = keyCode;
             buttonsPressed.Add(newKeyScript);
             stuntKeysPressed.Add(keyCode);
             var stuntResult = checkStuntList(groundedVehicle);
-            if(stuntResult > -1){
-                communicateStuntCorrect(stuntResult);
+            if(stuntResult != null){
+                communicateStuntCorrect();
                 guiController.InitStunt(stuntResult);
             }
         }
         else communicateStuntReset();
     }
 
-    private int checkStuntList(bool groundedVehicle){
+    private Stunt checkStuntList(bool groundedVehicle){
         foreach(Stunt st in stuntList){
-            if(st.groundStunt == groundedVehicle && st.compare(stuntKeysPressed)){
-                Debug.Log("Casting " + st.stuntName + "!!");
-                return st.stuntValue;
-            }
+            if(st.groundStunt == groundedVehicle && st.compare(stuntKeysPressed))
+                return st;
         }
-        return -1;
+        return null;
     }
 
-    internal void communicateStuntInitialized(){
-        if(gameStarted){
-            //TODO: lanzar animacion de comienzo de trackeo de stunt keys
-        }
-    }
 
-    internal void communicateStuntCorrect(int stunt){
+    internal void communicateStuntCorrect(){
         GlobalVariables.Instance.castingStunt = StuntState.STUNTCOMPLETED;
-        buttonsPressed.Clear();
-        stuntKeysPressed.Clear();
+        rebootStuntKeys();
     }
 
     internal void communicateStuntReset(){
         GlobalVariables.Instance.castingStunt = StuntState.STUNTWRONG;
-        buttonsPressed.Clear();
-        stuntKeysPressed.Clear();
+        rebootStuntKeys();
     }
     
     internal void communicateStuntClose(){
         GlobalVariables.Instance.castingStunt = StuntState.OFF;
+    }
+
+    internal void rebootStuntKeys(){
         buttonsPressed.Clear();
         stuntKeysPressed.Clear();
     }

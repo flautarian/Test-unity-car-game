@@ -11,12 +11,13 @@ public class GUIController : MonoBehaviour
     public CoinsIndicator coinsIndicator;
     public CarPartsIndicator carPartsIndicator;
     public StuntsIndicator stuntsIndicator;
-
     private Animator animator;
     public Animator cmvStateDriveCameraAnimator;
     public bool forceStartGame = false;
     private float cameraXAxisOffset = 20;
     private float cameraYAxisOffset = 5;
+
+    private Hashtable stuntsEarned = new Hashtable();
 
     private void Start()
     {
@@ -111,7 +112,7 @@ public class GUIController : MonoBehaviour
 
     #endregion
 
-    #region PowerUps Bridge functions
+    #region Bridge functions
     
     internal void AddSeconds(float value)
     {
@@ -125,11 +126,14 @@ public class GUIController : MonoBehaviour
 
     internal void communicateStuntInitialized(){
         animator.SetBool(Constants.ANIMATION_NAME_STUNT_INDICATOR_BOOL, true);
-        stuntsIndicator.communicateStuntInitialized();
     }
 
     internal void communicateStuntReset(){
         stuntsIndicator.communicateStuntReset();
+    }
+
+    internal void rebootStuntKeys(){
+        stuntsIndicator.rebootStuntKeys();
     }
 
     internal void communicateStuntClose(){
@@ -145,8 +149,15 @@ public class GUIController : MonoBehaviour
             carPartsIndicator.resetIndicator();
     }
 
-    internal void InitStunt(int stunt){
+    internal void InitStunt(Stunt stunt){
         playerController.InitStunt(stunt);
+        var actualStunts = (int)stuntsEarned[stunt.stuntName];
+        if (actualStunts != null)
+        {
+            actualStunts+=1;
+            stuntsEarned[stunt.stuntName] = actualStunts;
+        }
+        else stuntsEarned.Add(stunt.stuntName, 1);
     }
 
     #endregion

@@ -12,6 +12,8 @@ public class Spawner : MonoBehaviour
     public float dstTravelledToInstanceStatic;
     private bool spawnerArrivedToTarget;
 
+    private bool waitingTargetWayPoint = false;
+
     public Vector3 sidewalkOffset;
     public Transform target;
     public Transform lastTarget;
@@ -57,39 +59,37 @@ public class Spawner : MonoBehaviour
     private void manageSpawner()
     {
         lastTimeManagedSpawner = Time.time;
-        if (velocity > 0 || orientation == SpawnerOrientation.LEFT)
+        if (target != null)
         {
-            if (target != null)
+            dstTravelled += velocity * Time.deltaTime;
+            spawnerArrivedToTarget = (target.position - transform.position) == Vector3.zero;
+            if (!spawnerArrivedToTarget)
             {
-                dstTravelled += velocity * Time.deltaTime;
-                spawnerArrivedToTarget = (target.position - transform.position) == Vector3.zero;
-                if (!spawnerArrivedToTarget)
-                {
-                    currentQuaternionRotation = Quaternion.LookRotation(target.position - transform.position);
-                    if (dstTravelled > dstTravelledToInstanceMovable) isReadyToInstanceMovableObstacle = true;
-                    if (dstTravelled > dstTravelledToInstanceStatic) isReadyToInstanceStaticObstacle = true;
-                }
+                currentQuaternionRotation = Quaternion.LookRotation(target.position - transform.position);
+                if (dstTravelled > dstTravelledToInstanceMovable) isReadyToInstanceMovableObstacle = true;
+                if (dstTravelled > dstTravelledToInstanceStatic) isReadyToInstanceStaticObstacle = true;
             }
-            else if (!startedSpawnerMovement)
+        }
+        else if (!startedSpawnerMovement)
+        {
+            Calle calle = GlobalVariables.Instance.lastCalle;
+            if (calle != null)
             {
-                Calle calle = GlobalVariables.Instance.lastCalle;
-                if (calle != null)
+                WayPointManager wpm = calle.waypointManager;
+                if (wpm != null)
                 {
-                    WayPointManager wpm = calle.waypointManager;
-                    if (wpm != null)
+                    Transform firstTarget = SpawnerOrientation.RIGHT.Equals(orientation) ? wpm.firstWayPoint[0].transform : wpm.lastWayReversalPoint[0].transform;
+                    if (firstTarget != null)
                     {
-                        Transform firstTarget = SpawnerOrientation.RIGHT.Equals(orientation) ? wpm.firstWayPoint[0].transform : wpm.lastWayReversalPoint[0].transform;
-                        if (firstTarget != null)
-                        {
-                            transform.LookAt(firstTarget);
-                            transform.position = firstTarget.position;
-                        }
+                        transform.LookAt(firstTarget);
+                        transform.position = firstTarget.position;
                     }
                 }
-                startedSpawnerMovement = false;
             }
-            CheckAndDeployObstacles();
+            startedSpawnerMovement = false;
         }
+        CheckAndDeployObstacles();
+        if(waitingTargetWayPoint) updateTarget();
     }
 
     public void ReSetMovableSpawnerTrigger()
@@ -113,13 +113,17 @@ public class Spawner : MonoBehaviour
             {
                 lastTarget = target;
                 target = nextWayPoint.previousWayPoint[0].transform;
+                waitingTargetWayPoint = false;
             }
+            else waitingTargetWayPoint = true;
         }
         else if (nextWayPoint.nextWayPoint != null && nextWayPoint.nextWayPoint.Count > 0 && nextWayPoint.nextWayPoint[0] != target)
         {
             lastTarget = target;
             target = nextWayPoint.nextWayPoint[0].transform;
+            waitingTargetWayPoint = false;
         }
+        else waitingTargetWayPoint = true;
 
     }
 
@@ -156,10 +160,14 @@ public class Spawner : MonoBehaviour
         checkSpawnerCollidersWithObstables(c);
     }
 
-    void OnCollisionStay(Collision c)
-    {
+    private void OnCollisionExit(Collision c) {
         checkSpawnerCollidersWithObstables(c);
     }
+
+    /*void OnCollisionStay(Collision c)
+    {
+        checkSpawnerCollidersWithObstables(c);
+    }*/
 
     private void checkSpawnerCollidersWithObstables(Collision c)
     {
@@ -177,10 +185,11 @@ public class Spawner : MonoBehaviour
     {
         ManageSpawnerTriggerCollider(c);
     }
-    private void OnTriggerStay(Collider c)
+
+    /*private void OnTriggerStay(Collider c)
     {
         ManageSpawnerTriggerCollider(c);
-    }
+    }*/
 
     private void ManageSpawnerTriggerCollider(Collider c)
     {

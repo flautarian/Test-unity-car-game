@@ -28,6 +28,11 @@ public abstract class Obstacle : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    internal void inhabiliteObstacle()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     private void Awake()
     {
         StartCoroutine(initializeObstacle());

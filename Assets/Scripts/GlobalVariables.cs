@@ -5,42 +5,63 @@ using UnityEngine;
 
 public enum GameMode
 {
-    INFINITERUNNER, CHALLENGE
+    INFINITERUNNER, CHALLENGE, WOLRDMAINMENU
 }
 
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables Instance { get; private set; }
 
+    // actualitzacio de nivell de il·luminacio global
     public float currentLight = 0;
 
+    // comptador de punts de monedes
     public int totalCoins = 0;
 
+    // comptador de punts de stunt
     public int totalStuntEC = 0;
 
+    // actualitzacio d'aplicacio de nitro
     public bool nitroflag = false;
 
+    // actualitzacio d'execucio de tasques de reparacio
     public bool repairflag = false;
 
+    // actualitzacio del estat del sistema de stunts
     public StuntState castingStunt = StuntState.OFF;
 
+    // parametre del shader de simulacio de pantalla trencada
     public float currentBrokenScreen = 0;
 
+    // parametre de intensitat del shader radial blur
     public float currentRadialBlur = 0;
 
+    // control de curvatura de shader bend
+    public Vector3 curveControl = Vector3.zero;
+
+    // parametre de moviment de la camara
     public float shakeParam = 0;
 
+    // actualitzacio de la velocitat actual del jugador
     public float playerCurrentVelocity;
 
+    // contenidor per a les perticles creades
     public static Transform particlesContainer;
 
+    // contenidor per els carrers creats
     private Transform streetsContainer;
 
+    // data warehouse per administrar particules
     private static Hashtable particleSystems = new Hashtable();
 
+    // tipus de joc de l'escena
     public GameMode gameMode;
 
+    // referencia a ultim carrer creat
     public Calle lastCalle;
+
+    // eix minim z que es pot accedir del mapa
+    public float minZLimit = -90000;
 
     private void Awake()
     {
@@ -82,6 +103,11 @@ public class GlobalVariables : MonoBehaviour
     {
         totalStuntEC += number;
         if(totalStuntEC > 100) totalStuntEC = 100;
+    }
+
+    internal void UpdateMinZLimit(float zAxis){
+        if(gameMode != GameMode.INFINITERUNNER)return;
+        minZLimit = zAxis;
     }
     public static UnityEngine.Object RequestParticleSystem(String identifier)
     {
