@@ -449,7 +449,7 @@ MonoBehaviour:
   isReverse: 0
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
-  order: 0
+  order: 1
 --- !u!135 &8463928414150829979
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -752,7 +752,7 @@ MonoBehaviour:
   isReverse: 0
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
-  order: 0
+  order: 1
 --- !u!135 &101890796440263271
 SphereCollider:
   m_ObjectHideFlags: 0

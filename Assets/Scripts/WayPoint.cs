@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class WayPoint : MonoBehaviour
 {
@@ -69,4 +69,18 @@ public class WayPoint : MonoBehaviour
     {
         return previousWayPoint.Count > 1;
     }
+
+    internal WayPoint GetNextWayPoint(int streetN){
+        var tmpList = GetNextWayPointsWithNumber(streetN);
+        var chosen = Random.Range(0, tmpList.Count);
+        Debug.Log("chosen path: "+ chosen);
+        return tmpList[chosen];
+    }
+
+    internal List<WayPoint> GetNextWayPointsWithNumber(int n){
+        return nextWayPoint.Where(x=>x.order == n).ToList();
+    }
+
+
+
 }

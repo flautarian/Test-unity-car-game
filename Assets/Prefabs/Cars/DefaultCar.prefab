@@ -383,8 +383,8 @@ MonoBehaviour:
   reverseAccel: 2
   turnStrength: 180
   maxWheelTurn: 30
-  gravityForce: 0
-  dragGroundForce: 0
+  gravityForce: 4
+  dragGroundForce: 3
   parts:
   - {fileID: 8541100167447405328}
   - {fileID: 8541100167374400741}

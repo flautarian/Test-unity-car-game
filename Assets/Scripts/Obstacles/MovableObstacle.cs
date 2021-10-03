@@ -100,7 +100,7 @@ public class MovableObstacle : Obstacle
         if (Equals(other.gameObject.tag, Constants.GO_TAG_WAYPOINT))
         {
             WayPoint wayPoint = other.gameObject.GetComponent<WayPoint>();
-            if (isSameWayPointThanVehicleTarget(wayPoint))
+            if (isSameWayPointThanVehicleTarget(wayPoint) || actualWaypoint == null)
             {
                 assignNewVehicleTarget(wayPoint);
                 if (actualWaypoint != null && actualWaypoint.isAnIncorporation()) actualWaypoint.unlockWaypoint();
@@ -124,7 +124,11 @@ public class MovableObstacle : Obstacle
     {
         if (wayPoint.nextWayPoint != null && wayPoint.nextWayPoint.Count > 0)
         {
-            if (wayPoint.nextWayPoint.Count > streetNumber) vehicleTarget = wayPoint.nextWayPoint[streetNumber].transform;
+            if (wayPoint.nextWayPoint.Count > 1) {
+                var wp = wayPoint.GetNextWayPoint(streetNumber);
+                if(wp == null)wp = wayPoint.GetNextWayPoint(0);
+                vehicleTarget = wp.transform;
+            }
             else vehicleTarget = wayPoint.nextWayPoint[0].transform;
         }
         // end of road reached, deactivating obstacle

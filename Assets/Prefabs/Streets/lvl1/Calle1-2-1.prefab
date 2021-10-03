@@ -295,7 +295,7 @@ MonoBehaviour:
   isReverse: 0
   isOccuped: 0
   vehicleLockingWaypoint: {fileID: 0}
-  order: 0
+  order: 1
 --- !u!135 &9066547584984537756
 SphereCollider:
   m_ObjectHideFlags: 0

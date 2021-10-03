@@ -34,7 +34,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_2929BCB1: 64
+    - Vector1_2929BCB1: 512
     - Vector1_43AF8877: 0.1
     - Vector1_5715441B: 1
     - Vector1_7BDA28BA: 2

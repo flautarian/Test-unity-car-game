@@ -64,19 +64,19 @@ public class WayPointManager : MonoBehaviour
     {
         foreach (WayPoint wp in firstWayPoint)
         {
-            wp.previousWayPoint.Clear();
+            if(wp.previousWayPoint != null) wp.previousWayPoint.Clear();
         }
         foreach (WayPoint wp in firstWayReversalPoint)
         {
-            wp.previousWayPoint.Clear();
+            if(wp.previousWayPoint != null) wp.previousWayPoint.Clear();
         }
         foreach (WayPoint wp in lastWayPoint)
         {
-            wp.nextWayPoint.Clear();
+            if(wp.nextWayPoint != null) wp.nextWayPoint.Clear();
         }
         foreach (WayPoint wp in lastWayReversalPoint)
         {
-            wp.nextWayPoint.Clear();
+            if(wp.nextWayPoint != null) wp.nextWayPoint.Clear();
         }
     }
 }

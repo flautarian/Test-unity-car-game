@@ -151,11 +151,9 @@ public class GUIController : MonoBehaviour
 
     internal void InitStunt(Stunt stunt){
         playerController.InitStunt(stunt);
-        var actualStunts = (int)stuntsEarned[stunt.stuntName];
-        if (actualStunts != null)
+        if (stuntsEarned.Contains(stunt.stuntName))
         {
-            actualStunts+=1;
-            stuntsEarned[stunt.stuntName] = actualStunts;
+            stuntsEarned[stunt.stuntName] = (int)stuntsEarned[stunt.stuntName] + 1;
         }
         else stuntsEarned.Add(stunt.stuntName, 1);
     }

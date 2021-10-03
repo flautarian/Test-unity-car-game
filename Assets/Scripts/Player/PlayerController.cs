@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
 
     internal List<PlayerDestructablePart> destructableParts;
 
-    public float speedInput;
+    public float speedInput, comboStunt;
 
     public float VerticalAxis, HorizontalAxis;
 
@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
     private bool trickMode = false;
 
     private int isStunting = -1;
+
+    public ParticleSystem stuntComboPS;
 
     private void Awake(){
         player = GetComponentInChildren<Player>();
@@ -92,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
         // apliquem a variable velocitat
         if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
+        speedInput += comboStunt;
 
         //Refresc de posició
         transform.position = playerSphereRigidBody.transform.position;
@@ -126,7 +129,10 @@ public class PlayerController : MonoBehaviour
             // Mire raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
             if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
             {
-                if (!grounded) GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+                if (!grounded) {
+                    //this.transform.rotation = Quaternion.Euler(0, this.transform.rotation.y, 0);
+                    GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+                }
                 grounded = true;
             }
             else grounded = false;
@@ -147,7 +153,7 @@ public class PlayerController : MonoBehaviour
             playerSphereRigidBody.drag = 0.1f;
             playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
         }
-        ManageTricks();
+        //if(IsInStuntMode())ManageTricks();
         if (!canMove) playerSphereRigidBody.drag = 3.5f;
 
     }
@@ -174,24 +180,42 @@ public class PlayerController : MonoBehaviour
         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
         playerAnimator.SetInteger(Constants.ANIMATION_NAME_CAST_STUNT_INT, stunt.stuntValue);
         playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, true);
+        var emissionVar = stuntComboPS.emission;
+        emissionVar.enabled = true;
         switch(stunt.comboKeys.Count){
             case 2:
                 GlobalVariables.Instance.addStuntEC(5);
+                if(emissionVar.rateOverTime.constant < 5.0f){
+                    emissionVar.rateOverTime = 5.0f;
+                }
+                comboStunt = 1000f;
             break;
             case 3:
                 GlobalVariables.Instance.addStuntEC(10);
+                if(emissionVar.rateOverTime.constant < 10.0f){
+                    emissionVar.rateOverTime = 10.0f;
+                }
+                comboStunt = 2000f;
             break;
             case 4:
+                if(emissionVar.rateOverTime.constant < 15.0f){
+                    emissionVar.rateOverTime = 15.0f;
+                }
+                comboStunt = 3000f;
             break;
             case 5:
+                if(emissionVar.rateOverTime.constant < 20.0f){
+                    emissionVar.rateOverTime = 20.0f;
+                }
+                comboStunt = 4000f;
             break;
             default:
             break;
         }
     }
 
-    public void impulseUpCar(float amount){
-        playerSphereRigidBody.AddForce(transform.up * amount, ForceMode.Impulse);
+    internal void impulseUpCar(float amount){
+        playerSphereRigidBody.AddForce(Vector3.up * amount, ForceMode.Impulse);
     }
 
     internal void turnLeft()
@@ -202,12 +226,6 @@ public class PlayerController : MonoBehaviour
     internal void turnRight()
     {
         throw new NotImplementedException();
-    }
-
-
-    private void ManageTricks()
-    {
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 1.0f * Time.deltaTime);
     }
 
     public void SphereEnterCollides(Collision collision)
@@ -228,8 +246,13 @@ public class PlayerController : MonoBehaviour
     }
     private void destroyPlayer(string reason)
     {
-        playerAnimator.SetBool(Constants.ANIMATION_NAME_EXPLODE_BOOL, true);
-        guiController.startGameOver(reason);
+        if(GlobalVariables.Instance.gameMode == GameMode.WOLRDMAINMENU){
+            //TODO: hacer return a una posicion segura
+        }
+        else{
+            playerAnimator.SetBool(Constants.ANIMATION_NAME_EXPLODE_BOOL, true);
+            guiController.startGameOver(reason);
+        }
     }
 
     public void executeCarExplosionParticle()
@@ -267,6 +290,10 @@ public class PlayerController : MonoBehaviour
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
         if (obstacle != null && obstacle.penalizableObstacle)
         {
+            // conseqüencies de col·licio
+            var emissionVar = stuntComboPS.emission;
+            emissionVar.enabled = false;
+            comboStunt = 0f;
             if (obstacle.lethal) destroyPlayer(Constants.GAME_OVER_LETHAL_OBS_COLLIDED);
             else
             {
@@ -276,21 +303,20 @@ public class PlayerController : MonoBehaviour
                 {
                     int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
 
-                    // car conseqüences
                     if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
                     {
                         if(trickMode) communicateStuntReset();
-                        // explosion particle init
+                        // executing particles from GlobalVariables
                         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, partDestroyed.transform.position);
+                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, partDestroyed.transform.position);
+                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, partDestroyed.transform.position);
                         // shader effects
                         GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
                         GlobalVariables.Instance.shakeParam += 2.5f;
-                        // enabling animation pass to animator Player
+                        // si esta en mode stunt cancelar·lo perque el cotxe ha xocat
                         if(trickMode) UpdatePlayerAnimationStuntMode(false);
+                        // habilitant boolea de col·licio de cotxe
                         playerAnimator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
-                        // executing particles from GlobalVariables
-                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, partDestroyed.transform.position);
-                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, partDestroyed.transform.position);
                         if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
                             guiPlayer.carPartsIndicator.decrementPart();
                         partDestroyed.ejectPart();
@@ -337,16 +363,13 @@ public class PlayerController : MonoBehaviour
     private void manageNitro()
     {
         GlobalVariables.Instance.playerCurrentVelocity = playerSphereRigidBody.velocity.z;
-        if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_NITRO_BOOL))
+        if (GlobalVariables.Instance.nitroflag)
         {
             forwardAccel = normalForwardAccel;
             GlobalVariables.Instance.currentRadialBlur = 0;
-            if (GlobalVariables.Instance.nitroflag)
-            {
-                StartCoroutine(initializeNitro());
-            }
+            StartCoroutine(initializeNitro());
         }
-        else
+        else if(playerAnimator.GetBool(Constants.ANIMATION_NAME_NITRO_BOOL))
         {
             float valRadial = GlobalVariables.Instance.currentRadialBlur;
             if (forwardAccel > normalForwardAccel)
@@ -354,8 +377,11 @@ public class PlayerController : MonoBehaviour
             else
             {
                 if (valRadial > 0)
-                    valRadial -= 0.03f;
-                else valRadial = 0;
+                    valRadial -= 0.02f;
+                else {
+                    valRadial = 0;
+                    playerAnimator.SetBool(Constants.ANIMATION_NAME_NITRO_BOOL, false);
+                }
             }
             GlobalVariables.Instance.currentRadialBlur = valRadial;
         }
@@ -363,9 +389,10 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator initializeNitro()
     {
+        playerAnimator.SetBool(Constants.ANIMATION_NAME_NITRO_BOOL, true);
+        GlobalVariables.Instance.nitroflag = false;
         forwardAccel += 2;
         yield return new WaitForSeconds(3f);
         forwardAccel -= 2;
-        GlobalVariables.Instance.nitroflag = false;
     }
 }

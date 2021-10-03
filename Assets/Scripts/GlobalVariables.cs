@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum GameMode
 {
-    INFINITERUNNER, CHALLENGE, WOLRDMAINMENU
+    INFINITERUNNER, CHALLENGE, TESTING, WOLRDMAINMENU
 }
 
 public class GlobalVariables : MonoBehaviour

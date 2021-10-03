@@ -196,7 +196,11 @@ MonoBehaviour:
   - {fileID: 7930433334952496448, guid: ff9a0d195b4b4974fbc951e4fa4c7c3a, type: 3}
   - {fileID: 7930433334952496448, guid: abecce865dc1c084d8d7cfa022972e9c, type: 3}
   buttonsPressed: []
-  stuntList: []
+  stuntList:
+  - {fileID: 6327469284685916849, guid: bf6c1ed5add1fb349acc1ec5a2a607e9, type: 3}
+  - {fileID: 6327469284685916849, guid: ef6bbc575961bb4459c4b638d96fedd8, type: 3}
+  - {fileID: 6327469284685916849, guid: 4bf3a45efb69f8b44ba0047cc98da35e, type: 3}
+  - {fileID: 6327469284685916849, guid: a89cf54cbdb1c51469e7aa31bc024571, type: 3}
   stuntKeysPressed: 
 --- !u!33 &1026693819781124724
 MeshFilter:
@@ -343,6 +347,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670ab61c5b5fdcd4f8cd1a4fe701e1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barMaterial: {fileID: 0}
+  meshFilter: {fileID: 0}
+  barValue: 0
+  progressBorder: 0
+  fillRate: 0
+  fillPercentValue: 0
 --- !u!1 &9068269815719255631
 GameObject:
   m_ObjectHideFlags: 0
