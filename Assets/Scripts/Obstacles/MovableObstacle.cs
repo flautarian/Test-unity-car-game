@@ -126,7 +126,7 @@ public class MovableObstacle : Obstacle
         {
             if (wayPoint.nextWayPoint.Count > 1) {
                 var wp = wayPoint.GetNextWayPoint(streetNumber);
-                if(wp == null)wp = wayPoint.GetNextWayPoint(0);
+                if(wp == null) wp = wayPoint.GetNextWayPoint(0);
                 vehicleTarget = wp.transform;
             }
             else vehicleTarget = wayPoint.nextWayPoint[0].transform;

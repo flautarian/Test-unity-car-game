@@ -62,21 +62,20 @@ public class WayPointManager : MonoBehaviour
 
     private void OnDisable()
     {
-        foreach (WayPoint wp in firstWayPoint)
+        if(firstWayPoint != null) ClearWayPointList(firstWayPoint, false, true);
+        if(firstWayReversalPoint != null) ClearWayPointList(firstWayReversalPoint, false, true);
+        
+        if(lastWayPoint != null) ClearWayPointList(lastWayPoint, true, false);
+        if(lastWayReversalPoint != null) ClearWayPointList(lastWayReversalPoint, true, false);
+    }
+
+    private void ClearWayPointList(List<WayPoint> wpList, bool nextWps, bool prevWps){
+        foreach (WayPoint wp in wpList)
         {
-            if(wp.previousWayPoint != null) wp.previousWayPoint.Clear();
-        }
-        foreach (WayPoint wp in firstWayReversalPoint)
-        {
-            if(wp.previousWayPoint != null) wp.previousWayPoint.Clear();
-        }
-        foreach (WayPoint wp in lastWayPoint)
-        {
-            if(wp.nextWayPoint != null) wp.nextWayPoint.Clear();
-        }
-        foreach (WayPoint wp in lastWayReversalPoint)
-        {
-            if(wp.nextWayPoint != null) wp.nextWayPoint.Clear();
+            if(wp != null && wp.previousWayPoint != null){
+                if(prevWps) wp.previousWayPoint.Clear();
+                if(nextWps) wp.nextWayPoint.Clear();
+            }
         }
     }
 }
