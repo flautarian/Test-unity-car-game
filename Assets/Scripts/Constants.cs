@@ -33,6 +33,8 @@ public class Constants
     public const string ANIMATION_NAME_IS_IN_STUNT_BOOL = "isInStunt";
     public const string ANIMATION_NAME_CAST_STUNT_INT = "castStunt";
     public const string ANIMATION_NAME_STUNT_INDICATOR_BOOL = "StuntIndicatorEnabled";
+    public const string ANIMATION_BUTTON_CONTROLLER_SELECTED_BOOL = "Selected";
+    public const string ANIMATION_BUTTON_CONTROLLER_TRIGGERED_BOOL = "Triggered";
 
     
     // player parts

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum GameMode
 {
-    INFINITERUNNER, CHALLENGE, TESTING, WOLRDMAINMENU
+    INFINITERUNNER, CHALLENGE, TESTING, WOLRDMAINMENU, MAINMENU, MULTIPLAYER
 }
 
 public class GlobalVariables : MonoBehaviour
@@ -62,6 +62,12 @@ public class GlobalVariables : MonoBehaviour
 
     // eix minim z que es pot accedir del mapa
     public float minZLimit = -90000;
+
+    // nivell de so de la musica del joc
+    public float soundLevel = 1;
+
+    // nivell de so dels efectes del joc
+    public float chunkLevel = 1;
 
     private void Awake()
     {
@@ -128,5 +134,15 @@ public class GlobalVariables : MonoBehaviour
             newParticle.transform.position = position;
             newParticle.gameObject.SetActive(true);
         }
+    }
+
+    public void UpdateSoundLevel(float level){
+        Debug.Log(level);
+        soundLevel = level;
+    }
+
+    public void UpdateChunkLevel(float level){
+        Debug.Log(level);
+        chunkLevel = level;
     }
 }

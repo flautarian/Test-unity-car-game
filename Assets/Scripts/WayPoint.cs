@@ -73,9 +73,7 @@ public class WayPoint : MonoBehaviour
     internal WayPoint GetNextWayPoint(int streetN){
         var tmpList = GetNextWayPointsWithNumber(streetN);
         if(tmpList.Count == 0) return null;
-        var chosen = Random.Range(0, tmpList.Count);
-        Debug.Log("chosen path: "+ chosen);
-        return tmpList[chosen];
+        return tmpList[Random.Range(0, tmpList.Count)];
     }
 
     internal List<WayPoint> GetNextWayPointsWithNumber(int n){
