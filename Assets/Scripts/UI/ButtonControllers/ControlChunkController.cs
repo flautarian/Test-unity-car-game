@@ -11,7 +11,7 @@ public class ControlChunkController : MonoBehaviour
     {
         scrollbar = GetComponent<Scrollbar>();
         scrollbar.onValueChanged.AddListener((float val) => ScrollbarCallback(val));
-        scrollbar.value = GlobalVariables.Instance.chunkLevel;
+        scrollbar.value = GlobalVariables.Instance.GetChunkLevel();
     }
     
     void ScrollbarCallback(float value)

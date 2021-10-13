@@ -11,7 +11,7 @@ public class ControlSoundController : MonoBehaviour
     {
         scrollbar = GetComponent<Scrollbar>();
         scrollbar.onValueChanged.AddListener((float val) => ScrollbarCallback(val));
-        scrollbar.value = GlobalVariables.Instance.soundLevel;
+        scrollbar.value = GlobalVariables.Instance.GetSoundLevel();
     }
  
     void ScrollbarCallback(float value)

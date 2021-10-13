@@ -18,10 +18,12 @@ public abstract class InteractableObject : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.localPosition = initialLocalPosition;
-        transform.localRotation = initialLocalRotation;
-        transform.localScale = initialLocalScale;
-        animator.SetBool(Constants.ANIMATION_NAME_TAKEN_BOOL, false);
+        if(GlobalVariables.Instance != null && GlobalVariables.Instance.gameMode == GameMode.INFINITERUNNER){
+            transform.localPosition = initialLocalPosition;
+            transform.localRotation = initialLocalRotation;
+            transform.localScale = initialLocalScale;
+            animator.SetBool(Constants.ANIMATION_NAME_TAKEN_BOOL, false);
+        }
     }
 
     public abstract void Execute();

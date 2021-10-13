@@ -52,17 +52,21 @@ public class Constants
     public const string ANIMATION_NAME_STUNT_WRONG_ICON_BOOL = "wrong";
     public const string ANIMATION_NAME_STUNT_STUNT_COMPLETED_ICON_BOOL = "correct";
 
+    // panels
+    public const string ANIMATION_TRIGGER_PAUSEGAME_PANELS = "PauseGame";
+
     // Shader control variables
 
     public const string SHADER_CONTROL_STUNT_BAR_FILL_RATE = "_FillRate";
     public const string SHADER_CONTROL_STUNT_BAR_PROGRESS_BORDER = "_ProgressBorder";
 
 
-    // Axis types
+    // Axis types and buttons
     public const string AXIS_VERTICAL = "Vertical";
     public const string AXIS_HORIZONTAL= "Horizontal";
     public const string INPUT_ACCELERATE = "Accelerate";
     public const string INPUT_FIRE = "Fire1";
+    public const string BACK = "Cancel";
 
 
     // game object tags

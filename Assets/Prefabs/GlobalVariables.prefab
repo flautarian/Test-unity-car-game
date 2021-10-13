@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7094591356523731214}
   - component: {fileID: 7094591356523731215}
   - component: {fileID: 7094591356523731213}
+  - component: {fileID: 4600597223894909793}
   m_Layer: 0
   m_Name: GlobalVariables
   m_TagString: Untagged
@@ -52,11 +53,14 @@ MonoBehaviour:
   castingStunt: 0
   currentBrokenScreen: 0
   currentRadialBlur: 0
+  curveControl: {x: 0, y: 0, z: 0}
   shakeParam: 0
   playerCurrentVelocity: 0
   gameMode: 0
   lastCalle: {fileID: 0}
   minZLimit: -90000
+  soundLevel: 1
+  chunkLevel: 1
 --- !u!114 &7094591356523731213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,3 +112,15 @@ MonoBehaviour:
   - tag: twoToTwoWayRoads
     prefabs: []
     size: 0
+--- !u!114 &4600597223894909793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7094591356523731208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85937e2a380402b4f89f4458f55406cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

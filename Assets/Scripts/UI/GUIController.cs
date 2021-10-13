@@ -107,7 +107,7 @@ public class GUIController : MonoBehaviour
             stuntsIndicator.startGameOver();
 
         if (cmvStateDriveCameraAnimator != null)
-            cmvStateDriveCameraAnimator.Play("GameOverCamera");
+            cmvStateDriveCameraAnimator.Play("GameOverAnimation");
     }
 
     #endregion

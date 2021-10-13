@@ -8,6 +8,10 @@ public enum GameMode
     INFINITERUNNER, CHALLENGE, TESTING, WOLRDMAINMENU, MAINMENU, MULTIPLAYER
 }
 
+public enum InGamePanels{
+    GAMEON, PAUSED, LEVELSELECTION
+}
+
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables Instance { get; private set; }
@@ -63,11 +67,11 @@ public class GlobalVariables : MonoBehaviour
     // eix minim z que es pot accedir del mapa
     public float minZLimit = -90000;
 
-    // nivell de so de la musica del joc
-    public float soundLevel = 1;
+    // configuracio desada al sistema realcionada amb el joc
+    private SaveGame saveGameData;
 
-    // nivell de so dels efectes del joc
-    public float chunkLevel = 1;
+    // estat del joc en questio d'opcions
+    public InGamePanels inGameState = InGamePanels.GAMEON;
 
     private void Awake()
     {
@@ -85,6 +89,8 @@ public class GlobalVariables : MonoBehaviour
 
         var partgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PARTICLE_CONTAINER);
         if (partgo != null) particlesContainer = partgo.transform;
+
+        saveGameData = GetComponent<SaveGame>();
     }
 
     void Start()
@@ -136,13 +142,22 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
+    public float GetSoundLevel(){
+        return saveGameData.data.soundValue;
+    }
     public void UpdateSoundLevel(float level){
-        Debug.Log(level);
-        soundLevel = level;
+        saveGameData.data.soundValue = level;
+    }
+
+    public float GetChunkLevel(){
+        return saveGameData.data.chunkValue;
     }
 
     public void UpdateChunkLevel(float level){
-        Debug.Log(level);
-        chunkLevel = level;
+        saveGameData.data.chunkValue = level;
+    }
+
+    public void SaveGame(){
+        saveGameData.UpdateSaveGame();
     }
 }

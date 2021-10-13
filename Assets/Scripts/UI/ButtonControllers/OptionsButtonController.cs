@@ -5,6 +5,5 @@ using UnityEngine;
 public class OptionsButtonController : SelectButtonController
 {
     public override void executeButton(){
-        
     }
 }
