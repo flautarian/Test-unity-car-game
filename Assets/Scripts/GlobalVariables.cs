@@ -104,6 +104,9 @@ public class GlobalVariables : MonoBehaviour
             if (firstStreetCalle != null)
                 firstStreetCalle.generateNextStreet(5);
         }
+        else if(gameMode == GameMode.WOLRDMAINMENU){
+            
+        }
     }
 
     internal void addCoins(int number)

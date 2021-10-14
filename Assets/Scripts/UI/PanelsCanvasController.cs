@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class PanelsCanvasController : MonoBehaviour
 {
     Animator animator;
+
+    public int lastScene;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -30,6 +33,10 @@ public class PanelsCanvasController : MonoBehaviour
 
     public void SetTimeScaleGame(float scale){
         Time.timeScale = scale;
+    }
+
+    public void LoadPreviousScene(){
+        SceneManager.LoadScene(lastScene);
     }
 
 }
