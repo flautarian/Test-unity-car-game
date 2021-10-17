@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public enum GameMode
@@ -91,10 +92,7 @@ public class GlobalVariables : MonoBehaviour
         if (partgo != null) particlesContainer = partgo.transform;
 
         saveGameData = GetComponent<SaveGame>();
-    }
 
-    void Start()
-    {
         if (gameMode == GameMode.INFINITERUNNER)
         {
             GameObject firstStreet = PoolManager.Instance.SpawnFromPool(Constants.POOL_ONE_TO_ONE_STREET, Vector3.zero, Quaternion.Euler(0, 0, 0), streetsContainer);
@@ -107,6 +105,19 @@ public class GlobalVariables : MonoBehaviour
         else if(gameMode == GameMode.WOLRDMAINMENU){
             
         }
+        Debug.Log("I'm Awakening!!");
+    }
+
+    void Start()
+    {
+    }
+
+    internal void ResetLevel(){
+        UpdateMinZLimit(0);
+        totalCoins =0;
+        totalStuntEC =0;
+        Scene m_Scene = SceneManager.GetActiveScene();
+   		SceneManager.LoadScene(m_Scene.name);
     }
 
     internal void addCoins(int number)

@@ -6311,22 +6311,22 @@ PrefabInstance:
     - target: {fileID: 2792526651104924523, guid: 9327a4de77f42a54bb76f6228384c934,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -0.041992005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2792526651104924523, guid: 9327a4de77f42a54bb76f6228384c934,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: -4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2792526651104924523, guid: 9327a4de77f42a54bb76f6228384c934,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -0.041992005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2792526651104924523, guid: 9327a4de77f42a54bb76f6228384c934,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: -0.041992005
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2792526651104924517, guid: 9327a4de77f42a54bb76f6228384c934, type: 3}
@@ -6406,12 +6406,12 @@ PrefabInstance:
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016540765
+      value: 0.000000016540765
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000004739479
+      value: -0.000000004739479
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
@@ -6542,6 +6542,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GlobalVariables
+      objectReference: {fileID: 0}
+    - target: {fileID: 7094591356523731213, guid: 10001b6c7253d164dad44a08f2119e8c,
+        type: 3}
+      propertyPath: pools.Array.data[2].size
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7094591356523731213, guid: 10001b6c7253d164dad44a08f2119e8c,
         type: 3}
@@ -7298,17 +7303,17 @@ PrefabInstance:
     - target: {fileID: 8119333848226143426, guid: e863927783b9658419155e075251fe20,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: NaN
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8119333848226143426, guid: e863927783b9658419155e075251fe20,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 8.4e-44
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8119333848226143426, guid: e863927783b9658419155e075251fe20,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8351014031779638618, guid: e863927783b9658419155e075251fe20,
         type: 3}
@@ -12379,6 +12384,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6327469284685916849, guid: a89cf54cbdb1c51469e7aa31bc024571,
         type: 3}
+    - target: {fileID: 1936533759810883189, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2213356383768140805, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625578622328951731, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: lastScene
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4705310386043422794, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_CastShadows
@@ -12450,9 +12470,19 @@ PrefabInstance:
       propertyPath: cmvStateDriveCameraAnimator
       value: 
       objectReference: {fileID: 1598109854}
+    - target: {fileID: 9068269816833370705, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9068269816833370710, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269816833370711, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_RenderShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9068269816834089046, guid: adbe659fc6332a04c968949a8d92bcac,
@@ -12552,6 +12582,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
       propertyPath: m_projectionMatrixMode
       value: 1
       objectReference: {fileID: 0}
@@ -12588,12 +12623,12 @@ PrefabInstance:
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016540765
+      value: 0.000000016540765
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000004739479
+      value: -0.000000004739479
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104767, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}

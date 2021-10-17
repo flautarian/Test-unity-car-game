@@ -54,6 +54,7 @@ public class Constants
 
     // panels
     public const string ANIMATION_TRIGGER_PAUSEGAME_PANELS = "PauseGame";
+    public const string ANIMATION_TRIGGER_GAMEOVER_PANELS = "GameOver";
 
     // Shader control variables
 
@@ -78,6 +79,7 @@ public class Constants
     public const string GO_TAG_PARTICLE_CONTAINER = "ParticlesContainer";
     public const string GO_TAG_OBSTACLE_CONTAINER = "ObstaclesContainer";
     public const string GO_TAG_WAYPOINT = "WayPoint";
+    public const string GO_TAG_PANEL_CANVAS_CONTAINER = "PanelsCanvas";
 
 
     // pool names

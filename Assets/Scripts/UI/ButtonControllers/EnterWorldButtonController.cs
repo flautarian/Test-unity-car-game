@@ -6,6 +6,11 @@ using UnityEngine;
 public class EnterWorldButtonController : SelectButtonController
 {
     public override void executeButton(){
+        StartCoroutine(LoadWorldOneScene());
+    }
+
+    private IEnumerator LoadWorldOneScene(){
+        yield return new WaitForSeconds(4f);
         SceneManager.LoadScene(1);
     }
 }

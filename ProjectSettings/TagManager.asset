@@ -32,6 +32,7 @@ TagManager:
   - ParticlesContainer
   - ObstaclesContainer
   - PoolContainer
+  - PanelsCanvas
   layers:
   - Default
   - TransparentFX

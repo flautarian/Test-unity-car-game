@@ -108,6 +108,18 @@ public class GUIController : MonoBehaviour
 
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("GameOverAnimation");
+
+        StartCoroutine(WaitUntilShowGameOverPanel());
+    }
+
+    private IEnumerator WaitUntilShowGameOverPanel(){
+        var panelCanvas = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PANEL_CANVAS_CONTAINER);
+        Animator animator = null;
+        if(panelCanvas != null)
+            animator = panelCanvas.GetComponent<Animator>();
+        yield return new WaitForSeconds(6f);
+        if(animator != null)animator.SetTrigger(Constants.ANIMATION_TRIGGER_GAMEOVER_PANELS);
+
     }
 
     #endregion

@@ -39,4 +39,8 @@ public class PanelsCanvasController : MonoBehaviour
         SceneManager.LoadScene(lastScene);
     }
 
+    public void ReloadActualScene(){
+        GlobalVariables.Instance.ResetLevel();
+    }
+
 }

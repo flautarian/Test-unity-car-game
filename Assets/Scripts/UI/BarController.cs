@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StuntBarController : MonoBehaviour
+public class BarController : MonoBehaviour
 {
     public Material barMaterial;
     public MeshFilter meshFilter;
