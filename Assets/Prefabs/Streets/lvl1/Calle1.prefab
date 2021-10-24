@@ -1973,6 +1973,16 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -2.4440668e-14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6536564706323813303, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1991,7 +2001,7 @@ PrefabInstance:
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6999998
+      value: 2.9499998
       objectReference: {fileID: 0}
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
@@ -2629,6 +2639,21 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0.00017374082
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 4.0058797e-11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 8e-44
+      objectReference: {fileID: 0}
     - target: {fileID: 6536564706323813303, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2647,7 +2672,7 @@ PrefabInstance:
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6999998
+      value: 2.9499998
       objectReference: {fileID: 0}
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
@@ -2872,6 +2897,26 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 1e-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6536564706323813303, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2890,7 +2935,7 @@ PrefabInstance:
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6999998
+      value: 2.9499998
       objectReference: {fileID: 0}
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
@@ -3289,7 +3334,7 @@ PrefabInstance:
     - target: {fileID: 1734647508265629942, guid: 978b58a24c4270e4b9ebe5784ced33b6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 2.95
       objectReference: {fileID: 0}
     - target: {fileID: 1734647508265629942, guid: 978b58a24c4270e4b9ebe5784ced33b6,
         type: 3}
@@ -3531,6 +3576,21 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: -3.0026352e-16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 4.051354e-11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3885393962515437784, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 12.000047
+      objectReference: {fileID: 0}
     - target: {fileID: 6536564706323813303, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3549,7 +3609,7 @@ PrefabInstance:
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6999998
+      value: 2.9499998
       objectReference: {fileID: 0}
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
@@ -3629,7 +3689,7 @@ PrefabInstance:
     - target: {fileID: 4843604598618159736, guid: 0e29a1e62191c7147be1018d324ce54c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 2.95
       objectReference: {fileID: 0}
     - target: {fileID: 4843604598618159736, guid: 0e29a1e62191c7147be1018d324ce54c,
         type: 3}
@@ -3704,7 +3764,7 @@ PrefabInstance:
     - target: {fileID: 3118962125490926372, guid: d3f977921757e6a43822100f9a349633,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.70000076
+      value: 1.9500008
       objectReference: {fileID: 0}
     - target: {fileID: 3118962125490926372, guid: d3f977921757e6a43822100f9a349633,
         type: 3}

@@ -241,7 +241,6 @@ public class PlayerController : MonoBehaviour
                 streetType = StreetType.water;
                 destroyPlayer(Constants.GAME_OVER_VEHICLE_DROWNED);
             }
-
         }
     }
     private void destroyPlayer(string reason)

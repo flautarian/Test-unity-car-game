@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5509488121144215437}
   - component: {fileID: 8230638513312265978}
   - component: {fileID: 6713009728291272204}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Gardener3
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 0
-  rigidBodySlept: 0
+  rigidBodySlept: 1
   spawnedObstacle: 0
 --- !u!54 &8230638513312265978
 Rigidbody:
@@ -129,5 +129,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.50604236, y: 0.204993, z: 0.9222033}
-  m_Center: {x: 0.043664455, y: 0.1024965, z: 0.045480132}
+  m_Size: {x: 0.5144261, y: 0.22253023, z: 0.909451}
+  m_Center: {x: -0.00071201724, y: -0.11047744, z: -0.013994455}

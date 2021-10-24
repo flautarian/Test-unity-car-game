@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5506044427946619493}
   - component: {fileID: 1488001648363447855}
   - component: {fileID: 5806257346970865144}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BasketCamp
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}

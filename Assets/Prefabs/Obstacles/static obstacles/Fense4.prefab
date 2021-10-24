@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7105922924246642319}
   - component: {fileID: 2483020914219300742}
   - component: {fileID: 4284603586684803847}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fense4
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}

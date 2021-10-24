@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2599124098176462063}
   - component: {fileID: 5045106045782391430}
   - component: {fileID: 7260646536804954518}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: StreetLight2
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
@@ -97,8 +97,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.13, y: 1.5, z: 0.13}
-  m_Center: {x: 0.25, y: 0.75, z: 0.05}
+  m_Size: {x: 0.11539831, y: 1.5, z: 0.10718672}
+  m_Center: {x: 0.24269915, y: 0, z: 0.0016086599}
 --- !u!114 &5045106045782391430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 0
-  rigidBodySlept: 0
+  rigidBodySlept: 1
   spawnedObstacle: 0
 --- !u!54 &7260646536804954518
 Rigidbody:

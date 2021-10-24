@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: ed3d563bc90d87046b66538863d903fa
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - RedeemGold
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 806357520691d9141acf3cd25dd6e8f8, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

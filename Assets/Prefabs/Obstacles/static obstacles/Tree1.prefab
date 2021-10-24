@@ -9,7 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6435682005808403100}
-  m_Layer: 0
+  - component: {fileID: 404619742871624456}
+  - component: {fileID: 3292301787380098817}
+  - component: {fileID: 3216601064847492711}
+  - component: {fileID: 7431357716050922290}
+  - component: {fileID: 8164327082950014857}
+  m_Layer: 11
   m_Name: Tree1
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
@@ -25,54 +30,18 @@ Transform:
   m_GameObject: {fileID: 2116576672233973832}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 5682685874181963768}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8540081147009791926
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5682685874181963768}
-  - component: {fileID: 888831159234406231}
-  - component: {fileID: 8883060077424135780}
-  - component: {fileID: 7579386266242676812}
-  - component: {fileID: 5111442139440671512}
-  - component: {fileID: 1507889505067765874}
-  m_Layer: 0
-  m_Name: Tree
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2
-  m_IsActive: 1
---- !u!4 &5682685874181963768
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8540081147009791926}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15, y: 0, z: -0.15}
-  m_LocalScale: {x: 3, y: 3, z: 3}
-  m_Children: []
-  m_Father: {fileID: 6435682005808403100}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &888831159234406231
+--- !u!23 &404619742871624456
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8540081147009791926}
+  m_GameObject: {fileID: 2116576672233973832}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
@@ -108,21 +77,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &8883060077424135780
+--- !u!33 &3292301787380098817
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8540081147009791926}
+  m_GameObject: {fileID: 2116576672233973832}
   m_Mesh: {fileID: -2432090755550338912, guid: 467d17efef21c8f448a21f1a196fc140, type: 3}
---- !u!54 &7579386266242676812
+--- !u!54 &3216601064847492711
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8540081147009791926}
+  m_GameObject: {fileID: 2116576672233973832}
   serializedVersion: 2
   m_Mass: 10
   m_Drag: 0
@@ -132,13 +101,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5111442139440671512
+--- !u!114 &7431357716050922290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8540081147009791926}
+  m_GameObject: {fileID: 2116576672233973832}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fb6e3c6453c7604a8b4f16de5d8125b, type: 3}
@@ -147,18 +116,18 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 0
-  rigidBodySlept: 0
+  rigidBodySlept: 1
   spawnedObstacle: 0
---- !u!65 &1507889505067765874
+--- !u!65 &8164327082950014857
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8540081147009791926}
+  m_GameObject: {fileID: 2116576672233973832}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10477738, y: 0.8431119, z: 0.10590782}
-  m_Center: {x: 0.050776325, y: 0.021555921, z: 0.046716582}
+  m_Size: {x: 0.09736868, y: 0.7578591, z: 0.104859255}
+  m_Center: {x: -0.0035568476, y: -0.06, z: 0.0021311543}

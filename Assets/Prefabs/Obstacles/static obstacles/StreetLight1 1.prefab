@@ -100,7 +100,7 @@ MonoBehaviour:
   penalizableObstacle: 1
   lethal: 0
   apparitionLevel: 0
-  rigidBodySlept: 0
+  rigidBodySlept: 1
   spawnedObstacle: 0
 --- !u!54 &7546506753907662277
 Rigidbody:

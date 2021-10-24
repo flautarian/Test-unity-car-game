@@ -800,6 +800,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2925965780331628655, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.9499998
+      objectReference: {fileID: 0}
     - target: {fileID: 3022869277766282559, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -824,6 +829,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719474206118276373, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.9499998
       objectReference: {fileID: 0}
     - target: {fileID: 6717670176976491711, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
         type: 3}
@@ -885,15 +895,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7268334308232824672, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 4.1003012e-19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268334308232824672, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 4.5905e-41
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268334308232824672, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7268334308232824672, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7768330191604400818, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.9500008
       objectReference: {fileID: 0}
+    - target: {fileID: 7857924298312595068, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8486956070628929377, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.7000008
+      objectReference: {fileID: 0}
+    - target: {fileID: 9207010146357670722, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213075942618259994, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213075942618259994, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 4.5905e-41
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213075942618259994, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213075942618259994, guid: 980a21e4f9c57b64ebba3f197c8a84e2,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 980a21e4f9c57b64ebba3f197c8a84e2, type: 3}
@@ -3064,6 +3124,11 @@ PrefabInstance:
       propertyPath: VelocityModule.z.maxCurve.m_Curve.Array.data[1].tangentMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2522747655703840358, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2809870132314619758, guid: e863927783b9658419155e075251fe20,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
@@ -3099,10 +3164,55 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 511376d1cd06ed2438f10aecfe300290, type: 2}
+    - target: {fileID: 3956649822556628633, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: autoRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4418314917184193554, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4418314917184193554, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4642545505910297989, guid: e863927783b9658419155e075251fe20,
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539907894744428260, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_Mesh1
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539907894744428260, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539907894744428260, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539907894744428260, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_EnableGPUInstancing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539907894744428260, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539907894744428260, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6550511018914144941, guid: e863927783b9658419155e075251fe20,
         type: 3}
@@ -3209,6 +3319,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 511376d1cd06ed2438f10aecfe300290, type: 2}
+    - target: {fileID: 9186608527621556609, guid: e863927783b9658419155e075251fe20,
+        type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e863927783b9658419155e075251fe20, type: 3}
 --- !u!1 &7286298828599530279 stripped

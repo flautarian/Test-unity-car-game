@@ -18,6 +18,9 @@ public class OutlineController : MonoBehaviour
     private Renderer CreateOutline(Material outlineMat, float scaleFactor, Color color)
     {
         GameObject outlineObject = Instantiate(this.gameObject, transform.position, transform.rotation, transform);
+        outlineObject.transform.localScale = Vector3.one;
+        Debug.Log(transform.localScale.x + " local scale");
+        Debug.Log(outlineObject.transform.localScale.x + " render scale");
         Renderer rend = outlineObject.GetComponent<Renderer>();
 
         rend.material = outlineMat;

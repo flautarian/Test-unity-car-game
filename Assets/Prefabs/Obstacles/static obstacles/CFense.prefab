@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2793374878211249040}
   - component: {fileID: 1747541742527509280}
   - component: {fileID: 4867720053277512853}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CFense
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 5571805725828496177}
   - component: {fileID: 8590937470796986794}
   - component: {fileID: 482546660062491477}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RedLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 6529692605986468420}
   - component: {fileID: 2705991174449728313}
   - component: {fileID: 8491546581479229197}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: YellowLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

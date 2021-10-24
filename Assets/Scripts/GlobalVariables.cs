@@ -13,6 +13,14 @@ public enum InGamePanels{
     GAMEON, PAUSED, LEVELSELECTION
 }
 
+public enum PanelInteractionType{
+        TAX_TYPE,
+        MULTIPLAYER_TYPE,
+        LIBRARY_TYPE,
+        BRIDGE_TYPE,
+        NO_INTERACTION
+    }
+
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables Instance { get; private set; }
@@ -74,6 +82,9 @@ public class GlobalVariables : MonoBehaviour
     // estat del joc en questio d'opcions
     public InGamePanels inGameState = InGamePanels.GAMEON;
 
+    // Actual proximitat amb entorns i menus interactuables
+    public PanelInteractionType actualPanelInteractionType;
+
     private void Awake()
     {
         if (Instance == null)
@@ -110,6 +121,14 @@ public class GlobalVariables : MonoBehaviour
 
     void Start()
     {
+    }
+
+    public void InvoqueCanvasPanelButton(PanelInteractionType pit){
+        actualPanelInteractionType = pit;
+    }
+
+    public void DisableCanvasPanelButton(){
+        actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
     }
 
     internal void ResetLevel(){

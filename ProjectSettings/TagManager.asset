@@ -33,6 +33,7 @@ TagManager:
   - ObstaclesContainer
   - PoolContainer
   - PanelsCanvas
+  - CanvasInteraction
   layers:
   - Default
   - TransparentFX
@@ -45,7 +46,7 @@ TagManager:
   - Ground
   - Sphere
   - Glow
-  - 
+  - Outlined
   - 
   - 
   - 

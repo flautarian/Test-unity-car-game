@@ -12,5 +12,6 @@ namespace Assets.Scripts
         void OnCollisionEnter(Collision c){
             playerController.SphereEnterCollides(c);
         }
+        
     }
 }

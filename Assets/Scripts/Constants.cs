@@ -12,6 +12,7 @@ public class Constants
     public const string CESPED = "Cesped";
     public const string ASPHALT = "asphalt";
     public const string WATER = "water";
+    public const string CANVAS_INTERACTION = "CanvasInteraction";
 
     // Particle system tagNames
     public const string PARTICLE_S_BOOM = "PS_Boom";
@@ -55,6 +56,9 @@ public class Constants
     // panels
     public const string ANIMATION_TRIGGER_PAUSEGAME_PANELS = "PauseGame";
     public const string ANIMATION_TRIGGER_GAMEOVER_PANELS = "GameOver";
+    public const string ANIMATION_TRIGGER_TAX_PANEL_BUTTON = "TaxLevelSelect";
+    public const string ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION = "EnableButton";
+    public const string ANIMATION_TRIGGER_PANELBUTTON_DISABLE_INTERACTION = "DisableButton";
 
     // Shader control variables
 

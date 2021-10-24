@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9091894155445420550}
   - component: {fileID: 6142900951222162949}
   - component: {fileID: 2458804478057959010}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FenseDoor
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
@@ -129,5 +129,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3022009, y: 1.598086, z: 0.31652012}
-  m_Center: {x: -0.048365146, y: 0.799043, z: 0.05533625}
+  m_Size: {x: 0.29609185, y: 1.4786613, z: 0.29354906}
+  m_Center: {x: -0.002580367, y: 0.06178224, z: 0.009000689}

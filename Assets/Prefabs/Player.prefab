@@ -14720,6 +14720,7 @@ MonoBehaviour:
   playerSphereRigidBody: {fileID: 5912388740614719570}
   playerBoxCollider: {fileID: 1735672987}
   speedInput: 0
+  comboStunt: 0
   VerticalAxis: 0
   HorizontalAxis: 0
   stuntComboPS: {fileID: 3519412522757947594}
@@ -14823,6 +14824,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295259949877023858, guid: 01248155f7961c0499fa8271b9bf41cc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4213772856914742552, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}

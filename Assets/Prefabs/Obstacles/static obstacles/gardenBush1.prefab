@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2690972500064628362}
   - component: {fileID: 5736716076450591151}
   - component: {fileID: 728648889437981994}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: gardenBush1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.4, z: 0.70000005}
-  m_Center: {x: 0.050000004, y: 0.2, z: 0.049999997}
+  m_Size: {x: 0.44277358, y: 0.46469018, z: 0.7404946}
+  m_Center: {x: 0.021386743, y: -0.030045927, z: 0.0057177544}
 --- !u!114 &5736716076450591151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   penalizableObstacle: 0
   lethal: 0
   apparitionLevel: 0
-  rigidBodySlept: 0
+  rigidBodySlept: 1
   spawnedObstacle: 0
 --- !u!95 &728648889437981994
 Animator:
