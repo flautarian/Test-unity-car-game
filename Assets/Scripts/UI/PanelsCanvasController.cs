@@ -87,4 +87,8 @@ public class PanelsCanvasController : MonoBehaviour
         GlobalVariables.Instance.ResetLevel();
     }
 
+    public void GoToTaxLevel(){
+        SceneManager.LoadScene(2);
+    }
+
 }

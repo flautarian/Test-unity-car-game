@@ -21,6 +21,33 @@ public enum PanelInteractionType{
         NO_INTERACTION
     }
 
+public enum ObjectiveGameType{
+    BOSS,
+    RINGS,
+    NUMBER_STUNTS,
+    MIN_GAS,
+    ASPHALT_ONLY_ROUTE,
+    ROUTE,
+    CIRCUIT
+}
+
+public enum GrassType{
+    NORMAL,
+    LAVA,
+    ICE,
+    STICKY,
+    NO_GRASS
+}
+
+public enum SpecialEvents{
+    BOMBER,
+    METEORITES,
+    LEFT_WIND,
+    RIGHT_WIND,
+    FLOODINGS,
+    NONE
+}
+
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables Instance { get; private set; }
@@ -85,6 +112,9 @@ public class GlobalVariables : MonoBehaviour
     // Actual proximitat amb entorns i menus interactuables
     public PanelInteractionType actualPanelInteractionType;
 
+    // Configuracio del nivell escollit
+    public LevelSettings actualLevelSettings;
+
     private void Awake()
     {
         if (Instance == null)
@@ -103,6 +133,9 @@ public class GlobalVariables : MonoBehaviour
         if (partgo != null) particlesContainer = partgo.transform;
 
         saveGameData = GetComponent<SaveGame>();
+        Debug.Log(PoolManager.Instance);
+        
+        PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
 
         if (gameMode == GameMode.INFINITERUNNER)
         {
@@ -192,5 +225,22 @@ public class GlobalVariables : MonoBehaviour
 
     public void SaveGame(){
         saveGameData.UpdateSaveGame();
+    }
+
+    public void PrepareGlobalToLevel(LevelSettings newLvl, GameMode gMode){
+        actualLevelSettings = newLvl;
+        gameMode = gMode;
+    }
+
+    public int getSpawnerMovableMaxTime(SpawnerOrientation orientation){
+        return orientation == SpawnerOrientation.LEFT ? actualLevelSettings.spawnerMovableLevelLeft : actualLevelSettings.spawnerMovableLevelRight;
+    }
+
+    public int getSpawnerStaticMaxTime(SpawnerOrientation orientation){
+        return orientation == SpawnerOrientation.LEFT ? actualLevelSettings.spawnerStaticLevelLeft : actualLevelSettings.spawnerStaticLevelRight;
+    }
+
+    public List<LevelSettings.PoolLoader> getLoadedPools(){
+        return actualLevelSettings.availablePrefabs;
     }
 }

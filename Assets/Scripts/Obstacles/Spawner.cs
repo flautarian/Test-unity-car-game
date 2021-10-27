@@ -8,6 +8,8 @@ public class Spawner : MonoBehaviour
     public float velocity;
     private bool startedSpawnerMovement = false;
     private Quaternion currentQuaternionRotation;
+
+    private int maxDistanceMovable, maxDistanceStatic;
     public float dstTravelledToInstanceMovable;
     public float dstTravelledToInstanceStatic;
     private bool spawnerArrivedToTarget;
@@ -41,6 +43,8 @@ public class Spawner : MonoBehaviour
         var obsgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_OBSTACLE_CONTAINER);
         if (obsgo != null) obstaclesContainer = obsgo.transform;
         lastTimeManagedSpawner = Time.time;
+        maxDistanceMovable = GlobalVariables.Instance.getSpawnerMovableMaxTime(orientation);
+        maxDistanceStatic = GlobalVariables.Instance.getSpawnerStaticMaxTime(orientation);
     }
 
     public int MyProdstTravelledperty { get; set; }
@@ -94,13 +98,13 @@ public class Spawner : MonoBehaviour
 
     public void ReSetMovableSpawnerTrigger()
     {
-        dstTravelledToInstanceMovable = dstTravelled + rand.Next(1, 5);
+        dstTravelledToInstanceMovable = dstTravelled + rand.Next(1, maxDistanceMovable);
         isReadyToInstanceMovableObstacle = false;
     }
 
     public void ReSetStaticSpawnerTrigger()
     {
-        dstTravelledToInstanceStatic = dstTravelled + rand.Next(15, 30);
+        dstTravelledToInstanceStatic = dstTravelled + rand.Next(15, maxDistanceStatic);
         isReadyToInstanceStaticObstacle = false;
     }
 

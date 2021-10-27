@@ -19,8 +19,40 @@ public class PoolManager : MonoBehaviour
     public static PoolManager Instance;
     private Transform poolContainer;
 
-    private void Awake()
-    {
+    private void Awake() {
+        if (Instance == null){
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
+
+    public void PreparePoolDataFromLevel(List<LevelSettings.PoolLoader> poolsToLoad){
+        fillPoolsWithGOInstances(poolsToLoad);
+        initializePools();
+    }
+
+    private void fillPoolsWithGOInstances(List<LevelSettings.PoolLoader> poolsToLoad){
+        pools.Clear();
+        foreach(LevelSettings.PoolLoader pool in poolsToLoad){
+            Pool p = new Pool();
+            p.size = pool.size;
+            p.tag = pool.tag;
+            p.prefabs = new GameObject[pool.prefabs.Length];
+            for(int i =0; i < pool.prefabs.Length; i++){
+                UnityEngine.Object obj = (UnityEngine.Object)Resources.Load(pool.folder +"/"+ pool.prefabs[i]);
+                if(obj != null) {
+                    p.prefabs[i] = (GameObject)Instantiate(obj);
+                    p.prefabs[i].SetActive(false);
+                    p.prefabs[i].transform.parent = poolContainer;
+                }
+                else Debug.Log("Problems to load: " + pool.folder +"/"+ pool.prefabs[i]);
+            }
+            pools.Add(p);
+        }
+    }
+
+    private void initializePools(){
         var goPc = GameObject.FindGameObjectWithTag("PoolContainer");
         if(goPc != null) poolContainer = goPc.transform;
         poolDictionary = new Dictionary<string, List<GameObject>>();

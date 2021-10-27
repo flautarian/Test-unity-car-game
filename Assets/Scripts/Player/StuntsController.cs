@@ -5,7 +5,6 @@ using UnityEngine;
 public class StuntsController : MonoBehaviour
 {
     public string[] buttons;
-    private int currentIndex = 0;
 
     public float allowedTimeBetweenButtons = 0.3f;
     private float timeLastButtonPressed;

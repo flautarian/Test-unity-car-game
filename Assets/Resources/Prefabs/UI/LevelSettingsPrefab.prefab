@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2221071252527477877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5962652002790899774}
+  - component: {fileID: 3627611749154540476}
+  m_Layer: 0
+  m_Name: LevelSettingsPrefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5962652002790899774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2221071252527477877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3627611749154540476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2221071252527477877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482110187a7eb534583dfce1afc16c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightLevel: 1
+  availablePrefabs:
+  - tag: StreetObstaculo
+    prefabs:
+    - BusObstacle
+    - SpeedCarObstacle
+    size: 30
+    folder: Prefabs/Obstacles/movable obstacles
+  - tag: BeredaObstaculo
+    prefabs:
+    - trash
+    size: 10
+    folder: Prefabs/Obstacles/static obstacles
+  - tag: oneToOneWayRoads
+    prefabs:
+    - Calle0
+    - Calle1-2-1
+    - Calle1
+    - Calle2-1-1
+    - Calle2
+    - Calle3
+    - Calle4
+    - Calle5
+    - Calle6
+    - Calle7
+    - Calle8
+    - Calle9
+    size: 12
+    folder: Prefabs/Streets/lvl1
+  - tag: oneToTwoWayRoads
+    prefabs:
+    - Calle1-2-2
+    - Calle1-2-3
+    - Calle1-2-4
+    - Calle1-2-5
+    size: 8
+    folder: Prefabs/Streets/lvl1
+  - tag: twoToOneWayRoads
+    prefabs:
+    - Calle2-1-2
+    - Calle2-1-3
+    size: 4
+    folder: Prefabs/Streets/lvl1
+  - tag: twoToTwoWayRoads
+    prefabs: []
+    size: 0
+    folder: Prefabs/Streets/lvl1
+  objective: 5
+  spawnerMovableLevelLeft: 5
+  spawnerMovableLevelRight: 5
+  spawnerStaticLevelLeft: 30
+  spawnerStaticLevelRight: 30
+  hasTimeLimit: 0
+  timeLimit: 0
+  secondsFallTouchedTerrain: 2
+  grassType: 0
+  specialEvents: 5
+  fog: 0
