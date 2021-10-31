@@ -65,9 +65,7 @@ public class StaticObstacle : Obstacle
             }
             // start explode animation and disable path follow
             if (animator != null)
-            {
                 animator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
-            }
         }
         else if (rigidBody != null && rigidBodySlept && !rigidBody.IsSleeping())
         {

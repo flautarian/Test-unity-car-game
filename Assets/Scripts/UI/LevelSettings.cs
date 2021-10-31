@@ -15,6 +15,7 @@ public class LevelSettings : MonoBehaviour
     public float lightLevel;
     public List<PoolLoader> availablePrefabs;
     public ObjectiveGameType objective;
+    public int objectiveTarget;
     public int spawnerMovableLevelLeft;
     public int spawnerMovableLevelRight;
     public int spawnerStaticLevelLeft;
@@ -25,5 +26,23 @@ public class LevelSettings : MonoBehaviour
     public GrassType grassType;
     public SpecialEvents specialEvents;
     public bool fog;
+
+
+    public void CopyFromLevel(LevelSettings lvl){
+        lightLevel = lvl.lightLevel;
+        availablePrefabs = lvl.availablePrefabs;
+        objective = lvl.objective;
+        objectiveTarget = lvl.objectiveTarget;
+        spawnerMovableLevelLeft = lvl.spawnerMovableLevelLeft;
+        spawnerMovableLevelRight = lvl.spawnerMovableLevelRight;
+        spawnerStaticLevelLeft = lvl.spawnerStaticLevelLeft;
+        spawnerStaticLevelRight = lvl.spawnerStaticLevelRight;
+        hasTimeLimit = lvl.hasTimeLimit;
+        timeLimit = lvl.timeLimit;
+        secondsFallTouchedTerrain = lvl.secondsFallTouchedTerrain;
+        grassType = lvl.grassType;
+        specialEvents = lvl.specialEvents;
+        fog = lvl.fog;
+    }
 
 }

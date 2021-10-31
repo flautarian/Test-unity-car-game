@@ -109,16 +109,38 @@ public class GUIController : MonoBehaviour
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("GameOverAnimation");
 
-        StartCoroutine(WaitUntilShowGameOverPanel());
+        StartCoroutine(WaitUntilShowPanel(Constants.ANIMATION_TRIGGER_GAMEOVER_PANELS));
     }
 
-    private IEnumerator WaitUntilShowGameOverPanel(){
+    public void StartGameWon(){
+        if (gasIndicator != null)
+            gasIndicator.startGameOver();
+
+        if (playerController != null)
+            playerController.startGameOver();
+
+        if (coinsIndicator != null)
+            coinsIndicator.startGameOver();
+
+        if (carPartsIndicator != null )
+            carPartsIndicator.startGameOver();
+
+        if(stuntsIndicator != null)
+            stuntsIndicator.startGameOver();
+
+        if (cmvStateDriveCameraAnimator != null)
+        cmvStateDriveCameraAnimator.Play("GameWonAnimation");
+
+        StartCoroutine(WaitUntilShowPanel(Constants.ANIMATION_TRIGGER_GAMEWONPANELS));
+    }
+
+    private IEnumerator WaitUntilShowPanel(String panelStrigger){
         var panelCanvas = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PANEL_CANVAS_CONTAINER);
         Animator animator = null;
         if(panelCanvas != null)
             animator = panelCanvas.GetComponent<Animator>();
         yield return new WaitForSeconds(6f);
-        if(animator != null)animator.SetTrigger(Constants.ANIMATION_TRIGGER_GAMEOVER_PANELS);
+        if(animator != null)animator.SetTrigger(panelStrigger);
 
     }
 

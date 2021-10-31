@@ -47,6 +47,7 @@ public class Constants
     public const string ANIMATION_MOVABLE_OBSTACLE_VELOCITY_PARAM = "velocity";
     // items
     public const string ANIMATION_NAME_TAKEN_BOOL = "hasBeenTaken";
+    public const string ANIMATION_STREET_FALL_BOOL = "fall";
 
     // stunts
 
@@ -56,6 +57,7 @@ public class Constants
     // panels
     public const string ANIMATION_TRIGGER_PAUSEGAME_PANELS = "PauseGame";
     public const string ANIMATION_TRIGGER_GAMEOVER_PANELS = "GameOver";
+    public const string ANIMATION_TRIGGER_GAMEWONPANELS = "GameWon";
     public const string ANIMATION_TRIGGER_TAX_PANEL_BUTTON = "TaxLevelSelect";
     public const string ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION = "EnableButton";
     public const string ANIMATION_TRIGGER_PANELBUTTON_DISABLE_INTERACTION = "DisableButton";
@@ -79,6 +81,7 @@ public class Constants
     public const string GO_TAG_PLAYER = "Player";
     public const string GO_TAG_PLAYER_PART = "PlayerPart";
     public const string GO_TAG_CONTAINS_OBSTACULO = "Obstaculo";
+    public const string GO_TAG_CONTAINS_GOALLINE = "GoalLine";
     public const string GO_TAG_STREET_CONTAINER = "StreetsContainer";
     public const string GO_TAG_PARTICLE_CONTAINER = "ParticlesContainer";
     public const string GO_TAG_OBSTACLE_CONTAINER = "ObstaclesContainer";

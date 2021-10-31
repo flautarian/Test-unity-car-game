@@ -165,15 +165,18 @@ public class PlayerController : MonoBehaviour
     }
 
     internal void communicateStuntInitialized(){
-        guiController.communicateStuntInitialized();
+        if(guiController != null)
+            guiController.communicateStuntInitialized();
     }
 
     internal void communicateStuntClose(){
-        guiController.communicateStuntClose();
+        if(guiController != null)
+            guiController.communicateStuntClose();
     }
 
     internal void communicateStuntReset(){
-        guiController.communicateStuntReset();
+        if(guiController != null)
+            guiController.communicateStuntReset();
     }
 
     internal void InitStunt(Stunt stunt){
@@ -268,6 +271,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag.Contains(Constants.GO_TAG_CONTAINS_OBSTACULO))
             ComunicateCollisionPart(null, collision.collider);
+        else if(collision.gameObject.tag.Contains(Constants.GO_TAG_CONTAINS_GOALLINE))
+            guiController.StartGameWon();
     }
 
     private void OnDrawGizmos()

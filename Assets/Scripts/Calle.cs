@@ -44,8 +44,7 @@ public class Calle : MonoBehaviour
     private IEnumerator StartCountDownToDisableStreet()
     {
         yield return new WaitForSeconds(secondsUntilDrown);
-        streetAnimationController.SetBool("fall", true);
-        GlobalVariables.Instance.UpdateMinZLimit(transform.position.z);
+        GlobalVariables.Instance.ManageStreetGeneration(streetAnimationController);
     }
 
     public void generateNextStreet(int streetsRemainingToGenerate)

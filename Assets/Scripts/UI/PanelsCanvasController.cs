@@ -57,15 +57,15 @@ public class PanelsCanvasController : MonoBehaviour
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
             }
         }
-                var myGameObject = panelInteractionAnimator.gameObject;
-                myGameObject.SetActive(true);
         if(GlobalVariables.Instance.actualPanelInteractionType != pit){
             pit = GlobalVariables.Instance.actualPanelInteractionType;
             if(pit != PanelInteractionType.NO_INTERACTION){
                 panelInteractionAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION);
             }
-            else 
+            else {
                 panelInteractionAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_PANELBUTTON_DISABLE_INTERACTION);
+                GlobalVariables.Instance.inGameState = InGamePanels.GAMEON;
+            }
             
         }
     }
@@ -83,6 +83,20 @@ public class PanelsCanvasController : MonoBehaviour
     }
 
     public void LoadPreviousScene(){
+        switch(lastScene){
+            // WORLD
+            case 1:
+                GlobalVariables.Instance.gameMode = GameMode.WOLRDMAINMENU;
+            break;
+            // MAIN MENU
+            case 0:
+                GlobalVariables.Instance.gameMode = GameMode.MAINMENU;
+            break;
+            default:
+                GlobalVariables.Instance.gameMode = GameMode.WOLRDMAINMENU;
+            break;
+        };
+        GlobalVariables.Instance.actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
         SceneManager.LoadScene(lastScene);
     }
 

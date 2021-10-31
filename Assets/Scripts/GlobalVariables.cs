@@ -26,8 +26,8 @@ public enum ObjectiveGameType{
     RINGS,
     NUMBER_STUNTS,
     MIN_GAS,
-    ASPHALT_ONLY_ROUTE,
-    ROUTE,
+    ASPHALT_ONLY_NUMBER_STREETS,
+    NUMBER_STREETS,
     CIRCUIT
 }
 
@@ -82,7 +82,7 @@ public class GlobalVariables : MonoBehaviour
     // parametre de moviment de la camara
     public float shakeParam = 0;
 
-    // actualitzacio de la velocitat actual del jugador
+    // actualitzacio de la velocitat actualLevelSettings del jugador
     public float playerCurrentVelocity;
 
     // contenidor per a les perticles creades
@@ -115,6 +115,13 @@ public class GlobalVariables : MonoBehaviour
     // Configuracio del nivell escollit
     public LevelSettings actualLevelSettings;
 
+    // flag indicatiu de que s'ha completat el nivell correctament (passda linea de meta)
+    public bool levelWon = false;
+    // Flag per generar linea de meta per el cas d'haver complert els objectius del nivell
+    public bool generateGoalLine = false;
+
+    public int objectiveActualTarget = 0;
+
     private void Awake()
     {
         if (Instance == null)
@@ -132,10 +139,14 @@ public class GlobalVariables : MonoBehaviour
         var partgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PARTICLE_CONTAINER);
         if (partgo != null) particlesContainer = partgo.transform;
 
-        saveGameData = GetComponent<SaveGame>();
-        Debug.Log(PoolManager.Instance);
+        objectiveActualTarget = 0;
 
-        if(actualLevelSettings != null)PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
+        saveGameData = GetComponent<SaveGame>();
+        if(actualLevelSettings == null) actualLevelSettings = GetComponent<LevelSettings>();
+
+        if(actualLevelSettings != null && 
+        gameMode != GameMode.WOLRDMAINMENU && 
+        gameMode != GameMode.MAINMENU) PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
 
         if (gameMode == GameMode.INFINITERUNNER)
         {
@@ -149,7 +160,7 @@ public class GlobalVariables : MonoBehaviour
         else if(gameMode == GameMode.WOLRDMAINMENU){
             
         }
-        Debug.Log("I'm Awakening!!");
+        //Debug.Log("I'm Awakening!!");
     }
 
     void Start()
@@ -168,6 +179,7 @@ public class GlobalVariables : MonoBehaviour
         UpdateMinZLimit(0);
         totalCoins =0;
         totalStuntEC =0;
+        objectiveActualTarget =0;
         Scene m_Scene = SceneManager.GetActiveScene();
    		SceneManager.LoadScene(m_Scene.name);
     }
@@ -228,7 +240,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void PrepareGlobalToLevel(LevelSettings newLvl, GameMode gMode){
-        actualLevelSettings = newLvl;
+        actualLevelSettings.CopyFromLevel(newLvl);
         gameMode = gMode;
     }
 
@@ -242,5 +254,30 @@ public class GlobalVariables : MonoBehaviour
 
     public List<LevelSettings.PoolLoader> getLoadedPools(){
         return actualLevelSettings.availablePrefabs;
+    }
+
+    public void ManageStreetGeneration(Animator streetAnimator){
+        if(!levelWon)
+            streetAnimator.SetBool(Constants.ANIMATION_STREET_FALL_BOOL, true);
+        UpdateMinZLimit(streetAnimator.transform.position.z);
+        if(actualLevelSettings.objective == ObjectiveGameType.NUMBER_STREETS){
+            objectiveActualTarget++;
+            if(actualLevelSettings.objectiveTarget <= objectiveActualTarget)GenerateGoalLineObject();
+        }
+    }
+
+    public void GenerateGoalLineObject(){
+        if(!generateGoalLine){
+            UnityEngine.Object obj = (UnityEngine.Object)Resources.Load("Prefabs/Goal");
+            GameObject goalGameObject = (GameObject)Instantiate(obj);
+            var pos = lastCalle.transform.position;
+            pos.x = 10;
+            goalGameObject.transform.position = pos;
+            generateGoalLine = true;
+        }
+    }
+
+    public void IncreaseTravelledStreets(){
+        
     }
 }

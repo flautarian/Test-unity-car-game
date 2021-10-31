@@ -14,7 +14,7 @@ public class PlayerDestructablePart : MonoBehaviour
     {
         if (!destroyed)
         {
-            if (collision.gameObject.tag.Contains("Obstaculo"))
+            if (collision.gameObject.tag.Contains(Constants.GO_TAG_CONTAINS_OBSTACULO))
             {
                 playerCar.ComunicateCollisionPart(this, collision);
             }
