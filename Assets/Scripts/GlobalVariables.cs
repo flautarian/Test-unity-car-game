@@ -134,8 +134,8 @@ public class GlobalVariables : MonoBehaviour
 
         saveGameData = GetComponent<SaveGame>();
         Debug.Log(PoolManager.Instance);
-        
-        PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
+
+        if(actualLevelSettings != null)PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
 
         if (gameMode == GameMode.INFINITERUNNER)
         {

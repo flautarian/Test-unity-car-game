@@ -7,15 +7,11 @@ public class LvlSelectionButton : SelectButtonController
 {
 
     public override void executeButton(){
-        StartCoroutine(LoadLvlSettingsAndGoScene());
-    }
-
-    private IEnumerator LoadLvlSettingsAndGoScene(){
         var levelSettings = GetComponent<LevelSettings>();
         if(levelSettings != null){
             GlobalVariables.Instance.PrepareGlobalToLevel(levelSettings, GameMode.INFINITERUNNER);
-            yield return new WaitForSeconds(4f);
-            SceneManager.LoadScene(2);
+            GlobalVariables.Instance.actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
         }
+        else Debug.LogError("LevelSettings not found!!");
     }
 }

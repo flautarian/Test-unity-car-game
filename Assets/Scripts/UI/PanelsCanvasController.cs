@@ -57,10 +57,13 @@ public class PanelsCanvasController : MonoBehaviour
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
             }
         }
+                var myGameObject = panelInteractionAnimator.gameObject;
+                myGameObject.SetActive(true);
         if(GlobalVariables.Instance.actualPanelInteractionType != pit){
             pit = GlobalVariables.Instance.actualPanelInteractionType;
-            if(pit != PanelInteractionType.NO_INTERACTION)
+            if(pit != PanelInteractionType.NO_INTERACTION){
                 panelInteractionAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION);
+            }
             else 
                 panelInteractionAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_PANELBUTTON_DISABLE_INTERACTION);
             
