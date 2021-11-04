@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     public bool grounded = false, canMove = false;
 
+    public Vector3 lastSecurePositionPlayer;
+
     public float turnZAxisEffect = 0;
 
     public float forwardAccel, normalForwardAccel, reverseAccel, turnStrength, maxWheelTurn;
@@ -145,6 +147,7 @@ public class PlayerController : MonoBehaviour
         // apliquem velocitat de rigidbody i gravetat depenent del estat del cotxe
         if (grounded && canMove)
         {
+            if(streetType == StreetType.asphalt) lastSecurePositionPlayer = transform.position;
             playerSphereRigidBody.drag = dragGroundValue;
             if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
         }
@@ -249,7 +252,7 @@ public class PlayerController : MonoBehaviour
     private void destroyPlayer(string reason)
     {
         if(GlobalVariables.Instance.gameMode == GameMode.WOLRDMAINMENU){
-            //TODO: hacer return a una posicion segura
+            StartCoroutine(ResetPosition());
         }
         else{
             playerAnimator.SetBool(Constants.ANIMATION_NAME_EXPLODE_BOOL, true);
@@ -398,5 +401,18 @@ public class PlayerController : MonoBehaviour
         forwardAccel += 2;
         yield return new WaitForSeconds(3f);
         forwardAccel -= 2;
+    }
+
+    public IEnumerator ResetPosition(){
+        var panelCanvas = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PANEL_CANVAS_CONTAINER);
+        Animator animator = null;
+        if(panelCanvas != null)
+            animator = panelCanvas.GetComponent<Animator>();
+        if(animator != null){
+            animator.SetTrigger("ResetPlayerPosition");
+            yield return new WaitForSeconds(1f);
+            playerSphereRigidBody.gameObject.transform.position = lastSecurePositionPlayer;
+            transform.position = lastSecurePositionPlayer;
+        }
     }
 }

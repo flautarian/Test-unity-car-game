@@ -134,13 +134,13 @@ public class GUIController : MonoBehaviour
         StartCoroutine(WaitUntilShowPanel(Constants.ANIMATION_TRIGGER_GAMEWONPANELS));
     }
 
-    private IEnumerator WaitUntilShowPanel(String panelStrigger){
+    private IEnumerator WaitUntilShowPanel(String panelsTrigger){
         var panelCanvas = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PANEL_CANVAS_CONTAINER);
         Animator animator = null;
         if(panelCanvas != null)
             animator = panelCanvas.GetComponent<Animator>();
         yield return new WaitForSeconds(6f);
-        if(animator != null)animator.SetTrigger(panelStrigger);
+        if(animator != null)animator.SetTrigger(panelsTrigger);
 
     }
 
