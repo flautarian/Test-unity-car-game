@@ -56,4 +56,17 @@ public abstract class Obstacle : MonoBehaviour
         while (GlobalVariables.Instance == null) yield return null;
         this.gameObject.SetActive(GlobalVariables.Instance.totalCoins >= apparitionLevel);
     }
+
+    public void ResetPosition(){
+        transform.localPosition = initialLocalPosition;
+        transform.localRotation = initialLocalRotation;
+    }
+
+    public IEnumerator InitializeMainMenuResetPosition(){
+        var renderer = GetComponent<Renderer>();
+        if(renderer != null){
+            yield return new WaitForSeconds(3f);
+            ResetPosition();
+        }
+    }
 }

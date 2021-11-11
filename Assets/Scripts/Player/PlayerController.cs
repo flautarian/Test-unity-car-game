@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     public GUIController guiPlayer;
 
-    public bool grounded = false, canMove = false;
+    public bool grounded = false, canMove = false, turned = false;
 
     public Vector3 lastSecurePositionPlayer;
 
@@ -101,11 +101,12 @@ public class PlayerController : MonoBehaviour
         //Refresc de posició
         transform.position = playerSphereRigidBody.transform.position;
 
-        if (canMove)
+        if (canMove && !turned)
         {
-            turnZAxisEffect = HorizontalAxis * (grounded ? 5 : 1);
+            turnZAxisEffect = HorizontalAxis * (grounded && !turned ? 5 : 1);
             turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
-            if(!IsInStuntMode())transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
+            if(!IsInStuntMode())
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
             // manipulacio de shader de radial blur en cas de potenciador de velocitat
             manageNitro();
         }
@@ -128,16 +129,20 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if(Time.time - timeSentinelRaycast >= 0.2f){
-            // Mire raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
-            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround))
-            {
-                if (!grounded) {
-                    //this.transform.rotation = Quaternion.Euler(0, this.transform.rotation.y, 0);
-                    GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
-                }
+            // Mirar raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
+            var zAngle = Math.Abs(360- transform.rotation.eulerAngles.z);
+            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround)){
+                turned = false;
                 grounded = true;
             }
-            else grounded = false;
+            else if( grounded && (zAngle > 50 && zAngle < 310)){
+                turned = true;
+                //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, 180));
+            }
+            else {
+                grounded = false;
+                turned = false;
+            }
             timeSentinelRaycast = Time.time;
         }
 
@@ -145,19 +150,20 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
 
         // apliquem velocitat de rigidbody i gravetat depenent del estat del cotxe
-        if (grounded && canMove)
-        {
-            if(streetType == StreetType.asphalt) lastSecurePositionPlayer = transform.position;
-            playerSphereRigidBody.drag = dragGroundValue;
-            if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
+        if(canMove && !turned){
+            if (grounded)
+            {
+                if(streetType == StreetType.asphalt) lastSecurePositionPlayer = transform.position;
+                playerSphereRigidBody.drag = dragGroundValue;
+                if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
+            }
+            else
+            {
+                playerSphereRigidBody.drag = 0.1f;
+                playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
+            }
         }
-        else
-        {
-            playerSphereRigidBody.drag = 0.1f;
-            playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
-        }
-        //if(IsInStuntMode())ManageTricks();
-        if (!canMove) playerSphereRigidBody.drag = 3.5f;
+        else if (!canMove || turned) playerSphereRigidBody.drag = 3.5f;
 
     }
 
@@ -238,6 +244,9 @@ public class PlayerController : MonoBehaviour
     {
         if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
         {
+            if(!grounded)
+                GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+            grounded = true;
             if (System.Object.Equals(collision.gameObject.tag, Constants.CESPED))
                 streetType = StreetType.grass;
             else if (System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT))
@@ -295,51 +304,57 @@ public class PlayerController : MonoBehaviour
     internal void ComunicateCollisionPart(PlayerDestructablePart partDestroyed, Collider collision)
     {
         Obstacle obstacle = collision.gameObject.GetComponent<Obstacle>();
-        if (obstacle != null && obstacle.penalizableObstacle)
-        {
-            // conseqüencies de col·licio
-            var emissionVar = stuntComboPS.emission;
-            emissionVar.enabled = false;
-            comboStunt = 0f;
-            if (obstacle.lethal) destroyPlayer(Constants.GAME_OVER_LETHAL_OBS_COLLIDED);
-            else
+        if(obstacle != null){
+            if(GlobalVariables.Instance.gameMode == GameMode.WOLRDMAINMENU) {
+                StartCoroutine(obstacle.InitializeMainMenuResetPosition());
+                return;
+            }
+            else if (obstacle.penalizableObstacle)
             {
-                if (partDestroyed == null)
-                    partDestroyed = findPartNotDestroyed();
-                if (partDestroyed != null)
-                {
-                    int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
-
-                    if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
-                    {
-                        if(trickMode) communicateStuntReset();
-                        // executing particles from GlobalVariables
-                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, partDestroyed.transform.position);
-                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, partDestroyed.transform.position);
-                        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, partDestroyed.transform.position);
-                        // shader effects
-                        GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
-                        GlobalVariables.Instance.shakeParam += 2.5f;
-                        // si esta en mode stunt cancelar·lo perque el cotxe ha xocat
-                        if(trickMode) UpdatePlayerAnimationStuntMode(false);
-                        // habilitant boolea de col·licio de cotxe
-                        playerAnimator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
-                        if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
-                            guiPlayer.carPartsIndicator.decrementPart();
-                        partDestroyed.ejectPart();
-                        //collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
-                        partDestroyed.Inhabilite();
-                    }
-                }
+                // conseqüencies de col·licio
+                var emissionVar = stuntComboPS.emission;
+                emissionVar.enabled = false;
+                comboStunt = 0f;
+                if (obstacle.lethal) destroyPlayer(Constants.GAME_OVER_LETHAL_OBS_COLLIDED);
                 else
                 {
-                    destroyPlayer(Constants.GAME_OVER_VEHICLE_DESTROYED);
+                    if (partDestroyed == null)
+                        partDestroyed = findPartNotDestroyed();
+                    if (partDestroyed != null)
+                    {
+                        int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
+
+                        if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
+                        {
+                            if(trickMode) communicateStuntReset();
+                            // executing particles from GlobalVariables
+                            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, partDestroyed.transform.position);
+                            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, partDestroyed.transform.position);
+                            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, partDestroyed.transform.position);
+                            // shader effects
+                            GlobalVariables.Instance.currentBrokenScreen = 0.05f * (indexPartToDestroy + 1);
+                            GlobalVariables.Instance.shakeParam += 2.5f;
+                            // si esta en mode stunt cancelar·lo perque el cotxe ha xocat
+                            if(trickMode) UpdatePlayerAnimationStuntMode(false);
+                            // habilitant boolea de col·licio de cotxe
+                            playerAnimator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
+                            if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
+                                guiPlayer.carPartsIndicator.decrementPart();
+                            partDestroyed.ejectPart();
+                            //collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
+                            partDestroyed.Inhabilite();
+                        }
+                    }
+                    else
+                    {
+                        destroyPlayer(Constants.GAME_OVER_VEHICLE_DESTROYED);
+                    }
                 }
             }
-        }
-        else
-        {
-            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+            else
+            {
+                GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+            }
         }
     }
 

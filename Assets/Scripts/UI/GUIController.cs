@@ -90,6 +90,8 @@ public class GUIController : MonoBehaviour
 
     public void startGameOver(String msg)
     {
+        GlobalVariables.Instance.UpdateLevelState(InGamePanels.GAMELOST);
+
         Debug.LogWarning("game ended by: " + msg);
         if (gasIndicator != null)
             gasIndicator.startGameOver();
@@ -113,6 +115,9 @@ public class GUIController : MonoBehaviour
     }
 
     public void StartGameWon(){
+
+        GlobalVariables.Instance.UpdateLevelState(InGamePanels.GAMEWON);
+
         if (gasIndicator != null)
             gasIndicator.startGameOver();
 

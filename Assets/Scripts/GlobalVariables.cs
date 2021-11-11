@@ -10,7 +10,7 @@ public enum GameMode
 }
 
 public enum InGamePanels{
-    GAMEON, PAUSED, LEVELSELECTION
+    GAMEON, PAUSED, LEVELSELECTION, GAMELOST, GAMEWON
 }
 
 public enum PanelInteractionType{
@@ -115,8 +115,6 @@ public class GlobalVariables : MonoBehaviour
     // Configuracio del nivell escollit
     public LevelSettings actualLevelSettings;
 
-    // flag indicatiu de que s'ha completat el nivell correctament (passda linea de meta)
-    public bool levelWon = false;
     // Flag per generar linea de meta per el cas d'haver complert els objectius del nivell
     public bool generateGoalLine = false;
 
@@ -257,7 +255,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void ManageStreetGeneration(Animator streetAnimator){
-        if(!levelWon)
+        if(inGameState == InGamePanels.GAMEON)
             streetAnimator.SetBool(Constants.ANIMATION_STREET_FALL_BOOL, true);
         UpdateMinZLimit(streetAnimator.transform.position.z);
         if(actualLevelSettings.objective == ObjectiveGameType.NUMBER_STREETS){
@@ -277,7 +275,11 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
-    public void IncreaseTravelledStreets(){
-        
+    public void UpdateLevelState(InGamePanels newState){
+        inGameState = newState;
+    }
+
+    public int GetLvlTime(){
+        return actualLevelSettings.lightLevel;
     }
 }

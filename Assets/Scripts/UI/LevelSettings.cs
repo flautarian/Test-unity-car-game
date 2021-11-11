@@ -12,7 +12,7 @@ public class LevelSettings : MonoBehaviour
         public int size;
         public string folder;
     }
-    public float lightLevel;
+    public int lightLevel;
     public List<PoolLoader> availablePrefabs;
     public ObjectiveGameType objective;
     public int objectiveTarget;

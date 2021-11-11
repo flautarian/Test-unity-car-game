@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2792526651104924516}
   - component: {fileID: 2792526651104924523}
-  - component: {fileID: 2792526651104924518}
+  - component: {fileID: 2437447128563368592}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -94,7 +94,7 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &2792526651104924518
+--- !u!114 &2437447128563368592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,8 +103,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2792526651104924522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 978b326ca5a13d845b3cf8d7f3a92f61, type: 3}
+  m_Script: {fileID: 11500000, guid: 15b8714db2de8e042884859c359cad52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunLightIndex: 0
-  sunLight: {fileID: 0}
+  time: 0
+  SunTransform: {fileID: 2792526651104924516}
+  Sun: {fileID: 2792526651104924523}
+  intensity: 0
+  fogDay: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  fogNight: {r: 0, g: 0, b: 0, a: 1}
+  speed: 0
