@@ -40,6 +40,7 @@ public class Constants
     
     // player parts
     public const string ANIMATION_START_ICON_ANIMATION = "StartIconAnimation";
+    public const string ANIMATION_TRIGGER_TURN_UP = "TurnUp";
     public const string ANIMATION_START_PART_ANIMATION_BOOL = "action";
     // movable obstacle
     public const string ANIMATION_MOVABLE_OBSTACLE_RUN = "Run";
@@ -59,6 +60,8 @@ public class Constants
     public const string ANIMATION_TRIGGER_GAMEOVER_PANELS = "GameOver";
     public const string ANIMATION_TRIGGER_GAMEWONPANELS = "GameWon";
     public const string ANIMATION_TRIGGER_TAX_PANEL_BUTTON = "TaxLevelSelect";
+    public const string ANIMATION_TRIGGER_TURNED_PANEL_BUTTON = "Enable";
+    public const string ANIMATION_TRIGGER_DISABLE_TURNED_PANEL_BUTTON = "Disable";
     public const string ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION = "EnableButton";
     public const string ANIMATION_TRIGGER_PANELBUTTON_DISABLE_INTERACTION = "DisableButton";
 

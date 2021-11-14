@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem stuntComboPS;
 
+    public ParticleSystem turnedUpParticle;
+
     private void Awake(){
         player = GetComponentInChildren<Player>();
         if (player != null)
@@ -107,6 +109,7 @@ public class PlayerController : MonoBehaviour
             turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
             if(!IsInStuntMode())
                 transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
+            Debug.Log(transform.rotation);
             // manipulacio de shader de radial blur en cas de potenciador de velocitat
             manageNitro();
         }
@@ -130,12 +133,18 @@ public class PlayerController : MonoBehaviour
     {
         if(Time.time - timeSentinelRaycast >= 0.2f){
             // Mirar raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
-            var zAngle = Math.Abs(360- transform.rotation.eulerAngles.z);
+            var zAngle = Math.Abs(360- player.transform.rotation.eulerAngles.z);
             if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround)){
                 turned = false;
+                if(!grounded)
+                    GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
                 grounded = true;
             }
             else if( grounded && (zAngle > 50 && zAngle < 310)){
+                if(!turned) {
+                    GlobalVariables.Instance.turnedCar = true;
+                    turnedUpParticle.gameObject.SetActive(turned);
+                }
                 turned = true;
                 //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, 180));
             }
@@ -143,7 +152,11 @@ public class PlayerController : MonoBehaviour
                 grounded = false;
                 turned = false;
             }
+
             timeSentinelRaycast = Time.time;
+            if(!GlobalVariables.Instance.turnedCar && turned){
+                playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_TURN_UP);
+            }
         }
 
         // Adaptem la rotacio del vehicle al terreny
@@ -164,7 +177,6 @@ public class PlayerController : MonoBehaviour
             }
         }
         else if (!canMove || turned) playerSphereRigidBody.drag = 3.5f;
-
     }
 
     internal void communicateStuntKeyPressed(int keyCode){
@@ -200,26 +212,26 @@ public class PlayerController : MonoBehaviour
                 if(emissionVar.rateOverTime.constant < 5.0f){
                     emissionVar.rateOverTime = 5.0f;
                 }
-                comboStunt = 1000f;
+                comboStunt = 500f;
             break;
             case 3:
                 GlobalVariables.Instance.addStuntEC(10);
                 if(emissionVar.rateOverTime.constant < 10.0f){
                     emissionVar.rateOverTime = 10.0f;
                 }
-                comboStunt = 2000f;
+                comboStunt = 1000f;
             break;
             case 4:
                 if(emissionVar.rateOverTime.constant < 15.0f){
                     emissionVar.rateOverTime = 15.0f;
                 }
-                comboStunt = 3000f;
+                comboStunt = 1500f;
             break;
             case 5:
                 if(emissionVar.rateOverTime.constant < 20.0f){
                     emissionVar.rateOverTime = 20.0f;
                 }
-                comboStunt = 4000f;
+                comboStunt = 2000f;
             break;
             default:
             break;
@@ -228,6 +240,9 @@ public class PlayerController : MonoBehaviour
 
     internal void impulseUpCar(float amount){
         playerSphereRigidBody.AddForce(Vector3.up * amount, ForceMode.Impulse);
+    }
+    internal void impulseRightCar(float amount){
+        playerSphereRigidBody.AddForce(Vector3.right * amount, ForceMode.Impulse);
     }
 
     internal void turnLeft()
@@ -244,8 +259,6 @@ public class PlayerController : MonoBehaviour
     {
         if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
         {
-            if(!grounded)
-                GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
             grounded = true;
             if (System.Object.Equals(collision.gameObject.tag, Constants.CESPED))
                 streetType = StreetType.grass;
@@ -429,5 +442,13 @@ public class PlayerController : MonoBehaviour
             playerSphereRigidBody.gameObject.transform.position = lastSecurePositionPlayer;
             transform.position = lastSecurePositionPlayer;
         }
+    }
+
+    public void GenerateMoveParticleEffect(){
+        GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+    }
+    public void ResetPlayerControllerRotation(){
+        var rot = new Quaternion(0, transform.rotation.y, 0,transform.rotation.w);
+        transform.rotation = rot;
     }
 }

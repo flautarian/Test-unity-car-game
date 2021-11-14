@@ -117,6 +117,8 @@ public class GlobalVariables : MonoBehaviour
 
     // Flag per generar linea de meta per el cas d'haver complert els objectius del nivell
     public bool generateGoalLine = false;
+    // Flag per generar activar el sistema de cotxe caigut per recuperar-lo prement <- ->
+    public bool turnedCar = false;
 
     public int objectiveActualTarget = 0;
 
@@ -159,10 +161,6 @@ public class GlobalVariables : MonoBehaviour
             
         }
         //Debug.Log("I'm Awakening!!");
-    }
-
-    void Start()
-    {
     }
 
     public void InvoqueCanvasPanelButton(PanelInteractionType pit){

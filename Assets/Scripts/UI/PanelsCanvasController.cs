@@ -12,24 +12,28 @@ public class PanelsCanvasController : MonoBehaviour
 
     public int lastScene;
 
-    private PanelInteractionType pit = PanelInteractionType.NO_INTERACTION;
+    private PanelInteractionType panelInteractionType = PanelInteractionType.NO_INTERACTION;
+
+    public TurnedUpController turnedUpController;
+
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        // Control menus accessibles desde mon obert
         if(GlobalVariables.Instance.inGameState == InGamePanels.GAMEON){
             if(Input.GetButtonDown(Constants.BACK)){
                 GlobalVariables.Instance.inGameState = InGamePanels.PAUSED;
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_PAUSEGAME_PANELS);
             }
-            if(pit != PanelInteractionType.NO_INTERACTION &&
+            if(panelInteractionType != PanelInteractionType.NO_INTERACTION &&
              Input.GetButtonDown(Constants.INPUT_FIRE)){
                 GlobalVariables.Instance.inGameState = InGamePanels.LEVELSELECTION;
-                switch(pit){
+                switch(panelInteractionType){
                     case PanelInteractionType.TAX_TYPE:
                         animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
@@ -57,9 +61,10 @@ public class PanelsCanvasController : MonoBehaviour
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
             }
         }
-        if(GlobalVariables.Instance.actualPanelInteractionType != pit){
-            pit = GlobalVariables.Instance.actualPanelInteractionType;
-            if(pit != PanelInteractionType.NO_INTERACTION){
+        //Control acces a menus desde mon obert
+        if(GlobalVariables.Instance.actualPanelInteractionType != panelInteractionType){
+            panelInteractionType = GlobalVariables.Instance.actualPanelInteractionType;
+            if(panelInteractionType != PanelInteractionType.NO_INTERACTION){
                 panelInteractionAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION);
             }
             else {
@@ -68,14 +73,21 @@ public class PanelsCanvasController : MonoBehaviour
             }
             
         }
+        //Control de sistema de cotxe turned up
+        if(turnedUpController.gameObject.activeSelf) {
+            if(!GlobalVariables.Instance.turnedCar)
+                turnedUpController.gameObject.SetActive(false);
+        }
+        else if(GlobalVariables.Instance.turnedCar)
+            turnedUpController.gameObject.SetActive(true);
     }
 
     public void InvoqueCanvasPanelButton(PanelInteractionType interactionType){
-        pit = interactionType;
+        panelInteractionType = interactionType;
     }
 
     public void DisableCanvasPanelButton(){
-        pit = PanelInteractionType.NO_INTERACTION;
+        panelInteractionType = PanelInteractionType.NO_INTERACTION;
     }
 
     public void SetTimeScaleGame(float scale){
