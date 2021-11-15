@@ -109,7 +109,6 @@ public class PlayerController : MonoBehaviour
             turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
             if(!IsInStuntMode())
                 transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
-            Debug.Log(transform.rotation);
             // manipulacio de shader de radial blur en cas de potenciador de velocitat
             manageNitro();
         }
