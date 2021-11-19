@@ -9,6 +9,9 @@ public class Stunt : MonoBehaviour
     public string stuntName;
     public bool groundStunt;
     public int stuntValue;
+
+    private void Start() {
+    }
     public bool compare(List<int> candidate){
         if(candidate.Count != comboKeys.Count)return false;
         else return Enumerable.SequenceEqual(candidate, comboKeys);

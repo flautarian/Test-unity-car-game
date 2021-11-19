@@ -20,9 +20,9 @@ public class MiniMapIcon : MonoBehaviour
 	}
 
 	void LateUpdate () {
-        newPos.x = Mathf.Clamp(transform.position.x, MinimapCam.position.x-MinimapSize, MinimapSize+MinimapCam.position.x);
+        newPos.x = Mathf.Clamp(transform.position.x, MinimapCam.position.x-MinimapSize, MinimapSize + MinimapCam.position.x);
         newPos.y = transform.position.y;
-        newPos.z = Mathf.Clamp(transform.position.z, MinimapCam.position.z-MinimapSize, MinimapSize+MinimapCam.position.z);
+        newPos.z = Mathf.Clamp(transform.position.z, MinimapCam.position.z-MinimapSize, MinimapSize + MinimapCam.position.z);
 		transform.position = newPos;
 	}
 }
