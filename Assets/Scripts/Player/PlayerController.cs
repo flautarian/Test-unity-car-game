@@ -182,6 +182,7 @@ public class PlayerController : MonoBehaviour
     }
 
     internal void communicateStuntKeyPressed(int keyCode){
+        Debug.Log("key: " + keyCode);
         if(trickMode && !playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL)){
             guiController.communicateNewStuntKeyPressed(keyCode, grounded);
         }
@@ -203,9 +204,10 @@ public class PlayerController : MonoBehaviour
     }
 
     internal void InitStunt(Stunt stunt){
+        Debug.Log("Executing: " + stunt.stuntName );
         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
         stuntAnimationOverriderController.Set(stunt.GetAnimation());
-        playerAnimator.SetInteger(Constants.ANIMATION_NAME_CAST_STUNT_INT, 0);
+        playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_INIT_STUNT);
         playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, true);
         var emissionVar = stuntComboPS.emission;
         emissionVar.enabled = true;

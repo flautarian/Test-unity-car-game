@@ -87,6 +87,7 @@ public class Constants
     public const string GO_TAG_CONTAINS_GOALLINE = "GoalLine";
     public const string GO_TAG_STREET_CONTAINER = "StreetsContainer";
     public const string GO_TAG_PARTICLE_CONTAINER = "ParticlesContainer";
+    public const string ANIMATION_TRIGGER_INIT_STUNT = "InitStunt";
     public const string GO_TAG_OBSTACLE_CONTAINER = "ObstaclesContainer";
     public const string GO_TAG_WAYPOINT = "WayPoint";
     public const string GO_TAG_PANEL_CANVAS_CONTAINER = "PanelsCanvas";
