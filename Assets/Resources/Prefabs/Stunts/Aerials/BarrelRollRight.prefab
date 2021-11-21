@@ -47,3 +47,4 @@ MonoBehaviour:
   stuntName: Barrel Roll Right
   groundStunt: 0
   stuntValue: 0
+  animation: {fileID: 7400000, guid: 2fff4d3a488eee7498e8af063bc2932e, type: 2}

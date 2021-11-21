@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator playerAnimator;
 
+    private StuntAnimationOverriderController stuntAnimationOverriderController;
+
     private GUIController guiController;
 
     private bool trickMode = false;
@@ -82,6 +84,7 @@ public class PlayerController : MonoBehaviour
         Physics.IgnoreLayerCollision(0, 9);
         // Adapting playerController to the car type chosen
         playerAnimator = GetComponent<Animator>();
+        stuntAnimationOverriderController = GetComponent<StuntAnimationOverriderController>();
         GameObject gui = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
         if (gui != null) guiController = gui.GetComponent<GUIController>();
     }
@@ -201,7 +204,8 @@ public class PlayerController : MonoBehaviour
 
     internal void InitStunt(Stunt stunt){
         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
-        playerAnimator.SetInteger(Constants.ANIMATION_NAME_CAST_STUNT_INT, stunt.stuntValue);
+        stuntAnimationOverriderController.Set(stunt.GetAnimation());
+        playerAnimator.SetInteger(Constants.ANIMATION_NAME_CAST_STUNT_INT, 0);
         playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, true);
         var emissionVar = stuntComboPS.emission;
         emissionVar.enabled = true;

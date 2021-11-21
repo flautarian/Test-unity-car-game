@@ -14614,6 +14614,7 @@ GameObject:
   - component: {fileID: 1309327813}
   - component: {fileID: 5731058296596815797}
   - component: {fileID: 8997355460136384826}
+  - component: {fileID: 5153313527619220063}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -14815,6 +14816,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5153313527619220063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7286298830024469608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc2aaaa1ae56b441877cabd2ad0050b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatorOverrider: {fileID: 22100000, guid: 9df46da145716b842bdf6e1c96e6de1e, type: 2}
 --- !u!1 &7926627810634944728
 GameObject:
   m_ObjectHideFlags: 0
@@ -19835,15 +19849,15 @@ PrefabInstance:
       objectReference: {fileID: 1309327813}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01248155f7961c0499fa8271b9bf41cc, type: 3}
---- !u!4 &5544565900380456474 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4213772856914742552, guid: 01248155f7961c0499fa8271b9bf41cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 8541100165866310402}
-  m_PrefabAsset: {fileID: 0}
 --- !u!65 &1735672987 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 8541100166479450009, guid: 01248155f7961c0499fa8271b9bf41cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 8541100165866310402}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5544565900380456474 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4213772856914742552, guid: 01248155f7961c0499fa8271b9bf41cc,
     type: 3}
   m_PrefabInstance: {fileID: 8541100165866310402}
   m_PrefabAsset: {fileID: 0}
