@@ -122,6 +122,11 @@ public class GlobalVariables : MonoBehaviour
 
     public int objectiveActualTarget = 0;
 
+    //Control de l'objectiu de la camara principal
+    private Cinemachine.CinemachineVirtualCamera mainCameraControl;
+
+    private Transform playerTransform;
+
     private void Awake()
     {
         if (Instance == null)
@@ -133,6 +138,13 @@ public class GlobalVariables : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        var mainCameraCGO = GameObject.FindGameObjectWithTag("MainVirtualCamera");
+        if(mainCameraCGO != null){
+            mainCameraControl = mainCameraCGO.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+            playerTransform = mainCameraControl.m_LookAt;
+        }
+
         var strgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_STREET_CONTAINER);
         if (strgo != null) streetsContainer = strgo.transform;
 
@@ -279,5 +291,12 @@ public class GlobalVariables : MonoBehaviour
 
     public int GetLvlTime(){
         return actualLevelSettings.lightLevel;
+    }
+
+    public void updateMainCameraLookAt(Transform t){
+        if(t != null)
+            mainCameraControl.m_LookAt = t;
+        else 
+            mainCameraControl.m_LookAt = playerTransform;
     }
 }

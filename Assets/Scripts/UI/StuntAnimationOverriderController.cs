@@ -8,12 +8,12 @@ public class StuntAnimationOverriderController : MonoBehaviour
     [SerializeField]
     private AnimatorOverrideController animatorOverrider;
 
-    private Animator animator;
+    private Animator anim;
     
     private void Start() {
-        animator = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         //animatorOverrider = new AnimatorOverrideController(animator.runtimeAnimatorController);
-        animator.runtimeAnimatorController = animatorOverrider;
+        anim.runtimeAnimatorController = animatorOverrider;
     }
 
     public void Set(AnimationClip animation){

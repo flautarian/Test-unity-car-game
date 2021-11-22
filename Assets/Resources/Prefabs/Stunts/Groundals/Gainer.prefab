@@ -47,4 +47,4 @@ MonoBehaviour:
   stuntName: Gainer
   groundStunt: 1
   stuntValue: 2
-  animation: {fileID: 7400000, guid: 573b7ed3ef2e5f94abfc581c9bb41cad, type: 2}
+  anim: {fileID: 7400000, guid: 573b7ed3ef2e5f94abfc581c9bb41cad, type: 2}

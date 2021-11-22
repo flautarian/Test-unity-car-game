@@ -182,7 +182,6 @@ public class PlayerController : MonoBehaviour
     }
 
     internal void communicateStuntKeyPressed(int keyCode){
-        Debug.Log("key: " + keyCode);
         if(trickMode && !playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL)){
             guiController.communicateNewStuntKeyPressed(keyCode, grounded);
         }

@@ -5,7 +5,6 @@ using Cinemachine;
 
 public class MainMenuCamera : MonoBehaviour
 {
-    private Camera camera;
 
     public Player player;
 
@@ -15,7 +14,6 @@ public class MainMenuCamera : MonoBehaviour
 
 
     private void Start() {
-        camera = GetComponent<Camera>();
         targetRotation = transform.localRotation;
         offset = transform.position - player.transform.position;
     }

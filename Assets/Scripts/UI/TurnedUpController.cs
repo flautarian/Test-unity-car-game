@@ -9,7 +9,6 @@ public class TurnedUpController : MonoBehaviour
     public int progress = 0;
     private bool side = false;
     public float HorizontalAxis = 0;
-    private bool turned = false;
     private Vector3 nonScaledArrowVector = new Vector3(50f, 50f, 50f);
     private Vector3 scaledArrowVector = new Vector3(60f, 60f, 60f);
     public Material barMaterial;

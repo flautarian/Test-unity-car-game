@@ -11,7 +11,7 @@ public class Stunt : MonoBehaviour
     public int stuntValue;
 
     [SerializeField]
-    private AnimationClip animation;
+    private AnimationClip anim;
 
     private void Start() {
     }
@@ -21,6 +21,6 @@ public class Stunt : MonoBehaviour
     }
 
     public AnimationClip GetAnimation(){
-        return animation;
+        return anim;
     }
 }

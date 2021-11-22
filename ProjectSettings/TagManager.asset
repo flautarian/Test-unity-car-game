@@ -35,6 +35,7 @@ TagManager:
   - PanelsCanvas
   - CanvasInteraction
   - GoalLine
+  - MainVirtualCamera
   layers:
   - Default
   - TransparentFX
