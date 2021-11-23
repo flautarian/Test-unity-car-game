@@ -18,6 +18,7 @@ public enum PanelInteractionType{
         MULTIPLAYER_TYPE,
         LIBRARY_TYPE,
         BRIDGE_TYPE,
+        INFO_PANEL_TYPE,
         NO_INTERACTION
     }
 
@@ -127,6 +128,8 @@ public class GlobalVariables : MonoBehaviour
 
     private Transform playerTransform;
 
+    public Transform focusTransform;
+
     private void Awake()
     {
         if (Instance == null)
@@ -143,6 +146,7 @@ public class GlobalVariables : MonoBehaviour
         if(mainCameraCGO != null){
             mainCameraControl = mainCameraCGO.GetComponent<Cinemachine.CinemachineVirtualCamera>();
             playerTransform = mainCameraControl.m_LookAt;
+            focusTransform = playerTransform;
         }
 
         var strgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_STREET_CONTAINER);
@@ -175,12 +179,14 @@ public class GlobalVariables : MonoBehaviour
         //Debug.Log("I'm Awakening!!");
     }
 
-    public void InvoqueCanvasPanelButton(PanelInteractionType pit){
+    public void InvoqueCanvasPanelButton(PanelInteractionType pit, Transform focus){
         actualPanelInteractionType = pit;
+        updateMainCameraLookAt(focus);
     }
 
     public void DisableCanvasPanelButton(){
         actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
+        updateMainCameraLookAt(null);
     }
 
     internal void ResetLevel(){
@@ -295,8 +301,12 @@ public class GlobalVariables : MonoBehaviour
 
     public void updateMainCameraLookAt(Transform t){
         if(t != null)
-            mainCameraControl.m_LookAt = t;
+            focusTransform = t;
         else 
-            mainCameraControl.m_LookAt = playerTransform;
+            focusTransform = playerTransform;
+    }
+
+    public void switchCameraFocusToSecondaryObject(bool focusSecondary){
+        mainCameraControl.m_LookAt = focusSecondary ? focusTransform : playerTransform;
     }
 }

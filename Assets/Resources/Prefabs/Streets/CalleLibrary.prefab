@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 1
   outlineColor: {r: 0.8962264, g: 0.8942332, b: 0, a: 1}
-  outlineWidth: 12
+  outlineWidth: 0
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -454,6 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelInteractionType: 2
+  outline: {fileID: 1183616583718965398}
 --- !u!1 &7682165906701089627
 GameObject:
   m_ObjectHideFlags: 0

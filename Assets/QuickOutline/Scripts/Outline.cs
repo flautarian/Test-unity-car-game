@@ -80,6 +80,11 @@ public class Outline : MonoBehaviour {
 
   private bool needsUpdate;
 
+  public void updateOutlineLevel(int lvl){
+    outlineWidth = lvl;
+    needsUpdate = true;
+  }
+
   void Awake() {
 
     // Cache renderers

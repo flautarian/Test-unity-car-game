@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 5572145594639233291}
   - component: {fileID: 2570500895888656256}
   - component: {fileID: 606447790830969745}
+  - component: {fileID: 1028102762979331661}
   m_Layer: 8
   m_Name: TaxBuilding
   m_TagString: Untagged
@@ -133,6 +134,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2432090755550338912, guid: 5afbc10ab2d96684f9b40b147b9a85fb, type: 3}
+--- !u!114 &1028102762979331661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949011162394509694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0.4276328, b: 1, a: 1}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &2770319547529596723
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,6 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1d8f33107009949a074c6e53bf7629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinimapCam: {fileID: 0}
+  MinimapSize: 18
 --- !u!1 &3710116392033172098
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +341,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3710116392033172098}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.099, z: 0}
+  m_LocalPosition: {x: 0, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9158431770673925294}
@@ -577,7 +598,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6401725555959449907}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: -7.53, y: 6.84, z: -3.73}
   m_LocalScale: {x: -25, y: -10, z: -25}
   m_Children: []
   m_Father: {fileID: 351803519655175106}
@@ -594,8 +615,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.77139395, y: 1.2406694, z: 0.94444805}
+  m_Center: {x: -0.12915981, y: 0.49629876, z: -0.12800904}
 --- !u!114 &2302629155165761897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,6 +630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelInteractionType: 0
+  outline: {fileID: 1028102762979331661}
 --- !u!1 &6720279229497239806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,7 +1210,7 @@ PrefabInstance:
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.6999998
+      value: 2.75
       objectReference: {fileID: 0}
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
@@ -1293,7 +1315,7 @@ PrefabInstance:
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.6999998
+      value: 2.75
       objectReference: {fileID: 0}
     - target: {fileID: 8768192835510015959, guid: 7dca36cf0069a1b4db7ed1f06be92c9c,
         type: 3}
