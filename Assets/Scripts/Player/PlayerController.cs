@@ -203,7 +203,6 @@ public class PlayerController : MonoBehaviour
     }
 
     internal void InitStunt(Stunt stunt){
-        Debug.Log("Executing: " + stunt.stuntName );
         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
         stuntAnimationOverriderController.Set(stunt.GetAnimation());
         playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_INIT_STUNT);

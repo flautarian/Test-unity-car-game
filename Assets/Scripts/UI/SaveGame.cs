@@ -17,9 +17,13 @@ public class SaveGame : MonoBehaviour
     [Serializable]
     public class SaveData{
         // volum de so de les opcions
-        internal float soundValue;
+        internal float soundValue = 75;
         // volum de efectes de so de les opcions
-        internal float chunkValue;
+        internal float chunkValue = 75;
+        // Llunyanyia de camera
+        internal int farCamera = 90;
+        // FOV Horitzontal
+        internal int farClipPlane = 75;
         // mon a carregar en pas de mainMenu a mon del joc, per default a 0 (primer mon)
         internal int levelCheckPointToRespawn = 0;
         bool savedBool;

@@ -15,22 +15,16 @@ public class SignInfoController : MonoBehaviour
     }
 
     private void Update() {
-        if(GlobalVariables.Instance.focusTransform == transform){
-            // outline this
+        if(GlobalVariables.Instance.focusTransform == transform){            
             if(outlineScript != null)
-                outlineScript.updateOutlineLevel(pointed ? 12 : 0);
+                outlineScript.updateOutlineLevel(pointed ? Constants.OUTLINE_WITH_ENABLED : Constants.OUTLINE_WITH_DISABLED);
             if(Input.GetButtonDown(Constants.INPUT_FIRE)){
                 pointed = !pointed;
                 GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed);
             }
         }
-        if(pointed){
-            transform.LookAt(cam.transform);
-            rend.enabled = true;
-        }
-        else {
-            rend.enabled = false;
-        }
+        rend.enabled = pointed;
+        if(pointed) transform.LookAt(cam.transform);
     }
 
     private void OnTriggerEnter(Collider other){
@@ -40,6 +34,7 @@ public class SignInfoController : MonoBehaviour
     }
     private void OnTriggerExit(Collider other) {
         if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.focusTransform == transform){
+            pointed = false;
             GlobalVariables.Instance.DisableCanvasPanelButton();
         }
     }

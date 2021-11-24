@@ -8,6 +8,10 @@ public class Constants
     //Numbers
     public const int MAX_BUTTONS_STUNTS_COUNT = 5;
 
+    public const int OUTLINE_WITH_DISABLED = 0;
+
+    public const int OUTLINE_WITH_ENABLED = 12;
+
     // Terrain types
     public const string CESPED = "Cesped";
     public const string ASPHALT = "asphalt";

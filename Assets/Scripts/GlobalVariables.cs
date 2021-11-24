@@ -164,6 +164,8 @@ public class GlobalVariables : MonoBehaviour
         gameMode != GameMode.WOLRDMAINMENU && 
         gameMode != GameMode.MAINMENU) PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
 
+        prepareSceneWithSaveGameParametters();
+
         if (gameMode == GameMode.INFINITERUNNER)
         {
             GameObject firstStreet = PoolManager.Instance.SpawnFromPool(Constants.POOL_ONE_TO_ONE_STREET, Vector3.zero, Quaternion.Euler(0, 0, 0), streetsContainer);
@@ -187,6 +189,7 @@ public class GlobalVariables : MonoBehaviour
     public void DisableCanvasPanelButton(){
         actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
         updateMainCameraLookAt(null);
+        switchCameraFocusToSecondaryObject(false);
     }
 
     internal void ResetLevel(){
@@ -289,6 +292,11 @@ public class GlobalVariables : MonoBehaviour
             goalGameObject.transform.position = pos;
             generateGoalLine = true;
         }
+    }
+
+    private void prepareSceneWithSaveGameParametters(){
+        mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
+        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }
 
     public void UpdateLevelState(InGamePanels newState){

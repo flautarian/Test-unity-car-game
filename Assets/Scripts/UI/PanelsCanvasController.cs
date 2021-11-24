@@ -46,8 +46,8 @@ public class PanelsCanvasController : MonoBehaviour
                     case PanelInteractionType.BRIDGE_TYPE:
                         animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
-                    GlobalVariables.Instance.switchCameraFocusToSecondaryObject(true);
                 }
+                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(true);
             }
         }
         else if(GlobalVariables.Instance.inGameState == InGamePanels.PAUSED){
