@@ -10,6 +10,6 @@ public class PanelCanvasController : MonoBehaviour
 
     private void OnEnable() {
         var eventSystem = EventSystem.current;
-        eventSystem.SetSelectedGameObject( firstButton.gameObject, new BaseEventData(eventSystem));
+        if(firstButton != null) eventSystem.SetSelectedGameObject( firstButton.gameObject, new BaseEventData(eventSystem));
     }
 }

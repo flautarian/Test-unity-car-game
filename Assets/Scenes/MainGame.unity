@@ -6354,6 +6354,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CMV MainGameCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 4784338070805083576, guid: ab1132aa8c714174e880039f0005b804,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainVirtualCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083577, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_Follow
@@ -12496,6 +12501,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3625578622328951731, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: lastScene
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9068269816559045815, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: playerController
@@ -12563,8 +12573,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: far clip plane
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269817508104738, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
       propertyPath: near clip plane
       value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.29999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.96131575
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.27544892
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}

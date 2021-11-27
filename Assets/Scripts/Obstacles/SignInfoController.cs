@@ -7,6 +7,8 @@ public class SignInfoController : MonoBehaviour
     private Renderer rend;
     private bool pointed; 
     private Camera cam;
+    [SerializeField]
+    private TextMesh textMesh;
     public Outline outlineScript;
     void Start()
     {
@@ -24,6 +26,7 @@ public class SignInfoController : MonoBehaviour
             }
         }
         rend.enabled = pointed;
+        if(textMesh != null) textMesh.gameObject.SetActive(pointed);
         if(pointed) transform.LookAt(cam.transform);
     }
 

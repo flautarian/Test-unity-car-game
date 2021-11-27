@@ -26,6 +26,10 @@ public class SaveGame : MonoBehaviour
         internal int farClipPlane = 75;
         // mon a carregar en pas de mainMenu a mon del joc, per default a 0 (primer mon)
         internal int levelCheckPointToRespawn = 0;
+        // llenguatje
+        // 0 = english
+        // 1 = spanish
+        internal int language = 0;
         bool savedBool;
     }
 
