@@ -3306,7 +3306,7 @@ MonoBehaviour:
   carPartsIndicator: {fileID: 9068269815719255625}
   stuntsIndicator: {fileID: 452302912102636812}
   cmvStateDriveCameraAnimator: {fileID: 0}
-  forceStartGame: 1
+  forceStartGame: 0
 --- !u!95 &6591760729411142873
 Animator:
   serializedVersion: 3
@@ -4139,8 +4139,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9068269817508104736}
-  m_LocalRotation: {x: 0.00000084433935, y: 0.9615836, z: -0.2745122, w: 0.0000029576208}
-  m_LocalPosition: {x: -113.25007, y: 5.3, z: -295.53}
+  m_LocalRotation: {x: 0.27544892, y: 0.000000016540765, z: -0.000000004739479, w: 0.96131575}
+  m_LocalPosition: {x: 0, y: 5.31, z: 0.29999995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9068269816834089046}
@@ -4171,7 +4171,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 60
-  field of view: 59.993443
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: 50

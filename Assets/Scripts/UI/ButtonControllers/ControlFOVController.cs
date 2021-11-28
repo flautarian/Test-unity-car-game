@@ -16,6 +16,6 @@ public class ControlFOVController : ControlOptionController
  
     void ScrollbarCallback(float value)
     {
-        GlobalVariables.Instance.UpdateFOVLevel((int) value);
+        GlobalVariables.Instance.UpdateFOVLevel(value);
     }
 }

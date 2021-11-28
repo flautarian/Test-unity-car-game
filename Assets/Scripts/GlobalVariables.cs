@@ -201,6 +201,7 @@ public class GlobalVariables : MonoBehaviour
         totalCoins =0;
         totalStuntEC =0;
         objectiveActualTarget =0;
+        inGameState = InGamePanels.GAMEON;
         Scene m_Scene = SceneManager.GetActiveScene();
    		SceneManager.LoadScene(m_Scene.name);
     }
@@ -256,14 +257,14 @@ public class GlobalVariables : MonoBehaviour
         saveGameData.data.soundValue = level;
     }
 
-    public void UpdateFOVLevel(int level){
-        saveGameData.data.farCamera = level;
-        mainCameraControl.m_Lens.FieldOfView = level;
+    public void UpdateFOVLevel(float level){
+        saveGameData.data.farCamera =  60 + (int) (40 * level);
+        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }
 
-    public void UpdateCameraFocusLevel(int level){
-        saveGameData.data.farClipPlane = level;
-        mainCameraControl.m_Lens.FarClipPlane = level;
+    public void UpdateCameraFocusLevel(float level){
+        saveGameData.data.farClipPlane =  75 + (int) (400 * level);
+        mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
     }
 
     public float GetChunkLevel(){

@@ -15,6 +15,6 @@ public class ControlCameraFocusController : ControlOptionController
 
     void ScrollbarCallback(float value)
     {
-        GlobalVariables.Instance.UpdateCameraFocusLevel((int) value);
+        GlobalVariables.Instance.UpdateCameraFocusLevel(value);
     }
 }
