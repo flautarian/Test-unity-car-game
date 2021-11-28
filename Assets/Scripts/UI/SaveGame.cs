@@ -11,7 +11,7 @@ public class SaveGame : MonoBehaviour
 
     public SaveData data;
     private void Start() {
-        data = LoadGame();
+        data = LoadGameData();
     }
 
     [Serializable]
@@ -43,7 +43,7 @@ public class SaveGame : MonoBehaviour
         Debug.Log("Game data saved!");
     }
 
-    private SaveData LoadGame()
+    private SaveData LoadGameData()
     {
         if (File.Exists(Application.persistentDataPath 
                     + "/data.dat"))

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public enum GameMode
 {
@@ -129,6 +131,8 @@ public class GlobalVariables : MonoBehaviour
     private Transform playerTransform;
 
     public Transform focusTransform;
+    //Gestor d'events de UI del joc
+    public EventSystem eventSystem;
 
     private void Awake()
     {
@@ -237,11 +241,29 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
+    public int GetFOVLevel(){
+        return saveGameData.data.farCamera;
+    }
+
+    public int GetCameraFocusLevel(){
+        return saveGameData.data.farClipPlane;
+    }
+
     public float GetSoundLevel(){
         return saveGameData.data.soundValue;
     }
     public void UpdateSoundLevel(float level){
         saveGameData.data.soundValue = level;
+    }
+
+    public void UpdateFOVLevel(int level){
+        saveGameData.data.farCamera = level;
+        mainCameraControl.m_Lens.FieldOfView = level;
+    }
+
+    public void UpdateCameraFocusLevel(int level){
+        saveGameData.data.farClipPlane = level;
+        mainCameraControl.m_Lens.FarClipPlane = level;
     }
 
     public float GetChunkLevel(){
@@ -316,5 +338,18 @@ public class GlobalVariables : MonoBehaviour
 
     public void switchCameraFocusToSecondaryObject(bool focusSecondary){
         mainCameraControl.m_LookAt = focusSecondary ? focusTransform : playerTransform;
+    }
+
+    public void SetFocusUiElement(GameObject go){
+        ClearFocusUiElement();
+        eventSystem.SetSelectedGameObject( go, new BaseEventData(eventSystem));
+        if(eventSystem == null)eventSystem = EventSystem.current;
+        eventSystem.firstSelectedGameObject = go;
+    }
+
+    private void ClearFocusUiElement(){
+        if(eventSystem == null)eventSystem = EventSystem.current;
+        eventSystem.firstSelectedGameObject = null;
+        eventSystem.SetSelectedGameObject( null, new BaseEventData(eventSystem));
     }
 }

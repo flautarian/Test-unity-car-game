@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ControlSoundController : MonoBehaviour
+public class ControlSoundController : ControlOptionController
 {
     private Scrollbar scrollbar;
 
@@ -13,7 +13,7 @@ public class ControlSoundController : MonoBehaviour
         scrollbar.onValueChanged.AddListener((float val) => ScrollbarCallback(val));
         scrollbar.value = GlobalVariables.Instance.GetSoundLevel();
     }
- 
+
     void ScrollbarCallback(float value)
     {
         GlobalVariables.Instance.UpdateSoundLevel(value);
