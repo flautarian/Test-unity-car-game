@@ -169,8 +169,6 @@ public class GlobalVariables : MonoBehaviour
         gameMode != GameMode.WOLRDMAINMENU && 
         gameMode != GameMode.MAINMENU) PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
 
-        prepareSceneWithSaveGameParametters();
-
         if (gameMode == GameMode.INFINITERUNNER)
         {
             GameObject firstStreet = PoolManager.Instance.SpawnFromPool(Constants.POOL_ONE_TO_ONE_STREET, Vector3.zero, Quaternion.Euler(0, 0, 0), streetsContainer);
@@ -254,6 +252,10 @@ public class GlobalVariables : MonoBehaviour
     public float GetSoundLevel(){
         return saveGameData.data.soundValue;
     }
+
+    public string GetLanguage(){
+        return saveGameData.data.language;
+    }
     public void UpdateSoundLevel(float level){
         saveGameData.data.soundValue = level;
     }
@@ -318,10 +320,13 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
-    private void prepareSceneWithSaveGameParametters(){
-        if(mainCameraControl == null) return;
-        mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
-        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
+    public void prepareSceneWithSaveGameParametters(){
+        if(mainCameraControl != null){
+            mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
+            mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
+        }
+        if(I18N.instance != null)
+            I18N.instance.setLanguage(saveGameData.data.language);
     }
 
     public void UpdateLevelState(InGamePanels newState){
@@ -357,7 +362,23 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void UpdateActiveLanguage(string value){
-        I18N.instance.setLanguage(value);
         saveGameData.data.language = value;
+        Debug.Log(saveGameData.data.language);
+        I18N.instance.setLanguage(value);
+    }
+
+    public string GetSavedKeyButton(string code){
+        switch(code){
+            case "Up":
+                return saveGameData.data.up;
+            case "Down":
+                return saveGameData.data.down;
+            case "Left":
+                return saveGameData.data.left;
+            case "Right":
+                return saveGameData.data.right;
+            default:
+                return saveGameData.data.up;
+        }
     }
 }

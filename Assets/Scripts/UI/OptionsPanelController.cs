@@ -12,6 +12,11 @@ public class OptionsPanelController : MonoBehaviour
 
     [SerializeField]
     private GameObject[] MainTabButtons;
+
+    private void OnEnable() {
+        GlobalVariables.Instance.SetFocusUiElement(MainTabButtons[ActualTab]);
+    }
+
     void Update()
     {
         if(panel == null) panel = PanelNotificationCenter.GetPanel(0);

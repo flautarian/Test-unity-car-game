@@ -7,9 +7,18 @@ public class LanguageDropdownController : MonoBehaviour
 
     private void Start() {
         m_Dropdown = GetComponent<Dropdown>();
+        if(m_Dropdown != null){
+            switch(GlobalVariables.Instance.GetLanguage()){
+                case "ES":
+                    m_Dropdown.value = 0;
+                break;
+                default:
+                    m_Dropdown.value = 1;
+                break;
+            }
+        }
     }
     public void UpdateLanguage(){
-        Debug.Log(m_Dropdown.options[m_Dropdown.value].text);
         GlobalVariables.Instance.UpdateActiveLanguage(m_Dropdown.options[m_Dropdown.value].text);
     }
 }

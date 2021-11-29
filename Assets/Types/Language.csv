@@ -1,21 +1,23 @@
-Lang Code;EN;PL;ES;DE;FR;JP
-^Button-go-to-world;Go to World;MEK;Empezar;MEK;MEK;MEK
-^Button-options;Options;MEK;Opciones;MEK;MEK;MEK
-^Button-options-label-video;Video;MEK;Video;MEK;MEK;MEK
-^Button-options-label-video-FOV;Field of view;MEK;Vista;MEK;MEK;MEK
-^Button-options-label-video-Camera;Depth;MEK;Profundidad;MEK;MEK;MEK
-^Button-options-label-sound;Sound;MEK;Sonido;MEK;MEK;MEK
-^Button-options-label-sound-sound;Sound level;MEK;Volumen de musica;MEK;MEK;MEK
-^Button-options-label-sound-chunks;Chunks level;MEK;Volumen de efectos;MEK;MEK;MEK
-^Button-options-label-language;Language;MEK;Idioma;MEK;MEK;MEK
-^Button-options-label-language-spanish;Spanish;MEK;Espa¤ol;MEK;MEK;MEK
-^Button-options-label-language-english;English;MEK;Ingles;MEK;MEK;MEK
-^Button-options-label-keyboard;Keyboard;MEK;Teclado;MEK;MEK;MEK
-^Button-options-label-keyboard-up;Up;MEK;Arriba;MEK;MEK;MEK
-^Button-options-label-keyboard-down;Down;MEK;Abajo;MEK;MEK;MEK
-^Button-options-label-keyboard-left;Left;MEK;Izquierda;MEK;MEK;MEK
-^Button-options-label-keyboard-right;Right;MEK;Derecha;MEK;MEK;MEK
-^Button-options-label-keyboard-rightaccelerate;Accelerate;MEK;Acelerar;MEK;MEK;MEK
-^Button-options-label-keyboard-stunt;Stunt;MEK;Stunt;MEK;MEK;MEK
-^Button-exit-game;Exit game;MEK;Salir del juego;MEK;MEK;MEK
-;;;;;;
+Lang Code	EN	PL	ES	DE	FR	JP
+^button_go_to_world	Go to World	MEK	Empezar	MEK	MEK	MEK
+^button_options	Options	MEK	Opciones	MEK	MEK	MEK
+^button_options_label_video	Video	MEK	Video	MEK	MEK	MEK
+^button_options_label_video_FOV	Field of view	MEK	Vista	MEK	MEK	MEK
+^button_options_label_video_Camera	Depth	MEK	Profundidad	MEK	MEK	MEK
+^button_options_label_sound	Sound	MEK	Sonido	MEK	MEK	MEK
+^button_options_label_sound_sound	Sound level	MEK	Volumen de musica	MEK	MEK	MEK
+^button_options_label_sound_chunks	Chunks level	MEK	Volumen de efectos	MEK	MEK	MEK
+^button_options_label_language	Language	MEK	Idioma	MEK	MEK	MEK
+^button_options_label_language_spanish	Spanish	MEK	Espa¤ol	MEK	MEK	MEK
+^button_options_label_language_english	English	MEK	Ingles	MEK	MEK	MEK
+^button_options_label_keyboard	Keyboard	MEK	Teclado	MEK	MEK	MEK
+^button_options_label_keyboard_up	Up	MEK	Arriba	MEK	MEK	MEK
+^button_options_label_keyboard_down	Down	MEK	Abajo	MEK	MEK	MEK
+^button_options_label_keyboard_left	Left	MEK	Izquierda	MEK	MEK	MEK
+^button_options_label_keyboard_right	Right	MEK	Derecha	MEK	MEK	MEK
+^button_options_label_keyboard_rightaccelerate	Accelerate	MEK	Acelerar	MEK	MEK	MEK
+^button_options_label_keyboard_stunt	Stunt	MEK	Stunt	MEK	MEK	MEK
+^button_options_label_close_options	Save and close	MEK	Guardar y salir	MEK	MEK	MEK
+^button_exit_game	Exit game	MEK	Salir del juego	MEK	MEK	MEK
+^sign_library_info	This is Title:\nAnd this is an standard content,\nmaybe you want to set some text \nhere to explain something?	MEK	Esto es el titulo:\nY esto es un contenido estandar\nquizas quieras poner algun texto qui\npara explicar algo?	MEK	MEK	MEK
+^sign_tax_info	Welcome to the adventure tax site!:\nHere you will can demostrate your courage \n letting you pass to recover \nthe necessary objects\n to grant access to the other worlds!	MEK	Bienvenido al peaje de la aventura!:\nAqui podras demostrar tu valia al volante \ny abrirte paso para poder reunir \nlas peizas necesarias para poder\n acceder al siguiente mundo!	MEK	MEK	MEK

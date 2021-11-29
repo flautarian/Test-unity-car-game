@@ -13,4 +13,8 @@ public class EnterWorldButtonController : SelectButtonController
         yield return new WaitForSeconds(4f);
         SceneManager.LoadScene(1);
     }
+
+    private void OnEnable() {
+        GlobalVariables.Instance.SetFocusUiElement(this.gameObject);
+    }
 }

@@ -12,6 +12,7 @@ public class SaveGame : MonoBehaviour
     public SaveData data;
     private void Start() {
         data = LoadGameData();
+        GlobalVariables.Instance.prepareSceneWithSaveGameParametters();
     }
 
     [Serializable]
@@ -26,10 +27,14 @@ public class SaveGame : MonoBehaviour
         internal int farClipPlane = 75;
         // mon a carregar en pas de mainMenu a mon del joc, per default a 0 (primer mon)
         internal int levelCheckPointToRespawn = 0;
-        // llenguatje
-        // 0 = english
-        // 1 = spanish
+        // Idioma
         internal string language = "EN";
+
+        // keyCodes
+        internal string up = "W";
+        internal string down = "S";
+        internal string left = "A";
+        internal string right = "D";
         bool savedBool;
     }
 
