@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7094591356523731213}
   - component: {fileID: 4600597223894909793}
   - component: {fileID: 4977231846054274011}
+  - component: {fileID: 6804048432400010630}
   m_Layer: 0
   m_Name: GlobalVariables
   m_TagString: Untagged
@@ -63,9 +64,11 @@ MonoBehaviour:
   inGameState: 0
   actualPanelInteractionType: 0
   actualLevelSettings: {fileID: 0}
-  levelWon: 0
   generateGoalLine: 0
+  turnedCar: 0
   objectiveActualTarget: 0
+  focusTransform: {fileID: 0}
+  eventSystem: {fileID: 0}
 --- !u!114 &7094591356523731213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,3 +158,19 @@ MonoBehaviour:
   grassType: 0
   specialEvents: 0
   fog: 0
+--- !u!114 &6804048432400010630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7094591356523731208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ffcbc67f1f8de343a621c1fb24eaf0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameLang: 0
+  _languageFile: {fileID: 4900000, guid: 35cfbb5a5aba034408cd2d432bd25b02, type: 3}
+  _useCustomFonts: 0
+  _langFonts: []

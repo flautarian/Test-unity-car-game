@@ -1,0 +1,21 @@
+Lang Code;EN;PL;ES;DE;FR;JP
+^Button-go-to-world;Go to World;MEK;Empezar;MEK;MEK;MEK
+^Button-options;Options;MEK;Opciones;MEK;MEK;MEK
+^Button-options-label-video;Video;MEK;Video;MEK;MEK;MEK
+^Button-options-label-video-FOV;Field of view;MEK;Vista;MEK;MEK;MEK
+^Button-options-label-video-Camera;Depth;MEK;Profundidad;MEK;MEK;MEK
+^Button-options-label-sound;Sound;MEK;Sonido;MEK;MEK;MEK
+^Button-options-label-sound-sound;Sound level;MEK;Volumen de musica;MEK;MEK;MEK
+^Button-options-label-sound-chunks;Chunks level;MEK;Volumen de efectos;MEK;MEK;MEK
+^Button-options-label-language;Language;MEK;Idioma;MEK;MEK;MEK
+^Button-options-label-language-spanish;Spanish;MEK;Espa¤ol;MEK;MEK;MEK
+^Button-options-label-language-english;English;MEK;Ingles;MEK;MEK;MEK
+^Button-options-label-keyboard;Keyboard;MEK;Teclado;MEK;MEK;MEK
+^Button-options-label-keyboard-up;Up;MEK;Arriba;MEK;MEK;MEK
+^Button-options-label-keyboard-down;Down;MEK;Abajo;MEK;MEK;MEK
+^Button-options-label-keyboard-left;Left;MEK;Izquierda;MEK;MEK;MEK
+^Button-options-label-keyboard-right;Right;MEK;Derecha;MEK;MEK;MEK
+^Button-options-label-keyboard-rightaccelerate;Accelerate;MEK;Acelerar;MEK;MEK;MEK
+^Button-options-label-keyboard-stunt;Stunt;MEK;Stunt;MEK;MEK;MEK
+^Button-exit-game;Exit game;MEK;Salir del juego;MEK;MEK;MEK
+;;;;;;

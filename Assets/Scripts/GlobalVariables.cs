@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Honeti;
 
 public enum GameMode
 {
@@ -258,12 +259,12 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void UpdateFOVLevel(float level){
-        saveGameData.data.farCamera =  60 + (int) (40 * level);
+        saveGameData.data.farCamera =  75 + (int) (45 * level);
         mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }
 
     public void UpdateCameraFocusLevel(float level){
-        saveGameData.data.farClipPlane =  75 + (int) (400 * level);
+        saveGameData.data.farClipPlane =  75 + (int) (50 * level);
         mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
     }
 
@@ -318,6 +319,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     private void prepareSceneWithSaveGameParametters(){
+        if(mainCameraControl == null) return;
         mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
         mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }
@@ -352,5 +354,10 @@ public class GlobalVariables : MonoBehaviour
         if(eventSystem == null)eventSystem = EventSystem.current;
         eventSystem.firstSelectedGameObject = null;
         eventSystem.SetSelectedGameObject( null, new BaseEventData(eventSystem));
+    }
+
+    public void UpdateActiveLanguage(string value){
+        I18N.instance.setLanguage(value);
+        saveGameData.data.language = value;
     }
 }

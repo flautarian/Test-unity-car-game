@@ -29,7 +29,7 @@ public class SaveGame : MonoBehaviour
         // llenguatje
         // 0 = english
         // 1 = spanish
-        internal int language = 0;
+        internal string language = "EN";
         bool savedBool;
     }
 
@@ -54,7 +54,7 @@ public class SaveGame : MonoBehaviour
                     + "/data.dat", FileMode.Open);
             SaveData data = (SaveData)bf.Deserialize(file);
             file.Close();
-            Debug.Log("Game data loaded!");
+            //Debug.Log("Game data loaded!");
             return data;
         }
         else

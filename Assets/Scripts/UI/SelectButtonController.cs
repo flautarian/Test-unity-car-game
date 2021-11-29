@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public abstract class SelectButtonController : MonoBehaviour
 {
     public Animator animator;
-
     private Button button;
     void Start()
     {
@@ -17,9 +16,11 @@ public abstract class SelectButtonController : MonoBehaviour
 
     void Update()
     {
-        if(EventSystem.current.currentSelectedGameObject == this.gameObject)
-            animator.SetBool(Constants.ANIMATION_BUTTON_CONTROLLER_SELECTED_BOOL, true);
-        else animator.SetBool(Constants.ANIMATION_BUTTON_CONTROLLER_SELECTED_BOOL, false);
+        if(animator != null){
+            if(EventSystem.current.currentSelectedGameObject == this.gameObject)
+                animator.SetBool(Constants.ANIMATION_BUTTON_CONTROLLER_SELECTED_BOOL, true);
+            else animator.SetBool(Constants.ANIMATION_BUTTON_CONTROLLER_SELECTED_BOOL, false);
+        }
     }
 
     public void TriggerButton(){
