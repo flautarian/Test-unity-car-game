@@ -12,10 +12,10 @@ public class ButtonKeyBindingController : MonoBehaviour
     private GameObject currentKey;
 
     private void Start() {
-        //keys.Add("Up", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.GetSavedKeyButton("Up")));
-        //keys.Add("Down", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.GetSavedKeyButton("Down")));
-        //keys.Add("Left", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.GetSavedKeyButton("Left")));
-        //keys.Add("Right", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.GetSavedKeyButton("Right")));
+        keys.Add("Up", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.Instance.GetSavedKeyButton("Up")));
+        keys.Add("Down", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.Instance.GetSavedKeyButton("Down")));
+        keys.Add("Left", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.Instance.GetSavedKeyButton("Left")));
+        keys.Add("Right", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.Instance.GetSavedKeyButton("Right")));
 
         up.text =  keys["Up"].ToString();
         down.text =  keys["Down"].ToString();
