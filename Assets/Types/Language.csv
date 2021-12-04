@@ -15,7 +15,7 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^button_options_label_keyboard_down	Down	MEK	Abajo	MEK	MEK	MEK
 ^button_options_label_keyboard_left	Left	MEK	Izquierda	MEK	MEK	MEK
 ^button_options_label_keyboard_right	Right	MEK	Derecha	MEK	MEK	MEK
-^button_options_label_keyboard_rightaccelerate	Accelerate	MEK	Acelerar	MEK	MEK	MEK
+^button_options_label_keyboard_accelerate	Accelerate	MEK	Acelerar	MEK	MEK	MEK
 ^button_options_label_keyboard_stunt	Stunt	MEK	Stunt	MEK	MEK	MEK
 ^button_options_label_close_options	Save and close	MEK	Guardar y salir	MEK	MEK	MEK
 ^button_exit_game	Exit game	MEK	Salir del juego	MEK	MEK	MEK

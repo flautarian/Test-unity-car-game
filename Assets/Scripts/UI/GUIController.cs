@@ -31,21 +31,6 @@ public class GUIController : MonoBehaviour
         if (forceStartGame) startGame();
     }
 
-    internal void propagueFisicButton(FisicButtonController fisicButtonController)
-    {
-        switch (fisicButtonController.actionButton)
-        {
-            case ActionButtonType.left:
-                playerController.turnLeft();
-                break;
-            case ActionButtonType.right:
-                playerController.turnRight();
-                break;
-            case ActionButtonType.brake:
-                break;
-        }
-    }
-
         // Update is called once per frame
         void LateUpdate()
     {
@@ -62,8 +47,23 @@ public class GUIController : MonoBehaviour
                 GlobalVariables.Instance.repairflag = false;
             }
         }
+        ControlIndicatorsRendering(Time.timeScale != 0f);
         //transform.LookAt(player.transform);
         transform.rotation = Quaternion.Euler(transform.rotation.x + (cameraXAxisOffset * playerAcceleration), transform.rotation.y + (cameraYAxisOffset * playerBrake), transform.rotation.z);
+    }
+    internal void propagueFisicButton(FisicButtonController fisicButtonController)
+    {
+        switch (fisicButtonController.actionButton)
+        {
+            case ActionButtonType.left:
+                playerController.turnLeft();
+                break;
+            case ActionButtonType.right:
+                playerController.turnRight();
+                break;
+            case ActionButtonType.brake:
+                break;
+        }
     }
 
     #region Triggers game init
@@ -85,6 +85,13 @@ public class GUIController : MonoBehaviour
         if(stuntsIndicator != null)
             stuntsIndicator.startGame();
 
+    }
+
+    private void ControlIndicatorsRendering(bool enable){
+        gasIndicator.gameObject.SetActive(enable);
+        coinsIndicator.gameObject.SetActive(enable);
+        stuntsIndicator.gameObject.SetActive(enable);
+        carPartsIndicator.gameObject.SetActive(enable);
     }
 
 

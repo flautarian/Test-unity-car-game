@@ -23,24 +23,24 @@ public class StuntsController : MonoBehaviour
     void Update()
     {
         if(playerController.canMove && !playerController.turned){
-            if(Input.GetButtonDown(Constants.INPUT_FIRE) && !stuntsModeEnabled)
+            if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT)) && !stuntsModeEnabled)
                     ActivateStuntMode();
             else if(stuntsModeEnabled){
-                if(Input.GetButtonUp(Constants.INPUT_FIRE))
+                if(Input.GetKeyUp(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT)))
                     DeactivateStuntMode();
                 else
                 {
                     if (Time.time > timeLastButtonPressed + allowedTimeBetweenButtons) playerController.communicateStuntReset();
-                    if(Input.GetAxisRaw(Constants.AXIS_VERTICAL) > 0) keyPressed= 0;
-                    else if(Input.GetAxisRaw(Constants.AXIS_VERTICAL) < 0) keyPressed= 1;
+                    if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_UP))) keyPressed= 0;
+                    else if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN))) keyPressed= 1;
                     else {
                         stuntsKeysState[0] = true;
                         stuntsKeysState[1] = true;
                         keyPressed = -1;
                     }
                     if(keyPressed < 0){
-                        if(Input.GetAxisRaw(Constants.AXIS_HORIZONTAL) > 0) keyPressed= 2;
-                        else if(Input.GetAxisRaw(Constants.AXIS_HORIZONTAL) < 0) keyPressed= 3;
+                        if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT))) keyPressed= 2;
+                        else if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT))) keyPressed= 3;
                         else {
                             stuntsKeysState[2] = true;
                             stuntsKeysState[3] = true;

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class PanelsCanvasController : MonoBehaviour
 {
     Animator animator;
@@ -31,7 +32,7 @@ public class PanelsCanvasController : MonoBehaviour
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_PAUSEGAME_PANELS);
             }
             if(panelInteractionType != PanelInteractionType.NO_INTERACTION &&
-             Input.GetButtonDown(Constants.INPUT_FIRE)){
+             Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))){
                 GlobalVariables.Instance.inGameState = InGamePanels.LEVELSELECTION;
                 switch(panelInteractionType){
                     case PanelInteractionType.TAX_TYPE:

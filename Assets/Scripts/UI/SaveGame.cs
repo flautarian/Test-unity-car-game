@@ -10,8 +10,11 @@ public class SaveGame : MonoBehaviour
 {
 
     public SaveData data;
+
+    public KeyCode[] keyCodeBindings = new KeyCode[6];
     private void Start() {
         data = LoadGameData();
+        RefreshKeyCodeBindings();
         GlobalVariables.Instance.prepareSceneWithSaveGameParametters();
     }
 
@@ -29,13 +32,28 @@ public class SaveGame : MonoBehaviour
         internal int levelCheckPointToRespawn = 0;
         // Idioma
         internal string language = "EN";
+        // Sensibilitat de gir
+        internal float hSensibility = 0.05f;
 
         // keyCodes
-        internal string up = "W";
-        internal string down = "S";
-        internal string left = "A";
-        internal string right = "D";
+        // 0 - UP
+        // 1 - DOWN
+        // 2 - LEFT
+        // 3 - RIGHT
+        // 4 - ACCELERATE
+        // 5 - STUNT MODE
+        internal string[] keyBindings = {"W", "S", "A", "D", "Mouse0", "Mouse1"};
         bool savedBool;
+    }
+
+    internal void RefreshKeyCodeBindings(){
+        for(int i = 0; i < data.keyBindings.Length; i++){
+            keyCodeBindings[i] = (KeyCode) System.Enum.Parse(typeof(KeyCode), data.keyBindings[i]);
+        }
+    }
+
+    internal KeyCode GetKeyCodeBinded(int key){
+        return keyCodeBindings[key];
     }
 
     internal void UpdateSaveGame()
@@ -63,7 +81,7 @@ public class SaveGame : MonoBehaviour
             return data;
         }
         else
-            Debug.LogError("There is no save data!");
+            Debug.LogError("There is no save data!, generating new dataFile");
         return new SaveData();
     }
 }

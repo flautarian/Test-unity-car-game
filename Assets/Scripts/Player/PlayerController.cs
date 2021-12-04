@@ -91,17 +91,17 @@ public class PlayerController : MonoBehaviour
 
     private void Update() {
 
+        //Captura de tecles
+        HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
+        VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
+
         //Activem l'animacio de 'vehicle xocat' en cas de haver xocat amb el vehicle
         if (playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) && !playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = true;
         else if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) && playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = false;
 
-        //Captura de tecles
-        VerticalAxis = Input.GetAxis(Constants.INPUT_ACCELERATE);
-        HorizontalAxis = Input.GetAxis(Constants.AXIS_HORIZONTAL);
-
         // apliquem a variable velocitat
-        if (VerticalAxis > 0) speedInput = VerticalAxis * forwardAccel * 1000f;
-        speedInput += comboStunt;
+        speedInput = VerticalAxis * forwardAccel * 1000f;
+        if (VerticalAxis > 0) speedInput += comboStunt;
 
         //Refresc de posició
         transform.position = playerSphereRigidBody.transform.position;
@@ -133,6 +133,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         if(Time.time - timeSentinelRaycast >= 0.2f){
             // Mirar raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
             var zAngle = Math.Abs(360- player.transform.rotation.eulerAngles.z);
@@ -179,6 +180,18 @@ public class PlayerController : MonoBehaviour
             }
         }
         else if (!canMove || turned) playerSphereRigidBody.drag = 3.5f;
+    }
+
+    private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative){
+        var localHSensibility = GlobalVariables.Instance.GetHSensibilityLevel();
+        if(!Input.GetKey(positive) && !Input.GetKey(negative))
+            if(Math.Abs(StartingPoint) < localHSensibility) StartingPoint = 0;
+            else StartingPoint = Mathf.Lerp(0f, StartingPoint, 10*Time.deltaTime);
+        else{
+            StartingPoint += Input.GetKey(positive) ? localHSensibility : 0.0f;
+            StartingPoint += Input.GetKey(negative) ? -localHSensibility : 0.0f;
+        }
+        return Mathf.Clamp(StartingPoint, -1f, 1f);
     }
 
     internal void communicateStuntKeyPressed(int keyCode){

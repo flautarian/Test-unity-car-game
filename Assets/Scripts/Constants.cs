@@ -76,10 +76,14 @@ public class Constants
 
 
     // Axis types and buttons
-    public const string AXIS_VERTICAL = "Vertical";
-    public const string AXIS_HORIZONTAL= "Horizontal";
-    public const string INPUT_ACCELERATE = "Accelerate";
-    public const string INPUT_FIRE = "Fire1";
+
+    public const int KEY_INPUT_UP = 0;
+    public const int KEY_INPUT_DOWN = 1;
+    public const int KEY_INPUT_LEFT = 2;
+    public const int KEY_INPUT_RIGHT = 3;
+    public const int KEY_INPUT_ACCELERATE = 4;
+    public const int KEY_INPUT_STUNT = 5;
+
     public const string BACK = "Cancel";
 
 

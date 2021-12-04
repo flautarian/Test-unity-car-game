@@ -241,12 +241,16 @@ public class GlobalVariables : MonoBehaviour
         }
     }
 
+    public float GetHSensibilityLevel(){
+        //Debug.Log(saveGameData.data.hSensibility);
+        return saveGameData.data.hSensibility;
+    }
     public int GetFOVLevel(){
-        return saveGameData.data.farCamera;
+        return saveGameData.data.farClipPlane;
     }
 
-    public int GetCameraFocusLevel(){
-        return saveGameData.data.farClipPlane;
+    public int GetFarCameraLevel(){
+        return saveGameData.data.farCamera;
     }
 
     public float GetSoundLevel(){
@@ -260,14 +264,19 @@ public class GlobalVariables : MonoBehaviour
         saveGameData.data.soundValue = level;
     }
 
-    public void UpdateFOVLevel(float level){
-        saveGameData.data.farCamera =  75 + (int) (45 * level);
-        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
+    public void UpdateHSensibilityLevel(float level){
+        Debug.Log(level);
+        saveGameData.data.hSensibility = level;
     }
 
-    public void UpdateCameraFocusLevel(float level){
-        saveGameData.data.farClipPlane =  75 + (int) (50 * level);
+    public void UpdateFOVLevel(float level){
+        saveGameData.data.farClipPlane =  75 + (int) (45 * level);
         mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
+    }
+
+    public void UpdateFarCameraLevel(float level){
+        saveGameData.data.farCamera =  75 + (int) (50 * level);
+        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }
 
     public float GetChunkLevel(){
@@ -279,6 +288,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void SaveGame(){
+        saveGameData.RefreshKeyCodeBindings();
         saveGameData.UpdateSaveGame();
     }
 
@@ -367,18 +377,19 @@ public class GlobalVariables : MonoBehaviour
         I18N.instance.setLanguage(value);
     }
 
-    public string GetSavedKeyButton(string code){
-        switch(code){
-            case "Up":
-                return saveGameData.data.up;
-            case "Down":
-                return saveGameData.data.down;
-            case "Left":
-                return saveGameData.data.left;
-            case "Right":
-                return saveGameData.data.right;
-            default:
-                return saveGameData.data.up;
-        }
+    public void UpdateKeyBinding(int key, KeyCode keyCode){ 
+        saveGameData.data.keyBindings[key] = keyCode.ToString();
+    }
+
+    public string GetKeyBindingText(int key){ 
+        return saveGameData.data.keyBindings[key];
+    }
+
+    public KeyCode GetKeyCodeBinded(int key){ 
+        return saveGameData.GetKeyCodeBinded(key);
+    }
+
+    public string GetSavedKeyButton(int key){
+       return saveGameData.data.keyBindings[key];
     }
 }

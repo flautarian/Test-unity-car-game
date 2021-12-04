@@ -21,7 +21,9 @@ public class OptionsPanelController : MonoBehaviour
     {
         if(panel == null) panel = PanelNotificationCenter.GetPanel(0);
         else{
-            HorizontalButtonPressed = Input.GetAxisRaw(Constants.AXIS_HORIZONTAL);
+            HorizontalButtonPressed = 
+            Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT)) ? -1 :
+             Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT))? 1 : 0;
             if(!blockedKey && !blockedByOption){
                 if(HorizontalButtonPressed > 0 && ActualTab  < panel.NumberOfTabs - 1) TabVariation = 1;                
                 else if(HorizontalButtonPressed < 0 && ActualTab  > 0) TabVariation = -1;
@@ -46,6 +48,6 @@ public class OptionsPanelController : MonoBehaviour
     }
 
     public void closeOptionsPanel(){
-
+        GlobalVariables.Instance.SaveGame();
     }
 }

@@ -20,7 +20,7 @@ public class SignInfoController : MonoBehaviour
         if(GlobalVariables.Instance.focusTransform == transform){            
             if(outlineScript != null)
                 outlineScript.updateOutlineLevel(pointed ? Constants.OUTLINE_WITH_ENABLED : Constants.OUTLINE_WITH_DISABLED);
-            if(Input.GetButtonDown(Constants.INPUT_FIRE)){
+            if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))){
                 pointed = !pointed;
                 GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed);
             }
