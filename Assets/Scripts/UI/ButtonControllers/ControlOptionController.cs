@@ -12,13 +12,11 @@ public abstract class ControlOptionController : MonoBehaviour, ISelectHandler, I
 
     public void OnSelect(BaseEventData eventData)
     {
-        Debug.Log("Locking transition");
         OptionsPanelController.LockTabTransition();
     }
     
     public void OnDeselect(BaseEventData eventData)
     {
-        Debug.Log("Unlocking transition");
         OptionsPanelController.UnlockTabTransition();
     }
  

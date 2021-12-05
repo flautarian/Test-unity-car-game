@@ -1,6 +1,10 @@
 Lang Code	EN	PL	ES	DE	FR	JP
 ^button_go_to_world	Go to World	MEK	Empezar	MEK	MEK	MEK
 ^button_options	Options	MEK	Opciones	MEK	MEK	MEK
+^button_retry	Retry	MEK	Reintentar	MEK	MEK	MEK
+^button_exit_game	Exit	MEK	Salir	MEK	MEK	MEK
+^button_main_title	Go main title	MEK	Salir del juego	MEK	MEK	MEK
+^button_continue	Continue	MEK	Continuar	MEK	MEK	MEK
 ^button_options_label_video	Video	MEK	Video	MEK	MEK	MEK
 ^button_options_label_video_FOV	Field of view	MEK	Vista	MEK	MEK	MEK
 ^button_options_label_video_Camera	Depth	MEK	Profundidad	MEK	MEK	MEK
@@ -18,7 +22,6 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^button_options_label_keyboard_accelerate	Accelerate	MEK	Acelerar	MEK	MEK	MEK
 ^button_options_label_keyboard_stunt	Stunt	MEK	Stunt	MEK	MEK	MEK
 ^button_options_label_close_options	Save and close	MEK	Guardar y salir	MEK	MEK	MEK
-^button_exit_game	Exit game	MEK	Salir del juego	MEK	MEK	MEK
 ^tax_lvl_panel_title	Highway map	MEK	Mapa de carreteras	MEK	MEK	MEK
 ^detail_lvl_panel_title	Level	MEK	Nivel	MEK	MEK	MEK
 ^detail_lvl_panel_objective	Objective	MEK	Objetivo	MEK	MEK	MEK

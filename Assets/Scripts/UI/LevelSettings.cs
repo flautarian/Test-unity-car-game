@@ -45,6 +45,8 @@ public class LevelSettings : MonoBehaviour
     public bool fog;
     // nom del nivell
     public string levelName;
+    // tipus de nivell
+    public GameMode gameMode;
 
     public void CopyFromLevel(LevelSettings lvl){
         lightLevel = lvl.lightLevel;

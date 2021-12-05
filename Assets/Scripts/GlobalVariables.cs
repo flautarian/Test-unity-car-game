@@ -226,7 +226,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     internal void UpdateMinZLimit(float zAxis){
-        if(gameMode != GameMode.INFINITERUNNER)return;
+        if(gameMode != GameMode.INFINITERUNNER) return;
         minZLimit = zAxis;
     }
     public static UnityEngine.Object RequestParticleSystem(String identifier)
@@ -279,12 +279,12 @@ public class GlobalVariables : MonoBehaviour
 
     public void UpdateFOVLevel(float level){
         saveGameData.data.farClipPlane =  75 + (int) (45 * level);
-        mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
+        if(mainCameraControl != null) mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
     }
 
     public void UpdateFarCameraLevel(float level){
         saveGameData.data.farCamera =  75 + (int) (50 * level);
-        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
+        if(mainCameraControl != null) mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }
 
     public float GetChunkLevel(){
@@ -300,9 +300,8 @@ public class GlobalVariables : MonoBehaviour
         saveGameData.UpdateSaveGame();
     }
 
-    public void PrepareGlobalToLevel(LevelSettings newLvl, GameMode gMode){
+    public void PrepareGlobalToLevel(LevelSettings newLvl){
         actualLevelSettings.CopyFromLevel(newLvl);
-        gameMode = gMode;
     }
 
     public int getSpawnerMovableMaxTime(SpawnerOrientation orientation){
@@ -381,7 +380,6 @@ public class GlobalVariables : MonoBehaviour
 
     public void UpdateActiveLanguage(string value){
         saveGameData.data.language = value;
-        Debug.Log(saveGameData.data.language);
         I18N.instance.setLanguage(value);
     }
 
@@ -399,5 +397,18 @@ public class GlobalVariables : MonoBehaviour
 
     public string GetSavedKeyButton(int key){
        return saveGameData.data.keyBindings[key];
+    }
+
+    public bool IsMutatorActive(Mutator mutator){
+        if(gameMode != GameMode.INFINITERUNNER && gameMode != GameMode.CHALLENGE)return false;
+        foreach(Mutator m in actualLevelSettings.mutators){
+            if(m == mutator) return true;
+        }
+       return false;
+    }
+
+    public void UpdateGamemodeFromLvlSettings(){
+        if(actualLevelSettings != null)
+            gameMode = actualLevelSettings.gameMode;
     }
 }

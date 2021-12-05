@@ -15,6 +15,6 @@ public class EnterWorldButtonController : SelectButtonController
     }
 
     private void OnEnable() {
-        GlobalVariables.Instance.SetFocusUiElement(this.gameObject);
+        if(GlobalVariables.Instance != null) GlobalVariables.Instance.SetFocusUiElement(this.gameObject);
     }
 }

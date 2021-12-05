@@ -58,9 +58,23 @@ public class PlayerController : MonoBehaviour
 
     private int isStunting = -1;
 
-    public ParticleSystem stuntComboPS;
+    [SerializeField]
+    private ParticleSystem stuntComboPS;
 
-    public ParticleSystem turnedUpParticle;
+    private ParticleSystem.EmissionModule stuntComboPSEmissionVar;
+
+    [SerializeField]
+    private ParticleSystem slowedVelocityPS;
+
+    private ParticleSystem.EmissionModule slowedVelocityPSEmissionVar;
+
+    [SerializeField]
+    private ParticleSystem wetVelocityPS;
+
+    private ParticleSystem.EmissionModule wetVelocityPSEmissionVar;
+
+    [SerializeField]
+    private ParticleSystem turnedUpParticle;
 
     private void Awake(){
         player = GetComponentInChildren<Player>();
@@ -76,6 +90,12 @@ public class PlayerController : MonoBehaviour
             destructableParts = player.parts;
         }
         timeSentinelRaycast = Time.time;
+        stuntComboPSEmissionVar = stuntComboPS.emission;
+        stuntComboPSEmissionVar.enabled = false;
+        slowedVelocityPSEmissionVar = slowedVelocityPS.emission;
+        slowedVelocityPSEmissionVar.enabled = false;
+        wetVelocityPSEmissionVar = wetVelocityPS.emission;
+        wetVelocityPSEmissionVar.enabled = false;
     }
 
     void Start()
@@ -139,6 +159,8 @@ public class PlayerController : MonoBehaviour
             var zAngle = Math.Abs(360- player.transform.rotation.eulerAngles.z);
             if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround)){
                 turned = false;
+                if(turnedUpParticle.gameObject.activeSelf) 
+                    turnedUpParticle.gameObject.SetActive(turned);
                 if(!grounded)
                     GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
                 grounded = true;
@@ -220,32 +242,31 @@ public class PlayerController : MonoBehaviour
         stuntAnimationOverriderController.Set(stunt.GetAnimation());
         playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_INIT_STUNT);
         playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, true);
-        var emissionVar = stuntComboPS.emission;
-        emissionVar.enabled = true;
+        stuntComboPSEmissionVar.enabled = true;
         switch(stunt.comboKeys.Count){
             case 2:
                 GlobalVariables.Instance.addStuntEC(5);
-                if(emissionVar.rateOverTime.constant < 5.0f){
-                    emissionVar.rateOverTime = 5.0f;
+                if(stuntComboPSEmissionVar.rateOverTime.constant < 5.0f){
+                    stuntComboPSEmissionVar.rateOverTime = 5.0f;
                 }
                 comboStunt = 500f;
             break;
             case 3:
                 GlobalVariables.Instance.addStuntEC(10);
-                if(emissionVar.rateOverTime.constant < 10.0f){
-                    emissionVar.rateOverTime = 10.0f;
+                if(stuntComboPSEmissionVar.rateOverTime.constant < 10.0f){
+                    stuntComboPSEmissionVar.rateOverTime = 10.0f;
                 }
                 comboStunt = 1000f;
             break;
             case 4:
-                if(emissionVar.rateOverTime.constant < 15.0f){
-                    emissionVar.rateOverTime = 15.0f;
+                if(stuntComboPSEmissionVar.rateOverTime.constant < 15.0f){
+                    stuntComboPSEmissionVar.rateOverTime = 15.0f;
                 }
                 comboStunt = 1500f;
             break;
             case 5:
-                if(emissionVar.rateOverTime.constant < 20.0f){
-                    emissionVar.rateOverTime = 20.0f;
+                if(stuntComboPSEmissionVar.rateOverTime.constant < 20.0f){
+                    stuntComboPSEmissionVar.rateOverTime = 20.0f;
                 }
                 comboStunt = 2000f;
             break;
@@ -276,10 +297,18 @@ public class PlayerController : MonoBehaviour
         if (System.Object.Equals(collision.gameObject.layer, 8))// Ground
         {
             grounded = true;
-            if (System.Object.Equals(collision.gameObject.tag, Constants.CESPED))
+            if (System.Object.Equals(collision.gameObject.tag, Constants.CESPED) && streetType != StreetType.grass){
+                slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_GRASS);
+                wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_GRASS);
+                Debug.Log("detected grass: " + wetVelocityPSEmissionVar.enabled);
                 streetType = StreetType.grass;
-            else if (System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT))
+            }
+            else if (System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT) && streetType != StreetType.asphalt){
+                slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_ROAD);
+                wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_ROAD);
+                Debug.Log("detected asphalt: " + wetVelocityPSEmissionVar.enabled);
                 streetType = StreetType.asphalt;
+            }
             else if (System.Object.Equals(collision.gameObject.tag, Constants.WATER))
             {
                 streetType = StreetType.water;
@@ -341,8 +370,7 @@ public class PlayerController : MonoBehaviour
             else if (obstacle.penalizableObstacle)
             {
                 // conseqüencies de col·licio
-                var emissionVar = stuntComboPS.emission;
-                emissionVar.enabled = false;
+                stuntComboPSEmissionVar.enabled = false;
                 comboStunt = 0f;
                 if (obstacle.lethal) destroyPlayer(Constants.GAME_OVER_LETHAL_OBS_COLLIDED);
                 else

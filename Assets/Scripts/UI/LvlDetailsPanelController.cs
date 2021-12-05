@@ -30,6 +30,7 @@ public class LvlDetailsPanelController : MonoBehaviour
     }
     
     public void GoToLevel(){
+        GlobalVariables.Instance.UpdateGamemodeFromLvlSettings();
         GlobalVariables.Instance.actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
     }
 
