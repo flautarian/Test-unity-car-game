@@ -136,7 +136,7 @@ public class GlobalVariables : MonoBehaviour
     public int objectiveActualTarget = 0;
 
     //Control de l'objectiu de la camara principal
-    private Cinemachine.CinemachineVirtualCamera mainCameraControl;
+    public Cinemachine.CinemachineVirtualCamera mainCameraControl;
 
     private Transform playerTransform;
 
@@ -155,14 +155,11 @@ public class GlobalVariables : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        var mainCameraCGO = GameObject.FindGameObjectWithTag("MainVirtualCamera");
-        if(mainCameraCGO != null){
-            mainCameraControl = mainCameraCGO.GetComponent<Cinemachine.CinemachineVirtualCamera>();
-            playerTransform = mainCameraControl.m_LookAt;
-            focusTransform = playerTransform;
-        }
-
+        
+        UpdateMainCameraAttribute();
+        var es = GameObject.Find("EventSystem");
+        eventSystem = es.GetComponent<EventSystem>();
+        
         var strgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_STREET_CONTAINER);
         if (strgo != null) streetsContainer = strgo.transform;
 
@@ -190,7 +187,7 @@ public class GlobalVariables : MonoBehaviour
         else if(gameMode == GameMode.WOLRDMAINMENU){
             
         }
-        //Debug.Log("I'm Awakening!!");
+        //Debug.Log("GlobalVariables Awakening!!");
     }
 
     public void InvoqueCanvasPanelButton(PanelInteractionType pit, Transform focus){
@@ -279,12 +276,14 @@ public class GlobalVariables : MonoBehaviour
 
     public void UpdateFOVLevel(float level){
         saveGameData.data.farClipPlane =  75 + (int) (45 * level);
-        if(mainCameraControl != null) mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
+        if(mainCameraControl == null) UpdateMainCameraAttribute();
+        mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
     }
 
     public void UpdateFarCameraLevel(float level){
         saveGameData.data.farCamera =  75 + (int) (50 * level);
-        if(mainCameraControl != null) mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
+        if(mainCameraControl == null) UpdateMainCameraAttribute();
+        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }
 
     public float GetChunkLevel(){
@@ -338,10 +337,9 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void prepareSceneWithSaveGameParametters(){
-        if(mainCameraControl != null){
-            mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
-            mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
-        }
+        if(mainCameraControl == null) UpdateMainCameraAttribute();
+        mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
+        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
         if(I18N.instance != null)
             I18N.instance.setLanguage(saveGameData.data.language);
     }
@@ -355,6 +353,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void updateMainCameraLookAt(Transform t){
+        if(mainCameraControl == null) UpdateMainCameraAttribute();
         if(t != null)
             focusTransform = t;
         else 
@@ -362,18 +361,21 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void switchCameraFocusToSecondaryObject(bool focusSecondary){
+        if(mainCameraControl == null) UpdateMainCameraAttribute();
         mainCameraControl.m_LookAt = focusSecondary ? focusTransform : playerTransform;
     }
 
     public void SetFocusUiElement(GameObject go){
         ClearFocusUiElement();
         eventSystem.SetSelectedGameObject( go, new BaseEventData(eventSystem));
-        if(eventSystem == null)eventSystem = EventSystem.current;
         eventSystem.firstSelectedGameObject = go;
     }
 
     private void ClearFocusUiElement(){
-        if(eventSystem == null)eventSystem = EventSystem.current;
+        if(eventSystem == null){
+            var es = GameObject.Find("EventSystem");
+            eventSystem = es.GetComponent<EventSystem>();
+        }
         eventSystem.firstSelectedGameObject = null;
         eventSystem.SetSelectedGameObject( null, new BaseEventData(eventSystem));
     }
@@ -410,5 +412,14 @@ public class GlobalVariables : MonoBehaviour
     public void UpdateGamemodeFromLvlSettings(){
         if(actualLevelSettings != null)
             gameMode = actualLevelSettings.gameMode;
+    }
+
+    private void UpdateMainCameraAttribute(){
+        var mainCameraCGO = GameObject.FindGameObjectWithTag("MainVirtualCamera");
+        if(mainCameraCGO != null){
+            mainCameraControl = mainCameraCGO.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+            playerTransform = mainCameraControl.m_LookAt;
+            focusTransform = playerTransform;
+        }
     }
 }

@@ -34,12 +34,12 @@ public class TurnedUpController : MonoBehaviour
     private void FixedUpdate() {
         if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT)) && !side){
             //lft
-            progress += 15;
+            progress += 20;
             side = true;
         }
         else if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT)) && side){
             //rgt
-            progress += 15;
+            progress += 20;
             side = false;
         }
         if(progress > 1 && progress < 99) progress -= 1;
