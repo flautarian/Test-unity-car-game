@@ -5,7 +5,11 @@ using UnityEngine;
 public class Constants
 {
 
-    //Numbers
+    // Objectives
+
+    public const string OBJECTIVE_LITERAL = "^detail_lvl_panel_objective_";
+
+    // Numbers
     public const int MAX_BUTTONS_STUNTS_COUNT = 5;
 
     public const int OUTLINE_WITH_DISABLED = 0;

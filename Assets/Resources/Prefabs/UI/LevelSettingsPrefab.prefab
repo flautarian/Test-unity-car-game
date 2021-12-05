@@ -91,6 +91,8 @@ MonoBehaviour:
     size: 0
     folder: Prefabs/Streets/lvl1
   objective: 5
+  objectiveTarget: 0
+  objectiveEspecification: 
   spawnerMovableLevelLeft: 5
   spawnerMovableLevelRight: 5
   spawnerStaticLevelLeft: 30
@@ -99,5 +101,6 @@ MonoBehaviour:
   timeLimit: 0
   secondsFallTouchedTerrain: 2
   grassType: 0
-  specialEvents: 5
+  mutators: 00000000000000000000000000000000
   fog: 0
+  levelName: 

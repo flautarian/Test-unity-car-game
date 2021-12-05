@@ -162,5 +162,10 @@ namespace Honeti
                 _text.alignment = _defaultAlignment;
             }
         }
+
+        public void _updateParams(string[] _p){
+            _params = _p;
+            _updateTranslation();
+        }
     }
 }

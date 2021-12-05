@@ -12,21 +12,39 @@ public class LevelSettings : MonoBehaviour
         public int size;
         public string folder;
     }
+    // estat del dia(0 = nit, 21600= mati, 43200 mitgdia, 64800 tarda)
     public int lightLevel;
-    public List<PoolLoader> availablePrefabs;
-    public ObjectiveGameType objective;
-    public int objectiveTarget;
-    public int spawnerMovableLevelLeft;
-    public int spawnerMovableLevelRight;
-    public int spawnerStaticLevelLeft;
-    public int spawnerStaticLevelRight;
-    public bool hasTimeLimit;
-    public float timeLimit;
-    public float secondsFallTouchedTerrain;
-    public GrassType grassType;
-    public SpecialEvents specialEvents;
-    public bool fog;
 
+    // carrers que utilitzara el nivell (En cas de infinite runner i runner organitzat)
+    public List<PoolLoader> availablePrefabs;
+    // objectiu per guanyar el nivell
+    public ObjectiveGameType objective;
+    // objectiu numeric per guanyar nivell
+    public int objectiveTarget;
+    // detall d'objectiu
+    public string objectiveEspecification;
+    // trafic en carrer esquerra
+    public int spawnerMovableLevelLeft;
+    // trafic en carrer dret
+    public int spawnerMovableLevelRight;
+    // trafic d'elements de la calçada dreta 
+    public int spawnerStaticLevelLeft;
+    // trafic d'elements de la calçada esquerra
+    public int spawnerStaticLevelRight;
+    // flag de limit de temps
+    public bool hasTimeLimit;
+    // quantitat de limit de temps
+    public float timeLimit;
+    // segons que espera cada tram abans de caure al mar
+    public float secondsFallTouchedTerrain;
+    // tipus de cesped
+    public GrassType grassType;
+    // mutadors
+    public Mutator[] mutators;
+    // flag de boira en el carrer
+    public bool fog;
+    // nom del nivell
+    public string levelName;
 
     public void CopyFromLevel(LevelSettings lvl){
         lightLevel = lvl.lightLevel;
@@ -41,7 +59,7 @@ public class LevelSettings : MonoBehaviour
         timeLimit = lvl.timeLimit;
         secondsFallTouchedTerrain = lvl.secondsFallTouchedTerrain;
         grassType = lvl.grassType;
-        specialEvents = lvl.specialEvents;
+        mutators = lvl.mutators;
         fog = lvl.fog;
     }
 

@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class ButtonKeyBindingController : MonoBehaviour
 {
     private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
-
-    public Text up, left, down, right;
-
     private GameObject currentKey;
 
     private void Start() {
@@ -18,11 +15,6 @@ public class ButtonKeyBindingController : MonoBehaviour
         keys.Add("Right", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.Instance.GetSavedKeyButton(3)));
         keys.Add("Accelerate", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.Instance.GetSavedKeyButton(4)));
         keys.Add("Stunt", (KeyCode) System.Enum.Parse(typeof(KeyCode), GlobalVariables.Instance.GetSavedKeyButton(5)));
-
-        up.text =  keys["Up"].ToString();
-        down.text =  keys["Down"].ToString();
-        left.text =  keys["Left"].ToString();
-        right.text =  keys["Right"].ToString();
     }
 
     private void OnGUI() {
@@ -40,7 +32,6 @@ public class ButtonKeyBindingController : MonoBehaviour
             }
         }
     }
-
     public void ChangeKey(GameObject obj){
         currentKey = obj;
     }

@@ -10,7 +10,6 @@ public class LvlSelectionButton : SelectButtonController
         var levelSettings = GetComponent<LevelSettings>();
         if(levelSettings != null){
             GlobalVariables.Instance.PrepareGlobalToLevel(levelSettings, GameMode.INFINITERUNNER);
-            GlobalVariables.Instance.actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
         }
         else Debug.LogError("LevelSettings not found!!");
     }

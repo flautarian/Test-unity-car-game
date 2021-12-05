@@ -27,29 +27,38 @@ public enum PanelInteractionType{
 
 public enum ObjectiveGameType{
     BOSS,
-    RINGS,
-    NUMBER_STUNTS,
-    MIN_GAS,
-    ASPHALT_ONLY_NUMBER_STREETS,
+    ORBS,
+    NUMBER_AERIAL_STUNTS,
+    NUMBER_GROUNDAL_STUNTS,
+    NUMBER_ESPECIFIC_STUNTS,
     NUMBER_STREETS,
+    NUMBER_COINS,
     CIRCUIT
 }
 
+
+
 public enum GrassType{
-    NORMAL,
-    LAVA,
+    GREEN,
+    DESSERT,
     ICE,
-    STICKY,
-    NO_GRASS
+    GROUND,
+    NORMAL
 }
 
-public enum SpecialEvents{
+public enum Mutator{
+    NONE,
     BOMBER,
     METEORITES,
     LEFT_WIND,
     RIGHT_WIND,
     FLOODINGS,
-    NONE
+    LAVA,
+    WET_ROAD,
+    WET_GRASS,
+    STICKY_ROAD,
+    STICKY_GRASS,
+    NO_GRASS
 }
 
 public class GlobalVariables : MonoBehaviour
@@ -265,7 +274,6 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void UpdateHSensibilityLevel(float level){
-        Debug.Log(level);
         saveGameData.data.hSensibility = level;
     }
 
