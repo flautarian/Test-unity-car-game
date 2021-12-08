@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
     private int isStunting = -1;
 
+    public StuntType actualStuntTricking = StuntType.NONE;
+
     [SerializeField]
     private ParticleSystem stuntComboPS;
 
@@ -144,6 +146,10 @@ public class PlayerController : MonoBehaviour
     internal void updateTrickState(int state){
         isStunting = state;
     }
+
+    internal void updateActualTrick(StuntType stuntType){
+        actualStuntTricking = stuntType;
+    }
     
 
     private void FixedUpdate()
@@ -151,7 +157,7 @@ public class PlayerController : MonoBehaviour
         //Captura de tecles
         HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
         VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
-        
+
         if(Time.time - timeSentinelRaycast >= 0.2f){
             // Mirar raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
             var zAngle = Math.Abs(360- player.transform.rotation.eulerAngles.z);
@@ -235,22 +241,31 @@ public class PlayerController : MonoBehaviour
             guiController.communicateStuntReset();
     }
 
-    internal void InitStunt(Stunt stunt){
+    internal bool InitStunt(Stunt stunt){
+        if(stunt.stuntType != StuntType.NORMAL && stunt.units > GlobalVariables.Instance.totalStuntEC)
+        {
+            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
+            return false;
+        }
+        else if(stunt.stuntType == StuntType.NORMAL)
+            GlobalVariables.Instance.addStuntEC(stunt.units);
+        else
+            GlobalVariables.Instance.substractStuntEC(stunt.units);
+        
         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
         stuntAnimationOverriderController.Set(stunt.GetAnimation());
         playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_INIT_STUNT);
         playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, true);
         stuntComboPSEmissionVar.enabled = true;
+
         switch(stunt.comboKeys.Count){
             case 2:
-                GlobalVariables.Instance.addStuntEC(5);
                 if(stuntComboPSEmissionVar.rateOverTime.constant < 5.0f){
                     stuntComboPSEmissionVar.rateOverTime = 5.0f;
                 }
                 comboStunt = 500f;
             break;
             case 3:
-                GlobalVariables.Instance.addStuntEC(10);
                 if(stuntComboPSEmissionVar.rateOverTime.constant < 10.0f){
                     stuntComboPSEmissionVar.rateOverTime = 10.0f;
                 }
@@ -271,6 +286,7 @@ public class PlayerController : MonoBehaviour
             default:
             break;
         }
+        return true;
     }
 
     internal void impulseUpCar(float amount){

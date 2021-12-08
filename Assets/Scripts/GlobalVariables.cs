@@ -211,6 +211,14 @@ public class GlobalVariables : MonoBehaviour
    		SceneManager.LoadScene(m_Scene.name);
     }
 
+    internal Scroll[] GetSavedScrolls(){
+        return saveGameData.data.scrolls;
+    }
+
+    internal Scroll GetScroll(int key){
+        return saveGameData.data.scrolls[key];
+    }
+
     internal void addCoins(int number)
     {
         totalCoins += number;
@@ -220,6 +228,12 @@ public class GlobalVariables : MonoBehaviour
     {
         totalStuntEC += number;
         if(totalStuntEC > 100) totalStuntEC = 100;
+    }
+
+    internal void substractStuntEC(int number)
+    {
+        totalStuntEC -= number;
+        if(totalStuntEC < 0) totalStuntEC = 0;
     }
 
     internal void UpdateMinZLimit(float zAxis){
@@ -277,13 +291,13 @@ public class GlobalVariables : MonoBehaviour
     public void UpdateFOVLevel(float level){
         saveGameData.data.farClipPlane =  75 + (int) (45 * level);
         if(mainCameraControl == null) UpdateMainCameraAttribute();
-        mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
+        if(mainCameraControl != null) mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
     }
 
     public void UpdateFarCameraLevel(float level){
         saveGameData.data.farCamera =  75 + (int) (50 * level);
         if(mainCameraControl == null) UpdateMainCameraAttribute();
-        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
+        if(mainCameraControl != null) mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }
 
     public float GetChunkLevel(){
@@ -338,8 +352,10 @@ public class GlobalVariables : MonoBehaviour
 
     public void prepareSceneWithSaveGameParametters(){
         if(mainCameraControl == null) UpdateMainCameraAttribute();
-        mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
-        mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
+        if(mainCameraControl != null){
+            mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
+            mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
+        }
         if(I18N.instance != null)
             I18N.instance.setLanguage(saveGameData.data.language);
     }

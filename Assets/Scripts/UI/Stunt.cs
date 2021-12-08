@@ -8,7 +8,10 @@ public class Stunt : MonoBehaviour
     public List<int> comboKeys;
     public string stuntName;
     public bool groundStunt;
-    public int stuntValue;
+
+    // cost if is a def or atk stunt, or quant of stunt points earned if are normal stunt
+    public int units;
+    public StuntType stuntType;
 
     [SerializeField]
     private AnimationClip anim;

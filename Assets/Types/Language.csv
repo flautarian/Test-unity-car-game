@@ -23,12 +23,18 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^button_options_label_keyboard_stunt	Stunt	MEK	Stunt	MEK	MEK	MEK
 ^button_options_label_close_options	Save and close	MEK	Guardar y salir	MEK	MEK	MEK
 ^tax_lvl_panel_title	Highway map	MEK	Mapa de carreteras	MEK	MEK	MEK
+^library_lvl_panel_title	Library	MEK	Libreria	MEK	MEK	MEK
 ^detail_lvl_panel_title	Level	MEK	Nivel	MEK	MEK	MEK
 ^detail_lvl_panel_objective	Objective	MEK	Objetivo	MEK	MEK	MEK
 ^detail_lvl_panel_mutators	Mutators	MEK	Eventos	MEK	MEK	MEK
 ^detail_lvl_panel_prizes	Prizes	MEK	Recompensas	MEK	MEK	MEK
 ^go_back_button	Back	0MEK	Atras	MEK	MEK	MEK
 ^go_to_level_button	Go	MEK	Adelante	MEK	MEK	MEK
+^stunt_description_0	Aerial stunt that consists in \n a roll to the left side  \n [generate 10 stunt points]	MEK	Truco aerial que ejecuta una \n vuelta lateral a la izquierda \n [genera 10 puntos stunt]	MEK	MEK	MEK
+^stunt_description_1	Aerial stunt that consists in \n a roll to the right side \n [generate 10 stunt points]	MEK	Truco aerial que ejecuta una \n vuelta lateral a la derecha \n [genera 10 puntos stunt]	MEK	MEK	MEK
+^stunt_description_2	Groundal stunt that jumps to \n avoid enemies \n [consumes 10 stunt points]	MEK	Truco groundal que salta \n para evitar enemigos \n [consume 10 stunt points]	MEK	MEK	MEK
+^stunt_description_3	Groundal stunt that jumps to \n avoid enemies \n [consumes 10 stunt points]	MEK	Truco groundal que salta \n para evitar enemigos \n [consume 10 stunt points]	MEK	MEK	MEK
+^stunt_description_4	Groundal stunt that turns wuickly \n to strike enemies \n [consumes 20 stunt points]	MEK	Truco groundal que gira \n rapidamente para golpear \n enemigos \n [consume 20 stunt points]	MEK	MEK	MEK
 ^detail_lvl_panel_objective_0	Defeat the boss with your road habilities	MEK	Derrota al jefe con tus habilidades al volante	MEK	MEK	MEK
 ^detail_lvl_panel_objective_1	Obtain at least {0} stunt orbs	MEK	Consigue obtener {0} orbes de stunt	MEK	MEK	MEK
 ^detail_lvl_panel_objective_2	Execute at least {0} aerial stunts	MEK	Consigue ejecutar al menos {0} aerials	MEK	MEK	MEK

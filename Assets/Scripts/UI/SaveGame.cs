@@ -43,13 +43,50 @@ public class SaveGame : MonoBehaviour
         // 4 - ACCELERATE
         // 5 - STUNT MODE
         internal string[] keyBindings = {"W", "S", "A", "D", "Mouse0", "Mouse1"};
+
+        internal Scroll[] scrolls = new Scroll[20];
+
+        internal Level[] levels = new Level[20];
         bool savedBool;
+    }
+    [Serializable]
+    public class Level{
+        bool done = false;
+        int previousLevel;
+
+        public Level(int p){
+            this.done = false;
+            this.previousLevel = p;
+        }
     }
 
     internal void RefreshKeyCodeBindings(){
         for(int i = 0; i < data.keyBindings.Length; i++){
             keyCodeBindings[i] = (KeyCode) System.Enum.Parse(typeof(KeyCode), data.keyBindings[i]);
         }
+    }
+
+    private Scroll[] GenerateDefaultScrollList(){
+        Scroll[] result = new Scroll[20];
+        result[0] = new Scroll("Barrel Roll Left", false, false, 0, "^stunt_description_0", new int[]{3,3,-1,-1});
+        result[1] = new Scroll("Barrel Roll Right", false, false, 0, "^stunt_description_1", new int[]{2,2,-1,-1});
+        result[2] = new Scroll("Gainer", false, true, 1, "^stunt_description_2", new int[]{1,0,0,-1});
+        result[3] = new Scroll("Reversal gainer", false, true, 1, "^stunt_description_3", new int[]{0,1,1,-1});
+        result[4] = new Scroll("Wind strike", false, true, 2, "^stunt_description_4", new int[]{2,1,3,-1});
+        return result;
+    }
+
+    private Level[] GenerateDefaultLevelsList(){
+        Level[] result = new Level[20];
+        result[0] = new Level(-1);
+        result[1] = new Level(0);
+        result[2] = new Level(1);
+        result[3] = new Level(2);
+        result[4] = new Level(3);
+        result[5] = new Level(4);
+        result[6] = new Level(5);
+        result[7] = new Level(6);
+        return result;
     }
 
     internal KeyCode GetKeyCodeBinded(int key){
@@ -82,6 +119,10 @@ public class SaveGame : MonoBehaviour
         }
         else
             Debug.LogError("There is no save data!, generating new dataFile");
-        return new SaveData();
+        
+        SaveData newSaveData = new SaveData();
+        newSaveData.scrolls = GenerateDefaultScrollList();
+        newSaveData.levels = GenerateDefaultLevelsList();
+        return newSaveData;
     }
 }

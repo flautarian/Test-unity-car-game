@@ -68,6 +68,8 @@ public class Constants
     public const string ANIMATION_TRIGGER_GAMEOVER_PANELS = "GameOver";
     public const string ANIMATION_TRIGGER_GAMEWONPANELS = "GameWon";
     public const string ANIMATION_TRIGGER_TAX_PANEL_BUTTON = "TaxLevelSelect";
+    public const string ANIMATION_TRIGGER_GO_BACK_PANEL_BUTTON = "GoGameFromPanel";
+    public const string ANIMATION_TRIGGER_LIBRARY_PANEL_BUTTON = "LibrarySelect";
     public const string ANIMATION_TRIGGER_TURNED_PANEL_BUTTON = "Enable";
     public const string ANIMATION_TRIGGER_DISABLE_TURNED_PANEL_BUTTON = "Disable";
     public const string ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION = "EnableButton";

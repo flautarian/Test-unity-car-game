@@ -46,5 +46,6 @@ MonoBehaviour:
   comboKeys: 0300000003000000
   stuntName: Barrel Roll Left
   groundStunt: 0
-  stuntValue: 1
+  units: 10
+  stuntType: 0
   anim: {fileID: 7400000, guid: 28dc748423dbffe4cbd7d1f65e2c985b, type: 2}

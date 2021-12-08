@@ -46,5 +46,6 @@ MonoBehaviour:
   comboKeys: 010000000000000000000000
   stuntName: Gainer
   groundStunt: 1
-  stuntValue: 2
+  units: 10
+  stuntType: 1
   anim: {fileID: 7400000, guid: 573b7ed3ef2e5f94abfc581c9bb41cad, type: 2}

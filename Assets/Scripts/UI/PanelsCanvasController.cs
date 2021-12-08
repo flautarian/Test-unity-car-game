@@ -42,7 +42,7 @@ public class PanelsCanvasController : MonoBehaviour
                         animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
                     case PanelInteractionType.LIBRARY_TYPE:
-                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_LIBRARY_PANEL_BUTTON);
                     break;
                     case PanelInteractionType.BRIDGE_TYPE:
                         animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
@@ -61,7 +61,7 @@ public class PanelsCanvasController : MonoBehaviour
             if(Input.GetButtonDown(Constants.BACK)){
                 GlobalVariables.Instance.switchCameraFocusToSecondaryObject(false);
                 GlobalVariables.Instance.inGameState = InGamePanels.GAMEON;
-                animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+                animator.SetTrigger(Constants.ANIMATION_TRIGGER_GO_BACK_PANEL_BUTTON);
             }
         }
         //Control acces a menus desde mon obert
