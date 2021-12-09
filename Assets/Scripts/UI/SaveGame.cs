@@ -47,6 +47,8 @@ public class SaveGame : MonoBehaviour
         internal Scroll[] scrolls = new Scroll[20];
 
         internal Level[] levels = new Level[20];
+
+        internal int[] equippedScrolls = new int[4];
         bool savedBool;
     }
     [Serializable]
@@ -72,7 +74,7 @@ public class SaveGame : MonoBehaviour
         result[1] = new Scroll("Barrel Roll Right", false, false, 0, "^stunt_description_1", new int[]{2,2,-1,-1});
         result[2] = new Scroll("Gainer", false, true, 1, "^stunt_description_2", new int[]{1,0,0,-1});
         result[3] = new Scroll("Reversal gainer", false, true, 1, "^stunt_description_3", new int[]{0,1,1,-1});
-        result[4] = new Scroll("Wind strike", false, true, 2, "^stunt_description_4", new int[]{2,1,3,-1});
+        result[4] = new Scroll("Wind Strike", false, true, 2, "^stunt_description_4", new int[]{2,1,3,-1});
         return result;
     }
 
@@ -86,6 +88,15 @@ public class SaveGame : MonoBehaviour
         result[5] = new Level(4);
         result[6] = new Level(5);
         result[7] = new Level(6);
+        return result;
+    }
+
+    private int[] GenerateDefaultEquippedScrollsList(){
+        int[] result = new int[4];
+        result[0] = -1;
+        result[1] = -1;
+        result[2] = -1;
+        result[3] = -1;
         return result;
     }
 
@@ -119,10 +130,13 @@ public class SaveGame : MonoBehaviour
         }
         else
             Debug.LogError("There is no save data!, generating new dataFile");
-        
+        // if not exists we create a new saveGame from default values
         SaveData newSaveData = new SaveData();
         newSaveData.scrolls = GenerateDefaultScrollList();
         newSaveData.levels = GenerateDefaultLevelsList();
+        newSaveData.equippedScrolls = GenerateDefaultEquippedScrollsList();
+        data = newSaveData;
+        UpdateSaveGame();
         return newSaveData;
     }
 }

@@ -28,6 +28,7 @@ public class StuntsIndicator : MonoBehaviour
 
     internal void startGame(){
         gameStarted = true;
+        ReloadStuntList();
     }
 
     internal void startGameOver(){
@@ -57,7 +58,7 @@ public class StuntsIndicator : MonoBehaviour
 
     private Stunt checkStuntList(bool groundedVehicle){
         foreach(Stunt st in stuntList){
-            if(st.groundStunt == groundedVehicle && st.compare(stuntKeysPressed))
+            if(st != null && st.groundStunt == groundedVehicle && st.compare(stuntKeysPressed))
                 return st;
         }
         return null;
@@ -81,5 +82,14 @@ public class StuntsIndicator : MonoBehaviour
     internal void rebootStuntKeys(){
         buttonsPressed.Clear();
         stuntKeysPressed.Clear();
+    }
+
+    public void UpdateStuntEquippedListAndReload(int index, int newStunt){
+        GlobalVariables.Instance.UpdateEquipedScroll(index, newStunt);
+        ReloadStuntList();
+    }
+
+    private void ReloadStuntList(){
+        stuntList = GlobalVariables.Instance.GenerateStuntListWithEquippedStunts();
     }
 }

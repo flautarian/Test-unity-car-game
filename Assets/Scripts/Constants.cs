@@ -5,6 +5,10 @@ using UnityEngine;
 public class Constants
 {
 
+    // Stunts
+
+    public static readonly string[] STUNT_NAMES = GenerateStuntNamesList();
+
     // Objectives
 
     public const string OBJECTIVE_LITERAL = "^detail_lvl_panel_objective_";
@@ -118,6 +122,28 @@ public class Constants
     // functions for SendMessage
     public const string SEND_MESSAGE_FRONTAL_CAR_BUMPER_DETECTED = "frontalCarBumperDetected";
 
-
+    private static string[] GenerateStuntNamesList(){
+        return new string[20]{
+            "Barrel Roll Left",
+            "Barrel Roll Right",
+            "Gainer",
+            "Reversal Gainer",
+            "Wind Strike",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""};
+    }
 
 }

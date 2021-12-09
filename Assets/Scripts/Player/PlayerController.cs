@@ -154,9 +154,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Captura de tecles
-        HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
-        VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
+        if(GlobalVariables.Instance.playerTargetedByCamera){
+            //Captura de tecles
+            HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
+            VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
+        }
 
         if(Time.time - timeSentinelRaycast >= 0.2f){
             // Mirar raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
@@ -169,7 +171,7 @@ public class PlayerController : MonoBehaviour
                     GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
                 grounded = true;
             }
-            else if( grounded && (zAngle > 50 && zAngle < 310)){
+            else if( grounded && (zAngle > 50 && zAngle < 310) && !IsInStuntMode()){
                 if(!turned) {
                     GlobalVariables.Instance.turnedCar = true;
                     turnedUpParticle.gameObject.SetActive(turned);

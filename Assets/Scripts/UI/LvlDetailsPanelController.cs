@@ -15,7 +15,10 @@ public class LvlDetailsPanelController : MonoBehaviour
     private GameObject objectiveText;
 
     [SerializeField]
-    private GameObject PrizesObject;
+    private MeshFilter PrizesObject;
+
+    [SerializeField]
+    private MeshFilter[] Prizes;
 
     [SerializeField]
     private Image[] Mutators;

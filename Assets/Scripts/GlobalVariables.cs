@@ -22,6 +22,7 @@ public enum PanelInteractionType{
         LIBRARY_TYPE,
         BRIDGE_TYPE,
         INFO_PANEL_TYPE,
+        CONCESSIONARY_PANEL_TYPE,
         NO_INTERACTION
     }
 
@@ -144,6 +145,8 @@ public class GlobalVariables : MonoBehaviour
     //Gestor d'events de UI del joc
     public EventSystem eventSystem;
 
+    public bool playerTargetedByCamera = true;
+
     private void Awake()
     {
         if (Instance == null)
@@ -216,7 +219,33 @@ public class GlobalVariables : MonoBehaviour
     }
 
     internal Scroll GetScroll(int key){
-        return saveGameData.data.scrolls[key];
+        return key >= 0 ? saveGameData.data.scrolls[key] : null;
+    }
+
+    internal void UpdateEquipedScroll(int index, int scrollKey){
+        saveGameData.data.equippedScrolls[index] = scrollKey;
+    }
+
+    internal Stunt[] GenerateStuntListWithEquippedStunts(){
+        Stunt[] result = new Stunt[4];
+        for(int s =0; s < saveGameData.data.equippedScrolls.Length; s++){
+            if(saveGameData.data.equippedScrolls[s] >= 0){
+                UnityEngine.Object newScroll = (UnityEngine.Object)Resources.Load("Prefabs/Stunts/" + Constants.STUNT_NAMES[saveGameData.data.equippedScrolls[s]]);
+                GameObject scrollGO = (GameObject)Instantiate(newScroll);
+                Stunt st = scrollGO.GetComponent<Stunt>();
+                result[s] = st;
+            }
+            else result[s] = null;
+        }
+        return result;
+    }
+    
+    internal Scroll[] GetPlayerEquippedScrolls(){
+        Scroll[] result = new Scroll[4];
+        for(int i = 0; i < saveGameData.data.equippedScrolls.Length; i++){
+            result[i] = GetScroll(saveGameData.data.equippedScrolls[i]);
+        }
+        return result;
     }
 
     internal void addCoins(int number)
@@ -262,7 +291,6 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public float GetHSensibilityLevel(){
-        //Debug.Log(saveGameData.data.hSensibility);
         return saveGameData.data.hSensibility;
     }
     public int GetFOVLevel(){
@@ -379,6 +407,7 @@ public class GlobalVariables : MonoBehaviour
     public void switchCameraFocusToSecondaryObject(bool focusSecondary){
         if(mainCameraControl == null) UpdateMainCameraAttribute();
         mainCameraControl.m_LookAt = focusSecondary ? focusTransform : playerTransform;
+        playerTargetedByCamera = !focusSecondary;
     }
 
     public void SetFocusUiElement(GameObject go){

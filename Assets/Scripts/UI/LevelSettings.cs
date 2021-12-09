@@ -12,6 +12,12 @@ public class LevelSettings : MonoBehaviour
         public int size;
         public string folder;
     }
+
+    public enum PrizeLevel{
+        Scroll,
+        Coins,
+        None
+    }
     // estat del dia(0 = nit, 21600= mati, 43200 mitgdia, 64800 tarda)
     public int lightLevel;
 
@@ -47,6 +53,11 @@ public class LevelSettings : MonoBehaviour
     public string levelName;
     // tipus de nivell
     public GameMode gameMode;
+    // recomensa
+    public PrizeLevel prize;
+    // recompensa especificada
+    public int prizeDetail;
+
 
     public void CopyFromLevel(LevelSettings lvl){
         lightLevel = lvl.lightLevel;
@@ -63,6 +74,10 @@ public class LevelSettings : MonoBehaviour
         grassType = lvl.grassType;
         mutators = lvl.mutators;
         fog = lvl.fog;
+        gameMode = lvl.gameMode;
+        levelName = lvl.levelName;
+        prize = lvl.prize;
+        prizeDetail = lvl.prizeDetail;
     }
 
 }
