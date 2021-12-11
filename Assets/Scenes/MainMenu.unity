@@ -3025,7 +3025,7 @@ PrefabInstance:
     - target: {fileID: 7094591356523731215, guid: 10001b6c7253d164dad44a08f2119e8c,
         type: 3}
       propertyPath: actualPanelInteractionType
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10001b6c7253d164dad44a08f2119e8c, type: 3}

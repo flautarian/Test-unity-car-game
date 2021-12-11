@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Honeti;
 
 public class CarConcessionaryController : MonoBehaviour
 {
+    [SerializeField]
     private MeshFilter optionCar;
     private bool pointed; 
     private Camera cam;
     [SerializeField]
-    private TextMesh stats, price;
+    private TextMesh stats, price, buyPanel;
+    [SerializeField]
+    private I18NTextMesh buyPanelI18n;
     [SerializeField]
     private ConcessionaryCar[] options;
+    [SerializeField]
+    private Transform camPos;
     public int actualOption =0;
     public Outline outlineScript;
     void Start()
@@ -27,6 +33,11 @@ public class CarConcessionaryController : MonoBehaviour
             + "\n" + options[actualOption].playerInfoClass.gravityForce
             + "\n" + options[actualOption].playerInfoClass.dragGroundForce;
             price.text = "" + options[actualOption].price;
+            if(GlobalVariables.Instance.GetBuyStatusCar(actualOption))
+                buyPanel.text = "^concessionary_equip_panel";
+            else 
+                buyPanel.text = "^concessionary_buy_panel";
+            buyPanelI18n.updateTranslation(true);
         }
     }
 
@@ -42,10 +53,13 @@ public class CarConcessionaryController : MonoBehaviour
             if(pointed){
                 if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT))){
                     if(actualOption < options.Length)actualOption++;
+                    UpdateActualOption();
                 }
                 else if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT))){
                     if(actualOption > 0)actualOption--;
+                    UpdateActualOption();
                 }
+                cam.transform.position = camPos.position;
             }
         }
         //if(pointed) transform.LookAt(cam.transform);
@@ -53,7 +67,7 @@ public class CarConcessionaryController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other){
         if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.actualPanelInteractionType == PanelInteractionType.NO_INTERACTION){
-            GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.INFO_PANEL_TYPE, this.transform);
+            GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.CONCESSIONARY_PANEL_TYPE, this.transform);
         }
     }
     private void OnTriggerExit(Collider other) {

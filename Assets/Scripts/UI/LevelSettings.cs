@@ -12,12 +12,15 @@ public class LevelSettings : MonoBehaviour
         public int size;
         public string folder;
     }
-
+    [System.Serializable]
     public enum PrizeLevel{
-        Scroll,
-        Coins,
-        None
+        SCROLL,
+        COINS,
+        NONE
     }
+
+    // index del nivell a les listes oficials de GlobalVariables
+    public int lvlIndex;
     // estat del dia(0 = nit, 21600= mati, 43200 mitgdia, 64800 tarda)
     public int lightLevel;
 

@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1160594266820007262
 RectTransform:
   m_ObjectHideFlags: 0
@@ -557,6 +557,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
+      propertyPath: prize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: prizeDetail
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
       propertyPath: objectiveTarget
       value: 60
       objectReference: {fileID: 0}
@@ -685,6 +700,29 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 668a26f40066b8b42839f6eae2e5f100,
+        type: 3}
     - target: {fileID: 4583140836791624381, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -905,6 +943,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
+      propertyPath: prize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: prizeDetail
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
       propertyPath: objectiveTarget
       value: 40
       objectReference: {fileID: 0}
@@ -1013,6 +1066,29 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 668a26f40066b8b42839f6eae2e5f100,
+        type: 3}
     - target: {fileID: 4583140836791624381, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1233,6 +1309,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
+      propertyPath: prize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
       propertyPath: objectiveTarget
       value: 30
       objectReference: {fileID: 0}
@@ -1251,6 +1337,29 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 668a26f40066b8b42839f6eae2e5f100,
+        type: 3}
     - target: {fileID: 4583140836791624381, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1486,6 +1595,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
+      propertyPath: prize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
       propertyPath: objectiveTarget
       value: 30
       objectReference: {fileID: 0}
@@ -1503,6 +1622,34 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 668a26f40066b8b42839f6eae2e5f100,
+        type: 3}
+    - target: {fileID: 4583140836791624381, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4583140836791624381, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
@@ -1683,7 +1830,7 @@ PrefabInstance:
     - target: {fileID: 7705557867255613263, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 40
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 7705557867255613263, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
@@ -1739,6 +1886,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
+      propertyPath: prize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlIndex
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
       propertyPath: objectiveTarget
       value: 30
       objectReference: {fileID: 0}
@@ -1757,6 +1914,29 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 668a26f40066b8b42839f6eae2e5f100,
+        type: 3}
     - target: {fileID: 4583140836791624381, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1992,6 +2172,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
+      propertyPath: prize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: prizeDetail
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
       propertyPath: objectiveTarget
       value: 30
       objectReference: {fileID: 0}
@@ -2100,6 +2290,29 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 668a26f40066b8b42839f6eae2e5f100,
+        type: 3}
     - target: {fileID: 4583140836791624381, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2464,6 +2677,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
+      propertyPath: prize
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: prizeDetail
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075265488439250628, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
       propertyPath: objectiveTarget
       value: 30
       objectReference: {fileID: 0}
@@ -2482,6 +2710,29 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+        type: 3}
+    - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
+        type: 3}
+      propertyPath: lvlStatus.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 668a26f40066b8b42839f6eae2e5f100,
+        type: 3}
     - target: {fileID: 4583140836791624381, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

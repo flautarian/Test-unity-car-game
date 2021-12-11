@@ -222,6 +222,10 @@ public class GlobalVariables : MonoBehaviour
         return key >= 0 ? saveGameData.data.scrolls[key] : null;
     }
 
+    internal void UnlockScroll(int key){
+        saveGameData.data.scrolls[key].unlocked = true;
+    }
+
     internal void UpdateEquipedScroll(int index, int scrollKey){
         saveGameData.data.equippedScrolls[index] = scrollKey;
     }
@@ -386,6 +390,8 @@ public class GlobalVariables : MonoBehaviour
         }
         if(I18N.instance != null)
             I18N.instance.setLanguage(saveGameData.data.language);
+
+        totalCoins = saveGameData.data.totalCoins;
     }
 
     public void UpdateLevelState(InGamePanels newState){
@@ -465,6 +471,43 @@ public class GlobalVariables : MonoBehaviour
             mainCameraControl = mainCameraCGO.GetComponent<Cinemachine.CinemachineVirtualCamera>();
             playerTransform = mainCameraControl.m_LookAt;
             focusTransform = playerTransform;
+            playerTargetedByCamera = true;
         }
+    }
+
+    public bool GetBuyStatusCar(int value){
+        // 0 = not bought, 1 = bought
+        return saveGameData.data.cars[value] == 1;
+    }
+
+    public bool IsCompletedLevel(int value){
+        if(value < 0) return true;
+        return saveGameData.data.levels[value].done;
+    }
+
+    public bool IsCompletableLevel(int value){
+        if(value < 0) return true;
+        Level lvl = saveGameData.data.levels[value];
+        return saveGameData.data.levels[lvl.previousLevel].done;
+    }
+
+    public void UpdateEquippedCar(int value){
+        saveGameData.data.equippedCar = value;
+    }
+
+    public LevelSettings.PrizeLevel GetActualLevelPrizeType(){
+        return actualLevelSettings.prize;
+    }
+
+    public void UpdateSavedGame(){
+        saveGameData.data.totalCoins = totalCoins;
+        saveGameData.UpdateSaveGame();
+    }
+
+    public void SucceessActualLevel(){
+        if(gameMode == GameMode.INFINITERUNNER)
+            saveGameData.data.levels[actualLevelSettings.lvlIndex].done = true;
+        else if (gameMode == GameMode.CHALLENGE)
+            saveGameData.data.challenges[actualLevelSettings.lvlIndex] = 1.0f;
     }
 }

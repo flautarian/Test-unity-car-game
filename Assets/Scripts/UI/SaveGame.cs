@@ -48,18 +48,18 @@ public class SaveGame : MonoBehaviour
 
         internal Level[] levels = new Level[20];
 
-        internal int[] equippedScrolls = new int[4];
-        bool savedBool;
-    }
-    [Serializable]
-    public class Level{
-        bool done = false;
-        int previousLevel;
+        internal float[] challenges = new float[10]{0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
 
-        public Level(int p){
-            this.done = false;
-            this.previousLevel = p;
-        }
+        internal int[] cars = new int[10]{1,0,0,0,0,0,0,0,0,0};
+
+        internal int[] souvenirs = new int[20]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+        internal int[] equippedScrolls = new int[4];
+
+        internal int equippedCar = 0;
+
+        internal int totalCoins = 0;
+        bool savedBool;
     }
 
     internal void RefreshKeyCodeBindings(){

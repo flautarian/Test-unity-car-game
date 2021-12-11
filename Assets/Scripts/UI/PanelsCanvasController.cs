@@ -26,7 +26,9 @@ public class PanelsCanvasController : MonoBehaviour
     void Update()
     {
         // Control menus accessibles desde mon obert
-        if(GlobalVariables.Instance.inGameState == InGamePanels.GAMEON && GlobalVariables.Instance.actualPanelInteractionType != PanelInteractionType.INFO_PANEL_TYPE){
+        if(GlobalVariables.Instance.inGameState == InGamePanels.GAMEON && 
+        GlobalVariables.Instance.actualPanelInteractionType != PanelInteractionType.INFO_PANEL_TYPE &&
+        GlobalVariables.Instance.actualPanelInteractionType != PanelInteractionType.CONCESSIONARY_PANEL_TYPE){
             if(Input.GetButtonDown(Constants.BACK)){
                 GlobalVariables.Instance.inGameState = InGamePanels.PAUSED;
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_PAUSEGAME_PANELS);

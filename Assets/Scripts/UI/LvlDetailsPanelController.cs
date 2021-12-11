@@ -15,10 +15,13 @@ public class LvlDetailsPanelController : MonoBehaviour
     private GameObject objectiveText;
 
     [SerializeField]
-    private MeshFilter PrizesObject;
+    private MeshFilter PrizeMesh;
 
     [SerializeField]
-    private MeshFilter[] Prizes;
+    private Mesh[] PrizeMeshes;
+
+    [SerializeField]
+    private TextMesh PrizeText;
 
     [SerializeField]
     private Image[] Mutators;
@@ -34,6 +37,7 @@ public class LvlDetailsPanelController : MonoBehaviour
     
     public void GoToLevel(){
         GlobalVariables.Instance.UpdateGamemodeFromLvlSettings();
+        GlobalVariables.Instance.playerTargetedByCamera = true;
         GlobalVariables.Instance.actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
     }
 
@@ -51,5 +55,13 @@ public class LvlDetailsPanelController : MonoBehaviour
             I18NDetails[1] = lvl.objectiveEspecification;
             if(textI18NTextMesh != null) textI18NTextMesh._updateParams(I18NDetails);
         }
+        if(PrizeText != null)
+            PrizeText.text = lvl.prize == LevelSettings.PrizeLevel.COINS ? " X " + lvl.prizeDetail : "";
+        if(lvl.prize == LevelSettings.PrizeLevel.COINS)
+            PrizeMesh.sharedMesh = PrizeMeshes[0];
+        else if(lvl.prize == LevelSettings.PrizeLevel.SCROLL)
+            PrizeMesh.sharedMesh = PrizeMeshes[1];
+        else 
+            PrizeMesh.sharedMesh = null;
     }
 }
