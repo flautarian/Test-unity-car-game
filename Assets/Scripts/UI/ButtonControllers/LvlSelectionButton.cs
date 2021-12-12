@@ -11,9 +11,6 @@ public class LvlSelectionButton : SelectButtonController
     private Sprite[] lvlStatus;
 
     private Image lvlIcon;
-    
-    [SerializeField]
-    private int lvlIndex;
     private LevelSettings lvlSettings;
 
     private void Start() {
@@ -23,8 +20,11 @@ public class LvlSelectionButton : SelectButtonController
             lvlIcon.sprite = lvlStatus[2];
         else if(GlobalVariables.Instance.IsCompletableLevel(lvlSettings.lvlIndex))
             lvlIcon.sprite = lvlStatus[1];
-        else 
-            lvlIcon.sprite = lvlStatus[0];
+        else {
+                lvlIcon.sprite = lvlStatus[0];
+                Button thisB = GetComponent<Button>();
+                thisB.interactable = false;
+            }
     }
 
     public override void executeButton(){

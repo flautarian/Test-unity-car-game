@@ -23,7 +23,7 @@ public class CoinsIndicator : MonoBehaviour
 
     public void startGame()
     {
-        coins = GlobalVariables.Instance.totalCoins;
+        coins = 0;
         gameStarted = true;
     }
 

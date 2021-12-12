@@ -316,13 +316,11 @@ public class PlayerController : MonoBehaviour
             if (System.Object.Equals(collision.gameObject.tag, Constants.CESPED) && streetType != StreetType.grass){
                 slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_GRASS);
                 wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_GRASS);
-                Debug.Log("detected grass: " + wetVelocityPSEmissionVar.enabled);
                 streetType = StreetType.grass;
             }
             else if (System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT) && streetType != StreetType.asphalt){
                 slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_ROAD);
                 wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_ROAD);
-                Debug.Log("detected asphalt: " + wetVelocityPSEmissionVar.enabled);
                 streetType = StreetType.asphalt;
             }
             else if (System.Object.Equals(collision.gameObject.tag, Constants.WATER))

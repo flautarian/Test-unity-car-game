@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Honeti;
+using UnityEngine.EventSystems;
 
 public class LvlDetailsPanelController : MonoBehaviour
 {
@@ -30,8 +31,11 @@ public class LvlDetailsPanelController : MonoBehaviour
     private Sprite[] MutatorRepresentation;
 
     private string[] I18NDetails = new string[2];
+    [SerializeField]
+    private Button firstButton;
 
     private void OnEnable() {
+        GlobalVariables.Instance.SetFocusUiElement(firstButton.gameObject);
         PrepareLevelDetailsPanelFromLevelSettings(GlobalVariables.Instance.actualLevelSettings);
     }
     

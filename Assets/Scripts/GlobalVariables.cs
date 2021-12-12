@@ -186,9 +186,10 @@ public class GlobalVariables : MonoBehaviour
             lastCalle = firstStreetCalle;
             if (firstStreetCalle != null)
                 firstStreetCalle.generateNextStreet(5);
+            totalCoins = 0;
         }
         else if(gameMode == GameMode.WOLRDMAINMENU){
-            
+            totalCoins = saveGameData.data.totalCoins;
         }
         //Debug.Log("GlobalVariables Awakening!!");
     }
@@ -210,6 +211,8 @@ public class GlobalVariables : MonoBehaviour
         totalStuntEC =0;
         objectiveActualTarget =0;
         inGameState = InGamePanels.GAMEON;
+        currentRadialBlur = 0;
+        currentBrokenScreen = 0;
         Scene m_Scene = SceneManager.GetActiveScene();
    		SceneManager.LoadScene(m_Scene.name);
     }
@@ -321,7 +324,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void UpdateFOVLevel(float level){
-        saveGameData.data.farClipPlane =  75 + (int) (45 * level);
+        saveGameData.data.farClipPlane =  75 + (int) (400 * level);
         if(mainCameraControl == null) UpdateMainCameraAttribute();
         if(mainCameraControl != null) mainCameraControl.m_Lens.FarClipPlane = saveGameData.data.farClipPlane;
     }
@@ -486,9 +489,9 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public bool IsCompletableLevel(int value){
-        if(value < 0) return true;
         Level lvl = saveGameData.data.levels[value];
-        return saveGameData.data.levels[lvl.previousLevel].done;
+        if(lvl.previousLevel < 0) return true;
+        else return saveGameData.data.levels[lvl.previousLevel].done;
     }
 
     public void UpdateEquippedCar(int value){
@@ -500,8 +503,8 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void UpdateSavedGame(){
-        saveGameData.data.totalCoins = totalCoins;
-        saveGameData.UpdateSaveGame();
+        saveGameData.data.totalCoins += totalCoins;
+        SaveGame();
     }
 
     public void SucceessActualLevel(){

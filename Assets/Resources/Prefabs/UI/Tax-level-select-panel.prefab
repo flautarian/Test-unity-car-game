@@ -709,13 +709,13 @@ PrefabInstance:
         type: 3}
       propertyPath: lvlStatus.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: lvlStatus.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
@@ -1346,13 +1346,13 @@ PrefabInstance:
         type: 3}
       propertyPath: lvlStatus.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: lvlStatus.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
@@ -1632,13 +1632,13 @@ PrefabInstance:
         type: 3}
       propertyPath: lvlStatus.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: lvlStatus.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
@@ -1923,13 +1923,13 @@ PrefabInstance:
         type: 3}
       propertyPath: lvlStatus.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: lvlStatus.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
@@ -2299,13 +2299,13 @@ PrefabInstance:
         type: 3}
       propertyPath: lvlStatus.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: lvlStatus.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
@@ -2719,13 +2719,13 @@ PrefabInstance:
         type: 3}
       propertyPath: lvlStatus.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
+      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}
       propertyPath: lvlStatus.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: b921e9a66dac1c24ca8c7481336aee5e,
+      objectReference: {fileID: 21300000, guid: 79a9afaed10bf3a40a1d5fed534a549b,
         type: 3}
     - target: {fileID: 4445187943267829806, guid: 5d5cde76cf368c34594db05d4bd77729,
         type: 3}

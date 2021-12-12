@@ -11,7 +11,7 @@ public class ControlFOVController : ControlOptionController
     {
         scrollbar = GetComponent<Scrollbar>();
         scrollbar.onValueChanged.AddListener((float val) => ScrollbarCallback(val));
-        scrollbar.value = (GlobalVariables.Instance.GetFOVLevel() - 75f) / 45f;
+        scrollbar.value = (GlobalVariables.Instance.GetFOVLevel() - 75f) / 400f;
     }
  
     void ScrollbarCallback(float value)
