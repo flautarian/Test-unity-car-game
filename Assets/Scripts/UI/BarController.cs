@@ -6,7 +6,7 @@ public class BarController : MonoBehaviour
 {
     public Material barMaterial;
     public MeshFilter meshFilter;
-    public int barValue;
+    public int barValue, newBarValue;
     public float progressBorder, fillRate, fillPercentValue;
     void Start()
     {
@@ -23,9 +23,13 @@ public class BarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GlobalVariables.Instance.totalStuntEC != barValue){
-            barValue = GlobalVariables.Instance.totalStuntEC;
+        if(newBarValue != barValue){
+            barValue = newBarValue;
             barMaterial.SetFloat(Constants.SHADER_CONTROL_STUNT_BAR_FILL_RATE, fillRate + (fillPercentValue * barValue));
         }
+    }
+
+    public void UpdateValue(int newVal){
+        newBarValue = newVal;
     }
 }

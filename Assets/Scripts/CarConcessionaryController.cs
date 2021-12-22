@@ -42,13 +42,13 @@ public class CarConcessionaryController : MonoBehaviour
     }
 
     private void Update() {
-        if(GlobalVariables.Instance.focusTransform == transform){            
+        if(GlobalVariables.Instance.cameraLookFocusTransform == transform){            
             if(outlineScript != null)
                 outlineScript.updateOutlineLevel(pointed ? Constants.OUTLINE_WITH_ENABLED : Constants.OUTLINE_WITH_DISABLED);
             if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))
             || (pointed && Input.GetButtonDown(Constants.BACK))){
                 pointed = !pointed;
-                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed);
+                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed, pointed);
             }
             if(pointed){
                 if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT))){
@@ -59,7 +59,20 @@ public class CarConcessionaryController : MonoBehaviour
                     if(actualOption > 0)actualOption--;
                     UpdateActualOption();
                 }
-                cam.transform.position = camPos.position;
+
+                if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE))){
+                    if(GlobalVariables.Instance.GetBuyStatusCar(actualOption)){
+                        // car is bought
+                        GlobalVariables.Instance.EquipCar(actualOption);
+                    }
+                    else{
+                        // car is not bought and we want to buy it
+                        if(GlobalVariables.Instance.totalCoins >= options[actualOption].price){
+                            GlobalVariables.Instance.totalCoins -= options[actualOption].price;
+                            GlobalVariables.Instance.UnlockCar(actualOption);
+                        }
+                    }
+                }
             }
         }
         //if(pointed) transform.LookAt(cam.transform);
@@ -67,11 +80,11 @@ public class CarConcessionaryController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other){
         if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.actualPanelInteractionType == PanelInteractionType.NO_INTERACTION){
-            GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.CONCESSIONARY_PANEL_TYPE, this.transform);
+            GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.CONCESSIONARY_PANEL_TYPE, this.transform, camPos);
         }
     }
     private void OnTriggerExit(Collider other) {
-        if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.focusTransform == transform){
+        if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.cameraLookFocusTransform == transform){
             pointed = false;
             GlobalVariables.Instance.DisableCanvasPanelButton();
         }

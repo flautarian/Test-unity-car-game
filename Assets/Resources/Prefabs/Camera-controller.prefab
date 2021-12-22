@@ -5061,7 +5061,7 @@ GameObject:
   - component: {fileID: 8756256013631113462}
   - component: {fileID: 4705310386043422794}
   - component: {fileID: 2618866656183266437}
-  - component: {fileID: 7402776845100237377}
+  - component: {fileID: 6152890291935012051}
   m_Layer: 5
   m_Name: StuntBar
   m_TagString: Untagged
@@ -5133,7 +5133,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8555222790208296299}
   m_Mesh: {fileID: -2432090755550338912, guid: 56718e19373bc5742817b22ada780022, type: 3}
---- !u!114 &7402776845100237377
+--- !u!114 &6152890291935012051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5142,7 +5142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8555222790208296299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 670ab61c5b5fdcd4f8cd1a4fe701e1b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 97d45074f4494ac428cb2354bf223826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   barMaterial: {fileID: 0}
@@ -6766,7 +6766,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9068269817508104736}
-  m_LocalRotation: {x: 0.00000084433935, y: 0.9615836, z: -0.2745122, w: 0.0000029576208}
+  m_LocalRotation: {x: 0.00000085378616, y: 0.9615836, z: -0.2745122, w: 0.0000029907117}
   m_LocalPosition: {x: -113.25007, y: 5.3, z: -295.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -7919,6 +7919,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 678547649089760664, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
+      propertyPath: lightLevel
+      value: 43000
+      objectReference: {fileID: 0}
+    - target: {fileID: 678547649089760664, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
       propertyPath: prizeDetail
       value: 100
       objectReference: {fileID: 0}
@@ -7954,6 +7959,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 702973552175632380, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
+      propertyPath: lightLevel
+      value: 43000
+      objectReference: {fileID: 0}
+    - target: {fileID: 702973552175632380, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
       propertyPath: mutators.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -7981,6 +7991,11 @@ PrefabInstance:
         type: 3}
       propertyPath: prize
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 702973552743748699, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
+      propertyPath: lightLevel
+      value: 43000
       objectReference: {fileID: 0}
     - target: {fileID: 702973552743748699, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
@@ -8011,6 +8026,11 @@ PrefabInstance:
         type: 3}
       propertyPath: prize
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 702973553508759290, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
+      propertyPath: lightLevel
+      value: 43000
       objectReference: {fileID: 0}
     - target: {fileID: 702973553508759290, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
@@ -8209,6 +8229,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2794504516598728101, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
+      propertyPath: lightLevel
+      value: 43000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794504516598728101, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
       propertyPath: mutators.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -8269,6 +8294,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4497684628921489833, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
+      propertyPath: lightLevel
+      value: 43000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497684628921489833, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
       propertyPath: prizeDetail
       value: 200
       objectReference: {fileID: 0}
@@ -8301,6 +8331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: prize
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5643223533755744988, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
+      propertyPath: lightLevel
+      value: 43000
       objectReference: {fileID: 0}
     - target: {fileID: 5643223533755744988, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}

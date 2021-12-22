@@ -41,8 +41,12 @@ public class PanelLibraryEquipCanvasController : MonoBehaviour
         for(int i =0; i < equippedScrolls.Length; i++){
             if(equippedScrolls[i] != null){
                 scrollMeshFilters[i].sharedMesh = scrollMeshes[equippedScrolls[i].stuntType];
+                scrollNames[i].text = equippedScrolls[i].stuntAssosiated;
             }
-            else scrollMeshFilters[i].sharedMesh = scrollMeshes[3];
+            else {
+                scrollMeshFilters[i].sharedMesh = scrollMeshes[3];
+                scrollNames[i].text = "[]";
+            }
         }
     }
 

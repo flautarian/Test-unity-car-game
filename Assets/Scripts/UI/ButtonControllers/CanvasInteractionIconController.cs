@@ -5,6 +5,7 @@ using UnityEngine;
 public class CanvasInteractionIconController : MonoBehaviour
 {
     private Renderer rend;
+    private float timeSentinelRaycast =0;
     void Start()
     {
         rend = GetComponent<Renderer>();       
@@ -13,6 +14,9 @@ public class CanvasInteractionIconController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rend.enabled = GlobalVariables.Instance.inGameState == InGamePanels.GAMEON;
+        if(Time.time - timeSentinelRaycast >= 0.2f){
+            rend.enabled = GlobalVariables.Instance.playerTargetedByCamera;
+            timeSentinelRaycast = Time.time;
+        }
     }
 }

@@ -17,13 +17,13 @@ public class SignInfoController : MonoBehaviour
     }
 
     private void Update() {
-        if(GlobalVariables.Instance.focusTransform == transform){            
+        if(GlobalVariables.Instance.cameraLookFocusTransform == transform){            
             if(outlineScript != null)
                 outlineScript.updateOutlineLevel(pointed ? Constants.OUTLINE_WITH_ENABLED : Constants.OUTLINE_WITH_DISABLED);
             if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))
             || (pointed && Input.GetButtonDown(Constants.BACK))){
                 pointed = !pointed;
-                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed);
+                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed, false);
             }
         }
         rend.enabled = pointed;
@@ -33,11 +33,11 @@ public class SignInfoController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other){
         if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.actualPanelInteractionType == PanelInteractionType.NO_INTERACTION){
-            GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.INFO_PANEL_TYPE, this.transform);
+            GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.INFO_PANEL_TYPE, this.transform, null);
         }
     }
     private void OnTriggerExit(Collider other) {
-        if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.focusTransform == transform){
+        if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.cameraLookFocusTransform == transform){
             pointed = false;
             GlobalVariables.Instance.DisableCanvasPanelButton();
         }

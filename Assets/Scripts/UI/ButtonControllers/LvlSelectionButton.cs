@@ -14,17 +14,19 @@ public class LvlSelectionButton : SelectButtonController
     private LevelSettings lvlSettings;
 
     private void Start() {
-        lvlSettings = GetComponent<LevelSettings>();
-        lvlIcon = GetComponent<Image>();
-        if(GlobalVariables.Instance.IsCompletedLevel(lvlSettings.lvlIndex))
-            lvlIcon.sprite = lvlStatus[2];
-        else if(GlobalVariables.Instance.IsCompletableLevel(lvlSettings.lvlIndex))
-            lvlIcon.sprite = lvlStatus[1];
-        else {
-                lvlIcon.sprite = lvlStatus[0];
-                Button thisB = GetComponent<Button>();
-                thisB.interactable = false;
-            }
+        if(lvlStatus.Length > 0){
+            lvlSettings = GetComponent<LevelSettings>();
+            lvlIcon = GetComponent<Image>();
+            if(GlobalVariables.Instance.IsCompletedLevel(lvlSettings.lvlIndex))
+                lvlIcon.sprite = lvlStatus[2];
+            else if(GlobalVariables.Instance.IsCompletableLevel(lvlSettings.lvlIndex))
+                lvlIcon.sprite = lvlStatus[1];
+            else {
+                    lvlIcon.sprite = lvlStatus[0];
+                    Button thisB = GetComponent<Button>();
+                    thisB.interactable = false;
+                }
+        }
     }
 
     public override void executeButton(){

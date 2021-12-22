@@ -92,12 +92,7 @@ public class SaveGame : MonoBehaviour
     }
 
     private int[] GenerateDefaultEquippedScrollsList(){
-        int[] result = new int[4];
-        result[0] = -1;
-        result[1] = -1;
-        result[2] = -1;
-        result[3] = -1;
-        return result;
+        return new int[4]{-1, -1, -1, -1};
     }
 
     internal KeyCode GetKeyCodeBinded(int key){

@@ -31,7 +31,7 @@ public class TurnedUpController : MonoBehaviour
         fillPercentValue = ( 2* progressBorder) / 100f;
     }
 
-    private void FixedUpdate() {
+    private void Update() {
         if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT)) && !side){
             //lft
             progress += 20;
@@ -42,6 +42,8 @@ public class TurnedUpController : MonoBehaviour
             progress += 20;
             side = false;
         }
+    }
+    private void FixedUpdate() {
         if(progress > 1 && progress < 99) progress -= 1;
 
         if(progress > 99)

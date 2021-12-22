@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
     private WayPoint nextWayPoint;
     private Transform obstaclesContainer;
     public SpawnerOrientation orientation;
-    private float lastTimeManagedSpawner;
+    private float timeSentinelRaycast;
 
     public float dstTravelled { get; set; }
     public System.Random rand { get; set; }
@@ -42,7 +42,7 @@ public class Spawner : MonoBehaviour
         rand = new System.Random();
         var obsgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_OBSTACLE_CONTAINER);
         if (obsgo != null) obstaclesContainer = obsgo.transform;
-        lastTimeManagedSpawner = Time.time;
+        timeSentinelRaycast = Time.time;
         maxDistanceMovable = GlobalVariables.Instance.getSpawnerMovableMaxTime(orientation);
         maxDistanceStatic = GlobalVariables.Instance.getSpawnerStaticMaxTime(orientation);
     }
@@ -52,7 +52,7 @@ public class Spawner : MonoBehaviour
     private void Update()
     {
         GetComponent<MeshRenderer>().material.color = isReadyToInstanceMovableObstacle ? Color.green : Color.red;
-        if (Time.time - lastTimeManagedSpawner >= 0.2f) manageSpawner();
+        if (Time.time - timeSentinelRaycast >= 0.2f) manageSpawner();
         if (target != null)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, currentQuaternionRotation, velocity * Time.deltaTime);
@@ -62,7 +62,7 @@ public class Spawner : MonoBehaviour
 
     private void manageSpawner()
     {
-        lastTimeManagedSpawner = Time.time;
+        timeSentinelRaycast = Time.time;
         if (target != null)
         {
             dstTravelled += velocity * Time.deltaTime;

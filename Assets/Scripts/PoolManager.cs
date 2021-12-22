@@ -14,6 +14,14 @@ public class PoolManager : MonoBehaviour
         public int size;
     }
 
+    [System.Serializable]
+    public class ChunkPool
+    {
+        public string tag;
+        public AudioClip[] prefabs;
+        public int size;
+    }
+
     #region Singleton
 
     public static PoolManager Instance;
@@ -82,6 +90,8 @@ public class PoolManager : MonoBehaviour
 
     public Dictionary<string, List<GameObject>> poolDictionary;
 
+    public Dictionary<string, AudioClip> chunkDictionary;
+
     public GameObject SpawnFromPool( string tag, Vector3 position, Quaternion rotation, Transform origin)
     {
         if(poolDictionary != null) { 
@@ -108,6 +118,23 @@ public class PoolManager : MonoBehaviour
             return dequeueObject;
         }
         return null;
+    }
+
+    public AudioClip SpawnChunkFromPool( string tag)
+    {
+        if(chunkDictionary == null ) chunkDictionary = new Dictionary<string, AudioClip>(); 
+        AudioClip clip = null;
+        if (!chunkDictionary.ContainsKey(tag))
+        {
+            clip = Resources.Load<AudioClip>("Sounds/Chunks/" + tag);
+            if(clip != null)
+                chunkDictionary[tag] = clip;
+            else{
+                Debug.LogWarning("Pool with tag " + tag + " is not found on pool list");
+            }
+        }
+        else clip = chunkDictionary[tag];
+        return clip;
     }
 
     #endregion

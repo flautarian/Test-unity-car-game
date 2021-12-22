@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class WheelController : MonoBehaviour
 {
+
+    [SerializeField]
     private bool isFrontWheel;
 
+    [SerializeField]
     private bool isLeftWheel;
-
+    [SerializeField]
     private ParticleSystem driftEffect;
 
     private float maxWheelTurn;
@@ -18,30 +21,44 @@ public class WheelController : MonoBehaviour
 
     private float verticalAxis, horizontalAxis, velocity;
 
+    private ParticleSystem.EmissionModule driftPSEmissionVar;
+
+    [SerializeField]
+    private Transform tParent;
+
     void Start()
     {
         driftEffect = GetComponent<ParticleSystem>();
+        if(driftEffect != null){
+            driftPSEmissionVar = driftEffect.emission;
+            driftEffect.Stop();
+        }
+        tParent = transform.parent;
     }
 
     void Update()
     {
-        if (isFrontWheel)
-        {
-            transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, (controller.HorizontalAxis * maxWheelTurn) - (isLeftWheel ? 180 : 0), transform.localRotation.eulerAngles.z);
+        if(controller != null){
+            if (isFrontWheel)
+            {
+                tParent.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, (controller.HorizontalAxis * maxWheelTurn) - (isLeftWheel ? 180 : 0), transform.localRotation.eulerAngles.z);
+            }
+            if (controller.VerticalAxis != 0)
+            {
+                transform.Rotate(controller.getSpeedInput(), 0, 0, Space.Self);
+            }
+            if (driftEffect != null) manageDriftEffect();
         }
-        if (controller.VerticalAxis != 0)
-        {
-            transform.Rotate(controller.getSpeedInput(), 0, 0, Space.Self);
+        else {
+            Player player = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER).GetComponent<Player>();
+            if(player != null) controller = player.controller;
         }
-        if (driftEffect != null) manageDriftEffect();
-
     }
 
     private void manageDriftEffect()
     {
-        var em = driftEffect.emission;
-        if (controller.turnZAxisEffect != 0 && controller.grounded) em.enabled = true;
-        else if (controller.turnZAxisEffect == 0 || !controller.grounded) em.enabled = false;
+        driftPSEmissionVar.enabled = (controller.turnZAxisEffect != 0 || (controller.VerticalAxis > 0 && controller.VerticalAxis < 1)) && controller.grounded;
+        if(driftPSEmissionVar.enabled && !driftEffect.isPlaying)driftEffect.Play();
     }
 
 }

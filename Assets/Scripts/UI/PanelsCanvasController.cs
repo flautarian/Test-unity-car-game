@@ -50,7 +50,7 @@ public class PanelsCanvasController : MonoBehaviour
                         animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
                 }
-                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(true);
+                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(true, false);
             }
         }
         else if(GlobalVariables.Instance.inGameState == InGamePanels.PAUSED){
@@ -61,22 +61,15 @@ public class PanelsCanvasController : MonoBehaviour
         }
         else if(GlobalVariables.Instance.inGameState == InGamePanels.LEVELSELECTION){
             if(Input.GetButtonDown(Constants.BACK)){
-                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(false);
+                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(false, false);
                 GlobalVariables.Instance.inGameState = InGamePanels.GAMEON;
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_GO_BACK_PANEL_BUTTON);
             }
         }
+
         //Control acces a menus desde mon obert
         if(GlobalVariables.Instance.actualPanelInteractionType != panelInteractionType){
             panelInteractionType = GlobalVariables.Instance.actualPanelInteractionType;
-            if(panelInteractionType != PanelInteractionType.NO_INTERACTION){
-                panelInteractionAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION);
-            }
-            else {
-                panelInteractionAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_PANELBUTTON_DISABLE_INTERACTION);
-                GlobalVariables.Instance.inGameState = InGamePanels.GAMEON;
-            }
-            
         }
         //Control de sistema de cotxe turned up
         if(turnedUpController.gameObject.activeSelf) {
@@ -122,7 +115,7 @@ public class PanelsCanvasController : MonoBehaviour
     }
 
     public void GoToTaxLevel(){
-        SceneManager.LoadScene(2);
+        GlobalVariables.Instance.GoToTaxLevel();
     }
 
 }

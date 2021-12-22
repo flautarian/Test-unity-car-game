@@ -62,6 +62,7 @@ public enum Mutator{
     NO_GRASS
 }
 
+
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables Instance { get; private set; }
@@ -139,9 +140,9 @@ public class GlobalVariables : MonoBehaviour
     //Control de l'objectiu de la camara principal
     public Cinemachine.CinemachineVirtualCamera mainCameraControl;
 
-    private Transform playerTransform;
+    private Transform cameraMainLookTransform, cameraMainFollowTransform;
 
-    public Transform focusTransform;
+    public Transform cameraLookFocusTransform, cameraFollowFocusTransform;
     //Gestor d'events de UI del joc
     public EventSystem eventSystem;
 
@@ -194,27 +195,46 @@ public class GlobalVariables : MonoBehaviour
         //Debug.Log("GlobalVariables Awakening!!");
     }
 
-    public void InvoqueCanvasPanelButton(PanelInteractionType pit, Transform focus){
+    public void InvoqueCanvasPanelButton(PanelInteractionType pit, Transform focus, Transform follow){
         actualPanelInteractionType = pit;
-        updateMainCameraLookAt(focus);
+        updateMainCameraLookAt(focus, follow);
     }
 
     public void DisableCanvasPanelButton(){
         actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
-        updateMainCameraLookAt(null);
-        switchCameraFocusToSecondaryObject(false);
+        updateMainCameraLookAt(null, null);
+        switchCameraFocusToSecondaryObject(false, false);
     }
 
     internal void ResetLevel(){
-        UpdateMinZLimit(0);
-        totalCoins =0;
-        totalStuntEC =0;
-        objectiveActualTarget =0;
-        inGameState = InGamePanels.GAMEON;
-        currentRadialBlur = 0;
-        currentBrokenScreen = 0;
+        ResetAllGameOnFlags();
         Scene m_Scene = SceneManager.GetActiveScene();
    		SceneManager.LoadScene(m_Scene.name);
+    }
+
+    internal void GoToTaxLevel(){
+        ResetAllGameOnFlags();
+        SceneManager.LoadScene(2);
+    }
+
+    private void ResetAllGameOnFlags(){
+        UpdateMinZLimit(0);
+        currentRadialBlur = 0;
+        currentBrokenScreen = 0;
+        totalStuntEC =0;
+        totalCoins =0;
+        objectiveActualTarget =0;
+        inGameState = InGamePanels.GAMEON;
+    }
+
+    internal GameObject LoadActualPlayerCar(){
+        UnityEngine.Object newCar = (UnityEngine.Object)Resources.Load("Prefabs/Cars/" + GetActualPlayerCarPrefabName());
+        GameObject carGO = (GameObject) Instantiate(newCar);
+        return carGO;
+    }
+
+    private string GetActualPlayerCarPrefabName(){
+        return Constants.PREFAB_CAR_NAMES[saveGameData.data.equippedCar];
     }
 
     internal Scroll[] GetSavedScrolls(){
@@ -405,17 +425,22 @@ public class GlobalVariables : MonoBehaviour
         return actualLevelSettings.lightLevel;
     }
 
-    public void updateMainCameraLookAt(Transform t){
+    public void updateMainCameraLookAt(Transform t, Transform f){
         if(mainCameraControl == null) UpdateMainCameraAttribute();
         if(t != null)
-            focusTransform = t;
+            cameraLookFocusTransform = t;
         else 
-            focusTransform = playerTransform;
+            cameraLookFocusTransform = cameraMainLookTransform;
+        if(f != null)
+            cameraFollowFocusTransform = f;
+        else cameraFollowFocusTransform = cameraMainFollowTransform;
+
     }
 
-    public void switchCameraFocusToSecondaryObject(bool focusSecondary){
+    public void switchCameraFocusToSecondaryObject(bool focusSecondary, bool followSecondary){
         if(mainCameraControl == null) UpdateMainCameraAttribute();
-        mainCameraControl.m_LookAt = focusSecondary ? focusTransform : playerTransform;
+        mainCameraControl.m_LookAt = focusSecondary ? cameraLookFocusTransform : cameraMainLookTransform;
+        mainCameraControl.m_Follow = followSecondary ? cameraFollowFocusTransform : cameraMainFollowTransform;
         playerTargetedByCamera = !focusSecondary;
     }
 
@@ -472,8 +497,9 @@ public class GlobalVariables : MonoBehaviour
         var mainCameraCGO = GameObject.FindGameObjectWithTag("MainVirtualCamera");
         if(mainCameraCGO != null){
             mainCameraControl = mainCameraCGO.GetComponent<Cinemachine.CinemachineVirtualCamera>();
-            playerTransform = mainCameraControl.m_LookAt;
-            focusTransform = playerTransform;
+            cameraMainLookTransform = mainCameraControl.m_LookAt;
+            cameraMainFollowTransform = mainCameraControl.m_Follow;
+            cameraLookFocusTransform = cameraMainLookTransform;
             playerTargetedByCamera = true;
         }
     }
@@ -481,6 +507,23 @@ public class GlobalVariables : MonoBehaviour
     public bool GetBuyStatusCar(int value){
         // 0 = not bought, 1 = bought
         return saveGameData.data.cars[value] == 1;
+    }
+
+    public void UnlockCar(int key){
+        // 0 = not bought, 1 = bought
+        saveGameData.data.cars[key] = 1;
+        saveGameData.data.totalCoins = totalCoins;
+        SaveGame();
+    }
+
+    public void EquipCar(int key){
+        // 0 = not bought, 1 = bought
+        saveGameData.data.equippedCar = key;
+        SaveGame();
+    }
+
+    public int GetEquippedCarIndex(){
+        return saveGameData.data.equippedCar;
     }
 
     public bool IsCompletedLevel(int value){

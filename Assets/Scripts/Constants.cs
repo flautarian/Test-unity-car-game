@@ -5,9 +5,19 @@ using UnityEngine;
 public class Constants
 {
 
+    // Chunks
+
+    public const string CHUNK_INIT_BLUE_CAR = "ArranqueMotor"; 
+
+    public const string CHUNK_HIT_PLAYER = "PlayerHit";   
+
     // Stunts
 
     public static readonly string[] STUNT_NAMES = GenerateStuntNamesList();
+
+    // Cars
+
+    public static readonly string[] PREFAB_CAR_NAMES = GenerateCarPrefabNamesList();
 
     // Objectives
 
@@ -29,6 +39,7 @@ public class Constants
     // Particle system tagNames
     public const string PARTICLE_S_BOOM = "PS_Boom";
     public const string PARTICLE_S_LANDINGCAR = "LandingCarParticle";
+    public const string PARTICLE_S_TURNUPCAR = "TurnUpCarParticle";
     public const string PARTICLE_S_HIT = "HitParticle";
     public const string PARTICLE_S_SMOKE_HIT = "SmokeHitParticle";
 
@@ -144,6 +155,20 @@ public class Constants
             "",
             "",
             ""};
+    }
+
+    private static string[] GenerateCarPrefabNamesList(){
+        return new string[10]{
+            "Blue Car",
+            "Red Car",
+            "Van Car",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",};
     }
 
 }
