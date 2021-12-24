@@ -8,9 +8,8 @@ using UnityEngine.UI;
 public abstract class SelectButtonController : MonoBehaviour
 {
     public Animator animator;
-    private Button button;
-    void Start()
-    {
+    internal Button button;
+    private void OnEnable() {
         button = GetComponent<Button>();
     }
 

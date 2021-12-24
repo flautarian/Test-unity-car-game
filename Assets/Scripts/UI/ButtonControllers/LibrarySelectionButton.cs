@@ -13,6 +13,7 @@ public class LibrarySelectionButton : SelectButtonController, ISelectHandler
 
     [SerializeField]
     internal PanelLibraryCanvasController panelController;
+
     public void OnSelect(BaseEventData eventData)
     {
         panelController.RefreshPanels(StuntIndex);

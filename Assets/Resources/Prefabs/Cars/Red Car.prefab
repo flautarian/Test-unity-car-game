@@ -574,7 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   reverseAccel: 2
-  forwardAccel: 7
+  forwardAccel: 6
   accel: 0
   turnStrength: 180
   maxWheelTurn: 30

@@ -98,4 +98,9 @@ public class Player : MonoBehaviour
 
     }
 
+    internal void StartGameWon(){
+        if(controller != null)
+            controller.StartGameWon();
+    }
+
 }

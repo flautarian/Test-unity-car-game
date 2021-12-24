@@ -8,7 +8,7 @@ public class TriggerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == Constants.GO_TAG_PLAYER)
         {
             trigger = true;
         }
@@ -16,7 +16,7 @@ public class TriggerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == Constants.GO_TAG_PLAYER)
         {
             trigger = false;
         }

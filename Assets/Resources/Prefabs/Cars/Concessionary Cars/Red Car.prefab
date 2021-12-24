@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CCar: {fileID: -2432090755550338912, guid: 756e61034aa46fd43a6036e0821eeb4a, type: 3}
-  keyCode: 0
+  keyCode: 1
   playerInfoClass: {fileID: 7570787378667015534}
   price: 3500
+  carName: Redgie
 --- !u!114 &7570787378667015534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,10 +62,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  forwardAccel: 4
   reverseAccel: 2
+  forwardAccel: 4
+  accel: 11
   turnStrength: 180
   maxWheelTurn: 30
   gravityForce: 4
   dragGroundForce: 3
+  stuntHability: 1.2
   parts: []
+  RunningCarAudioSource: {fileID: 0}
+  SkidCarAudioSource: {fileID: 0}
+  initCarChunk: {fileID: 0}
+  runningCarChunk: {fileID: 0}
+  value: 0

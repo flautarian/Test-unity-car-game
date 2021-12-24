@@ -237,6 +237,11 @@ public class GlobalVariables : MonoBehaviour
         return Constants.PREFAB_CAR_NAMES[saveGameData.data.equippedCar];
     }
 
+    
+    public bool IsScrollEnabled(int stuntIndex){
+        return saveGameData.data.scrolls[stuntIndex].unlocked;
+    }
+
     internal Scroll[] GetSavedScrolls(){
         return saveGameData.data.scrolls;
     }
@@ -390,7 +395,7 @@ public class GlobalVariables : MonoBehaviour
         UpdateMinZLimit(streetAnimator.transform.position.z);
         if(actualLevelSettings.objective == ObjectiveGameType.NUMBER_STREETS){
             objectiveActualTarget++;
-            if(actualLevelSettings.objectiveTarget <= objectiveActualTarget)GenerateGoalLineObject();
+            if(actualLevelSettings.objectiveTarget <= objectiveActualTarget) GenerateGoalLineObject();
         }
     }
 

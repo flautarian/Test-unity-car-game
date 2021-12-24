@@ -122,7 +122,9 @@ public class GUIController : MonoBehaviour
     }
 
     public void StartGameWon(){
-
+        if(GlobalVariables.Instance.gameMode == GameMode.MAINMENU ||
+        GlobalVariables.Instance.gameMode == GameMode.WOLRDMAINMENU) 
+            return;
         GlobalVariables.Instance.UpdateLevelState(InGamePanels.GAMEWON);
 
         if (gasIndicator != null)

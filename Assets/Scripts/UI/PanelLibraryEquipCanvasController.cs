@@ -27,10 +27,21 @@ public class PanelLibraryEquipCanvasController : MonoBehaviour
     [SerializeField]
     private StuntsIndicator stuntsIndicator;
 
+    [SerializeField]
+    private PanelsCanvasController panelsCanvasController;
+
     private void OnEnable() {
         var eventSystem = EventSystem.current;
         if(firstButton != null) eventSystem.SetSelectedGameObject( firstButton.gameObject, new BaseEventData(eventSystem));
         LoadPanelInfo();
+    }
+
+    private void Update() {
+        if(Input.GetButtonDown(Constants.BACK)){
+            var anim = panelsCanvasController.GetComponent<Animator>();
+            if(anim != null)
+                anim.SetTrigger(Constants.ANIMATION_TRIGGER_LIBRARY_INTERACTION);
+        }
     }
 
     private void LoadPanelInfo(){
@@ -51,7 +62,12 @@ public class PanelLibraryEquipCanvasController : MonoBehaviour
     }
 
     public void setScrollToEquip(int scrollIndex){
-        IndexScrollToEquip = scrollIndex;
+        if(GlobalVariables.Instance.IsScrollEnabled(scrollIndex)){
+            IndexScrollToEquip = scrollIndex;
+            var anim = panelsCanvasController.GetComponent<Animator>();
+            if(anim != null)
+                anim.SetTrigger(Constants.ANIMATION_TRIGGER_LIBRARY_INTERACTION);
+        }
     }
 
     public void UpdateScrollInEquipment(int index){

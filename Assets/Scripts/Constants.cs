@@ -30,6 +30,15 @@ public class Constants
 
     public const int OUTLINE_WITH_ENABLED = 12;
 
+    public const int MAX_VELOCITY_CARS = 8;
+
+    public const int MAX_TURN_STRENGTH_CARS = 240;
+    public const int MAX_GRAVITY_FORCE_CARS = 7;
+    public const int MAX_DRAG_FORCE_CARS = 5;
+    public const int MAX_STUNT_HABILITY_CARS = 2;
+    public const int MAX_ACCEL_CARS = 15;
+
+
     // Terrain types
     public const string CESPED = "Cesped";
     public const string ASPHALT = "asphalt";
@@ -89,6 +98,7 @@ public class Constants
     public const string ANIMATION_TRIGGER_DISABLE_TURNED_PANEL_BUTTON = "Disable";
     public const string ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION = "EnableButton";
     public const string ANIMATION_TRIGGER_PANELBUTTON_DISABLE_INTERACTION = "DisableButton";
+    public const string ANIMATION_TRIGGER_LIBRARY_INTERACTION = "LibraryEquipSelect";
 
     // Shader control variables
 

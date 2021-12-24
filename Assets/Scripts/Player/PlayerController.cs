@@ -372,7 +372,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag.Contains(Constants.GO_TAG_CONTAINS_OBSTACULO) && !turned)
             ComunicateCollisionPart(null, collision.collider);
-        else if(collision.gameObject.tag.Contains(Constants.GO_TAG_CONTAINS_GOALLINE))
+    }
+
+    public void StartGameWon(){
+        if(guiController != null)
             guiController.StartGameWon();
     }
 

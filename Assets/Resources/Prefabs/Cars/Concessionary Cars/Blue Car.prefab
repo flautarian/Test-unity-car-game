@@ -45,11 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CCar: {fileID: -2432090755550338912, guid: 71d59ad476c7b7e4ea78b42987b645e7, type: 3}
-  PlayerCar: {fileID: -2432090755550338912, guid: 46292532a2df9084b90c276fb286699d,
-    type: 3}
   keyCode: 0
   playerInfoClass: {fileID: 7570787378667015534}
   price: 0
+  carName: Blu
 --- !u!114 &7570787378667015534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,10 +62,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  forwardAccel: 4
-  reverseAccel: 2
+  reverseAccel: 1
+  forwardAccel: 6
+  accel: 10
   turnStrength: 180
   maxWheelTurn: 30
   gravityForce: 4
   dragGroundForce: 3
+  stuntHability: 1
   parts: []
+  RunningCarAudioSource: {fileID: 0}
+  SkidCarAudioSource: {fileID: 0}
+  initCarChunk: {fileID: 0}
+  runningCarChunk: {fileID: 0}
+  value: 0

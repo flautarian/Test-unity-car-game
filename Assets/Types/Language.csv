@@ -34,7 +34,9 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^game_won_prizes	Awards	MEK	Recompensas	MEK	MEK	MEK
 ^concessionary_buy_panel	Press intro to buy	MEK	Presiona intro para comprar	MEK	MEK	MEK
 ^concessionary_equip_panel	Press intro to equip	MEK	Presiona intro para equipar	MEK	MEK	MEK
+^concessionary_stats	Stats:\nVelocity:\nAccel:\nStunt:\nTurn:\nWeight:\nDrag:	MEK	Caracteristicas:\nVelocidad:\nAcel:\nStunt:\nGiro:\nPeso:\nDerrape:	MEK	MEK	MEK
 ^library_equip_panel_title	Select the place for the scroll	MEK	Selecciona un lugar para el truco	MEK	MEK	MEK
+^stunt_description_hidden	Hidden scroll \n Explore the world to find it	MEK	Pergamino escondido \n explora el mundo para encontrarlo!	MEK	MEK	MEK
 ^stunt_description_0	Aerial stunt that consists in \n a roll to the left side  \n [generate 10 stunt points]	MEK	Truco aerial que ejecuta una \n vuelta lateral a la izquierda \n [genera 10 puntos stunt]	MEK	MEK	MEK
 ^stunt_description_1	Aerial stunt that consists in \n a roll to the right side \n [generate 10 stunt points]	MEK	Truco aerial que ejecuta una \n vuelta lateral a la derecha \n [genera 10 puntos stunt]	MEK	MEK	MEK
 ^stunt_description_2	Groundal stunt that jumps to \n avoid enemies \n [consumes 10 stunt points]	MEK	Truco groundal que salta \n para evitar enemigos \n [consume 10 stunt points]	MEK	MEK	MEK

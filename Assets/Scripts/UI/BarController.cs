@@ -6,7 +6,7 @@ public class BarController : MonoBehaviour
 {
     public Material barMaterial;
     public MeshFilter meshFilter;
-    public int barValue, newBarValue;
+    private int barValue, newBarValue;
     public float progressBorder, fillRate, fillPercentValue;
     void Start()
     {

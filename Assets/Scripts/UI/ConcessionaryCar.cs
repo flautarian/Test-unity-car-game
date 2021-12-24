@@ -16,4 +16,7 @@ public class ConcessionaryCar : MonoBehaviour
 
     [SerializeField]
     internal int price;
+
+    [SerializeField]
+    internal string carName;
 }

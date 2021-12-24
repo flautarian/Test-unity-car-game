@@ -6766,7 +6766,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9068269817508104736}
-  m_LocalRotation: {x: 0.00000085378616, y: 0.9615836, z: -0.2745122, w: 0.0000029907117}
+  m_LocalRotation: {x: 0.00000084433935, y: 0.9615836, z: -0.2745122, w: 0.0000029576208}
   m_LocalPosition: {x: -113.25007, y: 5.3, z: -295.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -7231,6 +7231,7 @@ MonoBehaviour:
   - {fileID: -2432090755550338912, guid: b7b5f57ade8909542afe2f163a4d7c94, type: 3}
   - {fileID: -2432090755550338912, guid: 1a48b06d8622fc94fae7fff32cfdacfe, type: 3}
   stuntsIndicator: {fileID: 452302912102636812}
+  panelsCanvasController: {fileID: 3625578622328951731}
 --- !u!1001 &452507828709253726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11471,6 +11472,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2896802844437190865, guid: 97665542eef59c54e9218bd3e7c00e81,
+        type: 3}
+      propertyPath: scrollMeshes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2896802844437190865, guid: 97665542eef59c54e9218bd3e7c00e81,
+        type: 3}
+      propertyPath: scrollMeshes.Array.data[3]
+      value: 
+      objectReference: {fileID: -2432090755550338912, guid: 1a48b06d8622fc94fae7fff32cfdacfe,
+        type: 3}
     - target: {fileID: 4135358820095639003, guid: 97665542eef59c54e9218bd3e7c00e81,
         type: 3}
       propertyPath: m_Name

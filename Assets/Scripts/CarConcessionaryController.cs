@@ -18,7 +18,12 @@ public class CarConcessionaryController : MonoBehaviour
     [SerializeField]
     private Transform camPos;
     public int actualOption =0;
-    public Outline outlineScript;
+
+    [SerializeField]
+    private Outline outlineScript;
+
+    [SerializeField]
+    private BarController velBar, strngBar, gravBar, dragBar, stuntBar, accelBar;
     void Start()
     {
         cam = Camera.main;
@@ -28,11 +33,15 @@ public class CarConcessionaryController : MonoBehaviour
     private void UpdateActualOption(){
         if(options[actualOption] != null){
             optionCar.sharedMesh = options[actualOption].CCar;
-            stats.text = "\n" + options[actualOption].playerInfoClass.forwardAccel
-            + "\n" + options[actualOption].playerInfoClass.turnStrength
-            + "\n" + options[actualOption].playerInfoClass.gravityForce
-            + "\n" + options[actualOption].playerInfoClass.dragGroundForce;
             price.text = "" + options[actualOption].price;
+
+            velBar.UpdateValue((int)((options[actualOption].playerInfoClass.forwardAccel * 100) / Constants.MAX_VELOCITY_CARS));
+            strngBar.UpdateValue((int)((options[actualOption].playerInfoClass.turnStrength * 100) / Constants.MAX_TURN_STRENGTH_CARS));
+            gravBar.UpdateValue((int)((options[actualOption].playerInfoClass.gravityForce * 100) / Constants.MAX_GRAVITY_FORCE_CARS));
+            dragBar.UpdateValue((int)((options[actualOption].playerInfoClass.dragGroundForce * 100) / Constants.MAX_DRAG_FORCE_CARS));
+            stuntBar.UpdateValue((int)((options[actualOption].playerInfoClass.stuntHability * 100) / Constants.MAX_STUNT_HABILITY_CARS));
+            accelBar.UpdateValue((int)((options[actualOption].playerInfoClass.accel * 100) / Constants.MAX_ACCEL_CARS));
+
             if(GlobalVariables.Instance.GetBuyStatusCar(actualOption))
                 buyPanel.text = "^concessionary_equip_panel";
             else 
