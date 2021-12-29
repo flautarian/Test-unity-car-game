@@ -51,4 +51,8 @@ public class StuntComboIndicator : MonoBehaviour
             animator.SetTrigger("Disable");
         }
     }
+
+    public int GetActualComboMultiplier(){
+        return actualComboMultiplier == 0 ? 1 : actualComboMultiplier;
+    }
 }

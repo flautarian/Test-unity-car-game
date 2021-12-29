@@ -6,7 +6,7 @@ using Cinemachine;
 public class MainMenuCamera : MonoBehaviour
 {
 
-    public Player player;
+    public PlayerController playerController;
 
     private Vector3 offset;
 
@@ -15,13 +15,13 @@ public class MainMenuCamera : MonoBehaviour
 
     private void Start() {
         targetRotation = transform.localRotation;
-        offset = transform.position - player.transform.position;
+        offset = transform.position - playerController.transform.position;
     }
     
     void LateUpdate (){
-        transform.LookAt(player.transform, Vector3.up);
+        transform.LookAt(playerController.transform, Vector3.up);
         //if(Input.GetAxis(Constants.INPUT_ACCELERATE) != 0) transform.position = Vector2.Lerp(transform.position, player.transform.position + offset, 5 * Time.deltaTime);
         //else 
-        transform.RotateAround(player.transform.position, Vector3.up, 20 * Time.deltaTime);
+        transform.RotateAround(playerController.transform.position, Vector3.up, 20 * Time.deltaTime);
     }
 }

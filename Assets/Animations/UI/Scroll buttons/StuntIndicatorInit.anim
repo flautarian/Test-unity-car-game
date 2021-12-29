@@ -42,7 +42,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: StuntIndicatorContainer/StuntsIndicator
+    path: Active-UI/StuntIndicator-Container/Stunts-Indicator
     classID: 23
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -54,7 +54,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 641152965
+      path: 1167229222
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 23
@@ -107,7 +107,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: StuntIndicatorContainer/StuntsIndicator
+    path: Active-UI/StuntIndicator-Container/Stunts-Indicator
     classID: 23
     script: {fileID: 0}
   m_EulerEditorCurves: []

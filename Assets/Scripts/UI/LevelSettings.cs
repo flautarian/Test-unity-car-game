@@ -81,6 +81,7 @@ public class LevelSettings : MonoBehaviour
         levelName = lvl.levelName;
         prize = lvl.prize;
         prizeDetail = lvl.prizeDetail;
+        lvlIndex = lvl.lvlIndex;
     }
 
 }

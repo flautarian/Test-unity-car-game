@@ -22,7 +22,7 @@ public class StuntsIndicator : MonoBehaviour
     {
         buttonsPressed = new List<StuntIconController>();
         stuntKeysPressed = new List<int>();
-        guiController = transform.parent.transform.parent.GetComponent<GUIController>();
+        guiController = transform.parent.transform.parent.transform.parent.GetComponent<GUIController>();
         initialStuntKeyPos = new Vector3(-3.6f, 1f, 0);
     }
 

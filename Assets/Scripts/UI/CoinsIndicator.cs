@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CoinsIndicator : MonoBehaviour
 {
-    private bool gameStarted = false;
-    private int coins;
+    public bool gameStarted = false;
+    public int coins;
     public numberMeshGenerator numberIndicator;
 
     private void Update()

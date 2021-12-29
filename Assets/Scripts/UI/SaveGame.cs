@@ -12,8 +12,14 @@ public class SaveGame : MonoBehaviour
     public SaveData data;
 
     public KeyCode[] keyCodeBindings = new KeyCode[6];
-    private void Start() {
+
+    private void Awake() {
         data = LoadGameData();
+        if(GlobalVariables.Instance != null)
+            GlobalVariables.Instance.prepareSceneWithSaveGameParametters();
+    }
+
+    private void Start() {
         RefreshKeyCodeBindings();
         GlobalVariables.Instance.prepareSceneWithSaveGameParametters();
     }
@@ -106,7 +112,7 @@ public class SaveGame : MonoBehaviour
                     + "/data.dat"); 
         bf.Serialize(file, data);
         file.Close();
-        Debug.Log("Game data saved!");
+        //Debug.Log("Game data saved!");
     }
 
     private SaveData LoadGameData()

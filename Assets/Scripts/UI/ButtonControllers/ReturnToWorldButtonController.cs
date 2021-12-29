@@ -6,6 +6,6 @@ public class ReturnToWorldButtonController : SelectButtonController
 {
     public override void executeButton(){
         GlobalVariables.Instance.UpdateSavedGame();
-        GlobalVariables.Instance.UpdateLevelState(InGamePanels.GAMEON);
+        GlobalVariables.Instance.CleanBeforeChangeScene();
     }
 }

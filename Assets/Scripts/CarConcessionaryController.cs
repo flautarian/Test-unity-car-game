@@ -78,7 +78,7 @@ public class CarConcessionaryController : MonoBehaviour
                         // car is not bought and we want to buy it
                         if(GlobalVariables.Instance.totalCoins >= options[actualOption].price){
                             GlobalVariables.Instance.totalCoins -= options[actualOption].price;
-                            GlobalVariables.Instance.UnlockCar(actualOption);
+                            GlobalVariables.Instance.UnlockCar(actualOption, options[actualOption].price);
                         }
                     }
                 }

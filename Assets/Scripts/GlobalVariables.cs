@@ -13,7 +13,7 @@ public enum GameMode
 }
 
 public enum InGamePanels{
-    GAMEON, PAUSED, LEVELSELECTION, GAMELOST, GAMEWON
+    GAMEON, PAUSED, LEVELSELECTION, GAMELOST, GAMEWON, SUBUI1
 }
 
 public enum PanelInteractionType{
@@ -140,11 +140,16 @@ public class GlobalVariables : MonoBehaviour
     //Control de l'objectiu de la camara principal
     public Cinemachine.CinemachineVirtualCamera mainCameraControl;
 
+    // Transforms auxiliars de seguiment de camera
     private Transform cameraMainLookTransform, cameraMainFollowTransform;
 
     public Transform cameraLookFocusTransform, cameraFollowFocusTransform;
     //Gestor d'events de UI del joc
     public EventSystem eventSystem;
+
+    // Connexio amb audioSource dels chunks generals
+    [SerializeField]
+    private AudioSource chunkSource;
 
     public bool playerTargetedByCamera = true;
 
@@ -160,7 +165,6 @@ public class GlobalVariables : MonoBehaviour
             Destroy(gameObject);
         }
         
-        UpdateMainCameraAttribute();
         var es = GameObject.Find("EventSystem");
         eventSystem = es.GetComponent<EventSystem>();
         
@@ -175,10 +179,8 @@ public class GlobalVariables : MonoBehaviour
         saveGameData = GetComponent<SaveGame>();
         if(actualLevelSettings == null) actualLevelSettings = GetComponent<LevelSettings>();
 
-        if(actualLevelSettings != null && 
-        gameMode != GameMode.WOLRDMAINMENU && 
-        gameMode != GameMode.MAINMENU) PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
-
+        if(actualLevelSettings != null && IsLevelGameState()) 
+            PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
         if (gameMode == GameMode.INFINITERUNNER)
         {
             GameObject firstStreet = PoolManager.Instance.SpawnFromPool(Constants.POOL_ONE_TO_ONE_STREET, Vector3.zero, Quaternion.Euler(0, 0, 0), streetsContainer);
@@ -187,10 +189,6 @@ public class GlobalVariables : MonoBehaviour
             lastCalle = firstStreetCalle;
             if (firstStreetCalle != null)
                 firstStreetCalle.generateNextStreet(5);
-            totalCoins = 0;
-        }
-        else if(gameMode == GameMode.WOLRDMAINMENU){
-            totalCoins = saveGameData.data.totalCoins;
         }
         //Debug.Log("GlobalVariables Awakening!!");
     }
@@ -217,14 +215,24 @@ public class GlobalVariables : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+    public void CleanBeforeChangeScene(){
+        ResetAllGameOnFlags();
+    }
+
     private void ResetAllGameOnFlags(){
         UpdateMinZLimit(0);
-        currentRadialBlur = 0;
-        currentBrokenScreen = 0;
+        ResetShaders();
         totalStuntEC =0;
         totalCoins =0;
         objectiveActualTarget =0;
+        nitroflag = false;
+        repairflag = false;
         inGameState = InGamePanels.GAMEON;
+    }
+
+    public void ResetShaders(){
+        currentRadialBlur = 0;
+        currentBrokenScreen = 0;
     }
 
     internal GameObject LoadActualPlayerCar(){
@@ -282,6 +290,7 @@ public class GlobalVariables : MonoBehaviour
 
     internal void addCoins(int number)
     {
+        GetAndPlayChunk(Constants.CHUNK_HIT_COIN);
         totalCoins += number;
     }
 
@@ -395,8 +404,13 @@ public class GlobalVariables : MonoBehaviour
         UpdateMinZLimit(streetAnimator.transform.position.z);
         if(actualLevelSettings.objective == ObjectiveGameType.NUMBER_STREETS){
             objectiveActualTarget++;
-            if(actualLevelSettings.objectiveTarget <= objectiveActualTarget) GenerateGoalLineObject();
+            if(objectiveActualTarget >= actualLevelSettings.objectiveTarget && !generateGoalLine) 
+                GenerateGoalLineObject();
         }
+    }
+
+    public int GetActualObjectiveTarget(){
+        return actualLevelSettings.objectiveTarget;
     }
 
     public void GenerateGoalLineObject(){
@@ -418,8 +432,7 @@ public class GlobalVariables : MonoBehaviour
         }
         if(I18N.instance != null)
             I18N.instance.setLanguage(saveGameData.data.language);
-
-        totalCoins = saveGameData.data.totalCoins;
+        totalCoins = IsLevelGameState() ? 0 : saveGameData.data.totalCoins;
     }
 
     public void UpdateLevelState(InGamePanels newState){
@@ -507,6 +520,7 @@ public class GlobalVariables : MonoBehaviour
             cameraLookFocusTransform = cameraMainLookTransform;
             playerTargetedByCamera = true;
         }
+        else Debug.Log("MainVirtualCamera not found!");
     }
 
     public bool GetBuyStatusCar(int value){
@@ -514,10 +528,9 @@ public class GlobalVariables : MonoBehaviour
         return saveGameData.data.cars[value] == 1;
     }
 
-    public void UnlockCar(int key){
-        // 0 = not bought, 1 = bought
+    public void UnlockCar(int key, int price){
         saveGameData.data.cars[key] = 1;
-        saveGameData.data.totalCoins = totalCoins;
+        saveGameData.data.totalCoins -= price;
         SaveGame();
     }
 
@@ -551,7 +564,6 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void UpdateSavedGame(){
-        saveGameData.data.totalCoins += totalCoins;
         SaveGame();
     }
 
@@ -560,5 +572,26 @@ public class GlobalVariables : MonoBehaviour
             saveGameData.data.levels[actualLevelSettings.lvlIndex].done = true;
         else if (gameMode == GameMode.CHALLENGE)
             saveGameData.data.challenges[actualLevelSettings.lvlIndex] = 1.0f;
+        if(GetActualLevelPrizeType() == LevelSettings.PrizeLevel.COINS)
+            totalCoins += actualLevelSettings.prizeDetail;
+        else if(GetActualLevelPrizeType() == LevelSettings.PrizeLevel.SCROLL)
+            UnlockScroll(actualLevelSettings.prizeDetail);
+        saveGameData.data.totalCoins += totalCoins;
+    }
+
+    public bool IsLevelGameState(){
+        return gameMode == GameMode.INFINITERUNNER || gameMode ==  GameMode.CHALLENGE;
+    }
+
+    public bool IsMainMenuGameState(){
+        return gameMode == GameMode.MAINMENU;
+    }
+    public bool IsWorldMenuGameState(){
+        return gameMode == GameMode.WOLRDMAINMENU;
+    }
+
+    public void GetAndPlayChunk(string chunk){
+        AudioClip clip = PoolManager.Instance.SpawnChunkFromPool(chunk);
+        chunkSource.PlayOneShot(clip);
     }
 }

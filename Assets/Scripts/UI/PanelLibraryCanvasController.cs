@@ -28,6 +28,10 @@ public class PanelLibraryCanvasController : MonoBehaviour
 
     [SerializeField]
     private Mesh[] scrollMeshes;
+    public void ExistenceCheck() {
+        if(!GlobalVariables.Instance.IsWorldMenuGameState())
+                Destroy(this.gameObject);
+    }
 
     private void OnEnable() {
         var eventSystem = EventSystem.current;

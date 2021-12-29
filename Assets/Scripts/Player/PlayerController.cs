@@ -155,10 +155,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(GlobalVariables.Instance.playerTargetedByCamera){
+        if(GlobalVariables.Instance.playerTargetedByCamera && canMove){
             //Captura de tecles
             HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
             VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
+        }
+        else{
+            HorizontalAxis =0;
+            VerticalAxis = 0;
         }
 
         if(Time.time - timeSentinelRaycast >= 0.2f){
@@ -177,7 +181,6 @@ public class PlayerController : MonoBehaviour
                     playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, false);
                 }
                 turned = true;
-                //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, 180));
             }
             else {
                 grounded = false;
@@ -363,11 +366,6 @@ public class PlayerController : MonoBehaviour
         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, transform.position);
     }
 
-    internal void AddCoins(int number)
-    {
-        GlobalVariables.Instance.addCoins(number);
-    }
-
     internal void communicatePlayerBaseCollition(Collision collision)
     {
         if (collision.gameObject.tag.Contains(Constants.GO_TAG_CONTAINS_OBSTACULO) && !turned)
@@ -510,6 +508,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator initializeNitro()
     {
+        RequestAndPlayChunk(Constants.CHUNK_HIT_NITRO);
         playerAnimator.SetBool(Constants.ANIMATION_NAME_NITRO_BOOL, true);
         GlobalVariables.Instance.nitroflag = false;
         forwardAccel += 2;

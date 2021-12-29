@@ -9,7 +9,11 @@ public class Constants
 
     public const string CHUNK_INIT_BLUE_CAR = "ArranqueMotor"; 
 
-    public const string CHUNK_HIT_PLAYER = "PlayerHit";   
+    public const string CHUNK_HIT_PLAYER = "PlayerHit";
+
+    public const string CHUNK_HIT_COIN = "CoinHit";   
+
+    public const string CHUNK_HIT_NITRO = "NitroHit";   
 
     // Stunts
 

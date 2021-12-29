@@ -33,6 +33,10 @@ public class LvlDetailsPanelController : MonoBehaviour
     private string[] I18NDetails = new string[2];
     [SerializeField]
     private Button firstButton;
+    public void ExistenceCheck() {
+        if(!GlobalVariables.Instance.IsWorldMenuGameState())
+                Destroy(this.gameObject);
+    }
 
     private void OnEnable() {
         GlobalVariables.Instance.SetFocusUiElement(firstButton.gameObject);

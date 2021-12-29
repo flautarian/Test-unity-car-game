@@ -17,53 +17,88 @@ public class PanelsCanvasController : MonoBehaviour
 
     public TurnedUpController turnedUpController;
 
+    [SerializeField]
+    private PanelLibraryCanvasController panelLibraryCanvasController;
+    [SerializeField]
+    private PanelLibraryEquipCanvasController panelLibraryEquipCanvasController;
+    [SerializeField]
+    private PanelTaxCanvasController panelTaxCanvasController;
+    [SerializeField]
+    private PanelGameWonController panelGameWonController;
+    [SerializeField]
+    private PanelGameLostController panelGameLostController;
+    [SerializeField]
+    private LvlDetailsPanelController lvlDetailsPanelController;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        // code to clean all UI options that will not be used in the actual scene
+        panelLibraryCanvasController.ExistenceCheck();
+        panelLibraryEquipCanvasController.ExistenceCheck();
+        panelTaxCanvasController.ExistenceCheck();
+        panelGameWonController.ExistenceCheck();
+        panelGameLostController.ExistenceCheck();
+        lvlDetailsPanelController.ExistenceCheck();
     }
 
 
     void Update()
     {
         // Control menus accessibles desde mon obert
-        if(GlobalVariables.Instance.inGameState == InGamePanels.GAMEON && 
-        GlobalVariables.Instance.actualPanelInteractionType != PanelInteractionType.INFO_PANEL_TYPE &&
-        GlobalVariables.Instance.actualPanelInteractionType != PanelInteractionType.CONCESSIONARY_PANEL_TYPE){
-            if(Input.GetButtonDown(Constants.BACK)){
-                GlobalVariables.Instance.inGameState = InGamePanels.PAUSED;
+        if(IsGameOnOrPaused() || IsInExternalUIState()){
+            if(Input.GetButtonDown(Constants.BACK) && GlobalVariables.Instance.playerTargetedByCamera){
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_PAUSEGAME_PANELS);
             }
-            if(panelInteractionType != PanelInteractionType.NO_INTERACTION &&
+            else if(panelInteractionType != PanelInteractionType.NO_INTERACTION &&
              Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))){
-                GlobalVariables.Instance.inGameState = InGamePanels.LEVELSELECTION;
                 switch(panelInteractionType){
                     case PanelInteractionType.TAX_TYPE:
-                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+                        ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
                     case PanelInteractionType.MULTIPLAYER_TYPE:
-                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+                        ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
                     case PanelInteractionType.LIBRARY_TYPE:
-                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_LIBRARY_PANEL_BUTTON);
+                        ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_LIBRARY_PANEL_BUTTON);
                     break;
                     case PanelInteractionType.BRIDGE_TYPE:
-                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+                        ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+                    break;
+                    case PanelInteractionType.CONCESSIONARY_PANEL_TYPE:
+                    case PanelInteractionType.INFO_PANEL_TYPE:
+                        // code implemented in other site
                     break;
                 }
-                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(true, false);
-            }
-        }
-        else if(GlobalVariables.Instance.inGameState == InGamePanels.PAUSED){
-            if(Input.GetButtonDown(Constants.BACK)){
-                GlobalVariables.Instance.inGameState = InGamePanels.GAMEON;
-                animator.SetTrigger(Constants.ANIMATION_TRIGGER_PAUSEGAME_PANELS);
             }
         }
         else if(GlobalVariables.Instance.inGameState == InGamePanels.LEVELSELECTION){
             if(Input.GetButtonDown(Constants.BACK)){
                 GlobalVariables.Instance.switchCameraFocusToSecondaryObject(false, false);
-                GlobalVariables.Instance.inGameState = InGamePanels.GAMEON;
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_GO_BACK_PANEL_BUTTON);
+                GlobalVariables.Instance.inGameState = InGamePanels.GAMEON;
+            }
+        }
+        else if(GlobalVariables.Instance.inGameState == InGamePanels.SUBUI1){
+            if(Input.GetButtonDown(Constants.BACK)){
+                switch(panelInteractionType){
+                    case PanelInteractionType.TAX_TYPE:
+                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+                    break;
+                    case PanelInteractionType.MULTIPLAYER_TYPE:
+                        // Nothing here
+                    break;
+                    case PanelInteractionType.LIBRARY_TYPE:
+                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_LIBRARY_INTERACTION);
+                    break;
+                    case PanelInteractionType.BRIDGE_TYPE:
+                        // Nothing here
+                    break;
+                    case PanelInteractionType.CONCESSIONARY_PANEL_TYPE:
+                    case PanelInteractionType.INFO_PANEL_TYPE:
+                        // code implemented in other site
+                    break;
+                }
             }
         }
 
@@ -80,8 +115,27 @@ public class PanelsCanvasController : MonoBehaviour
             turnedUpController.gameObject.SetActive(true);
     }
 
+    public void UpdateGameState( InGamePanels state){
+        GlobalVariables.Instance.inGameState = state;
+    }
+
     public void InvoqueCanvasPanelButton(PanelInteractionType interactionType){
         panelInteractionType = interactionType;
+    }
+
+    private void ExecuteAnimationToActiveUI(string Interaction){
+        animator.SetTrigger(Interaction);
+        GlobalVariables.Instance.switchCameraFocusToSecondaryObject(true, false);
+    }
+
+    private bool IsGameOnOrPaused(){
+        return GlobalVariables.Instance.inGameState == InGamePanels.GAMEON || 
+        GlobalVariables.Instance.inGameState == InGamePanels.PAUSED;
+    }
+
+    private bool IsInExternalUIState(){
+        return  GlobalVariables.Instance.actualPanelInteractionType == PanelInteractionType.INFO_PANEL_TYPE ||
+        GlobalVariables.Instance.actualPanelInteractionType == PanelInteractionType.CONCESSIONARY_PANEL_TYPE;
     }
 
     public void DisableCanvasPanelButton(){

@@ -30,10 +30,17 @@ public class PanelLibraryEquipCanvasController : MonoBehaviour
     [SerializeField]
     private PanelsCanvasController panelsCanvasController;
 
+    public void ExistenceCheck() {
+        if(!GlobalVariables.Instance.IsWorldMenuGameState())
+                Destroy(this.gameObject);
+    }
+
     private void OnEnable() {
-        var eventSystem = EventSystem.current;
-        if(firstButton != null) eventSystem.SetSelectedGameObject( firstButton.gameObject, new BaseEventData(eventSystem));
-        LoadPanelInfo();
+        if(GlobalVariables.Instance != null){
+            var eventSystem = EventSystem.current;
+            if(firstButton != null) eventSystem.SetSelectedGameObject( firstButton.gameObject, new BaseEventData(eventSystem));
+            LoadPanelInfo();
+        }
     }
 
     private void Update() {

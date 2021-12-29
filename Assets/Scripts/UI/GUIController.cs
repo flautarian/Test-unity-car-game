@@ -16,6 +16,8 @@ public class GUIController : MonoBehaviour
     public bool forceStartGame = false;
     private float cameraXAxisOffset = 20;
     private float cameraYAxisOffset = 5;
+    [SerializeField]
+    private Transform ActiveUITransform;
 
     private Hashtable stuntsEarned = new Hashtable();
 
@@ -49,7 +51,7 @@ public class GUIController : MonoBehaviour
         }
         ControlIndicatorsRendering(Time.timeScale != 0f);
         //transform.LookAt(player.transform);
-        transform.rotation = Quaternion.Euler(transform.rotation.x + (cameraXAxisOffset * playerAcceleration), transform.rotation.y + (cameraYAxisOffset * playerBrake), transform.rotation.z);
+        ActiveUITransform.rotation = Quaternion.Euler(transform.rotation.x + (cameraXAxisOffset * playerAcceleration), transform.rotation.y + (cameraYAxisOffset * playerBrake), transform.rotation.z);
     }
     internal void propagueFisicButton(FisicButtonController fisicButtonController)
     {
@@ -98,6 +100,7 @@ public class GUIController : MonoBehaviour
     public void startGameOver(String msg)
     {
         GlobalVariables.Instance.UpdateLevelState(InGamePanels.GAMELOST);
+        GlobalVariables.Instance.ResetShaders();
 
         Debug.LogWarning("game ended by: " + msg);
         if (gasIndicator != null)

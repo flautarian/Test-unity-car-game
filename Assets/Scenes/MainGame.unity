@@ -6422,12 +6422,12 @@ PrefabInstance:
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016540765
+      value: -0.000000016540765
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000004739479
+      value: 0.000000004739479
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
@@ -6554,6 +6554,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4977231846054274011, guid: 10001b6c7253d164dad44a08f2119e8c,
+        type: 3}
+      propertyPath: objectiveTarget
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 7094591356523731208, guid: 10001b6c7253d164dad44a08f2119e8c,
         type: 3}
       propertyPath: m_Name
@@ -12501,6 +12506,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1521834857482406744, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: actualQuant
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1877792122170508099, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_IsActive
@@ -12619,12 +12629,12 @@ PrefabInstance:
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016540765
+      value: -0.000000016540765
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000004739479
+      value: 0.000000004739479
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9068269816833370710, guid: adbe659fc6332a04c968949a8d92bcac, type: 3}

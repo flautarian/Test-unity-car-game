@@ -1,0 +1,54 @@
+Lang Code	EN	PL	ES	DE	FR	JP
+^button_go_to_world	Go to World	MEK	Empezar	MEK	MEK	MEK
+^button_options	Options	MEK	Opciones	MEK	MEK	MEK
+^button_retry	Retry	MEK	Reintentar	MEK	MEK	MEK
+^button_exit_game	Exit	MEK	Salir	MEK	MEK	MEK
+^button_main_title	Go main title	MEK	Salir del juego	MEK	MEK	MEK
+^button_continue	Continue	MEK	Continuar	MEK	MEK	MEK
+^button_options_label_video	Video	MEK	Video	MEK	MEK	MEK
+^button_options_label_video_FOV	Field of view	MEK	Vista	MEK	MEK	MEK
+^button_options_label_video_Camera	Depth	MEK	Profundidad	MEK	MEK	MEK
+^button_options_label_sound	Sound	MEK	Sonido	MEK	MEK	MEK
+^button_options_label_sound_sound	Sound level	MEK	Volumen de musica	MEK	MEK	MEK
+^button_options_label_sound_chunks	Chunks level	MEK	Volumen de efectos	MEK	MEK	MEK
+^button_options_label_language	Language	MEK	Idioma	MEK	MEK	MEK
+^button_options_label_language_spanish	Spanish	MEK	Espa¤ol	MEK	MEK	MEK
+^button_options_label_language_english	English	MEK	Ingles	MEK	MEK	MEK
+^button_options_label_keyboard	Keyboard	MEK	Teclado	MEK	MEK	MEK
+^button_options_label_keyboard_up	Up	MEK	Arriba	MEK	MEK	MEK
+^button_options_label_keyboard_down	Down	MEK	Abajo	MEK	MEK	MEK
+^button_options_label_keyboard_left	Left	MEK	Izquierda	MEK	MEK	MEK
+^button_options_label_keyboard_right	Right	MEK	Derecha	MEK	MEK	MEK
+^button_options_label_keyboard_accelerate	Accelerate	MEK	Acelerar	MEK	MEK	MEK
+^button_options_label_keyboard_stunt	Stunt	MEK	Stunt	MEK	MEK	MEK
+^button_options_label_close_options	Save and close	MEK	Guardar y salir	MEK	MEK	MEK
+^tax_lvl_panel_title	Highway map	MEK	Mapa de carreteras	MEK	MEK	MEK
+^library_lvl_panel_title	Library	MEK	Librería	MEK	MEK	MEK
+^detail_lvl_panel_title	Level	MEK	Nivel	MEK	MEK	MEK
+^detail_lvl_panel_objective	Objective	MEK	Objetivo	MEK	MEK	MEK
+^detail_lvl_panel_mutators	Mutators	MEK	Eventos	MEK	MEK	MEK
+^detail_lvl_panel_prizes	Prizes	MEK	Recompensas	MEK	MEK	MEK
+^go_back_button	Back	0MEK	Atras	MEK	MEK	MEK
+^go_to_level_button	Go	MEK	Adelante	MEK	MEK	MEK
+^game_won_title	Level sucess!!	MEK	Nivel completado!!	MEK	MEK	MEK
+^game_won_prizes	Awards	MEK	Recompensas	MEK	MEK	MEK
+^concessionary_buy_panel	Press intro to buy	MEK	Presiona intro para comprar	MEK	MEK	MEK
+^concessionary_equip_panel	Press intro to equip	MEK	Presiona intro para equipar	MEK	MEK	MEK
+^concessionary_stats	Stats:\nVelocity:\nAccel:\nStunt:\nTurn:\nWeight:\nDrag:	MEK	Caracteristicas:\nVelocidad:\nAcel:\nStunt:\nGiro:\nPeso:\nDerrape:	MEK	MEK	MEK
+^library_equip_panel_title	Select the place for the scroll	MEK	Selecciona un lugar para el truco	MEK	MEK	MEK
+^stunt_description_hidden	Hidden scroll \n Explore the world to find it	MEK	¡Pergamino escondido \n explora el mundo para encontrarlo!	MEK	MEK	MEK
+^stunt_description_0	Aerial stunt that consists in \n a roll to the left side  \n [generate 10 stunt points]	MEK	Truco aerial que ejecuta una \n vuelta lateral a la izquierda \n [genera 10 puntos stunt]	MEK	MEK	MEK
+^stunt_description_1	Aerial stunt that consists in \n a roll to the right side \n [generate 10 stunt points]	MEK	Truco aerial que ejecuta una \n vuelta lateral a la derecha \n [genera 10 puntos stunt]	MEK	MEK	MEK
+^stunt_description_2	Groundal stunt that jumps to \n avoid enemies \n [consumes 10 stunt points]	MEK	Truco groundal que salta \n para evitar enemigos \n [consume 10 stunt points]	MEK	MEK	MEK
+^stunt_description_3	Groundal stunt that jumps to \n avoid enemies \n [consumes 10 stunt points]	MEK	Truco groundal que salta \n para evitar enemigos \n [consume 10 stunt points]	MEK	MEK	MEK
+^stunt_description_4	Groundal stunt that turns wuickly \n to strike enemies \n [consumes 20 stunt points]	MEK	Truco groundal que gira \n rapidamente para golpear \n enemigos \n [consume 20 stunt points]	MEK	MEK	MEK
+^detail_lvl_panel_objective_0	Defeat the boss with your road habilities	MEK	Derrota al jefe con tus habilidades al volante	MEK	MEK	MEK
+^detail_lvl_panel_objective_1	Obtain at least {0} stunt orbs	MEK	Consigue obtener {0} orbes de stunt	MEK	MEK	MEK
+^detail_lvl_panel_objective_2	Execute at least {0} aerial stunts	MEK	Consigue ejecutar al menos {0} aerials	MEK	MEK	MEK
+^detail_lvl_panel_objective_3	Execute at least {0} groundal stunts	MEK	Consigue ejecutar al menos {0} groundals	MEK	MEK	MEK
+^detail_lvl_panel_objective_4	Execute at least {0} {1} stunts	MEK	Consigue ejecutar al menos {0} {1}	MEK	MEK	MEK
+^detail_lvl_panel_objective_5	Run for at least {0} roads	MEK	Consigue recorrer al menos {0} tramos	MEK	MEK	MEK
+^detail_lvl_panel_objective_6	Get at least {0} coins from highway	MEK	Consigue al menos {0} monedas	MEK	MEK	MEK
+^detail_lvl_panel_objective_7	Finish the circuit in less than {0} seconds	MEK	Termina el circuito en menos de {0} segundos	MEK	MEK	MEK
+^sign_library_info	This is Title:\nAnd this is an standard content,\nmaybe you want to set some text \nhere to explain something?	MEK	Esto es el titulo:\nY esto es un contenido estandar\nquizas quieras poner algun texto qui\npara explicar algo?	MEK	MEK	MEK
+^sign_tax_info	Welcome to the adventure tax site!:\nHere you will can demostrate your courage \n letting you pass to recover \nthe necessary objects\n to grant access to the other worlds!	MEK	Bienvenido al peaje de la aventura!:\nAqui podras demostrar tu valia al volante \ny abrirte paso para poder reunir \nlas peizas necesarias para poder\n acceder al siguiente mundo!	MEK	MEK	MEK
