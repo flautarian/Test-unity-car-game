@@ -27,9 +27,9 @@ public class Player : MonoBehaviour
     internal AudioSource SkidCarAudioSource;
 
     [SerializeField]
-    private AudioClip initCarChunk;
+    internal AudioClip initCarChunk;
     [SerializeField]
-    private AudioClip runningCarChunk;
+    internal AudioClip runningCarChunk;
     [SerializeField]
     private float value;
 

@@ -48,4 +48,5 @@ MonoBehaviour:
   groundStunt: 1
   units: 20
   stuntType: 2
+  chunkName: Stunt_WindStrike
   anim: {fileID: 7400000, guid: 2c4805cd868a6e24eac183f4b89cd20f, type: 2}

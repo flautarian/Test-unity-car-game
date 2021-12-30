@@ -23,7 +23,8 @@ public enum PanelInteractionType{
         BRIDGE_TYPE,
         INFO_PANEL_TYPE,
         CONCESSIONARY_PANEL_TYPE,
-        NO_INTERACTION
+        NO_INTERACTION,
+        CHALLENGE_TYPE
     }
 
 public enum ObjectiveGameType{
@@ -151,7 +152,12 @@ public class GlobalVariables : MonoBehaviour
     [SerializeField]
     private AudioSource chunkSource;
 
+    [SerializeField]
+    private AudioSource musicSource;
+
     public bool playerTargetedByCamera = true;
+
+    public int stuntCombo = 0;
 
     private void Awake()
     {
@@ -181,6 +187,11 @@ public class GlobalVariables : MonoBehaviour
 
         if(actualLevelSettings != null && IsLevelGameState()) 
             PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
+
+        if(musicSource != null && 
+           (IsWorldMenuGameState() || IsMainMenuGameState())) PlayDefaultSceneSong();
+        
+        
         if (gameMode == GameMode.INFINITERUNNER)
         {
             GameObject firstStreet = PoolManager.Instance.SpawnFromPool(Constants.POOL_ONE_TO_ONE_STREET, Vector3.zero, Quaternion.Euler(0, 0, 0), streetsContainer);
@@ -207,11 +218,13 @@ public class GlobalVariables : MonoBehaviour
     internal void ResetLevel(){
         ResetAllGameOnFlags();
         Scene m_Scene = SceneManager.GetActiveScene();
+        FadeOutActualSong();
    		SceneManager.LoadScene(m_Scene.name);
     }
 
     internal void GoToTaxLevel(){
         ResetAllGameOnFlags();
+        FadeOutActualSong();
         SceneManager.LoadScene(2);
     }
 
@@ -290,8 +303,8 @@ public class GlobalVariables : MonoBehaviour
 
     internal void addCoins(int number)
     {
-        GetAndPlayChunk(Constants.CHUNK_HIT_COIN);
-        totalCoins += number;
+        GetAndPlayChunk(Constants.CHUNK_HIT_COIN, ((float) UnityEngine.Random.Range(9f, 13f) / 10f));
+        totalCoins += (number * (stuntCombo <= 0 ? 1 : stuntCombo));
     }
 
     internal void addStuntEC(int number)
@@ -433,6 +446,12 @@ public class GlobalVariables : MonoBehaviour
         if(I18N.instance != null)
             I18N.instance.setLanguage(saveGameData.data.language);
         totalCoins = IsLevelGameState() ? 0 : saveGameData.data.totalCoins;
+        UpdateVolumeAudioSources();
+    }
+
+    public void UpdateVolumeAudioSources(){
+        chunkSource.volume = saveGameData.data.chunkValue;
+        musicSource.volume = saveGameData.data.soundValue;
     }
 
     public void UpdateLevelState(InGamePanels newState){
@@ -563,6 +582,18 @@ public class GlobalVariables : MonoBehaviour
         return actualLevelSettings.prize;
     }
 
+    public string GetLevelObjectiveEsp(){
+        return actualLevelSettings.objectiveEspecification;
+    }
+
+    public ObjectiveGameType GetLevelObjective(){
+        return actualLevelSettings.objective;
+    }
+
+    public int GetLevelObjectiveTarget(){
+        return actualLevelSettings.objectiveTarget;
+    }
+
     public void UpdateSavedGame(){
         SaveGame();
     }
@@ -590,8 +621,35 @@ public class GlobalVariables : MonoBehaviour
         return gameMode == GameMode.WOLRDMAINMENU;
     }
 
-    public void GetAndPlayChunk(string chunk){
+    public void GetAndPlayChunk(string chunk, float ptch){
         AudioClip clip = PoolManager.Instance.SpawnChunkFromPool(chunk);
+        chunkSource.pitch = ptch;
         chunkSource.PlayOneShot(clip);
     }
+
+    public void GetAndPlaySong(string song){
+        if(musicSource.isPlaying) musicSource.Stop();
+        AudioClip clip = PoolManager.Instance.SpawnSongFromPool(song);
+        if(clip != null) musicSource.clip = clip;
+        musicSource.Play();
+    }
+
+    internal void PlayDefaultSceneSong(){
+        Scene m_Scene = SceneManager.GetActiveScene();
+        if(PoolManager.Instance != null){
+            AudioClip clip = PoolManager.Instance.SpawnSongFromPool(Constants.DEFAULT_SCENE_SONGS[m_Scene.buildIndex]);
+            if(clip != null){
+                Debug.Log(musicSource.isActiveAndEnabled);
+                musicSource.clip = clip;
+                musicSource.Play(); 
+            }
+            else Debug.Log("Error, clip not found!");
+        }else Debug.Log("Error, pool not initialized!");
+    }
+
+    public void FadeOutActualSong(){
+        musicSource.Stop();
+    }
+
+
 }

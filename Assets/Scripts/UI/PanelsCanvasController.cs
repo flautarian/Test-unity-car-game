@@ -65,6 +65,9 @@ public class PanelsCanvasController : MonoBehaviour
                     case PanelInteractionType.BRIDGE_TYPE:
                         ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
+                    case PanelInteractionType.CHALLENGE_TYPE:
+                        ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_CHALLENGE_INTERACTION);
+                    break;
                     case PanelInteractionType.CONCESSIONARY_PANEL_TYPE:
                     case PanelInteractionType.INFO_PANEL_TYPE:
                         // code implemented in other site
@@ -81,24 +84,7 @@ public class PanelsCanvasController : MonoBehaviour
         }
         else if(GlobalVariables.Instance.inGameState == InGamePanels.SUBUI1){
             if(Input.GetButtonDown(Constants.BACK)){
-                switch(panelInteractionType){
-                    case PanelInteractionType.TAX_TYPE:
-                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
-                    break;
-                    case PanelInteractionType.MULTIPLAYER_TYPE:
-                        // Nothing here
-                    break;
-                    case PanelInteractionType.LIBRARY_TYPE:
-                        animator.SetTrigger(Constants.ANIMATION_TRIGGER_LIBRARY_INTERACTION);
-                    break;
-                    case PanelInteractionType.BRIDGE_TYPE:
-                        // Nothing here
-                    break;
-                    case PanelInteractionType.CONCESSIONARY_PANEL_TYPE:
-                    case PanelInteractionType.INFO_PANEL_TYPE:
-                        // code implemented in other site
-                    break;
-                }
+                ExecuteSubUI1Trigger();
             }
         }
 
@@ -115,8 +101,37 @@ public class PanelsCanvasController : MonoBehaviour
             turnedUpController.gameObject.SetActive(true);
     }
 
+    public void ExecuteSubUI1Trigger(){
+        switch(panelInteractionType){
+            case PanelInteractionType.TAX_TYPE:
+                animator.SetTrigger(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+            break;
+            case PanelInteractionType.MULTIPLAYER_TYPE:
+                // Nothing here
+            break;
+            case PanelInteractionType.LIBRARY_TYPE:
+                animator.SetTrigger(Constants.ANIMATION_TRIGGER_LIBRARY_INTERACTION);
+            break;
+            case PanelInteractionType.BRIDGE_TYPE:
+                // Nothing here
+            break;
+            case PanelInteractionType.CHALLENGE_TYPE:
+                animator.SetTrigger(Constants.ANIMATION_TRIGGER_CHALLENGE_INTERACTION);
+                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(false, false);
+            break;
+            case PanelInteractionType.CONCESSIONARY_PANEL_TYPE:
+            case PanelInteractionType.INFO_PANEL_TYPE:
+                // code implemented in other site
+            break;
+        }
+    }
+
     public void UpdateGameState( InGamePanels state){
         GlobalVariables.Instance.inGameState = state;
+    }
+
+    public void PlayChunkFromGlobalVariables(string chunk){
+        GlobalVariables.Instance.GetAndPlayChunk(chunk, 1f);
     }
 
     public void InvoqueCanvasPanelButton(PanelInteractionType interactionType){

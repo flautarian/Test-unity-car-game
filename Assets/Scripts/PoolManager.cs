@@ -137,5 +137,22 @@ public class PoolManager : MonoBehaviour
         return clip;
     }
 
+    public AudioClip SpawnSongFromPool( string tag)
+    {
+        if(chunkDictionary == null ) chunkDictionary = new Dictionary<string, AudioClip>(); 
+        AudioClip clip = null;
+        if (!chunkDictionary.ContainsKey(tag))
+        {
+            clip = Resources.Load<AudioClip>("Sounds/Songs/" + tag);
+            if(clip != null)
+                chunkDictionary[tag] = clip;
+            else{
+                Debug.LogWarning("Pool with tag " + tag + " is not found on pool list");
+            }
+        }
+        else clip = chunkDictionary[tag];
+        return clip;
+    }
+
     #endregion
 }

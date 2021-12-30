@@ -17,8 +17,6 @@ public class StuntComboIndicator : MonoBehaviour
     private BarController barController;
 
     private Animator animator;
-
-    private int actualComboMultiplier = 0;
     private int stuntTemp = -1;
 
     private void Start() {
@@ -26,18 +24,18 @@ public class StuntComboIndicator : MonoBehaviour
     }
 
     public void AddComboLevel(){
-        if(actualComboMultiplier == 0)
+        if(GlobalVariables.Instance.stuntCombo == 0)
             animator.SetTrigger("Enable");
         else
             animator.SetTrigger("Update");
-        actualComboMultiplier++;
-        comboNumber.sharedMesh = comboLevels[actualComboMultiplier];
+        GlobalVariables.Instance.stuntCombo++;
+        comboNumber.sharedMesh = comboLevels[GlobalVariables.Instance.stuntCombo];
         stuntTemp = 100;
     }
 
     public void ResetComboIndicator(){
-        if(actualComboMultiplier != 0){
-            actualComboMultiplier= 0;
+        if(GlobalVariables.Instance.stuntCombo != 0){
+            GlobalVariables.Instance.stuntCombo= 0;
             animator.SetTrigger("Disable");
         }
     }
@@ -50,9 +48,5 @@ public class StuntComboIndicator : MonoBehaviour
             stuntTemp = -1;
             animator.SetTrigger("Disable");
         }
-    }
-
-    public int GetActualComboMultiplier(){
-        return actualComboMultiplier == 0 ? 1 : actualComboMultiplier;
     }
 }

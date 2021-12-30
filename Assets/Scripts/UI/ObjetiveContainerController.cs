@@ -10,12 +10,8 @@ public class ObjetiveContainerController : MonoBehaviour
     private Renderer Rend;
 
     private int actualQuant =1, objectiveQuant =2;
-
     private Vector3 finalMark, tempMark;
-
     Animation anim;
-
-    public float temp =0.0f;
     void Start()
     {
         if(!GlobalVariables.Instance.IsLevelGameState())

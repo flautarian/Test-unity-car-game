@@ -75,8 +75,10 @@ public class GUIController : MonoBehaviour
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("MainGameCamera");
 
-        if (gasIndicator != null && GlobalVariables.Instance.gameMode != GameMode.WOLRDMAINMENU)
-            gasIndicator.startGame();
+        if(GlobalVariables.Instance.IsLevelGameState()){
+            GlobalVariables.Instance.PlayDefaultSceneSong();
+            if (gasIndicator != null) gasIndicator.startGame();
+        }
 
         if(playerController != null)
             playerController.startGame();        

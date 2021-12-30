@@ -23,6 +23,7 @@ public class SignInfoController : MonoBehaviour
             if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))
             || (pointed && Input.GetButtonDown(Constants.BACK))){
                 pointed = !pointed;
+                GlobalVariables.Instance.GetAndPlayChunk(pointed ? Constants.CHUNK_OK_UI_BUTTON : Constants.CHUNK_BACK_UI_BUTTON, 1f);
                 GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed, false);
             }
         }

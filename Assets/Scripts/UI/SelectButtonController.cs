@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-
-public abstract class SelectButtonController : MonoBehaviour
+public abstract class SelectButtonController : MonoBehaviour, ISelectHandler
 {
     public Animator animator;
     internal Button button;
     private void OnEnable() {
         button = GetComponent<Button>();
+        
     }
 
     void Update()
@@ -28,5 +28,15 @@ public abstract class SelectButtonController : MonoBehaviour
     }    
 
     public abstract void executeButton();
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        GlobalVariables.Instance.GetAndPlayChunk(Constants.CHUNK_MOVE_UI_BUTTON, ((float) UnityEngine.Random.Range(8f, 13f) / 10f));
+    }
+
+    public void OnSubmit(BaseEventData eventData)
+    {
+        GlobalVariables.Instance.GetAndPlayChunk(Constants.CHUNK_MOVE_UI_BUTTON, 1f);
+    }
 
 }

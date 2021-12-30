@@ -13,7 +13,12 @@ public class Constants
 
     public const string CHUNK_HIT_COIN = "CoinHit";   
 
-    public const string CHUNK_HIT_NITRO = "NitroHit";   
+    public const string CHUNK_HIT_NITRO = "NitroHit";  
+    public const string CHUNK_MOVE_UI_BUTTON = "UI_Move";  
+    public const string CHUNK_OK_UI_BUTTON = "UI_Ok";  
+    public const string CHUNK_BACK_UI_BUTTON = "UI_Back"; 
+
+    public static readonly string[] DEFAULT_SCENE_SONGS = GenerateDefaultSceneSongList();
 
     // Stunts
 
@@ -96,6 +101,7 @@ public class Constants
     public const string ANIMATION_TRIGGER_GAMEOVER_PANELS = "GameOver";
     public const string ANIMATION_TRIGGER_GAMEWONPANELS = "GameWon";
     public const string ANIMATION_TRIGGER_TAX_PANEL_BUTTON = "TaxLevelSelect";
+    public const string ANIMATION_TRIGGER_CHALLENGE_INTERACTION = "ChallengeLvlSelect";
     public const string ANIMATION_TRIGGER_GO_BACK_PANEL_BUTTON = "GoGameFromPanel";
     public const string ANIMATION_TRIGGER_LIBRARY_PANEL_BUTTON = "LibrarySelect";
     public const string ANIMATION_TRIGGER_TURNED_PANEL_BUTTON = "Enable";
@@ -169,6 +175,14 @@ public class Constants
             "",
             "",
             ""};
+    }
+
+    private static string[] GenerateDefaultSceneSongList(){
+        return new string[4]{
+            "World1",
+            "World1",
+            "Endless1",
+            "Endless1"};
     }
 
     private static string[] GenerateCarPrefabNamesList(){

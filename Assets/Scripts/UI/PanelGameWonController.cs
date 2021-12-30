@@ -31,6 +31,7 @@ public class PanelGameWonController : MonoBehaviour
             explanation.text = "X " + prizeDetail;
             explanation.gameObject.SetActive(prize == LevelSettings.PrizeLevel.COINS);
             GlobalVariables.Instance.SucceessActualLevel();
+            GlobalVariables.Instance.stuntCombo = 0;
             if(prize == LevelSettings.PrizeLevel.COINS){
                 GlobalVariables.Instance.addCoins(prizeDetail);
             }

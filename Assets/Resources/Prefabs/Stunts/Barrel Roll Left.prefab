@@ -48,4 +48,5 @@ MonoBehaviour:
   groundStunt: 0
   units: 10
   stuntType: 0
+  chunkName: Stunt_BarrelRoll
   anim: {fileID: 7400000, guid: 28dc748423dbffe4cbd7d1f65e2c985b, type: 2}

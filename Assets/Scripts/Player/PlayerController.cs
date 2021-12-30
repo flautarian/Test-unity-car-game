@@ -86,7 +86,6 @@ public class PlayerController : MonoBehaviour
         {
             UpdateActualChosenCar();
             UpdatePlayerControllerDataWithPlayerObject();
-            player.PlayRunningCarChunk();
         }
         timeSentinelRaycast = Time.time;
         stuntComboPSEmissionVar = stuntComboPS.emission;
@@ -167,27 +166,8 @@ public class PlayerController : MonoBehaviour
 
         if(Time.time - timeSentinelRaycast >= 0.2f){
             // Mirar raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
-            var zAngle = Math.Abs(360 - transform.rotation.eulerAngles.z);
-            if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround)){
-                turned = false;
-                if(turnedUpParticle.gameObject.activeSelf) 
-                    turnedUpParticle.gameObject.SetActive(turned);
-                grounded = true;
-            }
-            else if( grounded && (zAngle > 50 && zAngle < 310)){
-                if(!turned) {
-                    GlobalVariables.Instance.turnedCar = true;
-                    turnedUpParticle.gameObject.SetActive(turned);
-                    playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, false);
-                }
-                turned = true;
-            }
-            else {
-                grounded = false;
-                turned = false;
-            }
+            ManageTurnUpPlayerOrientation();
 
-            timeSentinelRaycast = Time.time;
             if(!GlobalVariables.Instance.turnedCar && turned){
                 playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_TURN_UP);
             }
@@ -198,6 +178,7 @@ public class PlayerController : MonoBehaviour
                 GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, this.transform.position);
             }
 
+            timeSentinelRaycast = Time.time;
         }
 
         // update engine motor pitch
@@ -210,7 +191,6 @@ public class PlayerController : MonoBehaviour
         if(canMove && !turned){
             if (grounded)
             {
-                if(streetType == StreetType.asphalt) lastSecurePositionPlayer = transform.position;
                 playerSphereRigidBody.drag = dragGroundValue;
                 if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
             }
@@ -221,6 +201,29 @@ public class PlayerController : MonoBehaviour
             }
         }
         else if (!canMove || turned) playerSphereRigidBody.drag = 3.5f;
+    }
+
+    private void ManageTurnUpPlayerOrientation(){
+        var zAngle = Math.Abs(360 - transform.rotation.eulerAngles.z);
+        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround)){
+            turned = false;
+            if(turnedUpParticle.gameObject.activeSelf) 
+                turnedUpParticle.gameObject.SetActive(turned);
+            grounded = true;
+        }
+        else if( grounded && (zAngle > 50 && zAngle < 310)){
+            if(!turned) {
+                GlobalVariables.Instance.turnedCar = true;
+                stuntComboIndicator.ResetComboIndicator();
+                turnedUpParticle.gameObject.SetActive(turned);
+                playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, false);
+            }
+            turned = true;
+        }
+        else {
+            grounded = false;
+            turned = false;
+        }
     }
 
     private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative){
@@ -266,7 +269,7 @@ public class PlayerController : MonoBehaviour
             GlobalVariables.Instance.addStuntEC(stunt.units);
         else
             GlobalVariables.Instance.substractStuntEC(stunt.units);
-        
+        RequestAndPlayChunk(stunt.chunkName);
         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
         stuntAnimationOverriderController.Set(stunt.GetAnimation());
         playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_INIT_STUNT);
@@ -328,6 +331,7 @@ public class PlayerController : MonoBehaviour
         {
             if(!grounded){
                 GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+                if(!System.Object.Equals(collision.gameObject.tag, Constants.WATER)) lastSecurePositionPlayer = transform.position;
                 if(isStunting > -1){
                     ExecuteTurnUpCar();
                 }
@@ -341,6 +345,7 @@ public class PlayerController : MonoBehaviour
             else if (System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT) && streetType != StreetType.asphalt){
                 slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_ROAD);
                 wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_ROAD);
+                
                 streetType = StreetType.asphalt;
             }
             else if (System.Object.Equals(collision.gameObject.tag, Constants.WATER))
@@ -544,6 +549,7 @@ public class PlayerController : MonoBehaviour
             player.controller = this;
             actualCarEquipped = GlobalVariables.Instance.GetEquippedCarIndex();
             if(bc != null) playerBoxCollider = bc;
+            player.PlayRunningCarChunk();
         }
     }
 

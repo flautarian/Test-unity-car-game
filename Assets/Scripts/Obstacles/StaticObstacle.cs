@@ -12,7 +12,7 @@ public class StaticObstacle : Obstacle
 
     void Start()
     {
-        if (rigidBody != null) rigidBody.Sleep();
+        if (rigidBody != null && rigidBodySlept) rigidBody.Sleep();
         if (GetComponent<Animation>() != null) obstacleAnimation = GetComponent<Animation>();
     }
 

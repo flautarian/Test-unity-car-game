@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 8347462709311539614}
   - component: {fileID: 3774639537208038667}
   - component: {fileID: 8949824794157046966}
-  - component: {fileID: 25977938824611949}
+  - component: {fileID: 7173202605101401283}
   m_Layer: 11
   m_Name: BasketBall
   m_TagString: BeredaObstaculo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7914644560816709413
 Transform:
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6687148776856671054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -116,10 +116,10 @@ MonoBehaviour:
   penalizableObstacle: 0
   lethal: 0
   apparitionLevel: 0
-  rigidBodySlept: 1
+  rigidBodySlept: 0
   spawnedObstacle: 0
---- !u!65 &25977938824611949
-BoxCollider:
+--- !u!64 &7173202605101401283
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -128,6 +128,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.45, z: 0.45}
-  m_Center: {x: -0.1, y: 0.25, z: -0.1}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: 28cb49c2f32d60740a6191f53be4a1c2, type: 3}

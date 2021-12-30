@@ -13,6 +13,8 @@ public class Stunt : MonoBehaviour
     public int units;
     public StuntType stuntType;
 
+    public string chunkName;
+
     [SerializeField]
     private AnimationClip anim;
 

@@ -48,4 +48,5 @@ MonoBehaviour:
   groundStunt: 1
   units: 10
   stuntType: 1
+  chunkName: Stunt_Gainer
   anim: {fileID: 7400000, guid: 573b7ed3ef2e5f94abfc581c9bb41cad, type: 2}
