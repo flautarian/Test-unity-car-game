@@ -173,6 +173,11 @@ public class MovableObstacle : Obstacle
         }
     }
 
+    public override void ResetPosition(){
+        transform.localPosition = initialLocalPosition;
+        transform.localRotation = initialLocalRotation;
+    }
+
     public void frontalCarBumperDetected(float velocityOfCar)
     {
         frontalCarVelocity = velocityOfCar;

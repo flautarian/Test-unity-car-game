@@ -621,6 +621,7 @@ MonoBehaviour:
   apparitionLevel: 70
   rigidBodySlept: 0
   spawnedObstacle: 0
+  unMovable: 0
 --- !u!65 &429414057771618567
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -786,6 +787,7 @@ MonoBehaviour:
   apparitionLevel: 45
   rigidBodySlept: 0
   spawnedObstacle: 0
+  unMovable: 1
 --- !u!54 &7335823258343723668
 Rigidbody:
   m_ObjectHideFlags: 0

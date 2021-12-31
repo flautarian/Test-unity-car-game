@@ -116,6 +116,7 @@ MonoBehaviour:
   apparitionLevel: 0
   rigidBodySlept: 1
   spawnedObstacle: 0
+  unMovable: 1
 --- !u!114 &1408561585892230642
 MonoBehaviour:
   m_ObjectHideFlags: 0

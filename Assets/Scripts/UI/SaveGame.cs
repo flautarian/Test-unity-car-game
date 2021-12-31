@@ -58,7 +58,7 @@ public class SaveGame : MonoBehaviour
 
         internal int[] cars = new int[10]{1,0,0,0,0,0,0,0,0,0};
 
-        internal int[] souvenirs = new int[20]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        internal int[] relics = new int[20]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
         internal int[] equippedScrolls = new int[4];
 

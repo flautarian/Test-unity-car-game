@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class StaticObstacle : Obstacle
 {
-    public bool rigidBodySlept;
+    [SerializeField]
+    private bool rigidBodySlept;
 
-    public bool spawnedObstacle;
+    [SerializeField]
+    private bool spawnedObstacle;
+
+    [SerializeField]
+    private bool unMovable;
 
     private Animation obstacleAnimation;
 
@@ -18,6 +23,14 @@ public class StaticObstacle : Obstacle
 
     private void Update() {
         if(spawnedObstacle && transform.position.z < GlobalVariables.Instance.minZLimit) inhabiliteObstacle();
+    }
+
+    public override void ResetPosition(){
+        rigidBody.isKinematic = true;
+        transform.localPosition = initialLocalPosition;
+        rigidBody.Sleep();
+        transform.localRotation = initialLocalRotation;
+        //rigidBody.isKinematic = false;
     }
 
 
@@ -47,6 +60,8 @@ public class StaticObstacle : Obstacle
     private void StaticCollition(Transform c)
     {
         // If the object we hit is the player
+        if(rigidBody.isKinematic && !unMovable)
+            rigidBody.isKinematic = false;
         if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) || Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER_PART))
         {
             if (rigidBody != null)

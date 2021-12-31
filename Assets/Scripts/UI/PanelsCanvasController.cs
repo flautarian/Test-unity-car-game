@@ -68,6 +68,9 @@ public class PanelsCanvasController : MonoBehaviour
                     case PanelInteractionType.CHALLENGE_TYPE:
                         ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_CHALLENGE_INTERACTION);
                     break;
+                    case PanelInteractionType.RELICS_TYPE:
+                        ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_RELIC_PANEL_BUTTON);
+                    break;
                     case PanelInteractionType.CONCESSIONARY_PANEL_TYPE:
                     case PanelInteractionType.INFO_PANEL_TYPE:
                         // code implemented in other site

@@ -31,6 +31,7 @@ public class GUIController : MonoBehaviour
 
         // force startGame for edit actions
         if (forceStartGame) startGame();
+        StartCoroutine(GlobalVariables.Instance.PlayDefaultSceneSong());
     }
 
         // Update is called once per frame
@@ -75,10 +76,8 @@ public class GUIController : MonoBehaviour
         if (cmvStateDriveCameraAnimator != null)
             cmvStateDriveCameraAnimator.Play("MainGameCamera");
 
-        if(GlobalVariables.Instance.IsLevelGameState()){
-            GlobalVariables.Instance.PlayDefaultSceneSong();
+        if(GlobalVariables.Instance.IsLevelGameState())
             if (gasIndicator != null) gasIndicator.startGame();
-        }
 
         if(playerController != null)
             playerController.startGame();        

@@ -24,7 +24,8 @@ public enum PanelInteractionType{
         INFO_PANEL_TYPE,
         CONCESSIONARY_PANEL_TYPE,
         NO_INTERACTION,
-        CHALLENGE_TYPE
+        CHALLENGE_TYPE,
+        RELICS_TYPE
     }
 
 public enum ObjectiveGameType{
@@ -153,11 +154,13 @@ public class GlobalVariables : MonoBehaviour
     private AudioSource chunkSource;
 
     [SerializeField]
-    private AudioSource musicSource;
+    internal AudioSource musicSource;
 
     public bool playerTargetedByCamera = true;
 
     public int stuntCombo = 0;
+
+    internal Vector3 lastVisitedBuildingPositionPlayer;
 
     private void Awake()
     {
@@ -187,10 +190,6 @@ public class GlobalVariables : MonoBehaviour
 
         if(actualLevelSettings != null && IsLevelGameState()) 
             PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
-
-        if(musicSource != null && 
-           (IsWorldMenuGameState() || IsMainMenuGameState())) PlayDefaultSceneSong();
-        
         
         if (gameMode == GameMode.INFINITERUNNER)
         {
@@ -229,6 +228,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void CleanBeforeChangeScene(){
+        FadeOutActualSong();
         ResetAllGameOnFlags();
     }
 
@@ -263,6 +263,10 @@ public class GlobalVariables : MonoBehaviour
         return saveGameData.data.scrolls[stuntIndex].unlocked;
     }
 
+    public bool IsRelicEnabled(int index){
+        return saveGameData.data.relics[index] == 1;
+    }
+
     internal Scroll[] GetSavedScrolls(){
         return saveGameData.data.scrolls;
     }
@@ -273,6 +277,10 @@ public class GlobalVariables : MonoBehaviour
 
     internal void UnlockScroll(int key){
         saveGameData.data.scrolls[key].unlocked = true;
+    }
+
+    internal void UnlockRelic(int key){
+        saveGameData.data.relics[key] = 1;
     }
 
     internal void UpdateEquipedScroll(int index, int scrollKey){
@@ -634,17 +642,23 @@ public class GlobalVariables : MonoBehaviour
         musicSource.Play();
     }
 
-    internal void PlayDefaultSceneSong(){
-        Scene m_Scene = SceneManager.GetActiveScene();
-        if(PoolManager.Instance != null){
-            AudioClip clip = PoolManager.Instance.SpawnSongFromPool(Constants.DEFAULT_SCENE_SONGS[m_Scene.buildIndex]);
-            if(clip != null){
-                Debug.Log(musicSource.isActiveAndEnabled);
-                musicSource.clip = clip;
-                musicSource.Play(); 
-            }
-            else Debug.Log("Error, clip not found!");
-        }else Debug.Log("Error, pool not initialized!");
+    internal IEnumerator PlayDefaultSceneSong(){
+        if(musicSource != null){
+            while (!musicSource.enabled) yield return null;
+            Scene m_Scene = SceneManager.GetActiveScene();
+            if(PoolManager.Instance != null){
+                AudioClip clip = PoolManager.Instance.SpawnSongFromPool(Constants.DEFAULT_SCENE_SONGS[m_Scene.buildIndex]);
+                if(clip != null){
+                    musicSource.clip = clip;
+                    musicSource.Play(); 
+                }
+                else Debug.Log("Error, clip not found!");
+            }else Debug.Log("Error, pool not initialized!");
+        }
+    }
+
+    public void UpdateLastVisitedBuildingPlayer(Vector3 v){
+        lastVisitedBuildingPositionPlayer = v;
     }
 
     public void FadeOutActualSong(){

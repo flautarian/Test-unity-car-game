@@ -98,6 +98,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        if(GlobalVariables.Instance.lastVisitedBuildingPositionPlayer != Vector3.zero &&
+            GlobalVariables.Instance.IsWorldMenuGameState())
+            TranslatePlayerCar(GlobalVariables.Instance.lastVisitedBuildingPositionPlayer);
         playerSphereRigidBody.transform.parent = null;
         Physics.IgnoreLayerCollision(0, 9);
         // Adapting playerController to the car type chosen
@@ -429,17 +432,17 @@ public class PlayerController : MonoBehaviour
                             if(trickMode) UpdatePlayerAnimationStuntMode(false);
                             // habilitant boolea de col·licio de cotxe
                             playerAnimator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
-                            if(GlobalVariables.Instance.gameMode == GameMode.WOLRDMAINMENU) {
-                                StartCoroutine(obstacle.InitializeMainMenuResetPosition());
-                                return;
-                            }
-                            else{
+                            // ejectant part del cotxe per mostrar danys per colisió
+                            if(GlobalVariables.Instance.IsLevelGameState()){
                                 if (guiPlayer != null && guiPlayer.carPartsIndicator != null)
                                     guiPlayer.carPartsIndicator.decrementPart();
                                 partDestroyed.ejectPart();
                                 //collision.gameObject.GetComponent<Obstacle>().Collide(partDestroyed.transform);
                                 partDestroyed.Inhabilite();
                             }
+                        }
+                        if(GlobalVariables.Instance.IsWorldMenuGameState()) {
+                            StartCoroutine(obstacle.InitializeMainMenuResetPosition());
                         }
                     }
                     else
@@ -529,9 +532,13 @@ public class PlayerController : MonoBehaviour
         if(animator != null){
             animator.SetTrigger("ResetPlayerPosition");
             yield return new WaitForSeconds(1f);
-            playerSphereRigidBody.gameObject.transform.position = lastSecurePositionPlayer;
-            transform.position = lastSecurePositionPlayer;
+            TranslatePlayerCar(lastSecurePositionPlayer);
         }
+    }
+
+    private void TranslatePlayerCar(Vector3 v){
+        playerSphereRigidBody.gameObject.transform.position = v;
+            transform.position = v;
     }
     
     public void UpdateActualChosenCar(){
