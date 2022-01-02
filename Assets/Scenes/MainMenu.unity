@@ -995,7 +995,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -2432090755550338912, guid: a5a650b36d65c7749b00463a55397f15,
+      objectReference: {fileID: -2432090755550338912, guid: da8e21c59b4aa304ab88ecaa13dac578,
         type: 3}
     - target: {fileID: 6542228405684217216, guid: 9efc60c44218ebe459aee7a1a3299a47,
         type: 3}
@@ -1119,6 +1119,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7508190350990747201, guid: 9efc60c44218ebe459aee7a1a3299a47,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7508190350990747201, guid: 9efc60c44218ebe459aee7a1a3299a47,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.80000114
       objectReference: {fileID: 0}
@@ -1131,6 +1136,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584634104677617646, guid: 9efc60c44218ebe459aee7a1a3299a47,
+        type: 3}
+      propertyPath: m_Text
+      value: ^button_exit_game
       objectReference: {fileID: 0}
     - target: {fileID: 9067615043304124656, guid: 9efc60c44218ebe459aee7a1a3299a47,
         type: 3}
@@ -1792,6 +1802,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584634104677617646, guid: 9efc60c44218ebe459aee7a1a3299a47,
+        type: 3}
+      propertyPath: m_Text
+      value: ^button_options
       objectReference: {fileID: 0}
     - target: {fileID: 9067615043304124656, guid: 9efc60c44218ebe459aee7a1a3299a47,
         type: 3}
@@ -2629,6 +2644,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584634104677617646, guid: 9efc60c44218ebe459aee7a1a3299a47,
+        type: 3}
+      propertyPath: m_Text
+      value: ^button_go_to_world
       objectReference: {fileID: 0}
     - target: {fileID: 9067615043304124656, guid: 9efc60c44218ebe459aee7a1a3299a47,
         type: 3}

@@ -61,6 +61,9 @@ public class LevelSettings : MonoBehaviour
     // recompensa especificada
     public int prizeDetail;
 
+    // sobre escritura de stunts per a nivells on el jugador ha de complir amb stunts especifics
+    public int[] StuntOverride;
+
 
     public void CopyFromLevel(LevelSettings lvl){
         lightLevel = lvl.lightLevel;
@@ -82,6 +85,7 @@ public class LevelSettings : MonoBehaviour
         prize = lvl.prize;
         prizeDetail = lvl.prizeDetail;
         lvlIndex = lvl.lvlIndex;
+        StuntOverride = lvl.StuntOverride;
     }
 
 }

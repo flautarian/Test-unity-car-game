@@ -50,7 +50,7 @@ public class GUIController : MonoBehaviour
                 GlobalVariables.Instance.repairflag = false;
             }
         }
-        ControlIndicatorsRendering(Time.timeScale != 0f);
+        ControlIndicatorsRendering(GlobalVariables.Instance.inGameState == InGamePanels.GAMEON);
         //transform.LookAt(player.transform);
         ActiveUITransform.rotation = Quaternion.Euler(transform.rotation.x + (cameraXAxisOffset * playerAcceleration), transform.rotation.y + (cameraYAxisOffset * playerBrake), transform.rotation.z);
     }

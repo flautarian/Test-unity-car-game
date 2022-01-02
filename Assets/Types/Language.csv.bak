@@ -25,7 +25,9 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^tax_lvl_panel_title	Highway map	MEK	Mapa de carreteras	MEK	MEK	MEK
 ^library_lvl_panel_title	Library	MEK	Librería	MEK	MEK	MEK
 ^museum_lvl_panel_title	Museum	MEK	Museo	MEK	MEK	MEK
-^detail_lvl_panel_title	Level	MEK	Nivel	MEK	MEK	MEK
+^multiplayer_lvl_panel_title	Comm Center	MEK	Torre de radio	MEK	MEK	MEK
+^detail_highway_lvl_panel_title	Highway level	MEK	Nivel de tramo	MEK	MEK	MEK
+^detail_challenge_lvl_panel_title	Challenge	MEK	Desafio de habilidad	MEK	MEK	MEK
 ^detail_lvl_panel_objective	Objective	MEK	Objetivo	MEK	MEK	MEK
 ^detail_lvl_panel_mutators	Mutators	MEK	Eventos	MEK	MEK	MEK
 ^detail_lvl_panel_prizes	Prizes	MEK	Recompensas	MEK	MEK	MEK
@@ -33,8 +35,8 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^go_to_level_button	Go	MEK	Adelante	MEK	MEK	MEK
 ^game_won_title	Level sucess!!	MEK	Nivel completado!!	MEK	MEK	MEK
 ^game_won_prizes	Awards	MEK	Recompensas	MEK	MEK	MEK
-^concessionary_buy_panel	Press intro to buy	MEK	Presiona intro para comprar	MEK	MEK	MEK
-^concessionary_equip_panel	Press intro to equip	MEK	Presiona intro para equipar	MEK	MEK	MEK
+^concessionary_buy_panel	Press 'Accelerate' to buy	MEK	Presiona 'Acelerar' para comprar	MEK	MEK	MEK
+^concessionary_equip_panel	Press 'Accelerate' to equip	MEK	Presiona 'Acelerar' para equipar	MEK	MEK	MEK
 ^concessionary_stats	Stats:\nVelocity:\nAccel:\nStunt:\nTurn:\nWeight:\nDrag:	MEK	Caracteristicas:\nVelocidad:\nAcel:\nStunt:\nGiro:\nPeso:\nDerrape:	MEK	MEK	MEK
 ^library_equip_panel_title	Select the place for the scroll	MEK	Selecciona un lugar para el truco	MEK	MEK	MEK
 ^stunt_description_hidden	Hidden scroll \n Explore the world to find it	MEK	¡Pergamino escondido \nExplora el mundo para encontrarlo!	MEK	MEK	MEK
@@ -42,14 +44,23 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^stunt_description_1	Aerial stunt that consists in \n a roll to the right side \n [generate 10 stunt points]	MEK	Truco aerial que ejecuta una \n vuelta lateral a la derecha \n [genera 10 puntos stunt]	MEK	MEK	MEK
 ^stunt_description_2	Groundal stunt that jumps to \n avoid enemies \n [consumes 10 stunt points]	MEK	Truco groundal que salta \n para evitar enemigos \n [consume 10 stunt points]	MEK	MEK	MEK
 ^stunt_description_3	Groundal stunt that jumps to \n avoid enemies \n [consumes 10 stunt points]	MEK	Truco groundal que salta \n para evitar enemigos \n [consume 10 stunt points]	MEK	MEK	MEK
-^stunt_description_4	Groundal stunt that turns wuickly \n to strike enemies \n [consumes 20 stunt points]	MEK	Truco groundal que gira \n rapidamente para golpear \n enemigos \n [consume 20 stunt points]	MEK	MEK	MEK
+^stunt_description_4	Groundal stunt that turns quickly \n to strike enemies \n [consumes 20 stunt points]	MEK	Truco groundal que gira \n rapidamente para golpear \n enemigos \n [consume 20 stunt points]	MEK	MEK	MEK
+^stunt_description_5	Aerial stunt that turns quickly in spiral to impulse forward in the air, recommended in case of collition at falling [consumes 10 stunt points]	MEK	Acrobacia aerial que gira rapidamente para impulsarse hacia delante, recomendado en caso de colision al caer al suelo [consume 10 stunt points]	MEK	MEK	MEK
 ^relic_description_hidden	Missing relic\n Explore the world to find it!	MEK	¡Reliquia escondida \nExplora el mundo para encontrarla!	MEK	MEK	MEK
 ^relic_name_0	Pizza	MEK	Pizza	MEK	MEK	MEK
 ^relic_name_1	Ancient towel	MEK	Toallita sucia	MEK	MEK	MEK
 ^relic_name_2	Twin pines	MEK	Pinos gemelos	MEK	MEK	MEK
 ^relic_name_3	Twisted sword	MEK	Espada trenzada	MEK	MEK	MEK
-^relic_description_0	Strange towel\n Towel from the humans era \nif you are properly close you \ncan hear say galimatias	MEK	Toallita destrozada \nAntigua toalla parlante de la era de los humanos \nActualmente solo cuenta galimatias	MEK	MEK	MEK
-^relic_description_1	Rage of the cook\n Fossilized food from a rage cooker \nyou can read in its back: \n'property of mr white'	MEK	Toallita destrozada \nAntigua toalla parlante de la era de los humanos \nActualmente solo cuenta galimatias	MEK	MEK	MEK
+^relic_name_4	Arc of the horde	MEK	Arca de la horda	MEK	MEK	MEK
+^relic_name_hidden	???	MEK	???	MEK	MEK	MEK
+^relic_description_0	Towel from the humans era if you are properly close you can hear say galimatias	MEK	Antigua toalla parlante de la era de los humanos Actualmente solo cuenta galimatias	MEK	MEK	MEK
+^relic_description_1	Fossilized food from a rage cooker you can read in its back: 'property of mr white'	MEK	Comida petrificada de antiguas epocas humanas, en su reverso puede leerse lo siguiente: 'propiedad de mr white'	MEK	MEK	MEK
+^relic_description_2	Antique emblem of an ancient site respected by humans, the machines detects that this objects has been manipulated by another kind of time machines.	MEK	Antiguo emblema que simbolizaba un lugar de culto humano, las maquinas han detectado particulas de tiempo en el	MEK	MEK	MEK
+^relic_description_3	Ancient sword with remaining cinder, in that ages they whereobsesionated with the 'sun'	MEK	Antigua espada con restos de ceniza,en su epoca de apogeo los humanos parecian estar obsesionados con el 'sol'	MEK	MEK	MEK
+^relic_description_4	Very rare arc with a weapon in there (based in legends), perfect, another dangeorus artifact to the collection...	MEK	Arca muy rara con un arma en su interior (segun escritos), perfecto, otro artefacto peligroso para la coleccion... 	MEK	MEK	MEK
+^relic_unlocked_notification	Relic {0} unlocked!!, examine it to see more details of human epoque in the museum	MEK	Reliquia {0} conseguida!!, examina su significado en epocas humanas en el museo	MEK	MEK	MEK
+^stunt_unlocked_notification	Stunt {0} unlocked!!, equip it and learn its power at the library	MEK	Stunt {0} conseguido!!, equipalo y conoce su poder en la libreria	MEK	MEK	MEK
+^coins_unlocked_notification	Added {0} to your cash!!	MEK	Conseguidas {0} monedas para tu caja!!	MEK	MEK	MEK
 ^detail_lvl_panel_objective_0	Defeat the boss with your road habilities	MEK	Derrota al jefe con tus habilidades al volante	MEK	MEK	MEK
 ^detail_lvl_panel_objective_1	Obtain at least {0} stunt orbs	MEK	Consigue obtener {0} orbes de stunt	MEK	MEK	MEK
 ^detail_lvl_panel_objective_2	Execute at least {0} aerial stunts	MEK	Consigue ejecutar al menos {0} aerials	MEK	MEK	MEK
@@ -58,5 +69,9 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^detail_lvl_panel_objective_5	Run for at least {0} roads	MEK	Consigue recorrer al menos {0} tramos	MEK	MEK	MEK
 ^detail_lvl_panel_objective_6	Get at least {0} coins from highway	MEK	Consigue al menos {0} monedas	MEK	MEK	MEK
 ^detail_lvl_panel_objective_7	Finish the circuit in less than {0} seconds	MEK	Termina el circuito en menos de {0} segundos	MEK	MEK	MEK
-^sign_library_info	This is Title:\nAnd this is an standard content,\nmaybe you want to set some text \nhere to explain something?	MEK	Esto es el titulo:\nY esto es un contenido estandar\nquizas quieras poner algun texto qui\npara explicar algo?	MEK	MEK	MEK
+^sign_library_info	Library:\nHere you will can manage your,\nstunts and check the ones that \nyou have unlocked.	MEK	Libreria:\nAqui podras gestionar tus stunts\ny ver los que has desbloqueado	MEK	MEK	MEK
+^sign_museum_info	Museum:\nHere you can manage your the\nrelics recovered in your world \ntrips.	MEK	Museo:\nAqui podras contemplar las\nreliquias que hayas ido encontrando\na lo largo del mundo	MEK	MEK	MEK
 ^sign_tax_info	Welcome to the Intertemporal highway!:\nHelp us to fix his sectors \n acomplishing the objetives to get prizes \nand grant access to other worlds!	MEK	Bienvenido a la autopista intertemporal!:\nAyudanos a arreglar los tramos de ella \npara conseguir recompensas y \n y asi acceder al siguiente mundo!	MEK	MEK	MEK
+^sign_comm_info	Welcome to the Comm center!:\nWhen it will operative \n this building will can comunicate you\nwith another survivors of the temporal cataclysm\nto...compete?	MEK	Bienvenido a la torre de radio\nCuando este operativa podras comunicarte con otros supervivientes del catalismo temporal para...competir?	MEK	MEK	MEK
+^sign_stunt_info_1	Stunts:\nEfficient vehicles knows how to do stunts \n They are 3 types of stunt: \n -Attack\n -Defense\n -Generate\n You can do a stunt by keep pressing\nstunt key and press the combination\nof the stunt, but be carefull,\nthe aerial stunts works only in\nmiddle of the air and groundals\nonly works in land!! 	MEK	: Stunts\nLos vehículos eficientes saben cómo hacer acrobacias \n Hay 3 tipos de acrobacias: \n -Ataque \n -Defensa \n -Generadores \n Puedes hacer una acrobacia si mantienes presionada la tecla\nstunt y presionas la combinación \n de la acrobacia, pero ten cuidado,\nlos aerials sólo funcionan en mmedio \ndel aire y los groundals funcionan \nsolo estando en el suelo!!	MEK	MEK	MEK
+^sign_stunt_info_2	Stunts:\nmeanwhile the attack and defense stunts \nneed stunt energy to be executed \nYou can get that energy executing\ngenerate stunts to charge your\nstunt bar	MEK	Stunts:\nMientras las acrobacias de ataque y defensa\nnecesitan energia stunt,\n Puedes ejecutar acrobacias generadoras o coger\nesferas de stunt para conseguir\nla energia necesaria para ejecutar acrobacias\nmayores	MEK	MEK	MEK

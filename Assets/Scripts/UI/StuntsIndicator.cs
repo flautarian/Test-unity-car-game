@@ -24,11 +24,11 @@ public class StuntsIndicator : MonoBehaviour
         stuntKeysPressed = new List<int>();
         guiController = transform.parent.transform.parent.transform.parent.GetComponent<GUIController>();
         initialStuntKeyPos = new Vector3(-3.6f, 1f, 0);
+        ReloadStuntList();
     }
 
     internal void startGame(){
         gameStarted = true;
-        ReloadStuntList();
     }
 
     internal void startGameOver(){

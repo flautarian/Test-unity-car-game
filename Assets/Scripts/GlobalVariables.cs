@@ -156,6 +156,8 @@ public class GlobalVariables : MonoBehaviour
     [SerializeField]
     internal AudioSource musicSource;
 
+    internal List<string> pendingNotifications = new List<string>();
+
     public bool playerTargetedByCamera = true;
 
     public int stuntCombo = 0;
@@ -277,10 +279,31 @@ public class GlobalVariables : MonoBehaviour
 
     internal void UnlockScroll(int key){
         saveGameData.data.scrolls[key].unlocked = true;
+        NotifyScrollUnlocked(key);
+        //saveGameData.UpdateSaveGame();
     }
 
     internal void UnlockRelic(int key){
         saveGameData.data.relics[key] = 1;
+        NotifyRelicUnlocked(key);
+        //saveGameData.UpdateSaveGame();
+    }
+
+    internal void UpdateCoinsOfPlayerForLvlSuccessfull(int coins){
+        totalCoins += coins;
+        NotifyCoinsGained(coins);
+    }
+
+    private void NotifyCoinsGained(int coins){
+        pendingNotifications.Add("^coins_unlocked_notification|" + coins);
+    }
+
+    private void NotifyRelicUnlocked(int key){
+        pendingNotifications.Add("^relic_unlocked_notification|" + I18N.instance.getValue("^relic_name_" + key));
+    }
+
+    private void NotifyScrollUnlocked(int key){
+        pendingNotifications.Add("^stunt_unlocked_notification|" + Constants.STUNT_NAMES[key]);
     }
 
     internal void UpdateEquipedScroll(int index, int scrollKey){
@@ -289,7 +312,8 @@ public class GlobalVariables : MonoBehaviour
 
     internal Stunt[] GenerateStuntListWithEquippedStunts(){
         Stunt[] result = new Stunt[4];
-        for(int s =0; s < saveGameData.data.equippedScrolls.Length; s++){
+        int[] stuntsToLoad = GetStuntsToLoad();
+        for(int s =0; s < stuntsToLoad.Length; s++){
             if(saveGameData.data.equippedScrolls[s] >= 0){
                 UnityEngine.Object newScroll = (UnityEngine.Object)Resources.Load("Prefabs/Stunts/" + Constants.STUNT_NAMES[saveGameData.data.equippedScrolls[s]]);
                 GameObject scrollGO = (GameObject)Instantiate(newScroll);
@@ -299,6 +323,12 @@ public class GlobalVariables : MonoBehaviour
             else result[s] = null;
         }
         return result;
+    }
+
+    private int[] GetStuntsToLoad(){
+        if(IsLevelGameState() && actualLevelSettings.StuntOverride.Length > 0)
+            return actualLevelSettings.StuntOverride;
+        return saveGameData.data.equippedScrolls;
     }
     
     internal Scroll[] GetPlayerEquippedScrolls(){
@@ -602,17 +632,13 @@ public class GlobalVariables : MonoBehaviour
         return actualLevelSettings.objectiveTarget;
     }
 
-    public void UpdateSavedGame(){
-        SaveGame();
-    }
-
     public void SucceessActualLevel(){
         if(gameMode == GameMode.INFINITERUNNER)
             saveGameData.data.levels[actualLevelSettings.lvlIndex].done = true;
         else if (gameMode == GameMode.CHALLENGE)
             saveGameData.data.challenges[actualLevelSettings.lvlIndex] = 1.0f;
         if(GetActualLevelPrizeType() == LevelSettings.PrizeLevel.COINS)
-            totalCoins += actualLevelSettings.prizeDetail;
+            UpdateCoinsOfPlayerForLvlSuccessfull(actualLevelSettings.prizeDetail);
         else if(GetActualLevelPrizeType() == LevelSettings.PrizeLevel.SCROLL)
             UnlockScroll(actualLevelSettings.prizeDetail);
         saveGameData.data.totalCoins += totalCoins;

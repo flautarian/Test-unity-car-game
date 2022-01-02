@@ -81,6 +81,12 @@ public class SaveGame : MonoBehaviour
         result[2] = new Scroll("Gainer", false, true, 1, "^stunt_description_2", new int[]{1,0,0,-1});
         result[3] = new Scroll("Reversal gainer", false, true, 1, "^stunt_description_3", new int[]{0,1,1,-1});
         result[4] = new Scroll("Wind Strike", false, true, 2, "^stunt_description_4", new int[]{2,1,3,-1});
+        result[5] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
+        result[6] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
+        result[7] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
+        result[8] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
+        result[9] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
+        result[10] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
         return result;
     }
 
@@ -94,6 +100,18 @@ public class SaveGame : MonoBehaviour
         result[5] = new Level(4);
         result[6] = new Level(5);
         result[7] = new Level(6);
+        result[8] = new Level(7);
+        result[9] = new Level(8);
+        result[10] = new Level(9);
+        result[11] = new Level(10);
+        result[12] = new Level(11);
+        result[13] = new Level(12);
+        result[14] = new Level(13);
+        result[15] = new Level(14);
+        result[16] = new Level(15);
+        result[17] = new Level(16);
+        result[18] = new Level(17);
+        result[19] = new Level(18);
         return result;
     }
 
@@ -136,6 +154,7 @@ public class SaveGame : MonoBehaviour
         newSaveData.scrolls = GenerateDefaultScrollList();
         newSaveData.levels = GenerateDefaultLevelsList();
         newSaveData.equippedScrolls = GenerateDefaultEquippedScrollsList();
+        Debug.Log("lang:" +newSaveData.language);
         data = newSaveData;
         UpdateSaveGame();
         return newSaveData;

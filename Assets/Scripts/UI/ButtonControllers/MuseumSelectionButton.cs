@@ -16,12 +16,12 @@ public class MuseumSelectionButton : SelectButtonController, ISelectHandler
     internal PanelMuseumCanvasController panelController;
 
     [SerializeField]
-    private Text name;
+    private Text nameText;
     [SerializeField]
     private I18NText nameI18n;
 
     private void OnEnable() {
-        name.text = GlobalVariables.Instance.IsRelicEnabled(RelicIndex) ? 
+        nameText.text = GlobalVariables.Instance.IsRelicEnabled(RelicIndex) ? 
         "^relic_name_" + RelicIndex :
         "^relic_name_hidden";
     }

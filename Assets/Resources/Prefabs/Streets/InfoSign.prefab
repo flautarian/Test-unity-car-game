@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 6748941637948781005}
   - component: {fileID: 3113179660759610030}
   - component: {fileID: 3190148809228958444}
+  - component: {fileID: 1800608892562604835}
   m_Layer: 0
   m_Name: SignText
   m_TagString: Untagged
@@ -448,6 +449,20 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
+--- !u!114 &1800608892562604835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6786888984445761937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44cf0b3813e8d9a468a21ab273b6422d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontOverwrite: 1
+  _params: []
 --- !u!1 &7682165906701089627
 GameObject:
   m_ObjectHideFlags: 0

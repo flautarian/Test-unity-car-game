@@ -5,7 +5,7 @@ using UnityEngine;
 public class ReturnToWorldButtonController : SelectButtonController
 {
     public override void executeButton(){
-        GlobalVariables.Instance.UpdateSavedGame();
+        GlobalVariables.Instance.SaveGame();
         GlobalVariables.Instance.CleanBeforeChangeScene();
     }
 }

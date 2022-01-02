@@ -465,10 +465,11 @@ MonoBehaviour:
   grassType: 0
   mutators: 00000000000000000000000000000000
   fog: 0
-  levelName: 
+  levelName: ^detail_challenge_lvl_panel_title
   gameMode: 1
   prize: 0
   prizeDetail: 0
+  StuntOverride: 
 --- !u!114 &8598029228137652226
 MonoBehaviour:
   m_ObjectHideFlags: 0

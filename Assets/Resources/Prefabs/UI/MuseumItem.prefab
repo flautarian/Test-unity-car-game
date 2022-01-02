@@ -157,7 +157,7 @@ MonoBehaviour:
   animator: {fileID: 4780458287903085425}
   RelicIndex: 0
   panelController: {fileID: 0}
-  name: {fileID: 280770547593577799}
+  nameText: {fileID: 280770547593577799}
   nameI18n: {fileID: 532211517056115727}
 --- !u!1 &6163227885910245772
 GameObject:

@@ -4,12 +4,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Honeti;
 
 public class PanelsCanvasController : MonoBehaviour
 {
     Animator animator;
 
     public Animator panelInteractionAnimator;
+
+    [SerializeField]
+    private Animation notificationsAnimation;
+
+    public Text notificationsText;
+
+    public I18NText notificationsI18N;
 
     public int lastScene;
 
@@ -57,7 +65,7 @@ public class PanelsCanvasController : MonoBehaviour
                         ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
                     case PanelInteractionType.MULTIPLAYER_TYPE:
-                        ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+                        ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_COMM_PANEL_BUTTON);
                     break;
                     case PanelInteractionType.LIBRARY_TYPE:
                         ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_LIBRARY_PANEL_BUTTON);
@@ -102,6 +110,23 @@ public class PanelsCanvasController : MonoBehaviour
         }
         else if(GlobalVariables.Instance.turnedCar)
             turnedUpController.gameObject.SetActive(true);
+
+        ManageNotifications();
+    }
+
+    private void ManageNotifications(){
+        if(GlobalVariables.Instance.pendingNotifications.Count != 0){
+            if(!notificationsAnimation.isPlaying){
+                var texts = GlobalVariables.Instance.pendingNotifications[0].Split('|');
+                if(texts.Length == 2){    
+                    notificationsText.text = texts[0];
+                    var stringTextList = new string[]{texts[1]};
+                    notificationsI18N._updateParams(stringTextList);
+                    notificationsAnimation.Play();
+                    GlobalVariables.Instance.pendingNotifications.Remove(GlobalVariables.Instance.pendingNotifications[0]);
+                }
+            }
+        }
     }
 
     public void ExecuteSubUI1Trigger(){

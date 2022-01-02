@@ -17,9 +17,9 @@ public class PanelLibraryCanvasController : MonoBehaviour
     private MeshFilter scrollMeshFilter;
 
     [SerializeField]
-    private TextMesh description;
+    private Text description;
     [SerializeField]
-    private I18NTextMesh descriptionI18n;
+    private I18NText descriptionI18n;
 
     private Vector3 up = new Vector3(90f,0f,0f);
     private Vector3 down = new Vector3(-90f,0f,180f);

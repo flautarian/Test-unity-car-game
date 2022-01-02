@@ -10,10 +10,16 @@ public class LvlDetailsPanelController : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField]
-    private TextMesh titlePanel;
+    private TextMesh titleText;
 
     [SerializeField]
-    private GameObject objectiveText;
+    private I18NTextMesh titleI18N;
+
+    [SerializeField]
+    private I18NText objectiveI18N;
+
+    [SerializeField]
+    private Text objectiveText;
 
     [SerializeField]
     private MeshFilter PrizeMesh;
@@ -30,6 +36,8 @@ public class LvlDetailsPanelController : MonoBehaviour
     [SerializeField]
     private Sprite[] MutatorRepresentation;
 
+    private int lvlIndex = -1;
+
     private string[] I18NDetails = new string[2];
     [SerializeField]
     private Button firstButton;
@@ -40,7 +48,6 @@ public class LvlDetailsPanelController : MonoBehaviour
 
     private void OnEnable() {
         GlobalVariables.Instance.SetFocusUiElement(firstButton.gameObject);
-        PrepareLevelDetailsPanelFromLevelSettings(GlobalVariables.Instance.actualLevelSettings);
     }
     
     public void GoToLevel(){
@@ -49,19 +56,28 @@ public class LvlDetailsPanelController : MonoBehaviour
         GlobalVariables.Instance.actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
     }
 
+    private void LateUpdate() {
+        if(lvlIndex == -1 || lvlIndex != GlobalVariables.Instance.actualLevelSettings.lvlIndex){
+            lvlIndex = GlobalVariables.Instance.actualLevelSettings.lvlIndex;
+            PrepareLevelDetailsPanelFromLevelSettings(GlobalVariables.Instance.actualLevelSettings);
+        }
+    }
+
     public void PrepareLevelDetailsPanelFromLevelSettings(LevelSettings lvl){
-        //TODO: Load level details into panel
+        Debug.Log("Updating lvl details info: " + (int)lvl.objective);
         for(int i = 0; i < lvl.mutators.Length; i++){
             Mutators[i].sprite = MutatorRepresentation[(int)lvl.mutators[i]];
             Mutators[i].gameObject.SetActive(Mutators[i].sprite != null);
         }
-        var textObjective = objectiveText.GetComponent<TextMesh>();
-        if(textObjective != null) {
-            textObjective.text = Constants.OBJECTIVE_LITERAL + (int)lvl.objective;
-            var textI18NTextMesh = objectiveText.GetComponent<I18NTextMesh>();
+        titleText.text = lvl.levelName;
+        titleI18N.updateTranslation(true);
+        
+        if(objectiveText != null) {
+            objectiveText.text = Constants.OBJECTIVE_LITERAL + (int)lvl.objective;
             I18NDetails[0] = ""+lvl.objectiveTarget;
             I18NDetails[1] = lvl.objectiveEspecification;
-            if(textI18NTextMesh != null) textI18NTextMesh._updateParams(I18NDetails);
+            objectiveI18N.updateTranslation(true);
+            objectiveI18N._updateParams(I18NDetails);
         }
         if(PrizeText != null)
             PrizeText.text = lvl.prize == LevelSettings.PrizeLevel.COINS ? " X " + lvl.prizeDetail : "";

@@ -318,6 +318,10 @@ public class PlayerController : MonoBehaviour
         playerSphereRigidBody.AddForce(Vector3.right * amount, ForceMode.Impulse);
     }
 
+    internal void impulseForwardCar(float amount){
+        playerSphereRigidBody.AddForce(Vector3.forward * amount, ForceMode.Impulse);
+    }
+
     internal void turnLeft()
     {
         throw new NotImplementedException();
@@ -441,26 +445,22 @@ public class PlayerController : MonoBehaviour
                                 partDestroyed.Inhabilite();
                             }
                         }
-                        if(GlobalVariables.Instance.IsWorldMenuGameState()) {
-                            StartCoroutine(obstacle.InitializeMainMenuResetPosition());
-                        }
+                        else 
+                            GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
                     }
-                    else
-                    {
+                    else 
                         destroyPlayer(Constants.GAME_OVER_VEHICLE_DESTROYED);
-                    }
+                    
+                    if(GlobalVariables.Instance.IsWorldMenuGameState()) 
+                        StartCoroutine(obstacle.InitializeMainMenuResetPosition());
                 }
-            }
-            else
-            {
-                GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
             }
         }
     }
 
     private void RequestAndPlayChunk(string chunk){
         AudioClip clip = PoolManager.Instance.SpawnChunkFromPool(chunk);
-        audioSource.PlayOneShot(clip);
+        if(clip != null) audioSource.PlayOneShot(clip);
     }
 
     internal void RecoverParts()
