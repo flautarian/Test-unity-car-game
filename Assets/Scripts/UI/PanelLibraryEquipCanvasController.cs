@@ -75,6 +75,9 @@ public class PanelLibraryEquipCanvasController : MonoBehaviour
             if(anim != null)
                 anim.SetTrigger(Constants.ANIMATION_TRIGGER_LIBRARY_INTERACTION);
         }
+        else{
+            GlobalVariables.Instance.GetAndPlayChunk("UI_Ko", 1.0f);
+        }
     }
 
     public void UpdateScrollInEquipment(int index){

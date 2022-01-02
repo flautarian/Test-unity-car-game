@@ -11,6 +11,7 @@ public class EnterWorldButtonController : SelectButtonController
 
     private IEnumerator LoadWorldOneScene(){
         yield return new WaitForSeconds(4f);
+        GlobalVariables.Instance.gameMode = GameMode.WOLRDMAINMENU;
         SceneManager.LoadScene(1);
     }
 

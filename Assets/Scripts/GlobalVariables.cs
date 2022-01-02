@@ -156,7 +156,7 @@ public class GlobalVariables : MonoBehaviour
     [SerializeField]
     internal AudioSource musicSource;
 
-    internal List<string> pendingNotifications = new List<string>();
+    public List<string> pendingNotifications = new List<string>();
 
     public bool playerTargetedByCamera = true;
 
@@ -202,6 +202,10 @@ public class GlobalVariables : MonoBehaviour
             if (firstStreetCalle != null)
                 firstStreetCalle.generateNextStreet(5);
         }
+
+        if(gameMode == GameMode.MAINMENU){
+            StartCoroutine(PlayDefaultSceneSong());
+        }
         //Debug.Log("GlobalVariables Awakening!!");
     }
 
@@ -246,6 +250,7 @@ public class GlobalVariables : MonoBehaviour
         objectiveActualTarget =0;
         nitroflag = false;
         repairflag = false;
+        generateGoalLine = false;
         inGameState = InGamePanels.GAMEON;
     }
 
@@ -284,7 +289,8 @@ public class GlobalVariables : MonoBehaviour
     internal void UnlockScroll(int key){
         saveGameData.data.scrolls[key].unlocked = true;
         NotifyScrollUnlocked(key);
-        //saveGameData.UpdateSaveGame();
+        GetAndPlayChunk("Goal", 1.0f);
+        saveGameData.UpdateSaveGame();
     }
 
     internal void NotifyActualLvlObjective(){
@@ -299,12 +305,13 @@ public class GlobalVariables : MonoBehaviour
     internal void UnlockRelic(int key){
         saveGameData.data.relics[key] = 1;
         NotifyRelicUnlocked(key);
-        //saveGameData.UpdateSaveGame();
+        saveGameData.UpdateSaveGame();
     }
 
     internal void UpdateCoinsOfPlayerForLvlSuccessfull(int coins){
         totalCoins += coins;
         NotifyCoinsGained(coins);
+        GetAndPlayChunk("Goal", 1.0f);
     }
 
     private void NotifyCoinsGained(int coins){
@@ -327,8 +334,10 @@ public class GlobalVariables : MonoBehaviour
         Stunt[] result = new Stunt[4];
         int[] stuntsToLoad = GetStuntsToLoad();
         for(int s = 0; s < stuntsToLoad.Length; s++){
-            if(saveGameData.data.equippedScrolls[s] >= 0){
-                UnityEngine.Object newScroll = (UnityEngine.Object)Resources.Load("Prefabs/Stunts/" + Constants.STUNT_NAMES[saveGameData.data.equippedScrolls[s]]);
+            if(stuntsToLoad[s] >= 0){
+                Debug.Log(Constants.STUNT_NAMES[stuntsToLoad[s]] + ": loaded");
+                UnityEngine.Object newScroll = (UnityEngine.Object)
+                    Resources.Load("Prefabs/Stunts/" + Constants.STUNT_NAMES[stuntsToLoad[s]]);
                 GameObject scrollGO = (GameObject)Instantiate(newScroll);
                 Stunt st = scrollGO.GetComponent<Stunt>();
                 result[s] = st;
@@ -617,6 +626,7 @@ public class GlobalVariables : MonoBehaviour
     public void UnlockCar(int key, int price){
         saveGameData.data.cars[key] = 1;
         saveGameData.data.totalCoins -= price;
+        GetAndPlayChunk("Goal", 1.0f);
         SaveGame();
     }
 
@@ -671,6 +681,7 @@ public class GlobalVariables : MonoBehaviour
         else if(GetActualLevelPrizeType() == LevelSettings.PrizeLevel.SCROLL)
             UnlockScroll(actualLevelSettings.prizeDetail);
         saveGameData.data.totalCoins += totalCoins;
+        FadeOutActualSong();
     }
 
     public bool IsLevelGameState(){

@@ -3977,6 +3977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 0}
+  miniMapBorder: {fileID: 858368720102894151}
   offset: {x: 0, y: 0, z: 0}
 --- !u!1 &5817433918661405421
 GameObject:
@@ -12604,11 +12605,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TargetGraphic
       value: 
-      objectReference: {fileID: 6792633456605293747}
+      objectReference: {fileID: 1420960403862048029}
     - target: {fileID: 20843812378092115, guid: 97665542eef59c54e9218bd3e7c00e81,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 20843812378092115, guid: 97665542eef59c54e9218bd3e7c00e81,
         type: 3}
@@ -13251,9 +13252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8363753e0f04e4bb8dd5f737e91016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6792633456605293747 stripped
+--- !u!114 &1420960403862048029 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3978676516242653510, guid: 97665542eef59c54e9218bd3e7c00e81,
+  m_CorrespondingSourceObject: {fileID: 8848186648675393768, guid: 97665542eef59c54e9218bd3e7c00e81,
     type: 3}
   m_PrefabInstance: {fileID: 7598506150777155061}
   m_PrefabAsset: {fileID: 0}

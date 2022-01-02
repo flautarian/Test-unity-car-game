@@ -181,7 +181,7 @@ public class Constants
 
     private static string[] GenerateDefaultSceneSongList(){
         return new string[4]{
-            "World1",
+            "MainMenu",
             "World1",
             "Endless1",
             "Endless1"};

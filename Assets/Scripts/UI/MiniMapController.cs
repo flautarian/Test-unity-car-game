@@ -6,6 +6,7 @@ public class MiniMapController : MonoBehaviour
 {
     
     public Transform reference;
+    public GameObject miniMapBorder;
     private Vector3 pos;
     private Vector3 rot;
     public Vector3 offset;
@@ -13,7 +14,10 @@ public class MiniMapController : MonoBehaviour
     {
         pos = transform.position;
         rot = new Vector3(0f, 0f, 0f);
-        if(GlobalVariables.Instance.gameMode != GameMode.WOLRDMAINMENU) Destroy(this.gameObject);
+        if(GlobalVariables.Instance.gameMode != GameMode.WOLRDMAINMENU) {
+            Destroy(miniMapBorder);
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame

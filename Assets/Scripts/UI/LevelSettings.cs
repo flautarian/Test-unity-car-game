@@ -87,7 +87,10 @@ public class LevelSettings : MonoBehaviour
         prize = lvl.prize;
         prizeDetail = lvl.prizeDetail;
         lvlIndex = lvl.lvlIndex;
-        StuntOverride = lvl.StuntOverride;
+        StuntOverride = new int[lvl.StuntOverride.Length];
+        for(int i = 0; i < lvl.StuntOverride.Length; i++){
+            StuntOverride[i] = lvl.StuntOverride[i];    
+        }
         sceneName = lvl.sceneName;
     }
 

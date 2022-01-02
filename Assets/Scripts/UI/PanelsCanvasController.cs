@@ -128,10 +128,11 @@ public class PanelsCanvasController : MonoBehaviour
                     notificationsI18N._updateParams(stringTextList);
                 }
                 else notificationsI18N._updateParams(new string[0]);
-                notificationsI18N.updateTranslation(true);
+                if(notificationsText.text.StartsWith("^"))notificationsI18N.updateTranslation(true);
                 notificationsAnimation.Play();
                 GlobalVariables.Instance.pendingNotifications.Remove(GlobalVariables.Instance.pendingNotifications[0]);
             }
+            else notificationsText.text = "";
         }
     }
 

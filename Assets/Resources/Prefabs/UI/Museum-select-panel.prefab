@@ -528,7 +528,9 @@ MonoBehaviour:
   - {fileID: -2432090755550338912, guid: a6f3d077f5c9f3d41ac90973e61a84ca, type: 3}
   - {fileID: -2432090755550338912, guid: c874936cf2259c94080b68e544a5fb40, type: 3}
   - {fileID: -2432090755550338912, guid: 2b09be35f14416a40b8742ddeb1ac2b8, type: 3}
-  missingScroll: {fileID: 0}
+  - {fileID: -2432090755550338912, guid: b97137ea10360e14286c946c3cbeba12, type: 3}
+  missingScroll: {fileID: -2432090755550338912, guid: 6ad4eb3a2a46b1940b93c688b512a75a,
+    type: 3}
 --- !u!1 &7815156547293815776
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,7 +2601,7 @@ PrefabInstance:
     - target: {fileID: 280770547593577799, guid: ac3ab5551c069974598f60e242b6e110,
         type: 3}
       propertyPath: m_Text
-      value: ^relic_name_3
+      value: ^relic_name_4
       objectReference: {fileID: 0}
     - target: {fileID: 4802816189659713367, guid: ac3ab5551c069974598f60e242b6e110,
         type: 3}
