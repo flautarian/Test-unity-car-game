@@ -24,6 +24,7 @@ public class MuseumSelectionButton : SelectButtonController, ISelectHandler
         nameText.text = GlobalVariables.Instance.IsRelicEnabled(RelicIndex) ? 
         "^relic_name_" + RelicIndex :
         "^relic_name_hidden";
+        nameI18n.updateTranslation(true);
     }
 
     public void OnSelect(BaseEventData eventData)

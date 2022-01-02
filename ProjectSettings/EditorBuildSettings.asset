@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame.unity
     guid: 7d42ae9d9d9794445bf470bc50c85817
+  - enabled: 1
+    path: Assets/Scenes/StuntChallenge.unity
+    guid: 7aedd0a42e07dce47a72f0b34dc3bcbb
   m_configObjects: {}

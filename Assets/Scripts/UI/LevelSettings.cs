@@ -21,6 +21,8 @@ public class LevelSettings : MonoBehaviour
 
     // index del nivell a les listes oficials de GlobalVariables
     public int lvlIndex;
+    // mapa a carregar, si esta buit es carrega el mapa endless runner normal, sino es carregara el mapa amb aquest nom (no endless runner)
+    public string sceneName;
     // estat del dia(0 = nit, 21600= mati, 43200 mitgdia, 64800 tarda)
     public int lightLevel;
 
@@ -86,6 +88,7 @@ public class LevelSettings : MonoBehaviour
         prizeDetail = lvl.prizeDetail;
         lvlIndex = lvl.lvlIndex;
         StuntOverride = lvl.StuntOverride;
+        sceneName = lvl.sceneName;
     }
 
 }

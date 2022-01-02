@@ -226,7 +226,11 @@ public class GlobalVariables : MonoBehaviour
     internal void GoToTaxLevel(){
         ResetAllGameOnFlags();
         FadeOutActualSong();
-        SceneManager.LoadScene(2);
+        Debug.Log(actualLevelSettings.sceneName);
+        if(actualLevelSettings.sceneName != "")
+            SceneManager.LoadScene(actualLevelSettings.sceneName);
+        else
+            SceneManager.LoadScene(2);
     }
 
     public void CleanBeforeChangeScene(){
@@ -283,6 +287,15 @@ public class GlobalVariables : MonoBehaviour
         //saveGameData.UpdateSaveGame();
     }
 
+    internal void NotifyActualLvlObjective(){
+        pendingNotifications.Add( "^detail_lvl_panel_objective_" + (int)actualLevelSettings.objective + "|" + actualLevelSettings.objectiveTarget + "|" + actualLevelSettings.objectiveEspecification);
+    }
+
+    internal void NotifyToUISystem(string msg){
+        if(pendingNotifications.IndexOf(msg) < 0)
+            pendingNotifications.Add(msg);
+    }
+
     internal void UnlockRelic(int key){
         saveGameData.data.relics[key] = 1;
         NotifyRelicUnlocked(key);
@@ -313,7 +326,7 @@ public class GlobalVariables : MonoBehaviour
     internal Stunt[] GenerateStuntListWithEquippedStunts(){
         Stunt[] result = new Stunt[4];
         int[] stuntsToLoad = GetStuntsToLoad();
-        for(int s =0; s < stuntsToLoad.Length; s++){
+        for(int s = 0; s < stuntsToLoad.Length; s++){
             if(saveGameData.data.equippedScrolls[s] >= 0){
                 UnityEngine.Object newScroll = (UnityEngine.Object)Resources.Load("Prefabs/Stunts/" + Constants.STUNT_NAMES[saveGameData.data.equippedScrolls[s]]);
                 GameObject scrollGO = (GameObject)Instantiate(newScroll);
@@ -343,18 +356,38 @@ public class GlobalVariables : MonoBehaviour
     {
         GetAndPlayChunk(Constants.CHUNK_HIT_COIN, ((float) UnityEngine.Random.Range(9f, 13f) / 10f));
         totalCoins += (number * (stuntCombo <= 0 ? 1 : stuntCombo));
+        AddObjectivePoint(ObjectiveGameType.NUMBER_COINS, number);
     }
 
     internal void addStuntEC(int number)
     {
         totalStuntEC += number;
         if(totalStuntEC > 100) totalStuntEC = 100;
+        AddObjectivePoint(ObjectiveGameType.ORBS, number);
     }
 
     internal void substractStuntEC(int number)
     {
         totalStuntEC -= number;
         if(totalStuntEC < 0) totalStuntEC = 0;
+    }
+
+    internal void AddObjectivePoint(int number){
+        objectiveActualTarget += number;
+        if(objectiveActualTarget >= actualLevelSettings.objectiveTarget &&
+                !generateGoalLine) {
+            GenerateGoalLineObject();
+            GetAndPlayChunk("Objective_Unlocked", 1.0f);
+        }
+        else if(!generateGoalLine){
+            GetAndPlayChunk("Objective_Add", 0.75f);
+        }
+    }
+
+    internal void AddObjectivePoint(ObjectiveGameType objective, int number){
+        if(objective == actualLevelSettings.objective){
+            AddObjectivePoint(number);
+        }
     }
 
     internal void UpdateMinZLimit(float zAxis){
@@ -453,11 +486,7 @@ public class GlobalVariables : MonoBehaviour
         if(inGameState == InGamePanels.GAMEON)
             streetAnimator.SetBool(Constants.ANIMATION_STREET_FALL_BOOL, true);
         UpdateMinZLimit(streetAnimator.transform.position.z);
-        if(actualLevelSettings.objective == ObjectiveGameType.NUMBER_STREETS){
-            objectiveActualTarget++;
-            if(objectiveActualTarget >= actualLevelSettings.objectiveTarget && !generateGoalLine) 
-                GenerateGoalLineObject();
-        }
+        AddObjectivePoint(ObjectiveGameType.NUMBER_STREETS, 1);
     }
 
     public int GetActualObjectiveTarget(){
@@ -645,7 +674,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public bool IsLevelGameState(){
-        return gameMode == GameMode.INFINITERUNNER || gameMode ==  GameMode.CHALLENGE;
+        return gameMode == GameMode.INFINITERUNNER || gameMode ==  GameMode.CHALLENGE || gameMode == GameMode.MULTIPLAYER;
     }
 
     public bool IsMainMenuGameState(){

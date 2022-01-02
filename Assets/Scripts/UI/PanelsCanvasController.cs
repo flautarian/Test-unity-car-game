@@ -117,14 +117,20 @@ public class PanelsCanvasController : MonoBehaviour
     private void ManageNotifications(){
         if(GlobalVariables.Instance.pendingNotifications.Count != 0){
             if(!notificationsAnimation.isPlaying){
+                notificationsText.gameObject.SetActive(true);
                 var texts = GlobalVariables.Instance.pendingNotifications[0].Split('|');
-                if(texts.Length == 2){    
-                    notificationsText.text = texts[0];
-                    var stringTextList = new string[]{texts[1]};
+                notificationsText.text = texts[0];
+                Debug.Log(notificationsText.text);
+                var stringTextList = new string[texts.Length-1];
+                if(texts.Length >= 2){    
+                    stringTextList[0] = texts[1];
+                    if(texts.Length > 2) stringTextList[1] = texts[2];
                     notificationsI18N._updateParams(stringTextList);
-                    notificationsAnimation.Play();
-                    GlobalVariables.Instance.pendingNotifications.Remove(GlobalVariables.Instance.pendingNotifications[0]);
                 }
+                else notificationsI18N._updateParams(new string[0]);
+                notificationsI18N.updateTranslation(true);
+                notificationsAnimation.Play();
+                GlobalVariables.Instance.pendingNotifications.Remove(GlobalVariables.Instance.pendingNotifications[0]);
             }
         }
     }
@@ -204,6 +210,7 @@ public class PanelsCanvasController : MonoBehaviour
             break;
         };
         GlobalVariables.Instance.actualPanelInteractionType = PanelInteractionType.NO_INTERACTION;
+        GlobalVariables.Instance.CleanBeforeChangeScene();
         SceneManager.LoadScene(lastScene);
     }
 

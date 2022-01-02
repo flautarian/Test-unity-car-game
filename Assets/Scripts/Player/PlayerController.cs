@@ -263,6 +263,7 @@ public class PlayerController : MonoBehaviour
     }
 
     internal bool InitStunt(Stunt stunt){
+        GlobalVariables.Instance.AddObjectivePoint(stunt.groundStunt ? ObjectiveGameType.NUMBER_GROUNDAL_STUNTS : ObjectiveGameType.NUMBER_AERIAL_STUNTS, 1);
         if(stunt.stuntType != StuntType.NORMAL && stunt.units > GlobalVariables.Instance.totalStuntEC)
         {
             GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
@@ -368,7 +369,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(ResetPosition());
         }
         else{
-            playerAnimator.SetBool(Constants.ANIMATION_NAME_EXPLODE_BOOL, true);
+            playerAnimator.SetTrigger(Constants.ANIMATION_NAME_EXPLODE_BOOL);
             guiController.startGameOver(reason);
         }
     }

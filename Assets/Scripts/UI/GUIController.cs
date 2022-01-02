@@ -32,6 +32,7 @@ public class GUIController : MonoBehaviour
         // force startGame for edit actions
         if (forceStartGame) startGame();
         StartCoroutine(GlobalVariables.Instance.PlayDefaultSceneSong());
+        if(GlobalVariables.Instance.IsLevelGameState()) GlobalVariables.Instance.NotifyActualLvlObjective();
     }
 
         // Update is called once per frame
