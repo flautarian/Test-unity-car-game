@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using Honeti;
+using TMPro;
 
 public enum GameMode
 {
@@ -153,6 +155,14 @@ public class GlobalVariables : MonoBehaviour
     [SerializeField]
     private AudioSource chunkSource;
 
+    // configuracions URP segons nivell de qualitat
+    // 0 - very low
+    // 1 - low
+    // 2 - medium
+    // 3 - high
+    [SerializeField]
+    private RenderPipelineAsset[] rpas;
+
     [SerializeField]
     internal AudioSource musicSource;
 
@@ -230,7 +240,6 @@ public class GlobalVariables : MonoBehaviour
     internal void GoToTaxLevel(){
         ResetAllGameOnFlags();
         FadeOutActualSong();
-        Debug.Log(actualLevelSettings.sceneName);
         if(actualLevelSettings.sceneName != "")
             SceneManager.LoadScene(actualLevelSettings.sceneName);
         else
@@ -294,7 +303,9 @@ public class GlobalVariables : MonoBehaviour
     }
 
     internal void NotifyActualLvlObjective(){
-        pendingNotifications.Add( "^detail_lvl_panel_objective_" + (int)actualLevelSettings.objective + "|" + actualLevelSettings.objectiveTarget + "|" + actualLevelSettings.objectiveEspecification);
+        var msg = "^detail_lvl_panel_objective_" + (int)actualLevelSettings.objective + "|" + actualLevelSettings.objectiveTarget + "|" + actualLevelSettings.objectiveEspecification;
+        if(pendingNotifications.IndexOf(msg) < 0)
+            pendingNotifications.Add(msg);
     }
 
     internal void NotifyToUISystem(string msg){
@@ -335,7 +346,7 @@ public class GlobalVariables : MonoBehaviour
         int[] stuntsToLoad = GetStuntsToLoad();
         for(int s = 0; s < stuntsToLoad.Length; s++){
             if(stuntsToLoad[s] >= 0){
-                Debug.Log(Constants.STUNT_NAMES[stuntsToLoad[s]] + ": loaded");
+                //Debug.Log(Constants.STUNT_NAMES[stuntsToLoad[s]] + ": loaded");
                 UnityEngine.Object newScroll = (UnityEngine.Object)
                     Resources.Load("Prefabs/Stunts/" + Constants.STUNT_NAMES[stuntsToLoad[s]]);
                 GameObject scrollGO = (GameObject)Instantiate(newScroll);
@@ -435,6 +446,14 @@ public class GlobalVariables : MonoBehaviour
         return saveGameData.data.farCamera;
     }
 
+    public int GetQuality(){
+        return saveGameData.data.quality;
+    }
+
+    public bool GetFullscreen(){
+        return saveGameData.data.fullscreen;
+    }
+
     public float GetSoundLevel(){
         return saveGameData.data.soundValue;
     }
@@ -444,8 +463,8 @@ public class GlobalVariables : MonoBehaviour
     }
     public void UpdateSoundLevel(float level){
         saveGameData.data.soundValue = level;
+        musicSource.volume = saveGameData.data.soundValue;
     }
-
     public void UpdateHSensibilityLevel(float level){
         saveGameData.data.hSensibility = level;
     }
@@ -460,6 +479,17 @@ public class GlobalVariables : MonoBehaviour
         saveGameData.data.farCamera =  75 + (int) (50 * level);
         if(mainCameraControl == null) UpdateMainCameraAttribute();
         if(mainCameraControl != null) mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
+    }
+
+    public void UpdateQuality(int level){
+        saveGameData.data.quality = level;
+        QualitySettings.SetQualityLevel(level);
+        QualitySettings.renderPipeline = rpas[level];
+    }
+
+    public void UpdateFullscreen(bool value){
+        saveGameData.data.fullscreen = value;
+        Screen.fullScreen = value;
     }
 
     public float GetChunkLevel(){
@@ -522,6 +552,8 @@ public class GlobalVariables : MonoBehaviour
         if(I18N.instance != null)
             I18N.instance.setLanguage(saveGameData.data.language);
         totalCoins = IsLevelGameState() ? 0 : saveGameData.data.totalCoins;
+        UpdateQuality(saveGameData.data.quality);
+        UpdateFullscreen(saveGameData.data.fullscreen);
         UpdateVolumeAudioSources();
     }
 
@@ -705,7 +737,12 @@ public class GlobalVariables : MonoBehaviour
         if(musicSource.isPlaying) musicSource.Stop();
         AudioClip clip = PoolManager.Instance.SpawnSongFromPool(song);
         if(clip != null) musicSource.clip = clip;
+        musicSource.volume = GetSoundLevel();
         musicSource.Play();
+    }
+
+    public bool IsPlayerRunning(){
+        return Math.Abs(playerCurrentVelocity) > 2f;
     }
 
     internal IEnumerator PlayDefaultSceneSong(){

@@ -158,7 +158,7 @@ public class GUIController : MonoBehaviour
         Animator animator = null;
         if(panelCanvas != null)
             animator = panelCanvas.GetComponent<Animator>();
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(3f);
         if(animator != null)animator.SetTrigger(panelsTrigger);
 
     }

@@ -80,6 +80,8 @@ public class PlayerController : MonoBehaviour
 
     private AudioSource audioSource;
 
+    public float zAngle =0;
+
     private void Awake(){
         player = GetComponentInChildren<Player>();
         if (player != null)
@@ -108,11 +110,9 @@ public class PlayerController : MonoBehaviour
         playerAnimator.speed = player.stuntHability;
         stuntAnimationOverriderController = GetComponent<StuntAnimationOverriderController>();
         audioSource = GetComponent<AudioSource>();
-        stuntAnimationOverriderController.Set(null);
         GameObject gui = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
         if (gui != null) guiController = gui.GetComponent<GUIController>();
     }
-
     private void Update() {
         //Activem l'animacio de 'vehicle xocat' en cas de haver xocat amb el vehicle
         /*if(playerBoxCollider != null){
@@ -125,7 +125,10 @@ public class PlayerController : MonoBehaviour
 
         //Refresc de posició
         transform.position = playerSphereRigidBody.transform.position;
+    }
 
+    private void FixedUpdate()
+    {
         if (canMove && !turned)
         {
             turnZAxisEffect = HorizontalAxis * (grounded && !turned ? 5 : 1);
@@ -135,28 +138,7 @@ public class PlayerController : MonoBehaviour
             // manipulacio de shader de radial blur en cas de potenciador de velocitat
             manageNitro();
         }
-    }
-
-    internal void UpdatePlayerAnimationStuntMode(bool newState){
-        playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, newState);
-        trickMode = newState;
-    }
-
-    internal bool IsInStuntMode(){
-        return isStunting > -1 && trickMode;
-    }
-    
-    internal void updateTrickState(int state){
-        isStunting = state;
-    }
-
-    internal void updateActualTrick(StuntType stuntType){
-        actualStuntTricking = stuntType;
-    }
-    
-
-    private void FixedUpdate()
-    {
+        
         if(GlobalVariables.Instance.playerTargetedByCamera && canMove){
             //Captura de tecles
             HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
@@ -167,9 +149,9 @@ public class PlayerController : MonoBehaviour
             VerticalAxis = 0;
         }
 
+        // Mirar raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
+        ManageTurnUpPlayerOrientation();
         if(Time.time - timeSentinelRaycast >= 0.2f){
-            // Mirar raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
-            ManageTurnUpPlayerOrientation();
 
             if(!GlobalVariables.Instance.turnedCar && turned){
                 playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_TURN_UP);
@@ -195,7 +177,10 @@ public class PlayerController : MonoBehaviour
             if (grounded)
             {
                 playerSphereRigidBody.drag = dragGroundValue;
-                if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) playerSphereRigidBody.AddForce(transform.forward * speedInput);
+                if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) {
+
+                    playerSphereRigidBody.AddForce(transform.forward * speedInput);
+                }
             }
             else
             {
@@ -206,15 +191,36 @@ public class PlayerController : MonoBehaviour
         else if (!canMove || turned) playerSphereRigidBody.drag = 3.5f;
     }
 
+
+
+    internal void UpdatePlayerAnimationStuntMode(bool newState){
+        playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, newState);
+        trickMode = newState;
+    }
+
+    internal bool IsInStuntMode(){
+        return isStunting > -1 && trickMode;
+    }
+    
+    internal void updateTrickState(int state){
+        isStunting = state;
+    }
+
+    internal void updateActualTrick(StuntType stuntType){
+        actualStuntTricking = stuntType;
+    }
+    
+
     private void ManageTurnUpPlayerOrientation(){
-        var zAngle = Math.Abs(360 - transform.rotation.eulerAngles.z);
+        zAngle = Math.Abs(360 - transform.rotation.eulerAngles.z);
         if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround)){
             turned = false;
             if(turnedUpParticle.gameObject.activeSelf) 
                 turnedUpParticle.gameObject.SetActive(turned);
             grounded = true;
         }
-        else if( grounded && (zAngle > 50 && zAngle < 310)){
+        else if( grounded && (zAngle > 110 && zAngle < 255)){
+            Debug.Log(zAngle);
             if(!turned) {
                 GlobalVariables.Instance.turnedCar = true;
                 stuntComboIndicator.ResetComboIndicator();
@@ -226,7 +232,10 @@ public class PlayerController : MonoBehaviour
         else {
             grounded = false;
             turned = false;
+            GlobalVariables.Instance.turnedCar = turned;
+            turnedUpParticle.gameObject.SetActive(turned);
         }
+            
     }
 
     private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative){
@@ -267,6 +276,7 @@ public class PlayerController : MonoBehaviour
         if(stunt.stuntType != StuntType.NORMAL && stunt.units > GlobalVariables.Instance.totalStuntEC)
         {
             GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
+            GlobalVariables.Instance.GetAndPlayChunk("UI_Ko", 1.0f);
             return false;
         }
         else if(stunt.stuntType == StuntType.NORMAL)
@@ -275,7 +285,7 @@ public class PlayerController : MonoBehaviour
             GlobalVariables.Instance.substractStuntEC(stunt.units);
         RequestAndPlayChunk(stunt.chunkName);
         GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_HIT, transform.position);
-        stuntAnimationOverriderController.Set(stunt.GetAnimation());
+        stuntAnimationOverriderController.SetAnimation("StuntDefaultAnimation", stunt.GetAnimation());
         playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_INIT_STUNT);
         playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, true);
         stuntComboPSEmissionVar.enabled = true;
@@ -425,6 +435,7 @@ public class PlayerController : MonoBehaviour
                         int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
                         if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
                         {
+                            stuntAnimationOverriderController.SetAnimation("playerHitAndRecovery", playerAnimator.runtimeAnimatorController.animationClips[0]);
                             if(trickMode) communicateStuntReset();
                             // executing particles from GlobalVariables
                             GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_BOOM, partDestroyed.transform.position);

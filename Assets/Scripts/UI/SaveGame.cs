@@ -34,6 +34,10 @@ public class SaveGame : MonoBehaviour
         internal int farCamera = 90;
         // FOV Horitzontal
         internal int farClipPlane = 75;
+        // Qualitat de video
+        internal int quality = 0;
+        // Indicador de pantalla completa
+        internal bool fullscreen = false;
         // mon a carregar en pas de mainMenu a mon del joc, per default a 0 (primer mon)
         internal int levelCheckPointToRespawn = 0;
         // Idioma

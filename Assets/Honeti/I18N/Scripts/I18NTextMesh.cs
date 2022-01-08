@@ -165,7 +165,6 @@ namespace Honeti
 
         public void _updateParams(string[] _p){
             _params = _p;
-            _updateTranslation();
         }
     }
 }

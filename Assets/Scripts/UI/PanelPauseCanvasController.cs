@@ -27,6 +27,7 @@ namespace Honeti
                 objectiveText.text = Constants.OBJECTIVE_LITERAL + (int)GlobalVariables.Instance.GetLevelObjective();
                 if(objectiveI18N != null) objectiveI18N._updateParams(new string[]
                 {"" + GlobalVariables.Instance.GetLevelObjectiveTarget(), GlobalVariables.Instance.GetLevelObjectiveEsp()});
+                objectiveI18N.updateTranslation(true);
             }
             else objectivePanel.SetActive(false);
         }

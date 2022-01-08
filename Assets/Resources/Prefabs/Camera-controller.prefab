@@ -2664,7 +2664,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Notification
+  m_Text: ^relic_name_0
 --- !u!114 &6859744501223861352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2677,7 +2677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c2db38af2b7154b83fe2f0066bd308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dontOverwrite: 1
+  _dontOverwrite: 0
   _params: []
 --- !u!1 &3084797695764933682
 GameObject:
@@ -5364,7 +5364,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294963424
+    m_Bits: 4294959328
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5524,7 +5524,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7957365908623865703}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -30.1}
+  m_LocalPosition: {x: 0, y: 0, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6464939483562267397}
@@ -7194,7 +7194,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294963424
+    m_Bits: 4294959328
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -7556,8 +7556,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9068269817508104736}
-  m_LocalRotation: {x: 0.27544892, y: -0.000000016540765, z: 0.000000004739479, w: 0.96131575}
-  m_LocalPosition: {x: 0, y: 5.31, z: 0.29999995}
+  m_LocalRotation: {x: 0.00000084433935, y: 0.9615836, z: -0.2745122, w: 0.0000029576208}
+  m_LocalPosition: {x: -113.25007, y: 5.3, z: -295.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9068269816834089046}
@@ -7586,15 +7586,15 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
-  far clip plane: 60
-  field of view: 60
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 40
   orthographic: 0
   orthographic size: 10
   m_Depth: 50
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3863
+    m_Bits: 7959
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -8903,6 +8903,11 @@ PrefabInstance:
       propertyPath: mutators.Array.data[3]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 678547649089760664, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
+      propertyPath: secondsFallTouchedTerrain
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 702973552175632380, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
       propertyPath: prize
@@ -8942,6 +8947,11 @@ PrefabInstance:
         type: 3}
       propertyPath: mutators.Array.data[3]
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 702973552175632380, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
+      propertyPath: secondsFallTouchedTerrain
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 702973552743748699, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
@@ -9228,6 +9238,11 @@ PrefabInstance:
       propertyPath: mutators.Array.data[3]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2794504516598728101, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
+      propertyPath: secondsFallTouchedTerrain
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2866618232587372094, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
       propertyPath: m_FontData.m_BestFit
@@ -9308,6 +9323,11 @@ PrefabInstance:
       propertyPath: mutators.Array.data[3]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4497684628921489833, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
+      propertyPath: secondsFallTouchedTerrain
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4569650874557225522, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}
       propertyPath: m_FontData.m_BestFit
@@ -9357,6 +9377,11 @@ PrefabInstance:
         type: 3}
       propertyPath: mutators.Array.data[3]
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5643223533755744988, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
+        type: 3}
+      propertyPath: secondsFallTouchedTerrain
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5715231697905254727, guid: 6d2bb43ab34baed4ba0d05f8ba23889a,
         type: 3}

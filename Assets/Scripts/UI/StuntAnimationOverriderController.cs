@@ -12,11 +12,9 @@ public class StuntAnimationOverriderController : MonoBehaviour
     
     private void Start() {
         anim = GetComponent<Animator>();
-        //animatorOverrider = new AnimatorOverrideController(animator.runtimeAnimatorController);
         anim.runtimeAnimatorController = animatorOverrider;
     }
-
-    public void Set(AnimationClip animation){
-        animatorOverrider["StuntDefaultAnimation"] = animation;
+    public void SetAnimation(string animName, AnimationClip animation){
+        animatorOverrider[animName] = animation;
     }
 }

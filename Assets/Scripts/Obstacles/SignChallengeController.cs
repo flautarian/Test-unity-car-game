@@ -19,13 +19,14 @@ public class SignChallengeController : MonoBehaviour
             if(outlineScript != null)
                 outlineScript.updateOutlineLevel(pointed ? Constants.OUTLINE_WITH_ENABLED : Constants.OUTLINE_WITH_DISABLED);
 
-            if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))
-            || (pointed && Input.GetButtonDown(Constants.BACK))){
+            if(!GlobalVariables.Instance.IsPlayerRunning() &&
+                (Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))
+                || (pointed && Input.GetButtonDown(Constants.BACK)))){
                 pointed = !pointed;
                 ManageSignChallengeChange();
             }
         }
-        if(pointed) transform.LookAt(cam.transform);
+        
     }
 
     private void ManageSignChallengeChange(){
@@ -33,6 +34,7 @@ public class SignChallengeController : MonoBehaviour
             GlobalVariables.Instance.GetAndPlayChunk(Constants.CHUNK_OK_UI_BUTTON, 1f);
             GlobalVariables.Instance.PrepareGlobalToLevel(lvlChallenge);
             GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.CHALLENGE_TYPE, this.transform, this.transform);
+            transform.LookAt(cam.transform);
         }
         else
             GlobalVariables.Instance.GetAndPlayChunk(Constants.CHUNK_BACK_UI_BUTTON, 1f);

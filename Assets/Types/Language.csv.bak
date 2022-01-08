@@ -7,6 +7,11 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^button_continue	Continue	MEK	Continuar	MEK	MEK	MEK
 ^button_options_label_video	Video	MEK	Video	MEK	MEK	MEK
 ^button_options_label_video_FOV	Field of view	MEK	Vista	MEK	MEK	MEK
+^button_options_label_video_quality	Quality	MEK	Calidad	MEK	MEK	MEK
+^button_options_label_video_quality_verylow	Very low	MEK	Muy bajo	MEK	MEK	MEK
+^button_options_label_video_quality_low	Low	MEK	Bajo	MEK	MEK	MEK
+^button_options_label_video_quality_medium	Medium	MEK	Medio	MEK	MEK	MEK
+^button_options_label_video_quality_high	High	MEK	Alta	MEK	MEK	MEK
 ^button_options_label_video_Camera	Depth	MEK	Profundidad	MEK	MEK	MEK
 ^button_options_label_sound	Sound	MEK	Sonido	MEK	MEK	MEK
 ^button_options_label_sound_sound	Sound level	MEK	Volumen de musica	MEK	MEK	MEK
@@ -53,14 +58,14 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^relic_name_3	Twisted sword	MEK	Espada trenzada	MEK	MEK	MEK
 ^relic_name_4	Arc of the horde	MEK	Arca de la horda	MEK	MEK	MEK
 ^relic_name_hidden	???	MEK	???	MEK	MEK	MEK
-^relic_description_0	Towel from the humans era if you are properly close you can hear say galimatias	MEK	Antigua toalla parlante de la era de los humanos Actualmente solo cuenta galimatias	MEK	MEK	MEK
-^relic_description_1	Fossilized food from a rage cooker you can read in its back: 'property of mr white'	MEK	Comida petrificada de antiguas epocas humanas, en su reverso puede leerse lo siguiente: 'propiedad de mr white'	MEK	MEK	MEK
+^relic_description_0	Fossilized food from a rage cooker you can read in its back: 'property of mr white'	MEK	Comida petrificada de antiguas epocas humanas, en su reverso puede leerse lo siguiente: 'propiedad de mr white'	MEK	MEK	MEK
+^relic_description_1	Towel from the humans era if you are properly close you can hear say galimatias	MEK	Antigua toalla parlante de la era de los humanos Actualmente solo cuenta galimatias	MEK	MEK	MEK
 ^relic_description_2	Antique emblem of an ancient site respected by humans, the machines detects that this objects has been manipulated by another kind of time machines.	MEK	Antiguo emblema que simbolizaba un lugar de culto humano, las maquinas han detectado particulas de tiempo en el	MEK	MEK	MEK
 ^relic_description_3	Ancient sword with remaining cinder, in that ages they whereobsesionated with the 'sun'	MEK	Antigua espada con restos de ceniza,en su epoca de apogeo los humanos parecian estar obsesionados con el 'sol'	MEK	MEK	MEK
 ^relic_description_4	Very rare arc with a weapon in there (based in legends), perfect, another dangeorus artifact to the collection...	MEK	Arca muy rara con un arma en su interior (segun escritos), perfecto, otro artefacto peligroso para la coleccion... 	MEK	MEK	MEK
 ^relic_unlocked_notification	Relic {0} unlocked!!, examine it to see more details of human epoque in the museum	MEK	Reliquia {0} conseguida!!, examina su significado en epocas humanas en el museo	MEK	MEK	MEK
 ^stunt_unlocked_notification	Stunt {0} unlocked!!, equip it and learn its power at the library	MEK	Stunt {0} conseguido!!, equipalo y conoce su poder en la libreria	MEK	MEK	MEK
-^coins_unlocked_notification	Added {0} to your cash!!	MEK	Conseguidas {0} monedas para tu caja!!	MEK	MEK	MEK
+^coins_unlocked_notification	{0} coins earned!! 	MEK	Conseguidas {0} monedas!!	MEK	MEK	MEK
 ^detail_lvl_panel_objective_0	Defeat the boss with your road habilities	MEK	Derrota al jefe con tus habilidades al volante	MEK	MEK	MEK
 ^detail_lvl_panel_objective_1	Obtain at least {0} stunt orbs	MEK	Consigue obtener {0} orbes de stunt	MEK	MEK	MEK
 ^detail_lvl_panel_objective_2	Execute at least {0} aerial stunts	MEK	Consigue ejecutar al menos {0} aerials	MEK	MEK	MEK
@@ -75,3 +80,4 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^sign_comm_info	Welcome to the Comm center!:\nWhen it will operative \nthis building will can comunicate you\nwith another survivors of the temporal cataclysm\nto...compete?	MEK	Bienvenido a la torre de radio\nCuando este operativa podras comunicarte con otros supervivientes del catalismo temporal para...competir?	MEK	MEK	MEK
 ^sign_stunt_info_1	Stunts:\nEfficient vehicles knows how to do stunts \n They are 3 types of stunt: \n -Attack\n -Defense\n -Generate\n You can do a stunt by keep pressing\nstunt key and press the combination\nof the stunt, but be carefull,\nthe aerial stunts works only in\nmiddle of the air and groundals\nonly works in land!! 	MEK	: Stunts\nLos vehículos eficientes saben cómo hacer acrobacias \n Hay 3 tipos de acrobacias: \n -Ataque \n -Defensa \n -Generadores \n Puedes hacer una acrobacia si mantienes presionada la tecla\nstunt y presionas la combinación \n de la acrobacia, pero ten cuidado,\nlos aerials sólo funcionan en mmedio \ndel aire y los groundals funcionan \nsolo estando en el suelo!!	MEK	MEK	MEK
 ^sign_stunt_info_2	Stunts:\nmeanwhile the attack and defense stunts \nneed stunt energy to be executed \nYou can get that energy executing\ngenerate stunts to charge your\nstunt bar	MEK	Stunts:\nMientras las acrobacias de ataque y defensa\nnecesitan energia stunt,\n Puedes ejecutar acrobacias generadoras o coger\nesferas de stunt para conseguir\nla energia necesaria para ejecutar acrobacias\nmayores	MEK	MEK	MEK
+^notif_goal_not_unlocked	The goal is not unlocked yet, pass here when the objective is complete	MEK	El objetivo todavia no esta cumplido, pasa por aqui cuando el nivel este completado	MEK	MEK	MEK

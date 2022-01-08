@@ -74,7 +74,13 @@ MonoBehaviour:
   cameraFollowFocusTransform: {fileID: 0}
   eventSystem: {fileID: 0}
   chunkSource: {fileID: 1549530906458651004}
+  rpas:
+  - {fileID: 11400000, guid: 4fb6d06b09cce8b42b5d2be3e319e0c4, type: 2}
+  - {fileID: 11400000, guid: 081c9e452c42595438b9450c87cc477e, type: 2}
+  - {fileID: 11400000, guid: 7d05ac7340ab86a4789e0c25971fb5a2, type: 2}
+  - {fileID: 11400000, guid: 83f14bccc17e8c3458e5e3fe51640a7d, type: 2}
   musicSource: {fileID: 4730040058288128223}
+  pendingNotifications: []
   playerTargetedByCamera: 1
   stuntCombo: 0
 --- !u!114 &7094591356523731213
@@ -154,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lvlIndex: 0
+  sceneName: 
   lightLevel: 0
   availablePrefabs: []
   objective: 5
@@ -173,6 +180,7 @@ MonoBehaviour:
   gameMode: 0
   prize: 0
   prizeDetail: 0
+  StuntOverride: 
 --- !u!114 &6804048432400010630
 MonoBehaviour:
   m_ObjectHideFlags: 0

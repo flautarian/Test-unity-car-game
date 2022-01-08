@@ -22,7 +22,7 @@ public class StuntsController : MonoBehaviour
     }
     void Update()
     {
-        if(playerController.canMove && !playerController.turned){
+        if(playerController.canMove && !playerController.turned && GlobalVariables.Instance.inGameState == InGamePanels.GAMEON){
             if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT)) && !stuntsModeEnabled)
                     ActivateStuntMode();
             else if(stuntsModeEnabled){

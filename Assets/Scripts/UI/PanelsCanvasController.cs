@@ -58,8 +58,11 @@ public class PanelsCanvasController : MonoBehaviour
             if(Input.GetButtonDown(Constants.BACK) && GlobalVariables.Instance.playerTargetedByCamera){
                 animator.SetTrigger(Constants.ANIMATION_TRIGGER_PAUSEGAME_PANELS);
             }
-            else if(panelInteractionType != PanelInteractionType.NO_INTERACTION &&
-             Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))){
+        }
+        if(!GlobalVariables.Instance.IsPlayerRunning()){
+            if(panelInteractionType != PanelInteractionType.NO_INTERACTION &&
+                IsGame() &&
+                    Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))){
                 switch(panelInteractionType){
                     case PanelInteractionType.TAX_TYPE:
                         ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
@@ -85,17 +88,19 @@ public class PanelsCanvasController : MonoBehaviour
                     break;
                 }
             }
-        }
-        else if(GlobalVariables.Instance.inGameState == InGamePanels.LEVELSELECTION){
-            if(Input.GetButtonDown(Constants.BACK)){
-                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(false, false);
-                animator.SetTrigger(Constants.ANIMATION_TRIGGER_GO_BACK_PANEL_BUTTON);
-                GlobalVariables.Instance.inGameState = InGamePanels.GAMEON;
+            else if(GlobalVariables.Instance.inGameState == InGamePanels.LEVELSELECTION){
+                if(Input.GetButtonDown(Constants.BACK) || 
+                    Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))){
+                    GlobalVariables.Instance.switchCameraFocusToSecondaryObject(false, false);
+                    animator.SetTrigger(Constants.ANIMATION_TRIGGER_GO_BACK_PANEL_BUTTON);
+                    GlobalVariables.Instance.inGameState = InGamePanels.GAMEON;
+                }
             }
-        }
-        else if(GlobalVariables.Instance.inGameState == InGamePanels.SUBUI1){
-            if(Input.GetButtonDown(Constants.BACK)){
-                ExecuteSubUI1Trigger();
+            else if(GlobalVariables.Instance.inGameState == InGamePanels.SUBUI1){
+                if(Input.GetButtonDown(Constants.BACK) ||
+                    Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))){
+                    ExecuteSubUI1Trigger();
+                }
             }
         }
 
@@ -117,22 +122,22 @@ public class PanelsCanvasController : MonoBehaviour
     private void ManageNotifications(){
         if(GlobalVariables.Instance.pendingNotifications.Count != 0){
             if(!notificationsAnimation.isPlaying){
-                notificationsText.gameObject.SetActive(true);
                 var texts = GlobalVariables.Instance.pendingNotifications[0].Split('|');
-                notificationsText.text = texts[0];
-                Debug.Log(notificationsText.text);
-                var stringTextList = new string[texts.Length-1];
-                if(texts.Length >= 2){    
-                    stringTextList[0] = texts[1];
-                    if(texts.Length > 2) stringTextList[1] = texts[2];
-                    notificationsI18N._updateParams(stringTextList);
+                if(texts.Length > 0 && texts[0].StartsWith("^")){
+                    notificationsText.text = texts[0];
+                    Debug.Log(notificationsText.text);
+                    var stringTextList = new string[texts.Length-1];
+                    if(texts.Length >= 2){    
+                        stringTextList[0] = texts[1];
+                        if(texts.Length > 2) stringTextList[1] = texts[2];
+                        notificationsI18N._updateParams(stringTextList);
+                    }
+                    else notificationsI18N._updateParams(new string[0]);
+                    notificationsI18N.updateTranslation(true);
+                    GlobalVariables.Instance.pendingNotifications.Remove(GlobalVariables.Instance.pendingNotifications[0]);
+                    notificationsAnimation.Play();
                 }
-                else notificationsI18N._updateParams(new string[0]);
-                if(notificationsText.text.StartsWith("^"))notificationsI18N.updateTranslation(true);
-                notificationsAnimation.Play();
-                GlobalVariables.Instance.pendingNotifications.Remove(GlobalVariables.Instance.pendingNotifications[0]);
             }
-            else notificationsText.text = "";
         }
     }
 
@@ -176,6 +181,10 @@ public class PanelsCanvasController : MonoBehaviour
     private void ExecuteAnimationToActiveUI(string Interaction){
         animator.SetTrigger(Interaction);
         GlobalVariables.Instance.switchCameraFocusToSecondaryObject(true, false);
+    }
+
+    private bool IsGame(){
+        return GlobalVariables.Instance.inGameState == InGamePanels.GAMEON;
     }
 
     private bool IsGameOnOrPaused(){

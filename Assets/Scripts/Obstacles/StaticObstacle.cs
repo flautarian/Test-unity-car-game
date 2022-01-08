@@ -79,7 +79,7 @@ public class StaticObstacle : Obstacle
                 rigidBody.AddForce(force * magnitude);
             }
             // start explode animation and disable path follow
-            if (animator != null)
+            if (animator != null && animator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) != null)
                 animator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
         }
         else if (rigidBody != null && rigidBodySlept && !rigidBody.IsSleeping())

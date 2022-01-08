@@ -76,8 +76,8 @@ public class LvlDetailsPanelController : MonoBehaviour
             objectiveText.text = Constants.OBJECTIVE_LITERAL + (int)lvl.objective;
             I18NDetails[0] = ""+lvl.objectiveTarget;
             I18NDetails[1] = lvl.objectiveEspecification;
-            objectiveI18N.updateTranslation(true);
             objectiveI18N._updateParams(I18NDetails);
+            objectiveI18N.updateTranslation(true);
         }
         if(PrizeText != null)
             PrizeText.text = lvl.prize == LevelSettings.PrizeLevel.COINS ? " X " + lvl.prizeDetail : "";
