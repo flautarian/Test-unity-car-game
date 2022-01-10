@@ -8,6 +8,7 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^button_options_label_video	Video	MEK	Video	MEK	MEK	MEK
 ^button_options_label_video_FOV	Field of view	MEK	Vista	MEK	MEK	MEK
 ^button_options_label_video_quality	Quality	MEK	Calidad	MEK	MEK	MEK
+^button_options_label_fullscreen	Fullscreen	MEK	Pantalla completa	MEK	MEK	MEK
 ^button_options_label_video_quality_verylow	Very low	MEK	Muy bajo	MEK	MEK	MEK
 ^button_options_label_video_quality_low	Low	MEK	Bajo	MEK	MEK	MEK
 ^button_options_label_video_quality_medium	Medium	MEK	Medio	MEK	MEK	MEK

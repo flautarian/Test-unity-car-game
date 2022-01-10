@@ -6522,11 +6522,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1256032601}
     m_Modifications:
-    - target: {fileID: -308499694490663538, guid: 867bbb18d759f2e4a82e5a4df9207b26,
-        type: 3}
-      propertyPath: outlineWidth
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 2641498996505437159, guid: 867bbb18d759f2e4a82e5a4df9207b26,
         type: 3}
       propertyPath: m_Name
@@ -21017,11 +21012,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FenseWall (42)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7541905374217708211, guid: 7aeee5f5a8aa6b240963fc39599282f7,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aeee5f5a8aa6b240963fc39599282f7, type: 3}
@@ -47986,12 +47976,12 @@ PrefabInstance:
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016540765
+      value: 0.000000016540765
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000004739479
+      value: -0.000000004739479
       objectReference: {fileID: 0}
     - target: {fileID: 4784338070805083582, guid: ab1132aa8c714174e880039f0005b804,
         type: 3}
@@ -49094,6 +49084,10 @@ PrefabInstance:
     - target: {fileID: 1309327813, guid: e863927783b9658419155e075251fe20, type: 3}
       propertyPath: dragGroundValue
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1309327813, guid: e863927783b9658419155e075251fe20, type: 3}
+      propertyPath: groundRayLength
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1309327813, guid: e863927783b9658419155e075251fe20, type: 3}
       propertyPath: destructableParts.Array.data[0]
@@ -54732,6 +54726,11 @@ PrefabInstance:
       propertyPath: lastScene
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4997065931877057090, guid: adbe659fc6332a04c968949a8d92bcac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -9.9999695
+      objectReference: {fileID: 0}
     - target: {fileID: 6859744501223861352, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: _dontOverwrite
@@ -54855,12 +54854,12 @@ PrefabInstance:
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016540765
+      value: 0.000000016540765
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104765, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000004739479
+      value: -0.000000004739479
       objectReference: {fileID: 0}
     - target: {fileID: 9068269817508104767, guid: adbe659fc6332a04c968949a8d92bcac,
         type: 3}

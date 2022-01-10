@@ -59,12 +59,12 @@ public class StaticObstacle : Obstacle
 
     private void StaticCollition(Transform c)
     {
-        // If the object we hit is the player
-        if(rigidBody.isKinematic && !unMovable)
-            rigidBody.isKinematic = false;
-        if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) || Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER_PART))
-        {
-            if (rigidBody != null)
+        if (rigidBody != null)
+        {    
+            // If the object we hit is the player
+            if(rigidBody.isKinematic && !unMovable)
+                rigidBody.isKinematic = false;
+            if (Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER) || Equals(c.gameObject.tag, Constants.GO_TAG_PLAYER_PART))
             {
                 // start explode animation and disable path follow
                 rigidBodySlept = false;
@@ -77,16 +77,15 @@ public class StaticObstacle : Obstacle
                 force.Normalize();
                 //GetComponent<MeshRenderer>().enabled = false;
                 rigidBody.AddForce(force * magnitude);
+                // start explode animation and disable path follow
+                if (animator != null)
+                    animator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
             }
-            // start explode animation and disable path follow
-            if (animator != null && animator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) != null)
-                animator.SetBool(Constants.ANIMATION_NAME_HIT_BOOL, true);
+            else if (rigidBodySlept && !rigidBody.IsSleeping())
+            {
+                rigidBody.Sleep();
+            }
         }
-        else if (rigidBody != null && rigidBodySlept && !rigidBody.IsSleeping())
-        {
-            rigidBody.Sleep();
-        }
-
     }
 
 }

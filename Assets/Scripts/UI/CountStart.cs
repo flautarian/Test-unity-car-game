@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CountStart : MonoBehaviour
 {
-    public Sprite[] spriteArray;
     public AudioClip[] audioClips;
     private Animator animator;
     private AudioSource audioSource;

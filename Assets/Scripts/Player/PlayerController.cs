@@ -220,7 +220,6 @@ public class PlayerController : MonoBehaviour
             grounded = true;
         }
         else if( grounded && (zAngle > 110 && zAngle < 255)){
-            Debug.Log(zAngle);
             if(!turned) {
                 GlobalVariables.Instance.turnedCar = true;
                 stuntComboIndicator.ResetComboIndicator();
@@ -363,7 +362,6 @@ public class PlayerController : MonoBehaviour
             else if (System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT) && streetType != StreetType.asphalt){
                 slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_ROAD);
                 wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_ROAD);
-                
                 streetType = StreetType.asphalt;
             }
             else if (System.Object.Equals(collision.gameObject.tag, Constants.WATER))
@@ -375,6 +373,11 @@ public class PlayerController : MonoBehaviour
     }
     private void destroyPlayer(string reason)
     {
+        if(turned){
+            turned = false;
+            GlobalVariables.Instance.turnedCar = turned;
+            turnedUpParticle.gameObject.SetActive(turned);
+        }
         if(GlobalVariables.Instance.gameMode == GameMode.WOLRDMAINMENU){
             StartCoroutine(ResetPosition());
         }

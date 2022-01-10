@@ -16,8 +16,7 @@ public class CycleDayNightSun : MonoBehaviour
 
     void Start()
     {
-        if(GlobalVariables.Instance.gameMode != GameMode.MAINMENU &&
-        GlobalVariables.Instance.gameMode != GameMode.WOLRDMAINMENU)
+        if(GlobalVariables.Instance.gameMode != GameMode.MAINMENU)
             time = GlobalVariables.Instance.GetLvlTime();
         Sun = GetComponent<Light>();
         SunTransform = transform;
@@ -45,5 +44,6 @@ public class CycleDayNightSun : MonoBehaviour
         RenderSettings.fogColor = Color.Lerp(fogNight, fogDay, intensity * intensity);
 
         Sun.intensity = intensity;
+        GlobalVariables.Instance.currentLight = intensity;
     }
 }

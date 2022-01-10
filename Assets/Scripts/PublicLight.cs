@@ -12,8 +12,6 @@ public class PublicLight : MonoBehaviour
     {
         publicLight = GetComponent<Light>();
         lightIndex = publicLight.intensity;
-        if(GlobalVariables.Instance.currentLight < 10000)
-            Destroy(this.gameObject);
     }
 
     // Update is called once per frame
@@ -25,6 +23,8 @@ public class PublicLight : MonoBehaviour
             intensity = lightIndex * GlobalVariables.Instance.currentLight;
             publicLight.intensity = intensity;
             publicLight.enabled = intensity > 0;
+            if(GlobalVariables.Instance.currentLight > 0.1)
+                Destroy(this.gameObject);
         }
     }
 }

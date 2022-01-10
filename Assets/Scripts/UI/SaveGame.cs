@@ -80,17 +80,17 @@ public class SaveGame : MonoBehaviour
 
     private Scroll[] GenerateDefaultScrollList(){
         Scroll[] result = new Scroll[20];
-        result[0] = new Scroll("Barrel Roll Left", false, false, 0, "^stunt_description_0", new int[]{3,3,-1,-1});
-        result[1] = new Scroll("Barrel Roll Right", false, false, 0, "^stunt_description_1", new int[]{2,2,-1,-1});
-        result[2] = new Scroll("Gainer", false, true, 1, "^stunt_description_2", new int[]{1,0,0,-1});
-        result[3] = new Scroll("Reversal gainer", false, true, 1, "^stunt_description_3", new int[]{0,1,1,-1});
-        result[4] = new Scroll("Wind Strike", false, true, 2, "^stunt_description_4", new int[]{2,1,3,-1});
-        result[5] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
-        result[6] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
-        result[7] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
-        result[8] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
-        result[9] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
-        result[10] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1});
+        result[0] = new Scroll("Barrel Roll Left", false, false, 0, "^stunt_description_0", new int[]{3,3,-1,-1,-1});
+        result[1] = new Scroll("Barrel Roll Right", false, false, 0, "^stunt_description_1", new int[]{2,2,-1,-1,-1});
+        result[2] = new Scroll("Gainer", false, true, 1, "^stunt_description_2", new int[]{1,0,0,-1,-1});
+        result[3] = new Scroll("Reversal gainer", false, true, 1, "^stunt_description_3", new int[]{0,1,1,-1,-1});
+        result[4] = new Scroll("Wind Strike", false, true, 2, "^stunt_description_4", new int[]{2,1,3,-1,-1});
+        result[5] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1,-1});
+        result[6] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1,-1});
+        result[7] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1,-1});
+        result[8] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1,-1});
+        result[9] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1,-1});
+        result[10] = new Scroll("Air Savior", false, false, 1, "^stunt_description_5", new int[]{3,0,2,-1,-1});
         return result;
     }
 
@@ -149,6 +149,7 @@ public class SaveGame : MonoBehaviour
             SaveData data = (SaveData)bf.Deserialize(file);
             file.Close();
             //Debug.Log("Game data loaded!");
+            data.scrolls = GenerateDefaultScrollList();
             return data;
         }
         else
