@@ -16,7 +16,8 @@ public class CycleDayNightSun : MonoBehaviour
 
     void Start()
     {
-        if(GlobalVariables.Instance.gameMode != GameMode.MAINMENU)
+        if(GlobalVariables.Instance.gameMode != GameMode.MAINMENU &&
+        GlobalVariables.Instance.gameMode != GameMode.WOLRDMAINMENU)
             time = GlobalVariables.Instance.GetLvlTime();
         Sun = GetComponent<Light>();
         SunTransform = transform;

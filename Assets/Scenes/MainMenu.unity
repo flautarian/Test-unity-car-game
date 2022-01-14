@@ -9491,6 +9491,11 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4977231846054274011, guid: 10001b6c7253d164dad44a08f2119e8c,
+        type: 3}
+      propertyPath: lightLevel
+      value: 13000
+      objectReference: {fileID: 0}
     - target: {fileID: 7094591356523731208, guid: 10001b6c7253d164dad44a08f2119e8c,
         type: 3}
       propertyPath: m_Name
