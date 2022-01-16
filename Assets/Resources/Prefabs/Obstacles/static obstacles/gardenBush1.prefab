@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 22
   m_IsActive: 1
 --- !u!4 &489910971918706044
 Transform:
@@ -115,6 +115,7 @@ MonoBehaviour:
   apparitionLevel: 0
   rigidBodySlept: 1
   spawnedObstacle: 0
+  unMovable: 0
 --- !u!95 &728648889437981994
 Animator:
   serializedVersion: 3

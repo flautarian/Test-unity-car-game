@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6167347116889873936
 Transform:
@@ -58,12 +58,12 @@ GameObject:
   - component: {fileID: 3919630674012798634}
   - component: {fileID: 5599086868799806521}
   - component: {fileID: 3740186556645440174}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: House5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &5243361051189840066
 Transform:
@@ -4507,7 +4507,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6114653047224729401
 Transform:

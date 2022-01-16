@@ -3304,7 +3304,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 18
+  m_StaticEditorFlags: 22
   m_IsActive: 1
 --- !u!4 &8535009283766773968
 Transform:

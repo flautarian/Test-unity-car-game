@@ -24401,6 +24401,7 @@ MonoBehaviour:
   slowedVelocityPS: {fileID: 4781259341111781080}
   wetVelocityPS: {fileID: 2958657718913765550}
   turnedUpParticle: {fileID: 7911020813760578937}
+  zAngle: 0
 --- !u!114 &5731058296596815797
 MonoBehaviour:
   m_ObjectHideFlags: 0
