@@ -80,7 +80,11 @@ public class PlayerController : MonoBehaviour
 
     private AudioSource audioSource;
 
-    public float zAngle =0;
+    private Quaternion targetCorrectRotation;
+
+    private Vector3 targetCorrectTurn = new Vector3(0f ,0f ,0f);
+
+    public float zAngle =0, xAngle =0;
 
     private void Awake(){
         player = GetComponentInChildren<Player>();
@@ -133,8 +137,6 @@ public class PlayerController : MonoBehaviour
         {
             turnZAxisEffect = HorizontalAxis * (grounded && !turned ? 5 : 1);
             turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
-            if(!IsInStuntMode())
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0, HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis, turnZAxisEffect));
             // manipulacio de shader de radial blur en cas de potenciador de velocitat
             manageNitro();
         }
@@ -170,7 +172,19 @@ public class PlayerController : MonoBehaviour
         player.UpdatePitchEngine(VerticalAxis, HorizontalAxis);
 
         // Adaptem la rotacio del vehicle al terreny
-        transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * transform.rotation;
+        if(grounded){
+            if(!IsInStuntMode()){
+                targetCorrectTurn.y = HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis;
+                targetCorrectTurn.z = turnZAxisEffect;
+                targetCorrectRotation = Quaternion.Euler(transform.rotation.eulerAngles + targetCorrectTurn);
+            }
+            transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * targetCorrectRotation;
+        }
+        else {
+            // posem rotant correctament el vehicle per evitar angles imposibles en l'aire
+            targetCorrectRotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetCorrectRotation, Time.deltaTime);
+        }
 
         // apliquem velocitat de rigidbody i gravetat depenent del estat del cotxe
         if(canMove && !turned){
@@ -184,7 +198,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                playerSphereRigidBody.drag = 0.1f;
+                playerSphereRigidBody.drag = 0f;
                 playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
             }
         }
@@ -219,7 +233,7 @@ public class PlayerController : MonoBehaviour
                 turnedUpParticle.gameObject.SetActive(turned);
             grounded = true;
         }
-        else if( grounded && (zAngle > 110 && zAngle < 255)){
+        else if( grounded && ((zAngle > 110 && zAngle < 255))){
             if(!turned) {
                 GlobalVariables.Instance.turnedCar = true;
                 stuntComboIndicator.ResetComboIndicator();
@@ -241,11 +255,12 @@ public class PlayerController : MonoBehaviour
         var localHSensibility = GlobalVariables.Instance.GetHSensibilityLevel();
         if(!Input.GetKey(positive) && !Input.GetKey(negative))
             if(Math.Abs(StartingPoint) < localHSensibility) StartingPoint = 0;
-            else StartingPoint = Mathf.Lerp(0f, StartingPoint, 10*Time.deltaTime);
+            else StartingPoint = Mathf.Lerp(0f, StartingPoint, 10 * Time.deltaTime);
         else{
-            StartingPoint += Input.GetKey(positive) ? localHSensibility : 0.0f;
-            StartingPoint += Input.GetKey(negative) ? -localHSensibility : 0.0f;
+            StartingPoint += Input.GetKey(positive) ? 0.05f : 0.0f;
+            StartingPoint += Input.GetKey(negative) ? -0.05f : 0.0f;
         }
+        Debug.Log(localHSensibility);
         return Mathf.Clamp(StartingPoint, -1f, 1f);
     }
 

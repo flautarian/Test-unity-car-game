@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1499202684339236091}
+  lvlStatus: []
 --- !u!114 &9002085776051344923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +197,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 482110187a7eb534583dfce1afc16c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightLevel: 1
+  lvlIndex: 0
+  sceneName: 
+  lightLevel: 43000
   availablePrefabs:
   - tag: StreetObstaculo
     prefabs:
@@ -244,6 +247,8 @@ MonoBehaviour:
     size: 0
     folder: Prefabs/Streets/lvl1
   objective: 5
+  objectiveTarget: 0
+  objectiveEspecification: 
   spawnerMovableLevelLeft: 5
   spawnerMovableLevelRight: 5
   spawnerStaticLevelLeft: 30
@@ -252,8 +257,13 @@ MonoBehaviour:
   timeLimit: 0
   secondsFallTouchedTerrain: 2
   grassType: 0
-  specialEvents: 5
+  mutators: 
   fog: 0
+  levelName: 
+  gameMode: 0
+  prize: 0
+  prizeDetail: 0
+  StuntOverride: 
 --- !u!95 &1499202684339236091
 Animator:
   serializedVersion: 3

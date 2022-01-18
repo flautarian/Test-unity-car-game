@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2792526651104924516}
   - component: {fileID: 2792526651104924523}
   - component: {fileID: 2437447128563368592}
+  - component: {fileID: 12666971}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2792526651104924522}
-  m_LocalRotation: {x: 0.48905912, y: 0.48823878, z: 0.51067007, w: 0.51152736}
+  m_LocalRotation: {x: 0.48905906, y: 0.4882368, z: 0.51067245, w: 0.5115269}
   m_LocalPosition: {x: 0, y: 27.7, z: 7}
   m_LocalScale: {x: 2.1912, y: 2.1912, z: 2.1912}
   m_Children: []
@@ -51,11 +52,11 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: -1
+    m_Resolution: 128
     m_CustomResolution: -1
-    m_Strength: 0.3
-    m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_Strength: 1
+    m_Bias: 0
+    m_NormalBias: 0
     m_NearPlane: 0.1
     m_CullingMatrixOverride:
       e00: 1
@@ -83,13 +84,13 @@ Light:
     serializedVersion: 2
     m_Bits: 2147483647
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 45, y: 45}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: -Infinity, y: 4.1359028e-25, z: 2.3509887e-38, w: 1.8e-43}
+  m_BoundingSphereOverride: {x: 4.5905e-41, y: 6.630618e-11, z: 4.5905e-41, w: 9.403955e-38}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -106,10 +107,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b8714db2de8e042884859c359cad52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 0
+  time: 43000
   SunTransform: {fileID: 2792526651104924516}
   Sun: {fileID: 2792526651104924523}
   intensity: 0
   fogDay: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   fogNight: {r: 0, g: 0, b: 0, a: 1}
   speed: 0
+--- !u!114 &12666971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2792526651104924522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2

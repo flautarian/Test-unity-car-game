@@ -12,12 +12,6 @@ public class DriftWheelController : MonoBehaviour
         baseDriftParticle = GetComponent<ParticleSystem>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     internal void Drift(float turnZAxis, bool grounded, Color color)
     {
         if (turnZAxis != 0 && grounded) baseDriftParticle.Play();

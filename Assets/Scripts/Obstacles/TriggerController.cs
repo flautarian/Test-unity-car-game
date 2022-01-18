@@ -6,15 +6,18 @@ public class TriggerController : MonoBehaviour
 {
     internal bool trigger = false;
 
+    [SerializeField]
+    private AccionableObstacle accionableObstacle;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == Constants.GO_TAG_PLAYER)
-            trigger = true;
+            accionableObstacle.executeAction();
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == Constants.GO_TAG_PLAYER)
-            trigger = false;
+            accionableObstacle.executeStopAction();
     }
 }

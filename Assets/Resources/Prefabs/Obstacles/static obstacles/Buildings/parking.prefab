@@ -399,6 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9eacbd803fac104695b9d0b0812965c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  accionableObstacle: {fileID: 7442753760780097457}
 --- !u!1 &5749254609746247395
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +585,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804d822c503068f4da3d2c51463af234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerController: {fileID: 5307510116918442987}
 --- !u!95 &9217002628587567127
 Animator:
   serializedVersion: 3

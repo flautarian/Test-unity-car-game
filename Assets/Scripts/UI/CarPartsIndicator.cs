@@ -21,7 +21,7 @@ public class CarPartsIndicator : MonoBehaviour
             ri.transform.parent = this.transform;
             ri.transform.position = pos;
             ri.SetActive(true);
-            pos.x -= 0.12f;
+            pos.x -= 0.3f;
             repairItems.Add(ri.GetComponent<Animator>());
         }
     }

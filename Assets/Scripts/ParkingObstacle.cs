@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class ParkingObstacle : AccionableObstacle
 {
-    private void Update()
-    {
-        if (TriggerController != null && TriggerController.trigger)
-            executeAction();
-    }
-
     public override void executeAction() => actionableAnimator.SetTrigger("action");
+    public override void executeStopAction()
+    {
+        // nothing yet
+    }
 
 }
