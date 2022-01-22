@@ -71,8 +71,10 @@ public class StuntsController : MonoBehaviour
     }
 
     private void ActivateStuntMode(){
-        playerController.communicateStuntInitialized();
-        stuntsModeEnabled = true;
-        playerController.UpdatePlayerAnimationStuntMode(stuntsModeEnabled);
+        if(GlobalVariables.Instance.actualPanelInteractionType == PanelInteractionType.NO_INTERACTION){
+            playerController.communicateStuntInitialized();
+            stuntsModeEnabled = true;
+            playerController.UpdatePlayerAnimationStuntMode(stuntsModeEnabled);
+        }
     }
 }

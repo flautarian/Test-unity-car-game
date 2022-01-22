@@ -102,7 +102,7 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^wheel_name_17	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
 ^wheel_name_18	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
 ^wheel_name_19	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
-^wheel_desc_0	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_0	Default wheel, is strong, reliable and the most important, it's free!!  	MEK	Rueda estandar fuerte, de fiar y lo mejor de todo, es gratis!!	MEK	MEK	MEK
 ^wheel_desc_1	Wheel created from a lot of ghost trap contents, after a groundar you will be untouchable the next 2 seconds, is not the "light" but it's something 	MEK	Rueda hecha de los restos de trampas fantasmales, despues de un groundal seras intocable durante 2 segundos, no es el mas alla pero algo es algo	MEK	MEK	MEK
 ^wheel_desc_2	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
 ^wheel_desc_3	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
@@ -122,4 +122,4 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^wheel_desc_17	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
 ^wheel_desc_18	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
 ^wheel_desc_19	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
-
+^wheel_desc_no_price	Unlockable object  	MEK	Objecto desbloqueable	MEK	MEK	MEK

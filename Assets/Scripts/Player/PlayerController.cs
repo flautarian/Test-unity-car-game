@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
     private AudioSource audioSource;
 
-    private Quaternion targetCorrectRotation;
+    internal Quaternion targetCorrectRotation;
 
     private Vector3 targetCorrectTurn = new Vector3(0f ,0f ,0f);
 
@@ -126,9 +126,6 @@ public class PlayerController : MonoBehaviour
 
         // apliquem a variable velocitat
         speedInput = Mathf.Lerp(speedInput, (VerticalAxis * forwardAccel * 1000f) + comboStunt, Time.deltaTime * accel);
-
-        //Refresc de posició
-        transform.position = playerSphereRigidBody.transform.position;
     }
 
     private void FixedUpdate()
@@ -141,10 +138,15 @@ public class PlayerController : MonoBehaviour
             manageNitro();
         }
         
-        if(GlobalVariables.Instance.playerTargetedByCamera && canMove){
+        //Refresc de posició
+        transform.position = playerSphereRigidBody.transform.position;
+        
+        if(GlobalVariables.Instance.playerTargetedByCamera){
             //Captura de tecles
-            HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
-            VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
+            if(canMove){
+                HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
+                VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
+            }
         }
         else{
             HorizontalAxis =0;
@@ -173,8 +175,8 @@ public class PlayerController : MonoBehaviour
 
         // Adaptem la rotacio del vehicle al terreny
         if(grounded){
-            if(!IsInStuntMode()){
-                targetCorrectTurn.y = HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis;
+            if(!IsInStuntMode() && GlobalVariables.Instance.playerTargetedByCamera){
+                targetCorrectTurn.y = HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis ;
                 targetCorrectTurn.z = turnZAxisEffect;
                 targetCorrectRotation = Quaternion.Euler(transform.rotation.eulerAngles + targetCorrectTurn);
             }

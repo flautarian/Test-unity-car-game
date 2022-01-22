@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using Honeti;
 
 public class WheelShopController : MonoBehaviour
@@ -10,10 +11,16 @@ public class WheelShopController : MonoBehaviour
     private bool pointed; 
     private Camera cam;
     [SerializeField]
-    private TextMesh desc, price, buyPanel, name;
+    private TextMesh price, buyPanel, name;
 
     [SerializeField]
-    private I18NTextMesh descI18n, buyPanelI18n, nameI18n;
+    private TMP_Text desc;
+
+    [SerializeField]
+    private TextMeshProI18n descI18n;
+
+    [SerializeField]
+    private I18NTextMesh buyPanelI18n, nameI18n;
 
     [SerializeField]
     private ShopWheel[] options;
@@ -23,10 +30,15 @@ public class WheelShopController : MonoBehaviour
 
     [SerializeField]
     private Outline outlineScript;
+
+    public PlayerController actualCarPlayerController;
+
+    Animator anim;
     void Start()
     {
         cam = Camera.main;
         actualOption = GlobalVariables.Instance.GetEquippedWheelIndex();
+        anim = GetComponent<Animator>();
         UpdateActualOption();
     }
 
@@ -44,19 +56,23 @@ public class WheelShopController : MonoBehaviour
             else 
                 buyPanel.text = "^concessionary_buy_panel";
             buyPanelI18n.updateTranslation(true);
-            descI18n.updateTranslation(true);
+            descI18n.UpdateText();
             nameI18n.updateTranslation(true);
         }
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if(GlobalVariables.Instance.cameraLookFocusTransform == camPos){            
             if(outlineScript != null)
                 outlineScript.updateOutlineLevel(pointed ? Constants.OUTLINE_WITH_ENABLED : Constants.OUTLINE_WITH_DISABLED);
             if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))
             || (pointed && Input.GetButtonDown(Constants.BACK))){
                 pointed = !pointed;
-                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed, pointed);
+                anim.SetTrigger("Toggle");
+            }
+            if(actualCarPlayerController != null && actualCarPlayerController.VerticalAxis == 0f){
+                actualCarPlayerController.targetCorrectRotation = transform.rotation;
+                actualCarPlayerController.playerSphereRigidBody.transform.position = transform.position;
             }
             if(pointed){
                 if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT))){
@@ -83,18 +99,27 @@ public class WheelShopController : MonoBehaviour
                 }
             }
         }
-        //if(pointed) transform.LookAt(cam.transform);
     }
 
     private void OnTriggerEnter(Collider other){
         if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.actualPanelInteractionType == PanelInteractionType.NO_INTERACTION){
             GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.WHEEL_PANEL_TYPE, camPos, camPos);
+            var player = other.GetComponent<Player>();
+            if(player != null)
+                actualCarPlayerController =  player.controller;
         }
     }
     private void OnTriggerExit(Collider other) {
-        if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.cameraLookFocusTransform == transform){
+        if(other.tag.Equals(Constants.GO_TAG_PLAYER)){
             pointed = false;
             GlobalVariables.Instance.DisableCanvasPanelButton();
         }
     }
+
+    private void ToggleSwitchCam(){
+        GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed, pointed);
+        if(!pointed) 
+            actualCarPlayerController = null;
+    }
+
 }
