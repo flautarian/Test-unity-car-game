@@ -1505,7 +1505,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7682165906158344583}
   m_Layer: 8
-  m_Name: carConcessionary
+  m_Name: HatShop
   m_TagString: Calle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

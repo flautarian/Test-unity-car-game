@@ -82,3 +82,44 @@ Lang Code	EN	PL	ES	DE	FR	JP
 ^sign_stunt_info_1	Stunts:\nEfficient vehicles knows how to do stunts \n They are 3 types of stunt: \n -Attack\n -Defense\n -Generate\n You can do a stunt by keep pressing\nstunt key and press the combination\nof the stunt, but be carefull,\nthe aerial stunts works only in\nmiddle of the air and groundals\nonly works in land!! 	MEK	: Stunts\nLos vehículos eficientes saben cómo hacer acrobacias \n Hay 3 tipos de acrobacias: \n -Ataque \n -Defensa \n -Generadores \n Puedes hacer una acrobacia si mantienes presionada la tecla\nstunt y presionas la combinación \n de la acrobacia, pero ten cuidado,\nlos aerials sólo funcionan en mmedio \ndel aire y los groundals funcionan \nsolo estando en el suelo!!	MEK	MEK	MEK
 ^sign_stunt_info_2	Stunts:\nmeanwhile the attack and defense stunts \nneed stunt energy to be executed \nYou can get that energy executing\ngenerate stunts to charge your\nstunt bar	MEK	Stunts:\nMientras las acrobacias de ataque y defensa\nnecesitan energia stunt,\n Puedes ejecutar acrobacias generadoras o coger\nesferas de stunt para conseguir\nla energia necesaria para ejecutar acrobacias\nmayores	MEK	MEK	MEK
 ^notif_goal_not_unlocked	The goal is not unlocked yet, pass here when the objective is complete	MEK	El objetivo todavia no esta cumplido, pasa por aqui cuando el nivel este completado	MEK	MEK	MEK
+^wheel_name_0	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_1	Phasmowheel 	MEK	Fantasmorueda	MEK	MEK	MEK
+^wheel_name_2	Ninjitwheel 	MEK	Rueda ninja	MEK	MEK	MEK
+^wheel_name_3	Chromade wheel 	MEK	Rueda cromada	MEK	MEK	MEK
+^wheel_name_4	Tectonic wheel 	MEK	Rueda tectonica	MEK	MEK	MEK
+^wheel_name_5	Fire wheel 	MEK	Rueda de fuego	MEK	MEK	MEK
+^wheel_name_6	Ice wheel 	MEK	Rueda de hielo	MEK	MEK	MEK
+^wheel_name_7	Water wheel 	MEK	Rueda de agua	MEK	MEK	MEK
+^wheel_name_8	Slime wheel 	MEK	Rueda blob	MEK	MEK	MEK
+^wheel_name_9	Monster wheel 	MEK	Monster wheel	MEK	MEK	MEK
+^wheel_name_10	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_11	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_12	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_13	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_14	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_15	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_16	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_17	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_18	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_name_19	Default wheel 	MEK	Rueda estandar	MEK	MEK	MEK
+^wheel_desc_0	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_1	Wheel created from a lot of ghost trap contents, after a groundar you will be untouchable the next 2 seconds, is not the "light" but it's something 	MEK	Rueda hecha de los restos de trampas fantasmales, despues de un groundal seras intocable durante 2 segundos, no es el mas alla pero algo es algo	MEK	MEK	MEK
+^wheel_desc_2	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_3	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_4	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_5	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_6	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_7	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_8	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_9	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_10	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_11	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_12	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_13	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_14	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_15	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_16	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_17	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_18	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+^wheel_desc_19	Default strong, reliable and free wheel!!  	MEK	Rueda estandar fuerte, de fiar y gratis!!	MEK	MEK	MEK
+

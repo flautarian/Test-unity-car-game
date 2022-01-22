@@ -57,9 +57,9 @@ public class SaveGame : MonoBehaviour
         internal Scroll[] scrolls = new Scroll[20];
 
         internal Level[] levels = new Level[20];
-
         internal float[] challenges = new float[10]{0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
-
+        internal int[] wheels = new int[20]{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        internal int[] hats = new int[20]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         internal int[] cars = new int[10]{1,0,0,0,0,0,0,0,0,0};
 
         internal int[] relics = new int[20]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -67,6 +67,10 @@ public class SaveGame : MonoBehaviour
         internal int[] equippedScrolls = new int[4];
 
         internal int equippedCar = 0;
+
+        internal int equippedWheel = 0;
+
+        internal int equippedHat = 0;
 
         internal int totalCoins = 0;
         bool savedBool;

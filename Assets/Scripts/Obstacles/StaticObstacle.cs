@@ -21,9 +21,9 @@ public class StaticObstacle : Obstacle
         if (GetComponent<Animation>() != null) obstacleAnimation = GetComponent<Animation>();
     }
 
-    private void Update() {
-        if(spawnedObstacle && transform.position.z < GlobalVariables.Instance.minZLimit) inhabiliteObstacle();
-    }
+    //private void Update() {
+        //if(spawnedObstacle && transform.position.z < GlobalVariables.Instance.minZLimit) inhabiliteObstacle();
+    //}
 
     public override void ResetPosition(){
         rigidBody.isKinematic = true;

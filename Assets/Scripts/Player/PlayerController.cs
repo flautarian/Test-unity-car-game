@@ -260,7 +260,6 @@ public class PlayerController : MonoBehaviour
             StartingPoint += Input.GetKey(positive) ? 0.05f : 0.0f;
             StartingPoint += Input.GetKey(negative) ? -0.05f : 0.0f;
         }
-        Debug.Log(localHSensibility);
         return Mathf.Clamp(StartingPoint, -1f, 1f);
     }
 
@@ -584,10 +583,17 @@ public class PlayerController : MonoBehaviour
             player = newPlayerObject;
             player.transform.name = name;
             player.controller = this;
+            UpdateSphereScale();
             actualCarEquipped = GlobalVariables.Instance.GetEquippedCarIndex();
             if(bc != null) playerBoxCollider = bc;
             player.PlayRunningCarChunk();
         }
+    }
+    
+    internal void UpdateSphereScale(){
+        var newSphereSize = new Vector3(1,1,1);
+        newSphereSize.x += player.sphereOffset;
+        playerSphereRigidBody.transform.localScale = newSphereSize;
     }
 
     public void GenerateMoveParticleEffect(){

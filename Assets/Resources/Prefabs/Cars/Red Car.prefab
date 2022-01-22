@@ -277,7 +277,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3295259949877023858}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029504295}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
@@ -288,7 +288,7 @@ Transform:
   - {fileID: 7004918305545919655}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8541100166479450014
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -580,6 +580,7 @@ MonoBehaviour:
   maxWheelTurn: 30
   gravityForce: 4
   dragGroundForce: 3
+  sphereOffset: 0
   stuntHability: 1.2
   parts:
   - {fileID: 8541100167447405328}
@@ -12428,7 +12429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFrontWheel: 0
-  isLeftWheel: 0
+  isLeftWheel: 1
   driftEffect: {fileID: 0}
   controller: {fileID: 0}
   tParent: {fileID: 0}

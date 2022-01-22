@@ -11660,7 +11660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFrontWheel: 0
-  isLeftWheel: 0
+  isLeftWheel: 1
   driftEffect: {fileID: 0}
   controller: {fileID: 0}
   tParent: {fileID: 0}

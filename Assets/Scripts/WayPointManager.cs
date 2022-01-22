@@ -12,18 +12,6 @@ public class WayPointManager : MonoBehaviour
     public List<WayPoint> firstWayReversalPoint;
     public List<WayPoint> lastWayReversalPoint;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     internal void addPreviousWayPoint(List<WayPoint> previuosWayPoints)
     {
         // Afegim connexio del final de la via normal d'aquest minimapa amb el principi de la via normal del seguent minimapa

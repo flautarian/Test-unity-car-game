@@ -27,7 +27,9 @@ public enum PanelInteractionType{
         CONCESSIONARY_PANEL_TYPE,
         NO_INTERACTION,
         CHALLENGE_TYPE,
-        RELICS_TYPE
+        RELICS_TYPE,
+        WHEEL_PANEL_TYPE,
+        HAT_PANEL_TYPE
     }
 
 public enum ObjectiveGameType{
@@ -655,6 +657,16 @@ public class GlobalVariables : MonoBehaviour
         return saveGameData.data.cars[value] == 1;
     }
 
+    public bool GetBuyStatusHat(int value){
+        // 0 = not bought, 1 = bought
+        return saveGameData.data.hats[value] == 1;
+    }
+
+    public bool GetBuyStatusWheel(int value){
+        // 0 = not bought, 1 = bought
+        return saveGameData.data.wheels[value] == 1;
+    }
+
     public void UnlockCar(int key, int price){
         saveGameData.data.cars[key] = 1;
         saveGameData.data.totalCoins -= price;
@@ -662,14 +674,45 @@ public class GlobalVariables : MonoBehaviour
         SaveGame();
     }
 
+    public void UnlockHat(int key, int price){
+        saveGameData.data.hats[key] = 1;
+        saveGameData.data.totalCoins -= price;
+        GetAndPlayChunk("Goal", 1.0f);
+        SaveGame();
+    }
+
+    public void UnlockWheel(int key, int price){
+        saveGameData.data.wheels[key] = 1;
+        saveGameData.data.totalCoins -= price;
+        GetAndPlayChunk("Goal", 1.0f);
+        SaveGame();
+    }
+
+    public void EquipWheel(int key){
+        saveGameData.data.equippedWheel = key;
+        SaveGame();
+    }
+
+    public void EquipHat(int key){
+        saveGameData.data.equippedHat = key;
+        SaveGame();
+    }
+
     public void EquipCar(int key){
-        // 0 = not bought, 1 = bought
         saveGameData.data.equippedCar = key;
         SaveGame();
     }
 
     public int GetEquippedCarIndex(){
         return saveGameData.data.equippedCar;
+    }
+
+    public int GetEquippedWheelIndex(){
+        return saveGameData.data.equippedWheel;
+    }
+
+    public int GetEquippedHatIndex(){
+        return saveGameData.data.equippedHat;
     }
 
     public bool IsCompletedLevel(int value){

@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
     public PlayerController controller;
-
     public float reverseAccel;
     public float forwardAccel;
     public float accel;
@@ -15,6 +14,7 @@ public class Player : MonoBehaviour
     public float maxWheelTurn;
     public float gravityForce;
     public float dragGroundForce;
+    public float sphereOffset;
 
     public float stuntHability;
 

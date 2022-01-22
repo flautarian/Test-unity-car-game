@@ -12,14 +12,11 @@ public class PublicLight : MonoBehaviour
     {
         publicLight = GetComponent<Light>();
         lightIndex = publicLight.intensity;
+        ManageLights();
     }
 
-    // Update is called once per frame
-
-    private void Update()
-    {
-        if (publicLight != null)
-        {
+    public void ManageLights(){
+        if (publicLight != null){
             intensity = lightIndex * GlobalVariables.Instance.currentLight;
             publicLight.intensity = intensity;
             publicLight.enabled = intensity > 0;

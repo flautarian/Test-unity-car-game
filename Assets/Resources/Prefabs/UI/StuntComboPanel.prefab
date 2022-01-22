@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6151449926111462403}
   - component: {fileID: 2819349288733369105}
   - component: {fileID: 3743239118521100356}
-  - component: {fileID: 8500479288008972827}
   m_Layer: 0
   m_Name: Combo-panel-Number
   m_TagString: Untagged
@@ -83,19 +82,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8500479288008972827
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3644779178070786248}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4359814922195702673
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +93,6 @@ GameObject:
   - component: {fileID: 5834750551963616082}
   - component: {fileID: 2854728172229224412}
   - component: {fileID: 6156438730371763527}
-  - component: {fileID: 7083305599833003128}
   m_Layer: 0
   m_Name: Combo-panel
   m_TagString: Untagged
@@ -180,19 +165,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7083305599833003128
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4359814922195702673}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6067042980622591622
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +176,6 @@ GameObject:
   - component: {fileID: 4928945603468532233}
   - component: {fileID: 2646279171043362725}
   - component: {fileID: 5988402070509022412}
-  - component: {fileID: 7491293065435147054}
   m_Layer: 0
   m_Name: Combo-panel-X
   m_TagString: Untagged
@@ -276,19 +247,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7491293065435147054
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6067042980622591622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7050112538409197188
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,8 +358,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barMaterial: {fileID: 0}
   meshFilter: {fileID: 0}
-  barValue: 0
-  newBarValue: 0
   progressBorder: 0
   fillRate: 0
   fillPercentValue: 0
