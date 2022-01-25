@@ -13,4 +13,10 @@ public class ShopWheel : MonoBehaviour
 
     [SerializeField]
     internal int price;
+
+    [SerializeField]
+    internal float wheelOffset = 0f;
+    
+    [SerializeField]
+    internal float wheelSize = 1f;
 }

@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour
     public float VerticalAxis, HorizontalAxis;
 
     private Player player;
+    
+    private ShopHat hat;
+
+    internal ShopWheel wheel;
 
     private int actualCarEquipped = 0;
 
@@ -91,6 +95,8 @@ public class PlayerController : MonoBehaviour
         if (player != null)
         {
             UpdateActualChosenCar();
+            UpdateCarWheels();
+            //UpdateCarHat();
             UpdatePlayerControllerDataWithPlayerObject();
         }
         timeSentinelRaycast = Time.time;
@@ -166,6 +172,14 @@ public class PlayerController : MonoBehaviour
                 UpdatePlayerControllerDataWithPlayerObject();
                 GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, this.transform.position);
             }
+            else if(wheel.keyCode != GlobalVariables.Instance.GetEquippedWheelIndex()){
+                UpdateCarWheels();
+                GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, this.transform.position);
+            }
+            //TODO: hacer hats 
+            //else if(hat.keyCode != GlobalVariables.Instance.GetEquippedHatIndex()){
+            //    UpdateCarHat();
+            //}
 
             timeSentinelRaycast = Time.time;
         }
@@ -254,13 +268,13 @@ public class PlayerController : MonoBehaviour
     }
 
     private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative){
-        var localHSensibility = GlobalVariables.Instance.GetHSensibilityLevel();
-        if(!Input.GetKey(positive) && !Input.GetKey(negative))
-            if(Math.Abs(StartingPoint) < localHSensibility) StartingPoint = 0;
-            else StartingPoint = Mathf.Lerp(0f, StartingPoint, 10 * Time.deltaTime);
+        if(!Input.GetKey(positive) && !Input.GetKey(negative)){
+            if(Math.Abs(StartingPoint) < 0.05) StartingPoint = 0;
+            else StartingPoint = Mathf.Lerp(0f, StartingPoint, 25 * Time.deltaTime);
+        }
         else{
-            StartingPoint += Input.GetKey(positive) ? 0.05f : 0.0f;
-            StartingPoint += Input.GetKey(negative) ? -0.05f : 0.0f;
+            StartingPoint += Input.GetKey(positive) ? (StartingPoint < 0f ? 0.1f : 0.05f) : 0.0f;
+            StartingPoint += Input.GetKey(negative) ? (StartingPoint > 0f ? -0.1f : -0.05f) : 0.0f;
         }
         return Mathf.Clamp(StartingPoint, -1f, 1f);
     }
@@ -585,16 +599,34 @@ public class PlayerController : MonoBehaviour
             player = newPlayerObject;
             player.transform.name = name;
             player.controller = this;
-            UpdateSphereScale();
             actualCarEquipped = GlobalVariables.Instance.GetEquippedCarIndex();
             if(bc != null) playerBoxCollider = bc;
             player.PlayRunningCarChunk();
+            UpdateSphereScale();
+        }
+    }
+
+    internal void UpdateCarWheels(){
+        
+        GameObject wheelGO = GlobalVariables.Instance.LoadActualPlayerWheel();
+        if(wheelGO.TryGetComponent( out ShopWheel w)){
+            wheel = w;
+        }
+        UpdateSphereScale();
+    }
+
+    internal void UpdateCarHat(){
+        GameObject hatGO = GlobalVariables.Instance.LoadActualPlayerHat();
+        if(hatGO.TryGetComponent( out ShopHat h)){
+            hat = h;
         }
     }
     
     internal void UpdateSphereScale(){
         var newSphereSize = new Vector3(1,1,1);
-        newSphereSize.x += player.sphereOffset;
+        newSphereSize.x += 
+            (player != null ? player.sphereOffset : 0f) + 
+                (wheel != null ? wheel.wheelOffset : 0f);
         playerSphereRigidBody.transform.localScale = newSphereSize;
     }
 

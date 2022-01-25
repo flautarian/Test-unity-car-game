@@ -16,13 +16,12 @@ public class PlaneScroll : MonoBehaviour
     }
     void Update()
     {
-        waterPosition = playerController.transform.position + playerOffset;
-        if (waterPosition.y > -2 || waterPosition.y < -2) waterPosition.y = -2;
-        transform.position = waterPosition;
-        if (playerController.VerticalAxis == 0 || playerController.VerticalAxis == 1)
-        {
-            scroll.y = playerController.VerticalAxis * 0.25f;
-            scrollRenderer.sharedMaterial.SetVector("Vector2_E3542F48", scroll);
+        if(playerOffset != Vector3.zero){
+            waterPosition = playerController.transform.position + playerOffset;
+            if (waterPosition.y > -2 || waterPosition.y < -2) waterPosition.y = -2;
+            transform.position = waterPosition;
         }
+        scroll.y = playerController.VerticalAxis * (GlobalVariables.Instance.gameMode == GameMode.INFINITERUNNER ? 0.25f : 0f);
+        scrollRenderer.sharedMaterial.SetVector("Vector2_E3542F48", scroll);
     }
 }

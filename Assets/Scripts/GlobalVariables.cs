@@ -276,6 +276,19 @@ public class GlobalVariables : MonoBehaviour
         return carGO;
     }
 
+    internal GameObject LoadActualPlayerWheel(){
+        Debug.Log("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
+        UnityEngine.Object newWheel = (UnityEngine.Object)Resources.Load("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
+        GameObject wheelGO = (GameObject) Instantiate(newWheel);
+        return wheelGO;
+    }
+
+    internal GameObject LoadActualPlayerHat(){
+        UnityEngine.Object newHat = (UnityEngine.Object)Resources.Load("Prefabs/Cars/Hats/Hat_" + saveGameData.data.equippedHat);
+        GameObject hatGO = (GameObject) Instantiate(newHat);
+        return hatGO;
+    }
+
     private string GetActualPlayerCarPrefabName(){
         return Constants.PREFAB_CAR_NAMES[saveGameData.data.equippedCar];
     }

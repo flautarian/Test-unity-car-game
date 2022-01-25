@@ -111,6 +111,8 @@ public class Constants
     public const string ANIMATION_TRIGGER_PANELBUTTON_ENABLE_INTERACTION = "EnableButton";
     public const string ANIMATION_TRIGGER_PANELBUTTON_DISABLE_INTERACTION = "DisableButton";
     public const string ANIMATION_TRIGGER_LIBRARY_INTERACTION = "LibraryEquipSelect";
+    public const string ANIMATION_TRIGGER_SHOP_TOGGLE = "Toggle";
+    
 
     // Shader control variables
 

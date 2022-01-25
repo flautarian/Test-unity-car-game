@@ -14,7 +14,9 @@ public class WheelController : MonoBehaviour
     [SerializeField]
     private ParticleSystem driftEffect;
 
-    private float maxWheelTurn;
+    private MeshFilter meshFilter;
+
+    private int wheelIndex = 0;
 
     [SerializeField]
     private PlayerController controller;
@@ -29,6 +31,7 @@ public class WheelController : MonoBehaviour
     void Start()
     {
         driftEffect = GetComponent<ParticleSystem>();
+        meshFilter = GetComponent<MeshFilter>();
         if(driftEffect != null){
             driftPSEmissionVar = driftEffect.emission;
             driftEffect.Stop();
@@ -39,13 +42,17 @@ public class WheelController : MonoBehaviour
     void Update()
     {
         if(controller != null){
-            if (isFrontWheel)
-            {
-                tParent.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, (controller.HorizontalAxis * maxWheelTurn) - (isLeftWheel ? 180 : 0), transform.localRotation.eulerAngles.z);
+            if(controller.wheel != null && controller.wheel.keyCode != wheelIndex){
+                wheelIndex = controller.wheel.keyCode;
+                meshFilter.sharedMesh = controller.wheel.CWheel;
+                transform.localScale = Vector3.one * controller.wheel.wheelSize;
             }
+            
+            tParent.localRotation = Quaternion.Euler(tParent.localRotation.eulerAngles.x, (isFrontWheel ? controller.HorizontalAxis : 0f) * controller.maxWheelTurn, tParent.localRotation.eulerAngles.z);
+            
             if (controller.VerticalAxis != 0)
             {
-                transform.Rotate(controller.getSpeedInput(), 0, 0, Space.Self);
+                transform.Rotate(controller.VerticalAxis * controller.forwardAccel , 0f, 0f, Space.Self);
             }
             if (driftEffect != null) manageDriftEffect();
         }

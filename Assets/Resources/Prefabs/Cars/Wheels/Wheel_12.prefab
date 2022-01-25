@@ -46,3 +46,4 @@ MonoBehaviour:
   CWheel: {fileID: -2432090755550338912, guid: d8624cbe2c15d0f459fb7d4c2d4e0693, type: 3}
   keyCode: 12
   price: 2000
+  wheelOffset: 0.3

@@ -11,7 +11,7 @@ public class WheelShopController : MonoBehaviour
     private bool pointed; 
     private Camera cam;
     [SerializeField]
-    private TextMesh price, buyPanel, name;
+    private TextMesh price, buyPanel, nameText;
 
     [SerializeField]
     private TMP_Text desc;
@@ -45,8 +45,9 @@ public class WheelShopController : MonoBehaviour
     private void UpdateActualOption(){
         if(options[actualOption] != null){
             optionWheel.sharedMesh = options[actualOption].CWheel;
+            
             price.text = "" + options[actualOption].price;
-            name.text = "^wheel_name_" + options[actualOption].keyCode;
+            nameText.text = "^wheel_name_" + options[actualOption].keyCode;
             desc.text = options[actualOption].price < 0 && !GlobalVariables.Instance.GetBuyStatusWheel(actualOption) ?
              "^wheel_desc_no_price" :
               "^wheel_desc_" + options[actualOption].keyCode;
@@ -68,7 +69,7 @@ public class WheelShopController : MonoBehaviour
             if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))
             || (pointed && Input.GetButtonDown(Constants.BACK))){
                 pointed = !pointed;
-                anim.SetTrigger("Toggle");
+                anim.SetTrigger(Constants.ANIMATION_TRIGGER_SHOP_TOGGLE);
             }
             if(actualCarPlayerController != null && actualCarPlayerController.VerticalAxis == 0f){
                 actualCarPlayerController.targetCorrectRotation = transform.rotation;
