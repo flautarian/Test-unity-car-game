@@ -41,19 +41,13 @@ public class WheelController : MonoBehaviour
 
     void Update()
     {
+        
         if(controller != null){
-            if(controller.wheel != null && controller.wheel.keyCode != wheelIndex){
-                wheelIndex = controller.wheel.keyCode;
-                meshFilter.sharedMesh = controller.wheel.CWheel;
-                transform.localScale = Vector3.one * controller.wheel.wheelSize;
-            }
-            
-            tParent.localRotation = Quaternion.Euler(tParent.localRotation.eulerAngles.x, (isFrontWheel ? controller.HorizontalAxis : 0f) * controller.maxWheelTurn, tParent.localRotation.eulerAngles.z);
-            
-            if (controller.VerticalAxis != 0)
-            {
-                transform.Rotate(controller.VerticalAxis * controller.forwardAccel , 0f, 0f, Space.Self);
-            }
+            /*if(wheelCollider != null){
+                //transform.localPosition = Vector3.Lerp (transform.localPosition, wheelCollider.transform.InverseTransformPoint(hit.point).y + wheelCollider.radius, .05f);
+                transform.localRotation = Quaternion.Euler(0, wheelCollider.steerAngle, 0);
+            }*/
+
             if (driftEffect != null) manageDriftEffect();
         }
         else {

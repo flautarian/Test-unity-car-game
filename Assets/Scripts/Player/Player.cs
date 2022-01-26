@@ -17,6 +17,13 @@ public class Player : MonoBehaviour
     public float sphereOffset;
 
     public float stuntHability;
+    
+	public WheelCollider wheelFL;
+    public WheelCollider wheelFR;
+	public WheelCollider wheelRL;
+	public WheelCollider wheelRR;
+
+    public Vector3 centerOfMass;
 
     public List<PlayerDestructablePart> parts;
 
@@ -36,6 +43,7 @@ public class Player : MonoBehaviour
     private void Awake() {
         SkidCarAudioSource.loop = true;
         RunningCarAudioSource.loop = true;
+        GetComponent<Rigidbody>().centerOfMass = centerOfMass;
     }
 
     public void OnCollisionEnter(Collision collision)

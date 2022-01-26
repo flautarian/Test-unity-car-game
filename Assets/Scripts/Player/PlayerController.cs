@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody playerSphereRigidBody;
 
+    public float torque = 50f, scaledTorque = 0f;
+
     public BoxCollider playerBoxCollider;
 
     internal List<PlayerDestructablePart> destructableParts;
@@ -114,6 +116,7 @@ public class PlayerController : MonoBehaviour
             GlobalVariables.Instance.IsWorldMenuGameState())
             TranslatePlayerCar(GlobalVariables.Instance.lastVisitedBuildingPositionPlayer);
         playerSphereRigidBody.transform.parent = null;
+        player.gameObject.transform.parent = null;
         Physics.IgnoreLayerCollision(0, 9);
         // Adapting playerController to the car type chosen
         playerAnimator = GetComponent<Animator>();
@@ -145,7 +148,8 @@ public class PlayerController : MonoBehaviour
         }
         
         //Refresc de posició
-        transform.position = playerSphereRigidBody.transform.position;
+        //transform.position = playerSphereRigidBody.transform.position;
+        transform.position = player.gameObject.transform.position;
         
         if(GlobalVariables.Instance.playerTargetedByCamera){
             //Captura de tecles
@@ -194,12 +198,13 @@ public class PlayerController : MonoBehaviour
                 targetCorrectTurn.z = turnZAxisEffect;
                 targetCorrectRotation = Quaternion.Euler(transform.rotation.eulerAngles + targetCorrectTurn);
             }
-            transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * targetCorrectRotation;
+            //transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * targetCorrectRotation;
         }
         else {
             // posem rotant correctament el vehicle per evitar angles imposibles en l'aire
             targetCorrectRotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetCorrectRotation, Time.deltaTime);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, targetCorrectRotation, Time.deltaTime);
+            transform.rotation = player.gameObject.transform.rotation;
         }
 
         // apliquem velocitat de rigidbody i gravetat depenent del estat del cotxe
@@ -208,14 +213,21 @@ public class PlayerController : MonoBehaviour
             {
                 playerSphereRigidBody.drag = dragGroundValue;
                 if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) {
+                    /*player.wheelFR.steerAngle = HorizontalAxis * 10;
+                    player.wheelFL.steerAngle = HorizontalAxis * 10;
+                    scaledTorque = VerticalAxis * torque;
 
-                    playerSphereRigidBody.AddForce(transform.forward * speedInput);
+                    player.wheelFR.motorTorque = scaledTorque;
+                    player.wheelFL.motorTorque = scaledTorque;
+                    player.wheelRR.motorTorque = scaledTorque;
+                    player.wheelRL.motorTorque = scaledTorque;*/
+                    //playerSphereRigidBody.AddForce(transform.forward * speedInput);
                 }
             }
             else
             {
-                playerSphereRigidBody.drag = 0f;
-                playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
+                //playerSphereRigidBody.drag = 0f;
+                //playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
             }
         }
         else if (!canMove || turned) playerSphereRigidBody.drag = 3.5f;

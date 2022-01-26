@@ -277,7 +277,6 @@ public class GlobalVariables : MonoBehaviour
     }
 
     internal GameObject LoadActualPlayerWheel(){
-        Debug.Log("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
         UnityEngine.Object newWheel = (UnityEngine.Object)Resources.Load("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
         GameObject wheelGO = (GameObject) Instantiate(newWheel);
         return wheelGO;
