@@ -672,8 +672,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d662a30067bf6d4cb5e8be50028bcb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idealRPM: 500
-  maxRPM: 1000
+  idealRPM: 25
+  maxRPM: 1100
   centerOfGravity: {fileID: 8083178033130885314}
   wheelFR: {fileID: 5761687916636373584}
   wheelFL: {fileID: 2555670623678500078}
@@ -681,12 +681,12 @@ MonoBehaviour:
   wheelRL: {fileID: 29019165586830593}
   VerticalAxis: 0
   HorizontalAxis: 0
-  turnRadius: 6
-  torque: 25
-  brakeTorque: 100
+  turnRadius: 15
+  torque: 500
+  brakeTorque: 500
   scaledTorque: 0
   AntiRoll: 20000
-  driveMode: 0
+  driveMode: 2
 --- !u!1 &3971975986674391778
 GameObject:
   m_ObjectHideFlags: 0

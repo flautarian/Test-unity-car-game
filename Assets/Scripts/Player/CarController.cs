@@ -25,11 +25,14 @@ public class CarController : MonoBehaviour {
 
 	public float AntiRoll = 20000.0f;
 
+	private Rigidbody rBody;
+
 	public enum DriveMode { Front, Rear, All };
 	public DriveMode driveMode = DriveMode.Rear;
 
 	void Start() {
 		GetComponent<Rigidbody>().centerOfMass = centerOfGravity.localPosition;
+		rBody = GetComponent<Rigidbody>();
 	}
 
 	public float Speed() {
@@ -42,7 +45,7 @@ public class CarController : MonoBehaviour {
 
 	void FixedUpdate () {
 
-		//Debug.Log ("Speed: " + (wheelRR.radius * Mathf.PI * wheelRR.rpm * 60f / 1000f) + "km/h    RPM: " + wheelRL.rpm);
+		//Debug.Log ("Speed: " + Speed() + "km/h    RPM: " + wheelRL.rpm);
 		HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
         VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
 		scaledTorque = VerticalAxis * torque;
@@ -63,18 +66,10 @@ public class CarController : MonoBehaviour {
 		wheelRR.motorTorque = driveMode==DriveMode.Front ? 0 : scaledTorque;
 		wheelRL.motorTorque = driveMode==DriveMode.Front ? 0 : scaledTorque;
 
-		if(VerticalAxis < 0f) {
-			wheelFR.brakeTorque = brakeTorque;
-			wheelFL.brakeTorque = brakeTorque;
-			wheelRR.brakeTorque = brakeTorque;
-			wheelRL.brakeTorque = brakeTorque;
-		}
-		else {
-			wheelFR.brakeTorque = 0;
-			wheelFL.brakeTorque = 0;
-			wheelRR.brakeTorque = 0;
-			wheelRL.brakeTorque = 0;
-		}
+		wheelFR.brakeTorque = (VerticalAxis == 0f ? brakeTorque : 0f);
+		wheelFL.brakeTorque = (VerticalAxis == 0f ? brakeTorque : 0f);
+		wheelRR.brakeTorque = (VerticalAxis == 0f ? brakeTorque : 0f);
+		wheelRL.brakeTorque = (VerticalAxis == 0f ? brakeTorque : 0f);
 	}
 	private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative){
         if(!Input.GetKey(positive) && !Input.GetKey(negative)){
@@ -104,10 +99,10 @@ public class CarController : MonoBehaviour {
 		float antiRollForce = (travelL - travelR) * AntiRoll;
 		
 		if (groundedL)
-			GetComponent<Rigidbody>().AddForceAtPosition(WheelL.transform.up * -antiRollForce,
+			rBody.AddForceAtPosition(WheelL.transform.up * -antiRollForce,
 			                             WheelL.transform.position); 
 		if (groundedR)
-			GetComponent<Rigidbody>().AddForceAtPosition(WheelR.transform.up * antiRollForce,
+			rBody.AddForceAtPosition(WheelR.transform.up * antiRollForce,
 			                             WheelR.transform.position); 
 	}
 
