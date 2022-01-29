@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7286298830024469620}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!198 &4781259341111781080
 ParticleSystem:
@@ -4836,7 +4836,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7286298830024469620}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &3519412522757947594
 ParticleSystem:
@@ -9642,7 +9642,7 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 7286298830024469620}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &7346647881021778947
 SpriteRenderer:
@@ -9726,7 +9726,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_Children: []
   m_Father: {fileID: 7286298830024469620}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &4804085370671705255
 ParticleSystem:
@@ -14514,81 +14514,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!1 &2481428503480704969
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2549565840354074932}
-  - component: {fileID: 3246500586271394184}
-  - component: {fileID: 5912388740614719570}
-  - component: {fileID: 408809569}
-  m_Layer: 9
-  m_Name: PlayerSphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2549565840354074932
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2481428503480704969}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7286298830024469620}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3246500586271394184
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2481428503480704969}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.35
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5912388740614719570
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2481428503480704969}
-  serializedVersion: 2
-  m_Mass: 70
-  m_Drag: 3
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &408809569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2481428503480704969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a450873e1b444d43ab417b4d3cb2c9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerController: {fileID: 1309327813}
 --- !u!1 &3941451540911497651
 GameObject:
   m_ObjectHideFlags: 0
@@ -14619,7 +14544,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7286298830024469620}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!198 &2958657718913765550
 ParticleSystem:
@@ -19425,7 +19350,7 @@ Transform:
   m_LocalScale: {x: 0.14999999, y: 0.14999999, z: 0.14999999}
   m_Children: []
   m_Father: {fileID: 7286298830024469620}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &5579182192891093649
 ParticleSystem:
@@ -24245,7 +24170,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2549565840354074932}
   - {fileID: 5544565900380456474}
   - {fileID: 3989603810220738593}
   - {fileID: 4054527395086943135}
@@ -24389,7 +24313,9 @@ MonoBehaviour:
   timeSentinelRaycast: 0
   groundRayPoint: {fileID: 3989603810220738593}
   groundRayLength: 0.5
-  playerSphereRigidBody: {fileID: 5912388740614719570}
+  playerSphereRigidBody: {fileID: 0}
+  torque: 50
+  scaledTorque: 0
   playerBoxCollider: {fileID: 0}
   speedInput: 0
   comboStunt: 0
@@ -24402,6 +24328,7 @@ MonoBehaviour:
   wetVelocityPS: {fileID: 2958657718913765550}
   turnedUpParticle: {fileID: 7911020813760578937}
   zAngle: 0
+  xAngle: 0
 --- !u!114 &5731058296596815797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24479,7 +24406,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7286298830024469620}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!198 &7911020813760578937
 ParticleSystem:
@@ -29283,7 +29210,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7286298830024469620}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1800194399643551147
 PrefabInstance:
@@ -29295,7 +29222,7 @@ PrefabInstance:
     - target: {fileID: 7736107511866331389, guid: fde2a6041e3064448a178950db474ebd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7736107511866331389, guid: fde2a6041e3064448a178950db474ebd,
         type: 3}
@@ -29392,7 +29319,7 @@ PrefabInstance:
     - target: {fileID: 9196336554955495280, guid: a00ddf6448778ac469ac069acaaf5a62,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9196336554955495280, guid: a00ddf6448778ac469ac069acaaf5a62,
         type: 3}
@@ -29497,7 +29424,7 @@ PrefabInstance:
     - target: {fileID: 4213772856914742552, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4213772856914742552, guid: 01248155f7961c0499fa8271b9bf41cc,
         type: 3}

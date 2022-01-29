@@ -25,7 +25,7 @@ public class GUIController : MonoBehaviour
     {
         // init de controlador de partes de coche;
         if (carPartsIndicator != null && playerController != null)
-            carPartsIndicator.startGame(playerController.destructableParts.Count);
+            carPartsIndicator.startGame(playerController.GetDestructablePartsCount());
 
         animator = GetComponent<Animator>();
 
@@ -42,8 +42,8 @@ public class GUIController : MonoBehaviour
         float playerBrake = 0;
         if (playerController != null)
         {
-            playerAcceleration = playerController.VerticalAxis;
-            playerBrake = playerController.HorizontalAxis;
+            playerAcceleration = playerController.GetVerticalAxis();
+            playerBrake = playerController.GetHorizontalAxis();
 
             if (GlobalVariables.Instance.repairflag)
             {

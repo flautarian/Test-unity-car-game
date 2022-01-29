@@ -71,9 +71,9 @@ public class WheelShopController : MonoBehaviour
                 pointed = !pointed;
                 anim.SetTrigger(Constants.ANIMATION_TRIGGER_SHOP_TOGGLE);
             }
-            if(actualCarPlayerController != null && actualCarPlayerController.VerticalAxis == 0f){
-                actualCarPlayerController.targetCorrectRotation = transform.rotation;
-                actualCarPlayerController.playerSphereRigidBody.transform.position = transform.position;
+            if(actualCarPlayerController != null && actualCarPlayerController.GetVerticalAxis() == 0f){
+                actualCarPlayerController.transform.rotation = transform.rotation;
+                actualCarPlayerController.transform.position = transform.position;
             }
             if(pointed){
                 if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT))){

@@ -11,7 +11,6 @@ public class TireToWheel : MonoBehaviour {
 
 	void FixedUpdate () {
 	//	transform.position = wheelCollider.su
-
 		UpdateWheelHeight(this.transform, wheelCollider);
 	}
 
@@ -29,23 +28,10 @@ public class TireToWheel : MonoBehaviour {
 			float hitY = collider.transform.InverseTransformPoint(hit.point).y;
 
 			localPosition.y = hitY + collider.radius;
-
-			//wheelCollider.GetComponent<ParticleSystem>().enableEmission = true;
-			/*if(
-					Mathf.Abs(hit.forwardSlip) >= wheelCollider.forwardFriction.extremumSlip || 
-					Mathf.Abs(hit.sidewaysSlip) >= wheelCollider.sidewaysFriction.extremumSlip
-				) {
-				wheelCollider.GetComponent<ParticleSystem>().enableEmission = true;
-			}
-			else {
-				wheelCollider.GetComponent<ParticleSystem>().enableEmission = false;
-			}*/
-
-
 		} else {
 			
 			// no contact with ground, just extend wheel position with suspension distance
-			
+
 			localPosition = Vector3.Lerp (localPosition, -Vector3.up * collider.suspensionDistance, .05f);
 			//wheelCollider.GetComponent<ParticleSystem>().enableEmission = false;
 

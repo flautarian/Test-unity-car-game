@@ -25,14 +25,14 @@ public class CarController : MonoBehaviour {
 
 	public float AntiRoll = 20000.0f;
 
-	private Rigidbody rBody;
+	internal Rigidbody rBody;
 
 	public enum DriveMode { Front, Rear, All };
 	public DriveMode driveMode = DriveMode.Rear;
 
 	void Start() {
-		GetComponent<Rigidbody>().centerOfMass = centerOfGravity.localPosition;
 		rBody = GetComponent<Rigidbody>();
+		rBody.centerOfMass = centerOfGravity.localPosition;
 	}
 
 	public float Speed() {
@@ -105,5 +105,12 @@ public class CarController : MonoBehaviour {
 			rBody.AddForceAtPosition(WheelR.transform.up * antiRollForce,
 			                             WheelR.transform.position); 
 	}
+
+    internal IEnumerator initializeNitro()
+    {
+        maxRPM += 200;
+        yield return new WaitForSeconds(3f);
+        maxRPM -= 200;
+    }
 
 }

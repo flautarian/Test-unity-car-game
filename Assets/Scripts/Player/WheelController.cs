@@ -27,6 +27,9 @@ public class WheelController : MonoBehaviour
 
     [SerializeField]
     private Transform tParent;
+    [SerializeField]
+    private WheelCollider wheelCollider;
+    private bool grounded = false;
 
     void Start()
     {
@@ -39,27 +42,49 @@ public class WheelController : MonoBehaviour
         tParent = transform.parent;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        
-        if(controller != null){
-            /*if(wheelCollider != null){
-                //transform.localPosition = Vector3.Lerp (transform.localPosition, wheelCollider.transform.InverseTransformPoint(hit.point).y + wheelCollider.radius, .05f);
-                transform.localRotation = Quaternion.Euler(0, wheelCollider.steerAngle, 0);
-            }*/
-
-            if (driftEffect != null) manageDriftEffect();
-        }
-        else {
+        if(controller == null){
             Player player = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER).GetComponent<Player>();
             if(player != null) controller = player.controller;
         }
+        if(grounded && controller != null && driftEffect != null)
+            manageDriftEffect();
+        UpdateWheelHeight(this.transform, wheelCollider);
     }
 
     private void manageDriftEffect()
     {
-        driftPSEmissionVar.enabled = (controller.turnZAxisEffect != 0 || (controller.VerticalAxis > 0 && controller.VerticalAxis < 1)) && controller.grounded;
+        driftPSEmissionVar.enabled = (controller.GetHorizontalAxis() != 0 || (controller.GetVerticalAxis() > 0 && controller.GetVerticalAxis() < 1));
         if(driftPSEmissionVar.enabled && !driftEffect.isPlaying)driftEffect.Play();
     }
+
+    
+	void UpdateWheelHeight(Transform wheelTransform, WheelCollider collider) {
+		
+		Vector3 localPosition = wheelTransform.localPosition;
+		
+		WheelHit hit = new WheelHit();
+		
+		// see if we have contact with ground
+		
+		if (collider.GetGroundHit(out hit)) {
+			float hitY = collider.transform.InverseTransformPoint(hit.point).y;
+			localPosition.y = hitY + collider.radius;
+            grounded = true;
+		} else {
+			// no contact with ground, just extend wheel position with suspension distance
+            grounded = false;
+			localPosition = Vector3.Lerp (localPosition, -Vector3.up * collider.suspensionDistance, .05f);
+		}
+		
+		// actually update the position
+		
+		wheelTransform.localPosition = localPosition;
+
+		wheelTransform.localRotation = Quaternion.Euler(0, collider.steerAngle, 0);
+		wheelTransform.Rotate(collider.rpm, 0, 0);
+		
+	}
 
 }

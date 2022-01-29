@@ -6,78 +6,50 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    public PlayerController controller;
-    public float reverseAccel;
-    public float forwardAccel;
-    public float accel;
-    public float turnStrength;
-    public float maxWheelTurn;
-    public float gravityForce;
-    public float dragGroundForce;
-    public float sphereOffset;
-
+    internal PlayerController controller;
+    public CarController carController;
     public float stuntHability;
-    
-	public WheelCollider wheelFL;
-    public WheelCollider wheelFR;
-	public WheelCollider wheelRL;
-	public WheelCollider wheelRR;
-
-    public Vector3 centerOfMass;
-
-    public List<PlayerDestructablePart> parts;
-
+    [SerializeField]
+    internal List<PlayerDestructablePart> parts;
     [SerializeField]
     internal AudioSource RunningCarAudioSource;
-
     [SerializeField]
     internal AudioSource SkidCarAudioSource;
-
     [SerializeField]
     internal AudioClip initCarChunk;
     [SerializeField]
     internal AudioClip runningCarChunk;
+    [SerializeField]
+    private MeshFilter mainMeshFilter;
     [SerializeField]
     private float value;
 
     private void Awake() {
         SkidCarAudioSource.loop = true;
         RunningCarAudioSource.loop = true;
-        GetComponent<Rigidbody>().centerOfMass = centerOfMass;
+        carController = GetComponent<CarController>();
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if(controller != null)
-        {
-            controller.communicatePlayerBaseCollition(collision);
-        }
-        
-    }
+    public void UpdatePlayerCarInformation(CarInfo carInfo){
 
-    public void UpdatePlayerCarInformation(Player newP){
-
-        // Basic data
-        forwardAccel = newP.forwardAccel;
-        reverseAccel = newP.reverseAccel;
-        turnStrength = newP.turnStrength;
-        maxWheelTurn = newP.maxWheelTurn;
-        gravityForce = newP.gravityForce;
-        stuntHability = newP.stuntHability;
-        accel = newP.accel;
-        dragGroundForce = newP.dragGroundForce;
+        stuntHability = carInfo.stuntHability;
+        carController.idealRPM = carInfo.idealRPM;
+        carController.maxRPM = carInfo.maxRPM;
+        carController.turnRadius = carInfo.turnRadius;
+        carController.torque = carInfo.torque;
+        carController.brakeTorque = carInfo.brakeTorque;
 
         // Destructable parts meshes
         for(int i =0; i < parts.Count; i++){
             MeshFilter mf = parts[i].GetComponent<MeshFilter>();
-            MeshFilter newMf = newP.parts[i].GetComponent<MeshFilter>();
+            MeshFilter newMf = carInfo.parts[i].GetComponent<MeshFilter>();
             mf.sharedMesh = newMf.sharedMesh;
         }
         // Main mesh
-        MeshFilter mainMf = GetComponent<MeshFilter>();
-        MeshFilter mainNewMf = newP.GetComponent<MeshFilter>();
+        MeshFilter mainNewMf = carInfo.gameObject.GetComponent<MeshFilter>();
+        mainMeshFilter.sharedMesh = mainNewMf.sharedMesh;
 
-        mainMf.sharedMesh = mainNewMf.sharedMesh;
+        transform.localScale = carInfo.gameObject.transform.localScale;
     }
 
     internal void PlayInitCarChunk(){

@@ -15,42 +15,20 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 lastSecurePositionPlayer;
 
-    public float turnZAxisEffect = 0;
-
-    public float forwardAccel, normalForwardAccel, reverseAccel, turnStrength, maxWheelTurn, accel;
-
-    public float gravityForce, dragGroundValue;
-
-    public LayerMask whatIsGround;
-
-    RaycastHit hitRayCast;
-
     public float timeSentinelRaycast;
 
-    public Transform groundRayPoint;
+    public float comboStunt;
 
-    public float groundRayLength;
+    internal Player player;
 
-    public Rigidbody playerSphereRigidBody;
-
-    public float torque = 50f, scaledTorque = 0f;
-
-    public BoxCollider playerBoxCollider;
-
-    internal List<PlayerDestructablePart> destructableParts;
-
-    public float speedInput, comboStunt;
-
-    public float VerticalAxis, HorizontalAxis;
-
-    private Player player;
+    internal CarController carController;
     
     private ShopHat hat;
 
     internal ShopWheel wheel;
 
     private int actualCarEquipped = 0;
-
+    [SerializeField]
     private Animator playerAnimator;
 
     private StuntAnimationOverriderController stuntAnimationOverriderController;
@@ -72,21 +50,9 @@ public class PlayerController : MonoBehaviour
     private ParticleSystem.EmissionModule stuntComboPSEmissionVar;
 
     [SerializeField]
-    private ParticleSystem slowedVelocityPS;
-
-    private ParticleSystem.EmissionModule slowedVelocityPSEmissionVar;
-
-    [SerializeField]
-    private ParticleSystem wetVelocityPS;
-
-    private ParticleSystem.EmissionModule wetVelocityPSEmissionVar;
-
-    [SerializeField]
     private ParticleSystem turnedUpParticle;
 
     private AudioSource audioSource;
-
-    internal Quaternion targetCorrectRotation;
 
     private Vector3 targetCorrectTurn = new Vector3(0f ,0f ,0f);
 
@@ -94,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake(){
         player = GetComponentInChildren<Player>();
+        carController = GetComponent<CarController>();
         if (player != null)
         {
             UpdateActualChosenCar();
@@ -102,12 +69,8 @@ public class PlayerController : MonoBehaviour
             UpdatePlayerControllerDataWithPlayerObject();
         }
         timeSentinelRaycast = Time.time;
-        stuntComboPSEmissionVar = stuntComboPS.emission;
-        stuntComboPSEmissionVar.enabled = false;
-        slowedVelocityPSEmissionVar = slowedVelocityPS.emission;
-        slowedVelocityPSEmissionVar.enabled = false;
-        wetVelocityPSEmissionVar = wetVelocityPS.emission;
-        wetVelocityPSEmissionVar.enabled = false;
+        /*stuntComboPSEmissionVar = stuntComboPS.emission;
+        stuntComboPSEmissionVar.enabled = false;*/
     }
 
     void Start()
@@ -115,11 +78,9 @@ public class PlayerController : MonoBehaviour
         if(GlobalVariables.Instance.lastVisitedBuildingPositionPlayer != Vector3.zero &&
             GlobalVariables.Instance.IsWorldMenuGameState())
             TranslatePlayerCar(GlobalVariables.Instance.lastVisitedBuildingPositionPlayer);
-        playerSphereRigidBody.transform.parent = null;
         player.gameObject.transform.parent = null;
         Physics.IgnoreLayerCollision(0, 9);
-        // Adapting playerController to the car type chosen
-        playerAnimator = GetComponent<Animator>();
+        
         playerAnimator.speed = player.stuntHability;
         stuntAnimationOverriderController = GetComponent<StuntAnimationOverriderController>();
         audioSource = GetComponent<AudioSource>();
@@ -132,50 +93,25 @@ public class PlayerController : MonoBehaviour
             if (playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) && !playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = true;
             else if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL) && playerBoxCollider.isTrigger) playerBoxCollider.isTrigger = false;
         }*/
-
-        // apliquem a variable velocitat
-        speedInput = Mathf.Lerp(speedInput, (VerticalAxis * forwardAccel * 1000f) + comboStunt, Time.deltaTime * accel);
     }
 
     private void FixedUpdate()
     {
-        if (canMove && !turned)
-        {
-            turnZAxisEffect = HorizontalAxis * (grounded && !turned ? 5 : 1);
-            turnZAxisEffect = Mathf.Clamp(turnZAxisEffect, -5f, 5f);
-            // manipulacio de shader de radial blur en cas de potenciador de velocitat
-            manageNitro();
-        }
-        
         //Refresc de posició
-        //transform.position = playerSphereRigidBody.transform.position;
         transform.position = player.gameObject.transform.position;
-        
-        if(GlobalVariables.Instance.playerTargetedByCamera){
-            //Captura de tecles
-            if(canMove){
-                HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
-                VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
-            }
-        }
-        else{
-            HorizontalAxis =0;
-            VerticalAxis = 0;
-        }
 
-        // Mirar raycast per posar cotxe paralel al terreny que trepitja i detectem si esta en l'aire o no
-        ManageTurnUpPlayerOrientation();
         if(Time.time - timeSentinelRaycast >= 0.2f){
 
             if(!GlobalVariables.Instance.turnedCar && turned){
                 playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_TURN_UP);
             }
-
+            // Deteccio canvi de cotxe
             if(actualCarEquipped != GlobalVariables.Instance.GetEquippedCarIndex()){
                 UpdateActualChosenCar();
                 UpdatePlayerControllerDataWithPlayerObject();
                 GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, this.transform.position);
             }
+            // Deteccio canvi de rodes
             else if(wheel.keyCode != GlobalVariables.Instance.GetEquippedWheelIndex()){
                 UpdateCarWheels();
                 GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_SMOKE_HIT, this.transform.position);
@@ -184,53 +120,33 @@ public class PlayerController : MonoBehaviour
             //else if(hat.keyCode != GlobalVariables.Instance.GetEquippedHatIndex()){
             //    UpdateCarHat();
             //}
-
             timeSentinelRaycast = Time.time;
         }
-
         // update engine motor pitch
-        player.UpdatePitchEngine(VerticalAxis, HorizontalAxis);
+        player.UpdatePitchEngine(GetVerticalAxis(), GetHorizontalAxis());
+        ManageNitro();
+    }
 
-        // Adaptem la rotacio del vehicle al terreny
-        if(grounded){
-            if(!IsInStuntMode() && GlobalVariables.Instance.playerTargetedByCamera){
-                targetCorrectTurn.y = HorizontalAxis * turnStrength * Time.deltaTime * VerticalAxis ;
-                targetCorrectTurn.z = turnZAxisEffect;
-                targetCorrectRotation = Quaternion.Euler(transform.rotation.eulerAngles + targetCorrectTurn);
-            }
-            //transform.rotation = Quaternion.FromToRotation(transform.up, hitRayCast.normal) * targetCorrectRotation;
+    public void OnCollisionEnter(Collision collision)
+    {
+        communicatePlayerBaseCollition(collision);
+    }
+	private void ManageNitro()
+    {
+        // nitro flag detect control
+        if (GlobalVariables.Instance.nitroflag)
+        {
+            GlobalVariables.Instance.nitroflag = false;
+            GlobalVariables.Instance.GetAndPlayChunk(Constants.CHUNK_HIT_NITRO, 1.0f);
+            playerAnimator.SetBool(Constants.ANIMATION_NAME_NITRO_BOOL, true);
+            StartCoroutine(carController.initializeNitro());
         }
-        else {
-            // posem rotant correctament el vehicle per evitar angles imposibles en l'aire
-            targetCorrectRotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
-            //transform.rotation = Quaternion.Lerp(transform.rotation, targetCorrectRotation, Time.deltaTime);
-            transform.rotation = player.gameObject.transform.rotation;
-        }
-
-        // apliquem velocitat de rigidbody i gravetat depenent del estat del cotxe
-        if(canMove && !turned){
-            if (grounded)
-            {
-                playerSphereRigidBody.drag = dragGroundValue;
-                if (Math.Abs(speedInput) > 0 && VerticalAxis != 0) {
-                    /*player.wheelFR.steerAngle = HorizontalAxis * 10;
-                    player.wheelFL.steerAngle = HorizontalAxis * 10;
-                    scaledTorque = VerticalAxis * torque;
-
-                    player.wheelFR.motorTorque = scaledTorque;
-                    player.wheelFL.motorTorque = scaledTorque;
-                    player.wheelRR.motorTorque = scaledTorque;
-                    player.wheelRL.motorTorque = scaledTorque;*/
-                    //playerSphereRigidBody.AddForce(transform.forward * speedInput);
-                }
-            }
-            else
-            {
-                //playerSphereRigidBody.drag = 0f;
-                //playerSphereRigidBody.AddForce(Vector3.up * -gravityForce * 100f);
-            }
-        }
-        else if (!canMove || turned) playerSphereRigidBody.drag = 3.5f;
+        // Radial blur shader control
+        if(playerAnimator.GetBool(Constants.ANIMATION_NAME_NITRO_BOOL))
+        	GlobalVariables.Instance.currentRadialBlur += 0.01f;
+		else if(GlobalVariables.Instance.currentRadialBlur > 0f)
+			GlobalVariables.Instance.currentRadialBlur -= 0.02f;
+		
     }
 
 
@@ -251,33 +167,6 @@ public class PlayerController : MonoBehaviour
     internal void updateActualTrick(StuntType stuntType){
         actualStuntTricking = stuntType;
     }
-    
-
-    private void ManageTurnUpPlayerOrientation(){
-        zAngle = Math.Abs(360 - transform.rotation.eulerAngles.z);
-        if (Physics.Raycast(groundRayPoint.position, -transform.up, out hitRayCast, groundRayLength, whatIsGround)){
-            turned = false;
-            if(turnedUpParticle.gameObject.activeSelf) 
-                turnedUpParticle.gameObject.SetActive(turned);
-            grounded = true;
-        }
-        else if( grounded && ((zAngle > 110 && zAngle < 255))){
-            if(!turned) {
-                GlobalVariables.Instance.turnedCar = true;
-                stuntComboIndicator.ResetComboIndicator();
-                turnedUpParticle.gameObject.SetActive(turned);
-                playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, false);
-            }
-            turned = true;
-        }
-        else {
-            grounded = false;
-            turned = false;
-            GlobalVariables.Instance.turnedCar = turned;
-            turnedUpParticle.gameObject.SetActive(turned);
-        }
-            
-    }
 
     private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative){
         if(!Input.GetKey(positive) && !Input.GetKey(negative)){
@@ -295,6 +184,14 @@ public class PlayerController : MonoBehaviour
         if(trickMode && !playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL)){
             guiController.communicateNewStuntKeyPressed(keyCode, grounded);
         }
+    }
+
+    internal float GetVerticalAxis(){
+        return carController.VerticalAxis;
+    }
+
+    internal float GetHorizontalAxis(){
+        return carController.HorizontalAxis;
     }
 
     internal void communicateStuntInitialized(){
@@ -329,32 +226,21 @@ public class PlayerController : MonoBehaviour
         stuntAnimationOverriderController.SetAnimation("StuntDefaultAnimation", stunt.GetAnimation());
         playerAnimator.SetTrigger(Constants.ANIMATION_TRIGGER_INIT_STUNT);
         playerAnimator.SetBool(Constants.ANIMATION_NAME_IS_IN_STUNT_BOOL, true);
-        stuntComboPSEmissionVar.enabled = true;
-        stuntComboIndicator.AddComboLevel();
+        //stuntComboPSEmissionVar.enabled = true;
+        if(stuntComboIndicator != null)
+            stuntComboIndicator.AddComboLevel();
 
         switch(stunt.comboKeys.Count){
             case 2:
-                if(stuntComboPSEmissionVar.rateOverTime.constant < 5.0f){
-                    stuntComboPSEmissionVar.rateOverTime = 5.0f;
-                }
                 comboStunt = 500f;
             break;
             case 3:
-                if(stuntComboPSEmissionVar.rateOverTime.constant < 10.0f){
-                    stuntComboPSEmissionVar.rateOverTime = 10.0f;
-                }
                 comboStunt = 1000f;
             break;
             case 4:
-                if(stuntComboPSEmissionVar.rateOverTime.constant < 15.0f){
-                    stuntComboPSEmissionVar.rateOverTime = 15.0f;
-                }
                 comboStunt = 1500f;
             break;
             case 5:
-                if(stuntComboPSEmissionVar.rateOverTime.constant < 20.0f){
-                    stuntComboPSEmissionVar.rateOverTime = 20.0f;
-                }
                 comboStunt = 2000f;
             break;
             default:
@@ -364,14 +250,14 @@ public class PlayerController : MonoBehaviour
     }
 
     internal void impulseUpCar(float amount){
-        playerSphereRigidBody.AddForce(Vector3.up * amount, ForceMode.Impulse);
+        carController.rBody.AddForce(Vector3.up * amount, ForceMode.Impulse);
     }
     internal void impulseRightCar(float amount){
-        playerSphereRigidBody.AddForce(Vector3.right * amount, ForceMode.Impulse);
+        carController.rBody.AddForce(Vector3.right * amount, ForceMode.Impulse);
     }
 
     internal void impulseForwardCar(float amount){
-        playerSphereRigidBody.AddForce(Vector3.forward * amount, ForceMode.Impulse);
+        carController.rBody.AddForce(Vector3.forward * amount, ForceMode.Impulse);
     }
 
     internal void turnLeft()
@@ -397,13 +283,13 @@ public class PlayerController : MonoBehaviour
             }
             grounded = true;
             if (System.Object.Equals(collision.gameObject.tag, Constants.CESPED) && streetType != StreetType.grass){
-                slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_GRASS);
-                wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_GRASS);
+                //slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_GRASS);
+                //wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_GRASS);
                 streetType = StreetType.grass;
             }
             else if (System.Object.Equals(collision.gameObject.tag, Constants.ASPHALT) && streetType != StreetType.asphalt){
-                slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_ROAD);
-                wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_ROAD);
+                //slowedVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.STICKY_ROAD);
+                //wetVelocityPSEmissionVar.enabled = GlobalVariables.Instance.IsMutatorActive(Mutator.WET_ROAD);
                 streetType = StreetType.asphalt;
             }
             else if (System.Object.Equals(collision.gameObject.tag, Constants.WATER))
@@ -453,7 +339,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerDestructablePart findPartNotDestroyed()
     {
-        foreach (PlayerDestructablePart part in destructableParts)
+        foreach (PlayerDestructablePart part in player.parts)
         {
             if (!part.destroyed) return part;
         }
@@ -468,16 +354,17 @@ public class PlayerController : MonoBehaviour
             {
                 RequestAndPlayChunk(Constants.CHUNK_HIT_PLAYER);
                 // conseqüencies de col·licio
-                stuntComboPSEmissionVar.enabled = false;
+                //stuntComboPSEmissionVar.enabled = false;
                 comboStunt = 0f;
-                stuntComboIndicator.ResetComboIndicator();
+                if(stuntComboIndicator != null)
+                    stuntComboIndicator.ResetComboIndicator();
                 if (obstacle.lethal) destroyPlayer(Constants.GAME_OVER_LETHAL_OBS_COLLIDED);
                 else
                 {
                     if (partDestroyed == null)
                         partDestroyed = findPartNotDestroyed();
                     if (partDestroyed != null){
-                        int indexPartToDestroy = destructableParts.IndexOf(partDestroyed);
+                        int indexPartToDestroy = player.parts.IndexOf(partDestroyed);
                         if (!playerAnimator.GetBool(Constants.ANIMATION_NAME_HIT_BOOL))
                         {
                             stuntAnimationOverriderController.SetAnimation("playerHitAndRecovery", playerAnimator.runtimeAnimatorController.animationClips[0]);
@@ -522,11 +409,14 @@ public class PlayerController : MonoBehaviour
 
     internal void RecoverParts()
     {
-        foreach (PlayerDestructablePart dp in destructableParts)
+        foreach (PlayerDestructablePart dp in player.parts)
         {
-            if (dp.destroyed)
-                dp.Recover();
+            if (dp.destroyed) dp.Recover();
         }
+    }
+
+    internal int GetDestructablePartsCount(){
+        return player.parts.Count;
     }
 
     public void startGameOver()
@@ -537,48 +427,6 @@ public class PlayerController : MonoBehaviour
     public void startGame()
     {
         canMove = true;
-    }
-
-    public float getSpeedInput()
-    {
-        return speedInput;
-    }
-
-    private void manageNitro()
-    {
-        GlobalVariables.Instance.playerCurrentVelocity = playerSphereRigidBody.velocity.z;
-        if (GlobalVariables.Instance.nitroflag)
-        {
-            forwardAccel = normalForwardAccel;
-            GlobalVariables.Instance.currentRadialBlur = 0;
-            StartCoroutine(initializeNitro());
-        }
-        else if(playerAnimator.GetBool(Constants.ANIMATION_NAME_NITRO_BOOL))
-        {
-            float valRadial = GlobalVariables.Instance.currentRadialBlur;
-            if (forwardAccel > normalForwardAccel)
-                valRadial += 0.01f;
-            else
-            {
-                if (valRadial > 0)
-                    valRadial -= 0.02f;
-                else {
-                    valRadial = 0;
-                    playerAnimator.SetBool(Constants.ANIMATION_NAME_NITRO_BOOL, false);
-                }
-            }
-            GlobalVariables.Instance.currentRadialBlur = valRadial;
-        }
-    }
-
-    private IEnumerator initializeNitro()
-    {
-        RequestAndPlayChunk(Constants.CHUNK_HIT_NITRO);
-        playerAnimator.SetBool(Constants.ANIMATION_NAME_NITRO_BOOL, true);
-        GlobalVariables.Instance.nitroflag = false;
-        forwardAccel += 2;
-        yield return new WaitForSeconds(3f);
-        forwardAccel -= 2;
     }
 
     public IEnumerator ResetPosition(){
@@ -594,27 +442,16 @@ public class PlayerController : MonoBehaviour
     }
 
     private void TranslatePlayerCar(Vector3 v){
-        playerSphereRigidBody.gameObject.transform.position = v;
-            transform.position = v;
+        player.gameObject.transform.position = v;
     }
     
     public void UpdateActualChosenCar(){
         GameObject go = GlobalVariables.Instance.LoadActualPlayerCar();
-        Player newPlayerObject = go.GetComponent<Player>();
-        BoxCollider bc = go.GetComponent<BoxCollider>();
+        CarInfo newPlayerObject = go.GetComponent<CarInfo>();
         if(newPlayerObject != null){
-            newPlayerObject.transform.parent = this.transform;
-            newPlayerObject.transform.position = player.transform.position;
-            newPlayerObject.transform.rotation = player.transform.rotation;
-            var name = player.transform.name;
-            Destroy(player.gameObject);
-            player = newPlayerObject;
-            player.transform.name = name;
-            player.controller = this;
+            player.UpdatePlayerCarInformation(newPlayerObject);
             actualCarEquipped = GlobalVariables.Instance.GetEquippedCarIndex();
-            if(bc != null) playerBoxCollider = bc;
             player.PlayRunningCarChunk();
-            UpdateSphereScale();
         }
     }
 
@@ -624,7 +461,6 @@ public class PlayerController : MonoBehaviour
         if(wheelGO.TryGetComponent( out ShopWheel w)){
             wheel = w;
         }
-        UpdateSphereScale();
     }
 
     internal void UpdateCarHat(){
@@ -632,14 +468,6 @@ public class PlayerController : MonoBehaviour
         if(hatGO.TryGetComponent( out ShopHat h)){
             hat = h;
         }
-    }
-    
-    internal void UpdateSphereScale(){
-        var newSphereSize = new Vector3(1,1,1);
-        newSphereSize.x += 
-            (player != null ? player.sphereOffset : 0f) + 
-                (wheel != null ? wheel.wheelOffset : 0f);
-        playerSphereRigidBody.transform.localScale = newSphereSize;
     }
 
     public void GenerateMoveParticleEffect(){
@@ -651,18 +479,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void UpdatePlayerControllerDataWithPlayerObject(){
-        if(player != null){
-            gravityForce = player.gravityForce;
-            dragGroundValue = player.dragGroundForce;
-            forwardAccel = player.forwardAccel;
-            normalForwardAccel = forwardAccel;
-            reverseAccel = player.reverseAccel;
-            turnStrength = player.turnStrength;
-            maxWheelTurn = player.maxWheelTurn;
-            accel = player.accel;
-            destructableParts = player.parts;
-            if( playerAnimator != null )playerAnimator.speed = player.stuntHability;
-        }
+        playerAnimator.speed = player.stuntHability;
     }
 
     private void ExecuteTurnUpCar(){
