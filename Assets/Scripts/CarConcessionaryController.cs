@@ -57,7 +57,7 @@ public class CarConcessionaryController : MonoBehaviour
             if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))
             || (pointed && Input.GetButtonDown(Constants.BACK))){
                 pointed = !pointed;
-                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed, pointed);
+                GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed, pointed);                
             }
             if(pointed){
                 if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT))){

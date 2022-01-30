@@ -31,7 +31,7 @@ public class WheelShopController : MonoBehaviour
     [SerializeField]
     private Outline outlineScript;
 
-    public PlayerController actualCarPlayerController;
+    public Player actualCarPlayerController;
 
     Animator anim;
     void Start()
@@ -62,7 +62,7 @@ public class WheelShopController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() {
+    void Update() {
         if(GlobalVariables.Instance.cameraLookFocusTransform == camPos){            
             if(outlineScript != null)
                 outlineScript.updateOutlineLevel(pointed ? Constants.OUTLINE_WITH_ENABLED : Constants.OUTLINE_WITH_DISABLED);
@@ -71,7 +71,7 @@ public class WheelShopController : MonoBehaviour
                 pointed = !pointed;
                 anim.SetTrigger(Constants.ANIMATION_TRIGGER_SHOP_TOGGLE);
             }
-            if(actualCarPlayerController != null && actualCarPlayerController.GetVerticalAxis() == 0f){
+            if(actualCarPlayerController != null && (actualCarPlayerController.GetVerticalAxis() == 0f || !actualCarPlayerController.carController.canMove)){
                 actualCarPlayerController.transform.rotation = transform.rotation;
                 actualCarPlayerController.transform.position = transform.position;
             }
@@ -105,15 +105,17 @@ public class WheelShopController : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.actualPanelInteractionType == PanelInteractionType.NO_INTERACTION){
             GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.WHEEL_PANEL_TYPE, camPos, camPos);
-            var player = other.GetComponent<Player>();
-            if(player != null)
-                actualCarPlayerController =  player.controller;
+            if(other.TryGetComponent(out Player p)){
+                actualCarPlayerController =  p;
+            }
         }
     }
     private void OnTriggerExit(Collider other) {
         if(other.tag.Equals(Constants.GO_TAG_PLAYER)){
             pointed = false;
             GlobalVariables.Instance.DisableCanvasPanelButton();
+            if(transform.position.y > 2.0f)
+                anim.SetTrigger(Constants.ANIMATION_TRIGGER_SHOP_TOGGLE);
         }
     }
 

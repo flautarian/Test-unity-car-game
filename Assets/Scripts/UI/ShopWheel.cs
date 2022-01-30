@@ -12,11 +12,15 @@ public class ShopWheel : MonoBehaviour
     internal int keyCode = -1;
 
     [SerializeField]
-    internal int price;
+    internal int price = 0;
 
     [SerializeField]
     internal float wheelOffset = 0f;
-    
+
     [SerializeField]
     internal float wheelSize = 1f;
+
+    public ShopWheel(){
+
+    }
 }

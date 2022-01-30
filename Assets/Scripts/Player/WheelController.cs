@@ -19,7 +19,7 @@ public class WheelController : MonoBehaviour
     private int wheelIndex = 0;
 
     [SerializeField]
-    private PlayerController controller;
+    private Player player;
 
     private float verticalAxis, horizontalAxis, velocity;
 
@@ -35,6 +35,9 @@ public class WheelController : MonoBehaviour
     {
         driftEffect = GetComponent<ParticleSystem>();
         meshFilter = GetComponent<MeshFilter>();
+        var objPlayer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER);
+        if (objPlayer != null && objPlayer.TryGetComponent(out Player p))
+            player = p;
         if(driftEffect != null){
             driftPSEmissionVar = driftEffect.emission;
             driftEffect.Stop();
@@ -44,19 +47,24 @@ public class WheelController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(controller == null){
-            Player player = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER).GetComponent<Player>();
-            if(player != null) controller = player.controller;
-        }
-        if(grounded && controller != null && driftEffect != null)
+        if(grounded && driftEffect != null)
             manageDriftEffect();
+        if(player.actualWheel != null && wheelIndex != player.actualWheel.keyCode)
+            UpdateWheel(player.actualWheel);
         UpdateWheelHeight(this.transform, wheelCollider);
     }
 
     private void manageDriftEffect()
     {
-        driftPSEmissionVar.enabled = (controller.GetHorizontalAxis() != 0 || (controller.GetVerticalAxis() > 0 && controller.GetVerticalAxis() < 1));
+        driftPSEmissionVar.enabled = (player.carController.GetHorizontalAxis() != 0 || (player.carController.GetVerticalAxis() > 0 && player.carController.GetVerticalAxis() < 1));
         if(driftPSEmissionVar.enabled && !driftEffect.isPlaying)driftEffect.Play();
+    }
+
+    private void UpdateWheel(ShopWheel wheel){
+        meshFilter.sharedMesh = wheel.CWheel;
+        transform.localScale = new Vector3(wheel.wheelSize, wheel.wheelSize, wheel.wheelSize);
+        wheelCollider.radius = wheel.wheelSize / 2;
+        wheelIndex = wheel.keyCode;
     }
 
     

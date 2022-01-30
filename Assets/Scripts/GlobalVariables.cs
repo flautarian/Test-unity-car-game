@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
+using UnityEditor.Presets;
 using Honeti;
 using TMPro;
 
@@ -172,6 +173,8 @@ public class GlobalVariables : MonoBehaviour
 
     public bool playerTargetedByCamera = true;
 
+    private Player player;
+
     public int stuntCombo = 0;
 
     internal Vector3 lastVisitedBuildingPositionPlayer;
@@ -196,6 +199,10 @@ public class GlobalVariables : MonoBehaviour
 
         var partgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PARTICLE_CONTAINER);
         if (partgo != null) particlesContainer = partgo.transform;
+
+        var plyer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER);
+        if(plyer.TryGetComponent(out Player p))
+            player = p;
 
         objectiveActualTarget = 0;
 
@@ -276,16 +283,12 @@ public class GlobalVariables : MonoBehaviour
         return carGO;
     }
 
-    internal GameObject LoadActualPlayerWheel(){
-        UnityEngine.Object newWheel = (UnityEngine.Object)Resources.Load("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
-        GameObject wheelGO = (GameObject) Instantiate(newWheel);
-        return wheelGO;
+    internal Preset LoadActualPlayerWheelPreset(){
+        return Resources.Load<Preset>("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
     }
 
-    internal GameObject LoadActualPlayerHat(){
-        UnityEngine.Object newHat = (UnityEngine.Object)Resources.Load("Prefabs/Cars/Hats/Hat_" + saveGameData.data.equippedHat);
-        GameObject hatGO = (GameObject) Instantiate(newHat);
-        return hatGO;
+    internal Preset LoadActualPlayerHatPreset(){
+        return Resources.Load<Preset>("Prefabs/Cars/Hats/Hat_" + saveGameData.data.equippedHat);
     }
 
     private string GetActualPlayerCarPrefabName(){
@@ -601,6 +604,7 @@ public class GlobalVariables : MonoBehaviour
         mainCameraControl.m_LookAt = focusSecondary ? cameraLookFocusTransform : cameraMainLookTransform;
         mainCameraControl.m_Follow = followSecondary ? cameraFollowFocusTransform : cameraMainFollowTransform;
         playerTargetedByCamera = !focusSecondary;
+        player.UpdateCanMove(playerTargetedByCamera);
     }
 
     public void SetFocusUiElement(GameObject go){
@@ -660,6 +664,7 @@ public class GlobalVariables : MonoBehaviour
             cameraMainFollowTransform = mainCameraControl.m_Follow;
             cameraLookFocusTransform = cameraMainLookTransform;
             playerTargetedByCamera = true;
+            player.UpdateCanMove(playerTargetedByCamera);
         }
         else Debug.Log("MainVirtualCamera not found!");
     }

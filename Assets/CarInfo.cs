@@ -7,6 +7,8 @@ public class CarInfo : MonoBehaviour
     [SerializeField]
     internal List<PlayerDestructablePart> parts;
     [SerializeField]
+    internal List<Transform> wheels;
+    [SerializeField]
     internal float idealRPM = 500.0f;
     [SerializeField]
 	internal float maxRPM = 1000f;
