@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
-using UnityEditor.Presets;
 using Honeti;
 using TMPro;
 
@@ -283,12 +282,12 @@ public class GlobalVariables : MonoBehaviour
         return carGO;
     }
 
-    internal Preset LoadActualPlayerWheelPreset(){
-        return Resources.Load<Preset>("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
+    internal ShopWheel LoadActualPlayerWheel(){
+        return Resources.Load<ShopWheel>("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
     }
 
-    internal Preset LoadActualPlayerHatPreset(){
-        return Resources.Load<Preset>("Prefabs/Cars/Hats/Hat_" + saveGameData.data.equippedHat);
+    internal ShopHat LoadActualPlayerHatPreset(){
+        return Resources.Load<ShopHat>("Prefabs/Cars/Hats/Hat_" + saveGameData.data.equippedHat);
     }
 
     private string GetActualPlayerCarPrefabName(){
@@ -363,11 +362,7 @@ public class GlobalVariables : MonoBehaviour
         int[] stuntsToLoad = GetStuntsToLoad();
         for(int s = 0; s < stuntsToLoad.Length; s++){
             if(stuntsToLoad[s] >= 0){
-                //Debug.Log(Constants.STUNT_NAMES[stuntsToLoad[s]] + ": loaded");
-                UnityEngine.Object newScroll = (UnityEngine.Object)
-                    Resources.Load("Prefabs/Stunts/" + Constants.STUNT_NAMES[stuntsToLoad[s]]);
-                GameObject scrollGO = (GameObject)Instantiate(newScroll);
-                Stunt st = scrollGO.GetComponent<Stunt>();
+                Stunt st = Resources.Load<Stunt>("Prefabs/Stunts/Stunt_" + stuntsToLoad[s]);
                 result[s] = st;
             }
             else result[s] = null;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Presets;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -35,10 +34,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     private ParticleSystem turnedUpParticle;
 
+    private BoxCollider collider;
+
     private void Awake() {
         SkidCarAudioSource.loop = true;
         RunningCarAudioSource.loop = true;
         timeSentinelRaycast = Time.time;
+        collider = GetComponent<BoxCollider>();
     }
 
     private void Start() {
@@ -180,27 +182,24 @@ public class Player : MonoBehaviour
             stuntsController.UpdatePlayerAnimationSpeed(newPlayerObject.stuntHability);
             actualCarEquipped = GlobalVariables.Instance.GetEquippedCarIndex();
             PlayRunningCarChunk();
-            var basecol = GetComponent<BoxCollider>();
             var basecolNew = go.GetComponent<BoxCollider>();
-            basecol.center = basecolNew.center;
-            basecol.size = basecolNew.size;
+            collider.center = basecolNew.center;
+            collider.size = basecolNew.size;
             Destroy(go.gameObject);
         }
     }
 
     internal void UpdateCarWheels(){
-        Preset wheelPreset = GlobalVariables.Instance.LoadActualPlayerWheelPreset();
-        if(wheelPreset.CanBeAppliedTo(actualWheel)){
-            wheelPreset.ApplyTo(actualWheel);
-        }
+        ShopWheel newWheel = GlobalVariables.Instance.LoadActualPlayerWheel();
+        if(newWheel != null)
+            actualWheel = newWheel;
         //Destroy(wheelGO.gameObject);
     }
 
     internal void UpdateCarHat(){
-        Preset hatPreset = GlobalVariables.Instance.LoadActualPlayerHatPreset();
-        if(hatPreset.CanBeAppliedTo(actualHat)){
-            hatPreset.ApplyTo(actualHat);
-        }
+        ShopHat newHat = GlobalVariables.Instance.LoadActualPlayerHatPreset();
+        if(newHat != null)
+            actualHat = newHat;
         //Destroy(hatGO.gameObject);
     }
 

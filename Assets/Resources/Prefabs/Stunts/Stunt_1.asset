@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fad03b49070c9846ac2170d64d1508c, type: 3}
+  m_Name: Stunt_1
+  m_EditorClassIdentifier: 
+  comboKeys: 0200000002000000
+  stuntName: Barrel Roll Right
+  groundStunt: 0
+  units: 10
+  stuntType: 0
+  chunkName: Stunt_BarrelRoll
+  anim: {fileID: 7400000, guid: 2fff4d3a488eee7498e8af063bc2932e, type: 2}

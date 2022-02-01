@@ -9,6 +9,7 @@ public class PlayerDestructablePart : MonoBehaviour
     private Player playerCar;
     private Rigidbody rbPart;
     internal bool destroyed = false;
+    private Collider collider;
 
     private void Start() {
         var objPlayer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER);

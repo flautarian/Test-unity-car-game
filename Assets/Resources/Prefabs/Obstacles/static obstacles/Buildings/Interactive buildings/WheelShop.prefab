@@ -287,13 +287,13 @@ MonoBehaviour:
   buyPanelI18n: {fileID: 1862766420343120170}
   nameI18n: {fileID: 7785799865189166611}
   options:
-  - {fileID: -2410680590474255816, guid: 35abc6c6f086a574292c5552f44f88df, type: 3}
-  - {fileID: -2410680590474255816, guid: 4fd42d656962e9143bd87e9545234987, type: 3}
-  - {fileID: -2410680590474255816, guid: b22c91314e5096e48bc43c7798036205, type: 3}
-  - {fileID: -2410680590474255816, guid: 9fdc9407ebc81144c94283bd2e1affb5, type: 3}
-  - {fileID: -2410680590474255816, guid: 9f115ca1fe8ce374bb3608e2f79ae90e, type: 3}
-  - {fileID: -2410680590474255816, guid: 35c338e4b6c23374bb404c53e575742e, type: 3}
-  - {fileID: -2410680590474255816, guid: 9762bc2dbf79635448cb2c10b60e28ce, type: 3}
+  - {fileID: 11400000, guid: ce2b04b05b30f6b449849fcb4f196261, type: 2}
+  - {fileID: 11400000, guid: dd538e8619dca3b478f13c1235d1bb1a, type: 2}
+  - {fileID: 11400000, guid: ab4873198cc86b645b7005d0da4a7270, type: 2}
+  - {fileID: 11400000, guid: 43edca5ad49790a4f819b95c8f172cd4, type: 2}
+  - {fileID: 11400000, guid: 1a27698cbd68ed24984e989ccc34b5a3, type: 2}
+  - {fileID: 11400000, guid: ad52c6ef7b2ad534a881ff0326a8df6e, type: 2}
+  - {fileID: 11400000, guid: ef7657f16c3304a4cb14e3d55bcc5598, type: 2}
   - {fileID: -2410680590474255816, guid: cb9d1bdb6d56b10468dbbff8355a1e0b, type: 3}
   - {fileID: -2410680590474255816, guid: ccb7e38872e321445bcad96151364e1d, type: 3}
   - {fileID: -2410680590474255816, guid: 58c5821b9d1bba342a176fd9e03bb875, type: 3}

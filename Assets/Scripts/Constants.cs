@@ -164,7 +164,7 @@ public class Constants
             "Gainer",
             "Reversal Gainer",
             "Wind Strike",
-            "",
+            "Air savior",
             "",
             "",
             "",

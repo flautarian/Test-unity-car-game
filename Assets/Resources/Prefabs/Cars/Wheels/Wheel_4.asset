@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9b4c754bc8573a408f2dd89e0aed1b3, type: 3}
+  m_Name: Wheel_4
+  m_EditorClassIdentifier: 
+  CWheel: {fileID: -2432090755550338912, guid: e1772ee0670872f48a1af03ff5ff29ad, type: 3}
+  keyCode: 4
+  price: 500
+  wheelOffset: 0.3
+  wheelSize: 0.7

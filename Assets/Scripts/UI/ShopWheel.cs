@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopWheel : MonoBehaviour
-{
+[CreateAssetMenu(fileName = "Wheel", menuName = "VoxelRacer/Wheel", order = 0)]
+public class ShopWheel : ScriptableObject {
     
     [SerializeField]
     internal Mesh CWheel;
@@ -22,5 +22,12 @@ public class ShopWheel : MonoBehaviour
 
     public ShopWheel(){
 
+    }
+    public ShopWheel(ShopWheel w){
+        this.CWheel = w.CWheel;
+        this.price = w.price;
+        this.keyCode = w.keyCode;
+        this.wheelSize = w.wheelSize;
+        this.wheelOffset = w.wheelOffset;
     }
 }

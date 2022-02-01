@@ -33,13 +33,16 @@ public class StuntsController : MonoBehaviour
     [SerializeField]
     internal StuntComboIndicator stuntComboIndicator;
 
-    private void Start() {
+    private void Awake() {
         carController = GetComponent<CarController>();
         playerAnimator = GetComponent<Animator>();
         stuntAnimationOverriderController = GetComponent<StuntAnimationOverriderController>();
         GameObject gui = GameObject.FindGameObjectWithTag(Constants.GO_TAG_GUI);
         if (gui != null) 
             guiController = gui.GetComponent<GUIController>();
+    }
+
+    private void Start() {
         if(stuntComboPS != null)
             stuntComboPSEmissionVar = stuntComboPS.emission;
         timeLastButtonPressed = Time.time;

@@ -54,7 +54,7 @@ public class CarController : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		Debug.Log ("Speed: " + Speed() + "km/h    RPM: " + wheelRL.rpm);
+		// Debug.Log ("Speed: " + Speed() + "km/h    RPM: " + wheelRL.rpm);
 		scaledTorque = VerticalAxis * torque;
 
 		if(scaledTorque >= 0){
@@ -146,6 +146,12 @@ public class CarController : MonoBehaviour {
     internal void impulseForwardCar(float amount){
         rBody.AddForce(Vector3.forward * amount, ForceMode.Impulse);
     }
+
+    internal void TogglePlayerObstaclesClip(int value){
+        Physics.IgnoreLayerCollision(0, 9, value == 1);
+        Physics.IgnoreLayerCollision(9, 11, value == 1);
+    }
+
 
     internal IEnumerator initializeNitro()
     {
