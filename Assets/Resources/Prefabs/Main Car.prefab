@@ -6243,7 +6243,7 @@ GameObject:
   - component: {fileID: 390922962862794328}
   - component: {fileID: 861450309998307290}
   - component: {fileID: 1588184534020562286}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TopLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6330,7 +6330,6 @@ MonoBehaviour:
   isLeftWheel: 1
   driftEffect: {fileID: 0}
   player: {fileID: 0}
-  tParent: {fileID: 0}
   wheelCollider: {fileID: 2555670623678500078}
 --- !u!1 &5465425303103803152
 GameObject:
@@ -6433,7 +6432,6 @@ MonoBehaviour:
   isLeftWheel: 0
   driftEffect: {fileID: 0}
   player: {fileID: 0}
-  tParent: {fileID: 0}
   wheelCollider: {fileID: 484493415052134502}
 --- !u!199 &3191502707890218470
 ParticleSystemRenderer:
@@ -7336,7 +7334,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -7461,26 +7459,35 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.043987993
-          value: 0.22775514
-          inSlope: 1.416086
-          outSlope: 0.8841598
-          tangentMode: 1
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 1
-        - serializedVersion: 3
-          time: 0.17939252
-          value: 0.29189858
-          inSlope: 0.33177683
-          outSlope: 0.25936094
+          time: 0.12139525
+          value: 0.47700435
+          inSlope: -0.746464
+          outSlope: 1.9980025
           tangentMode: 1
           weightedMode: 0
           inWeight: 1
-          outWeight: 0.20016451
+          outWeight: 1
+        - serializedVersion: 3
+          time: 0.19774884
+          value: 0.47375488
+          inSlope: -1.6532245
+          outSlope: 0.013530904
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 1
+          outWeight: 0.24387898
+        - serializedVersion: 3
+          time: 0.37038448
+          value: 0.0012135042
+          inSlope: 0.0054209246
+          outSlope: 0.0054209246
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 0.4815039
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -11257,7 +11264,7 @@ GameObject:
   - component: {fileID: 8871916277892863579}
   - component: {fileID: 6000984985592651635}
   - component: {fileID: 7213631388939268900}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TopRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11344,7 +11351,6 @@ MonoBehaviour:
   isLeftWheel: 0
   driftEffect: {fileID: 0}
   player: {fileID: 0}
-  tParent: {fileID: 0}
   wheelCollider: {fileID: 5761687916636373584}
 --- !u!1 &6044353931681718193
 GameObject:
@@ -16478,7 +16484,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &6759737231776672312
 Transform:
@@ -16560,7 +16566,6 @@ MonoBehaviour:
   isLeftWheel: 1
   driftEffect: {fileID: 0}
   player: {fileID: 0}
-  tParent: {fileID: 0}
   wheelCollider: {fileID: 29019165586830593}
 --- !u!199 &4139751818523728325
 ParticleSystemRenderer:
@@ -17463,7 +17468,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -17588,26 +17593,35 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.043987993
-          value: 0.22775514
-          inSlope: 1.416086
-          outSlope: 0.8841598
-          tangentMode: 1
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 1
-        - serializedVersion: 3
-          time: 0.17939252
-          value: 0.29189858
-          inSlope: 0.33177683
-          outSlope: 0.25936094
+          time: 0.12139525
+          value: 0.47700435
+          inSlope: -0.746464
+          outSlope: 1.9980025
           tangentMode: 1
           weightedMode: 0
           inWeight: 1
-          outWeight: 0.20016451
+          outWeight: 1
+        - serializedVersion: 3
+          time: 0.19774884
+          value: 0.47375488
+          inSlope: -1.6532245
+          outSlope: 0.013530904
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 1
+          outWeight: 0.24387898
+        - serializedVersion: 3
+          time: 0.37038448
+          value: 0.0012135042
+          inSlope: 0.0054209246
+          outSlope: 0.0054209246
+          tangentMode: 1
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 0.4815039
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0

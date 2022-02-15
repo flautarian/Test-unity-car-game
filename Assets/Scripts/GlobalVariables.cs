@@ -259,6 +259,13 @@ public class GlobalVariables : MonoBehaviour
         ResetAllGameOnFlags();
     }
 
+    public int GetActualTaxLastLevel(){
+        for(int i = 0; i < saveGameData.data.levels.Length; i++){
+            if(!saveGameData.data.levels[i].done)return saveGameData.data.levels[i].previousLevel;
+        }
+        return 0;
+    }
+
     private void ResetAllGameOnFlags(){
         UpdateMinZLimit(0);
         ResetShaders();
@@ -488,7 +495,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void UpdateFarCameraLevel(float level){
-        saveGameData.data.farCamera =  75 + (int) (50 * level);
+        saveGameData.data.farCamera =  40 + (int) (50 * level);
         if(mainCameraControl == null) UpdateMainCameraAttribute();
         if(mainCameraControl != null) mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }

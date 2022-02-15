@@ -25,10 +25,11 @@ public class WheelController : MonoBehaviour
 
     private ParticleSystem.EmissionModule driftPSEmissionVar;
 
-    [SerializeField]
     private Transform tParent;
+
     [SerializeField]
     private WheelCollider wheelCollider;
+
     private bool grounded = false;
 
     void Start()
@@ -54,9 +55,18 @@ public class WheelController : MonoBehaviour
         UpdateWheelHeight(this.transform, wheelCollider);
     }
 
+    private void Update() {
+        UpdateWheelRotation(this.transform);
+    }
+
+    private void UpdateWheelRotation(Transform wheelTransform){
+		tParent.localRotation = Quaternion.Euler(0, wheelCollider.steerAngle, 0);
+		transform.Rotate(wheelCollider.rpm  / 60 * 360 * Time.deltaTime, 0, 0);
+    }
+
     private void manageDriftEffect()
     {
-        driftPSEmissionVar.enabled = (player.carController.GetHorizontalAxis() != 0 || (player.carController.GetVerticalAxis() > 0 && player.carController.GetVerticalAxis() < 1));
+        driftPSEmissionVar.enabled = Math.Abs(wheelCollider.rpm) > 150f && player.carController.GetHorizontalAxis() != 0;
         if(driftPSEmissionVar.enabled && !driftEffect.isPlaying)driftEffect.Play();
     }
 
@@ -85,14 +95,8 @@ public class WheelController : MonoBehaviour
             grounded = false;
 			localPosition = Vector3.Lerp (localPosition, -Vector3.up * collider.suspensionDistance, .05f);
 		}
-		
-		// actually update the position
-		
-		wheelTransform.localPosition = localPosition;
-
-		wheelTransform.localRotation = Quaternion.Euler(0, collider.steerAngle, 0);
-		wheelTransform.Rotate(collider.rpm, 0, 0);
-		
+        
+        wheelTransform.localPosition = localPosition;
 	}
 
 }

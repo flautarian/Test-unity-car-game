@@ -55,7 +55,7 @@ public class CarController : MonoBehaviour {
 
 	void FixedUpdate () {
 		// Debug.Log ("Speed: " + Speed() + "km/h    RPM: " + wheelRL.rpm);
-		scaledTorque = VerticalAxis * torque;
+		scaledTorque = VerticalAxis * (torque + stuntsController.GetComboStunt());
 
 		if(scaledTorque >= 0){
 			if(wheelRL.rpm < idealRPM)

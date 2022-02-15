@@ -61,10 +61,10 @@ public class PanelsCanvasController : MonoBehaviour
         }
         if(!GlobalVariables.Instance.IsPlayerRunning()){
             if(panelInteractionType != PanelInteractionType.NO_INTERACTION &&
-                IsGame() &&
+                IsInGameOn() &&
                     Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))){
                 switch(panelInteractionType){
-                    case PanelInteractionType.TAX_TYPE:
+                    case PanelInteractionType.TAX_TYPE: // TODO: Ban this option
                         ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
                     case PanelInteractionType.MULTIPLAYER_TYPE:
@@ -84,6 +84,7 @@ public class PanelsCanvasController : MonoBehaviour
                     break;
                     case PanelInteractionType.CONCESSIONARY_PANEL_TYPE:
                     case PanelInteractionType.INFO_PANEL_TYPE:
+                    //case PanelInteractionType.TAX_TYPE:
                         // code implemented in other site
                     break;
                 }
@@ -183,7 +184,7 @@ public class PanelsCanvasController : MonoBehaviour
         GlobalVariables.Instance.switchCameraFocusToSecondaryObject(true, false);
     }
 
-    private bool IsGame(){
+    private bool IsInGameOn(){
         return GlobalVariables.Instance.inGameState == InGamePanels.GAMEON;
     }
 

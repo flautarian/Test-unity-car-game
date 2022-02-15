@@ -176,16 +176,16 @@ public class StuntsController : MonoBehaviour
 
         switch(stunt.comboKeys.Count){
             case 2:
-                comboStunt = 500f;
+                comboStunt = 25f;
             break;
             case 3:
-                comboStunt = 1000f;
+                comboStunt = 50f;
             break;
             case 4:
-                comboStunt = 1500f;
+                comboStunt = 100f;
             break;
             case 5:
-                comboStunt = 2000f;
+                comboStunt = 200f;
             break;
             default:
             break;
@@ -198,6 +198,10 @@ public class StuntsController : MonoBehaviour
         if(stuntComboIndicator != null)
             stuntComboIndicator.ResetComboIndicator();
         stuntComboPSEmissionVar.enabled = false;
+    }
+
+    public float GetComboStunt(){
+        return comboStunt;
     }
 
     public void SetAnimationOverriderControllerAnimation(string animationName, AnimationClip anim){
