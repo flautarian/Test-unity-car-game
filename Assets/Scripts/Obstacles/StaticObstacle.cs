@@ -22,7 +22,7 @@ public class StaticObstacle : Obstacle
     }
 
     //private void Update() {
-        //if(spawnedObstacle && transform.position.z < GlobalVariables.Instance.minZLimit) inhabiliteObstacle();
+    //    if(spawnedObstacle && transform.position.z < GlobalVariables.Instance.minZLimit) inhabiliteObstacle();
     //}
 
     public override void ResetPosition(){

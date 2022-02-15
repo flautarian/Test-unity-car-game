@@ -172,6 +172,8 @@ public class GlobalVariables : MonoBehaviour
 
     public bool playerTargetedByCamera = true;
 
+    private Player player;
+
     public int stuntCombo = 0;
 
     internal Vector3 lastVisitedBuildingPositionPlayer;
@@ -196,6 +198,10 @@ public class GlobalVariables : MonoBehaviour
 
         var partgo = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PARTICLE_CONTAINER);
         if (partgo != null) particlesContainer = partgo.transform;
+
+        var plyer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER);
+        if(plyer.TryGetComponent(out Player p))
+            player = p;
 
         objectiveActualTarget = 0;
 
@@ -253,6 +259,13 @@ public class GlobalVariables : MonoBehaviour
         ResetAllGameOnFlags();
     }
 
+    public int GetActualTaxLastLevel(){
+        for(int i = 0; i < saveGameData.data.levels.Length; i++){
+            if(!saveGameData.data.levels[i].done)return saveGameData.data.levels[i].previousLevel;
+        }
+        return 0;
+    }
+
     private void ResetAllGameOnFlags(){
         UpdateMinZLimit(0);
         ResetShaders();
@@ -276,17 +289,12 @@ public class GlobalVariables : MonoBehaviour
         return carGO;
     }
 
-    internal GameObject LoadActualPlayerWheel(){
-        Debug.Log("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
-        UnityEngine.Object newWheel = (UnityEngine.Object)Resources.Load("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
-        GameObject wheelGO = (GameObject) Instantiate(newWheel);
-        return wheelGO;
+    internal ShopWheel LoadActualPlayerWheel(){
+        return Resources.Load<ShopWheel>("Prefabs/Cars/Wheels/Wheel_" + saveGameData.data.equippedWheel);
     }
 
-    internal GameObject LoadActualPlayerHat(){
-        UnityEngine.Object newHat = (UnityEngine.Object)Resources.Load("Prefabs/Cars/Hats/Hat_" + saveGameData.data.equippedHat);
-        GameObject hatGO = (GameObject) Instantiate(newHat);
-        return hatGO;
+    internal ShopHat LoadActualPlayerHatPreset(){
+        return Resources.Load<ShopHat>("Prefabs/Cars/Hats/Hat_" + saveGameData.data.equippedHat);
     }
 
     private string GetActualPlayerCarPrefabName(){
@@ -361,11 +369,7 @@ public class GlobalVariables : MonoBehaviour
         int[] stuntsToLoad = GetStuntsToLoad();
         for(int s = 0; s < stuntsToLoad.Length; s++){
             if(stuntsToLoad[s] >= 0){
-                //Debug.Log(Constants.STUNT_NAMES[stuntsToLoad[s]] + ": loaded");
-                UnityEngine.Object newScroll = (UnityEngine.Object)
-                    Resources.Load("Prefabs/Stunts/" + Constants.STUNT_NAMES[stuntsToLoad[s]]);
-                GameObject scrollGO = (GameObject)Instantiate(newScroll);
-                Stunt st = scrollGO.GetComponent<Stunt>();
+                Stunt st = Resources.Load<Stunt>("Prefabs/Stunts/Stunt_" + stuntsToLoad[s]);
                 result[s] = st;
             }
             else result[s] = null;
@@ -491,7 +495,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     public void UpdateFarCameraLevel(float level){
-        saveGameData.data.farCamera =  75 + (int) (50 * level);
+        saveGameData.data.farCamera =  40 + (int) (50 * level);
         if(mainCameraControl == null) UpdateMainCameraAttribute();
         if(mainCameraControl != null) mainCameraControl.m_Lens.FieldOfView = saveGameData.data.farCamera;
     }
@@ -602,6 +606,7 @@ public class GlobalVariables : MonoBehaviour
         mainCameraControl.m_LookAt = focusSecondary ? cameraLookFocusTransform : cameraMainLookTransform;
         mainCameraControl.m_Follow = followSecondary ? cameraFollowFocusTransform : cameraMainFollowTransform;
         playerTargetedByCamera = !focusSecondary;
+        player.UpdateCanMove(playerTargetedByCamera);
     }
 
     public void SetFocusUiElement(GameObject go){
@@ -661,6 +666,7 @@ public class GlobalVariables : MonoBehaviour
             cameraMainFollowTransform = mainCameraControl.m_Follow;
             cameraLookFocusTransform = cameraMainLookTransform;
             playerTargetedByCamera = true;
+            player.UpdateCanMove(playerTargetedByCamera);
         }
         else Debug.Log("MainVirtualCamera not found!");
     }

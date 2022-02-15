@@ -9,8 +9,10 @@ public class TextMeshProI18n : MonoBehaviour
     
     TMP_Text textMeshPro;
 
-    private void Start() {
+    private void Awake() {
         textMeshPro = gameObject.GetComponent<TMP_Text>();
+    }
+    private void Start() {
         UpdateText();
     }
     

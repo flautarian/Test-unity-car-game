@@ -6,7 +6,7 @@ using UnityEngine;
 public class GUIController : MonoBehaviour
 {
     
-    public PlayerController playerController;
+    private Player player;
     public GasIndicator gasIndicator;
     public CoinsIndicator coinsIndicator;
     public CarPartsIndicator carPartsIndicator;
@@ -23,9 +23,12 @@ public class GUIController : MonoBehaviour
 
     private void Start()
     {
+        var objPlayer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER);
+        if (objPlayer != null && objPlayer.TryGetComponent(out Player p))
+            player = p;
         // init de controlador de partes de coche;
-        if (carPartsIndicator != null && playerController != null)
-            carPartsIndicator.startGame(playerController.destructableParts.Count);
+        if (carPartsIndicator != null && player != null)
+            carPartsIndicator.startGame(player.GetDestructablePartsCount());
 
         animator = GetComponent<Animator>();
 
@@ -40,10 +43,10 @@ public class GUIController : MonoBehaviour
     {
         float playerAcceleration = 0;
         float playerBrake = 0;
-        if (playerController != null)
+        if (player != null)
         {
-            playerAcceleration = playerController.VerticalAxis;
-            playerBrake = playerController.HorizontalAxis;
+            playerAcceleration = player.GetVerticalAxis();
+            playerBrake = player.GetHorizontalAxis();
 
             if (GlobalVariables.Instance.repairflag)
             {
@@ -54,20 +57,6 @@ public class GUIController : MonoBehaviour
         ControlIndicatorsRendering(GlobalVariables.Instance.inGameState == InGamePanels.GAMEON);
         //transform.LookAt(player.transform);
         ActiveUITransform.rotation = Quaternion.Euler(transform.rotation.x + (cameraXAxisOffset * playerAcceleration), transform.rotation.y + (cameraYAxisOffset * playerBrake), transform.rotation.z);
-    }
-    internal void propagueFisicButton(FisicButtonController fisicButtonController)
-    {
-        switch (fisicButtonController.actionButton)
-        {
-            case ActionButtonType.left:
-                playerController.turnLeft();
-                break;
-            case ActionButtonType.right:
-                playerController.turnRight();
-                break;
-            case ActionButtonType.brake:
-                break;
-        }
     }
 
     #region Triggers game init
@@ -80,8 +69,8 @@ public class GUIController : MonoBehaviour
         if(GlobalVariables.Instance.IsLevelGameState())
             if (gasIndicator != null) gasIndicator.startGame();
 
-        if(playerController != null)
-            playerController.startGame();        
+        if(player != null)
+            player.startGame();        
 
         if (coinsIndicator != null)
             coinsIndicator.startGame();
@@ -108,8 +97,8 @@ public class GUIController : MonoBehaviour
         if (gasIndicator != null)
             gasIndicator.startGameOver();
 
-        if (playerController != null)
-            playerController.startGameOver();
+        if (player != null)
+            player.startGameOver();
 
         if (coinsIndicator != null)
             coinsIndicator.startGameOver();
@@ -135,8 +124,8 @@ public class GUIController : MonoBehaviour
         if (gasIndicator != null)
             gasIndicator.startGameOver();
 
-        if (playerController != null)
-            playerController.startGameOver();
+        if (player != null)
+            player.startGameOver();
 
         if (coinsIndicator != null)
             coinsIndicator.startGameOver();
@@ -196,14 +185,14 @@ public class GUIController : MonoBehaviour
 
     internal void RecoverCarPlayerParts()
     {
-        if(playerController != null)
-            playerController.RecoverParts();
+        if(player != null)
+            player.RecoverParts();
         if(carPartsIndicator != null )
             carPartsIndicator.resetIndicator();
     }
 
     internal void InitStunt(Stunt stunt){
-        playerController.InitStunt(stunt);
+        player.InitStunt(stunt);
         if (stuntsEarned.Contains(stunt.stuntName))
         {
             stuntsEarned[stunt.stuntName] = (int)stuntsEarned[stunt.stuntName] + 1;

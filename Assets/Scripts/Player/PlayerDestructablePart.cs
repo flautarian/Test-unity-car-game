@@ -6,9 +6,17 @@ using UnityEngine;
 public class PlayerDestructablePart : MonoBehaviour
 {
     // Start is called before the first frame update
-    public PlayerController playerCar;
+    private Player playerCar;
     private Rigidbody rbPart;
     internal bool destroyed = false;
+    private Collider collider;
+
+    private void Start() {
+        var objPlayer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER);
+        if (objPlayer.TryGetComponent(out Player p))
+            playerCar = p;
+
+    }
 
     private void OnTriggerEnter(Collider collision)
     {

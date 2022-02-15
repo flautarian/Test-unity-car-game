@@ -10,7 +10,7 @@ public class ControlCameraFocusController : ControlOptionController
     {
         scrollbar = GetComponent<Scrollbar>();
         scrollbar.onValueChanged.AddListener((float val) => ScrollbarCallback(val));
-        scrollbar.value = (GlobalVariables.Instance.GetFarCameraLevel() -75f) / 50f;
+        scrollbar.value = (GlobalVariables.Instance.GetFarCameraLevel() -40f) / 50f;
     }
 
     void ScrollbarCallback(float value)

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3444466052910983419}
   - component: {fileID: 1741957001856150784}
-  - component: {fileID: 7570787378667015534}
   m_Layer: 0
   m_Name: Blue Car
   m_TagString: Untagged
@@ -46,34 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CCar: {fileID: -2432090755550338912, guid: 71d59ad476c7b7e4ea78b42987b645e7, type: 3}
   keyCode: 0
-  playerInfoClass: {fileID: 7570787378667015534}
+  playerInfoClass: {fileID: 0}
   price: 0
   carName: Blu
---- !u!114 &7570787378667015534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5377267830427586387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b20b53a854c098429bd5a58f6338b7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 0}
-  reverseAccel: 1
-  forwardAccel: 4.2
-  accel: 10
-  turnStrength: 180
-  maxWheelTurn: 30
-  gravityForce: 4
-  dragGroundForce: 3
-  sphereOffset: 0
-  stuntHability: 1
-  parts: []
-  RunningCarAudioSource: {fileID: 0}
-  SkidCarAudioSource: {fileID: 0}
-  initCarChunk: {fileID: 0}
-  runningCarChunk: {fileID: 0}
-  value: 0

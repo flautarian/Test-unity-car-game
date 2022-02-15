@@ -19,19 +19,26 @@ public class WheelController : MonoBehaviour
     private int wheelIndex = 0;
 
     [SerializeField]
-    private PlayerController controller;
+    private Player player;
 
     private float verticalAxis, horizontalAxis, velocity;
 
     private ParticleSystem.EmissionModule driftPSEmissionVar;
 
-    [SerializeField]
     private Transform tParent;
+
+    [SerializeField]
+    private WheelCollider wheelCollider;
+
+    private bool grounded = false;
 
     void Start()
     {
         driftEffect = GetComponent<ParticleSystem>();
         meshFilter = GetComponent<MeshFilter>();
+        var objPlayer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER);
+        if (objPlayer != null && objPlayer.TryGetComponent(out Player p))
+            player = p;
         if(driftEffect != null){
             driftPSEmissionVar = driftEffect.emission;
             driftEffect.Stop();
@@ -39,33 +46,57 @@ public class WheelController : MonoBehaviour
         tParent = transform.parent;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if(controller != null){
-            if(controller.wheel != null && controller.wheel.keyCode != wheelIndex){
-                wheelIndex = controller.wheel.keyCode;
-                meshFilter.sharedMesh = controller.wheel.CWheel;
-                transform.localScale = Vector3.one * controller.wheel.wheelSize;
-            }
-            
-            tParent.localRotation = Quaternion.Euler(tParent.localRotation.eulerAngles.x, (isFrontWheel ? controller.HorizontalAxis : 0f) * controller.maxWheelTurn, tParent.localRotation.eulerAngles.z);
-            
-            if (controller.VerticalAxis != 0)
-            {
-                transform.Rotate(controller.VerticalAxis * controller.forwardAccel , 0f, 0f, Space.Self);
-            }
-            if (driftEffect != null) manageDriftEffect();
-        }
-        else {
-            Player player = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER).GetComponent<Player>();
-            if(player != null) controller = player.controller;
-        }
+        if(grounded && driftEffect != null)
+            manageDriftEffect();
+        if(player.actualWheel != null && wheelIndex != player.actualWheel.keyCode)
+            UpdateWheel(player.actualWheel);
+        UpdateWheelHeight(this.transform, wheelCollider);
+    }
+
+    private void Update() {
+        UpdateWheelRotation(this.transform);
+    }
+
+    private void UpdateWheelRotation(Transform wheelTransform){
+		tParent.localRotation = Quaternion.Euler(0, wheelCollider.steerAngle, 0);
+		transform.Rotate(wheelCollider.rpm  / 60 * 360 * Time.deltaTime, 0, 0);
     }
 
     private void manageDriftEffect()
     {
-        driftPSEmissionVar.enabled = (controller.turnZAxisEffect != 0 || (controller.VerticalAxis > 0 && controller.VerticalAxis < 1)) && controller.grounded;
+        driftPSEmissionVar.enabled = Math.Abs(wheelCollider.rpm) > 150f && player.carController.GetHorizontalAxis() != 0;
         if(driftPSEmissionVar.enabled && !driftEffect.isPlaying)driftEffect.Play();
     }
+
+    private void UpdateWheel(ShopWheel wheel){
+        meshFilter.sharedMesh = wheel.CWheel;
+        transform.localScale = new Vector3(wheel.wheelSize, wheel.wheelSize, wheel.wheelSize);
+        wheelCollider.radius = wheel.wheelSize / 2;
+        wheelIndex = wheel.keyCode;
+    }
+
+    
+	void UpdateWheelHeight(Transform wheelTransform, WheelCollider collider) {
+		
+		Vector3 localPosition = wheelTransform.localPosition;
+		
+		WheelHit hit = new WheelHit();
+		
+		// see if we have contact with ground
+		
+		if (collider.GetGroundHit(out hit)) {
+			float hitY = collider.transform.InverseTransformPoint(hit.point).y;
+			localPosition.y = hitY + collider.radius;
+            grounded = true;
+		} else {
+			// no contact with ground, just extend wheel position with suspension distance
+            grounded = false;
+			localPosition = Vector3.Lerp (localPosition, -Vector3.up * collider.suspensionDistance, .05f);
+		}
+        
+        wheelTransform.localPosition = localPosition;
+	}
 
 }

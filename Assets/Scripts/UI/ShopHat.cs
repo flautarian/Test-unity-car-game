@@ -13,4 +13,14 @@ public class ShopHat : MonoBehaviour
 
     [SerializeField]
     internal int price;
+
+    public ShopHat(){
+        
+    }
+
+    public void CopyHat(ShopHat h){
+        CHat = h.CHat;
+        keyCode = h.keyCode;
+        price = h.price;
+    }
 }

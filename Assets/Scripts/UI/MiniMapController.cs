@@ -5,7 +5,7 @@ using UnityEngine;
 public class MiniMapController : MonoBehaviour
 {
     
-    public Transform reference;
+    private Transform reference;
     public GameObject miniMapBorder;
     private Vector3 pos;
     private Vector3 rot;
@@ -18,6 +18,8 @@ public class MiniMapController : MonoBehaviour
             Destroy(miniMapBorder);
             Destroy(this.gameObject);
         }
+        var objPlayer = GameObject.FindGameObjectWithTag(Constants.GO_TAG_PLAYER);
+        if (objPlayer != null) reference = objPlayer.transform;
     }
 
     // Update is called once per frame
