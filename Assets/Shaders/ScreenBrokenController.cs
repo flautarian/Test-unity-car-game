@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 public class ScreenBrokenController : MonoBehaviour
 {
-    [SerializeField] private ForwardRendererData rendererData = null;
+    [SerializeField] private UniversalRendererData rendererData = null;
     [SerializeField] private string featureName = null;
     [Range(0f, 2f)] private float brokenScale = 0, brokeScaleSentinel =0;
     [SerializeField] private float screenTimeRecover = 0.003f;

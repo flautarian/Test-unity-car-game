@@ -40,6 +40,11 @@ public class PoolManager : MonoBehaviour
         initializePools();
     }
 
+    private void OnDestroy() {
+        pools.Clear();
+        poolDictionary.Clear();
+    }
+
     private void fillPoolsWithGOInstances(List<LevelSettings.PoolLoader> poolsToLoad){
         pools.Clear();
         foreach(LevelSettings.PoolLoader pool in poolsToLoad){

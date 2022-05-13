@@ -224,7 +224,7 @@ public class GlobalVariables : MonoBehaviour
         if(gameMode == GameMode.MAINMENU){
             StartCoroutine(PlayDefaultSceneSong());
         }
-        //Debug.Log("GlobalVariables Awakening!!");
+        Debug.Log("GlobalVariables Awakening!!");
     }
 
     public void InvoqueCanvasPanelButton(PanelInteractionType pit, Transform focus, Transform follow){

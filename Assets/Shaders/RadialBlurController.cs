@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RadialBlurController : MonoBehaviour
 {
-    [SerializeField] private ForwardRendererData rendererData = null;
+    [SerializeField] private UniversalRendererData rendererData = null;
     [SerializeField] private string featureName = null;
     [Range(0f, 2f)] private float currentIntensity = 0;
 
