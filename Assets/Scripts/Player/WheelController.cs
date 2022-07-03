@@ -66,7 +66,7 @@ public class WheelController : MonoBehaviour
 
     private void manageDriftEffect()
     {
-        driftPSEmissionVar.enabled = Math.Abs(wheelCollider.rpm) > 150f && player.carController.GetHorizontalAxis() != 0;
+        driftPSEmissionVar.enabled = Math.Abs(wheelCollider.rpm) > 700f && player.carController.GetHorizontalAxis() != 0;
         if(driftPSEmissionVar.enabled && !driftEffect.isPlaying)driftEffect.Play();
     }
 

@@ -251,6 +251,13 @@ public class Player : MonoBehaviour
         	GlobalVariables.Instance.currentRadialBlur += 0.01f;
 		else if(GlobalVariables.Instance.currentRadialBlur > 0f)
 			GlobalVariables.Instance.currentRadialBlur -= 0.02f;
+
+        // stabilize car if not touches ground
+		if(!carController.grounded){
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f), Time.deltaTime * 10);
+            Debug.Log(transform.rotation.eulerAngles.y);
+            //transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+		}
 		
     }
     public void startGameOver()
@@ -272,7 +279,7 @@ public class Player : MonoBehaviour
             RunningCarAudioSource.pitch = Mathf.Lerp(RunningCarAudioSource.pitch, 0.25f + Math.Abs(vertical) - (Math.Abs(horizontal) / 2f), 10 * Time.deltaTime);
             RunningCarAudioSource.volume = GlobalVariables.Instance.GetChunkLevel();
         }
-        if(horizontal != 0 && carController.Rpm() > 50 ){
+        if(horizontal != 0 && carController.Rpm() > 700 ){
             if(!SkidCarAudioSource.isPlaying) SkidCarAudioSource.Play();
             //SkidCarAudioSource.pitch = Math.Abs(horizontal);
             SkidCarAudioSource.volume = GlobalVariables.Instance.GetChunkLevel();
@@ -305,6 +312,8 @@ public class Player : MonoBehaviour
             
             if (obstacle.penalizableObstacle)
             {
+                // stop car's rigidbody
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
                 GlobalVariables.Instance.GetAndPlayChunk(Constants.CHUNK_HIT_PLAYER, 1.0f);
                 // conseqüencies de col·licio
                 stuntsController.ResetComboStunt();

@@ -44,6 +44,8 @@ QualitySettings:
       type: 2}
     excludedTargetPlatforms:
     - Android
+    - WebGL
+    - Server
   - serializedVersion: 2
     name: Low
     pixelLightCount: 0
@@ -82,6 +84,8 @@ QualitySettings:
       type: 2}
     excludedTargetPlatforms:
     - Android
+    - WebGL
+    - Server
   - serializedVersion: 2
     name: Medium
     pixelLightCount: 1
@@ -120,6 +124,8 @@ QualitySettings:
       type: 2}
     excludedTargetPlatforms:
     - Android
+    - WebGL
+    - Server
   - serializedVersion: 2
     name: High
     pixelLightCount: 2
@@ -135,7 +141,7 @@ QualitySettings:
     skinWeights: 2
     textureQuality: 0
     anisotropicTextures: 1
-    antiAliasing: 8
+    antiAliasing: 2
     softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 0
@@ -158,6 +164,8 @@ QualitySettings:
       type: 2}
     excludedTargetPlatforms:
     - Android
+    - WebGL
+    - Server
   - serializedVersion: 2
     name: Very High
     pixelLightCount: 3
@@ -197,6 +205,8 @@ QualitySettings:
     excludedTargetPlatforms:
     - Android
     - Standalone
+    - WebGL
+    - Server
   - serializedVersion: 2
     name: Ultra
     pixelLightCount: 4
@@ -236,6 +246,8 @@ QualitySettings:
     excludedTargetPlatforms:
     - Standalone
     - Android
+    - WebGL
+    - Server
   m_PerPlatformDefaultQuality:
     Android: 2
     Nintendo 3DS: 5
@@ -243,6 +255,7 @@ QualitySettings:
     PS4: 5
     PSM: 5
     PSP2: 2
+    Server: 0
     Stadia: 5
     Standalone: 5
     Tizen: 2

@@ -10,6 +10,8 @@ public class CarController : MonoBehaviour {
 
 	private StuntsController stuntsController;
 
+	private float axisSensibility = 0.1f;
+
 	public WheelCollider wheelFR;
 	public WheelCollider wheelFL;
 	public WheelCollider wheelRR;
@@ -55,6 +57,7 @@ public class CarController : MonoBehaviour {
 
 	void FixedUpdate () {
 		// Debug.Log ("Speed: " + Speed() + "km/h    RPM: " + wheelRL.rpm);
+		// wheel running
 		scaledTorque = VerticalAxis * (torque + stuntsController.GetComboStunt());
 
 		if(scaledTorque >= 0){
@@ -69,10 +72,10 @@ public class CarController : MonoBehaviour {
 
 		actualScaledTorque = canMove ? scaledTorque : 0f;
 
-		wheelFR.motorTorque = driveMode==DriveMode.Rear  ? 0 : actualScaledTorque;
-		wheelFL.motorTorque = driveMode==DriveMode.Rear  ? 0 : actualScaledTorque;
-		wheelRR.motorTorque = driveMode==DriveMode.Front ? 0 : actualScaledTorque;
-		wheelRL.motorTorque = driveMode==DriveMode.Front ? 0 : actualScaledTorque;
+		wheelFR.motorTorque = (driveMode== DriveMode.Rear  ? 0 : actualScaledTorque);
+		wheelFL.motorTorque = (driveMode== DriveMode.Rear  ? 0 : actualScaledTorque);
+		wheelRR.motorTorque = (driveMode== DriveMode.Front ? 0 : actualScaledTorque);
+		wheelRL.motorTorque = (driveMode== DriveMode.Front ? 0 : actualScaledTorque);
 
 		if(!stuntsController.stuntsModeEnabled){
 			wheelFR.steerAngle = HorizontalAxis * turnRadius;
@@ -87,14 +90,15 @@ public class CarController : MonoBehaviour {
 		}
 
 	}
+	
 	private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative){
         if(!Input.GetKey(positive) && !Input.GetKey(negative)){
             if(Math.Abs(StartingPoint) < 0.05) StartingPoint = 0;
             else StartingPoint = Mathf.Lerp(0f, StartingPoint, 25 * Time.deltaTime);
         }
         else{
-            StartingPoint += Input.GetKey(positive) ? (StartingPoint < 0f ? 0.1f : 0.05f) : 0.0f;
-            StartingPoint += Input.GetKey(negative) ? (StartingPoint > 0f ? -0.1f : -0.05f) : 0.0f;
+            StartingPoint += Input.GetKey(positive) ? (StartingPoint < 0f ? axisSensibility : axisSensibility) : 0.0f;
+            StartingPoint += Input.GetKey(negative) ? (StartingPoint > 0f ? -axisSensibility : -axisSensibility) : 0.0f;
         }
         return Mathf.Clamp(StartingPoint, -1f, 1f);
     }
