@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public class Player : MonoBehaviour
 {
@@ -82,6 +83,19 @@ public class Player : MonoBehaviour
             //else if(hat.keyCode != GlobalVariables.Instance.GetEquippedHatIndex()){
             //    UpdateCarHat();
             //}
+
+                
+            switch(carController.currentStreetType){
+                case StreetType.asphalt:
+                break;
+
+                case StreetType.water:
+                    destroyPlayer("Water contact");
+                break;
+
+                case StreetType.grass:
+                break;
+            };
             timeSentinelRaycast = Time.time;
         }
     }
@@ -253,12 +267,8 @@ public class Player : MonoBehaviour
 			GlobalVariables.Instance.currentRadialBlur -= 0.02f;
 
         // stabilize car if not touches ground
-		if(!carController.grounded){
+		if(!carController.grounded)
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f), Time.deltaTime * 10);
-            Debug.Log(transform.rotation.eulerAngles.y);
-            //transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-		}
-		
     }
     public void startGameOver()
     {
@@ -276,10 +286,10 @@ public class Player : MonoBehaviour
 
     internal void UpdatePitchEngine(float vertical, float horizontal){
         if(RunningCarAudioSource != null){
-            RunningCarAudioSource.pitch = Mathf.Lerp(RunningCarAudioSource.pitch, 0.25f + Math.Abs(vertical) - (Math.Abs(horizontal) / 2f), 10 * Time.deltaTime);
+            RunningCarAudioSource.pitch = carController.canMove ? Mathf.Lerp(RunningCarAudioSource.pitch, 0.25f + Math.Abs(vertical) - (Math.Abs(horizontal) / 2f), 10 * Time.deltaTime) : 0.5f;
             RunningCarAudioSource.volume = GlobalVariables.Instance.GetChunkLevel();
         }
-        if(horizontal != 0 && carController.Rpm() > 700 ){
+        if(horizontal != 0 && carController.Rpm() > 700 && carController.grounded){
             if(!SkidCarAudioSource.isPlaying) SkidCarAudioSource.Play();
             //SkidCarAudioSource.pitch = Math.Abs(horizontal);
             SkidCarAudioSource.volume = GlobalVariables.Instance.GetChunkLevel();

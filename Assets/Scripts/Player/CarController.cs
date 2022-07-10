@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using Assets.Scripts;
 
 public class CarController : MonoBehaviour {
 
@@ -9,8 +10,6 @@ public class CarController : MonoBehaviour {
 	public Transform centerOfGravity;
 
 	private StuntsController stuntsController;
-
-	private float axisSensibility = 0.1f;
 
 	public WheelCollider wheelFR;
 	public WheelCollider wheelFL;
@@ -34,6 +33,8 @@ public class CarController : MonoBehaviour {
 	[SerializeField]
 	internal Rigidbody rBody;
 
+	public StreetType currentStreetType = StreetType.asphalt;
+
 	public enum DriveMode { Front, Rear, All };
 	public DriveMode driveMode = DriveMode.Rear;
 
@@ -51,8 +52,8 @@ public class CarController : MonoBehaviour {
 	}
 
 	private void Update() {
-		HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT));
-        VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN));
+		HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT), 0.1f);
+        VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN), 0.1f);
 	}
 
 	void FixedUpdate () {
@@ -91,7 +92,7 @@ public class CarController : MonoBehaviour {
 
 	}
 	
-	private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative){
+	private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative, float axisSensibility){
         if(!Input.GetKey(positive) && !Input.GetKey(negative)){
             if(Math.Abs(StartingPoint) < 0.05) StartingPoint = 0;
             else StartingPoint = Mathf.Lerp(0f, StartingPoint, 25 * Time.deltaTime);
@@ -109,6 +110,10 @@ public class CarController : MonoBehaviour {
 		float travelR = 1.0f;
 		
 		groundedL = WheelL.GetGroundHit(out hit);
+		
+		if(hit.collider != null)
+			Enum.TryParse(hit.collider.gameObject.tag, out currentStreetType);
+
 		if (groundedL)
 			travelL = (-WheelL.transform.InverseTransformPoint(hit.point).y - WheelL.radius) / WheelL.suspensionDistance;
 		

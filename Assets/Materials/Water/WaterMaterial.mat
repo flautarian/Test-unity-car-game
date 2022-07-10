@@ -58,7 +58,7 @@ Material:
     - _Size: 1
     m_Colors:
     - Color_3E8E4DD2: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0}
-    - Color_8ECE4E79: {r: 0.01509443, g: 0, b: 0.7924528, a: 0}
+    - Color_8ECE4E79: {r: 0.14371389, g: 0.12641507, b: 1, a: 0}
     - Scroll: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_E3542F48: {r: 0, g: 0, b: 0, a: 0}
     - _DarkFoamColor: {r: 0, g: 0.21317545, b: 0.38679248, a: 1}
