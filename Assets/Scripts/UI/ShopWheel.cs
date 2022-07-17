@@ -20,6 +20,15 @@ public class ShopWheel : ScriptableObject {
     [SerializeField]
     internal float wheelSize = 1f;
 
+    [SerializeField]
+    internal float wheelMass = 25f;
+
+    [SerializeField]
+    internal float wheelForwardFrictionExtremumSlip = 0.4f;
+
+    [SerializeField]
+    internal float wheelSidewaysFrictionExtremumSlip = 0.3f;
+
     public ShopWheel(){
 
     }
@@ -29,5 +38,8 @@ public class ShopWheel : ScriptableObject {
         this.keyCode = w.keyCode;
         this.wheelSize = w.wheelSize;
         this.wheelOffset = w.wheelOffset;
+        this.wheelMass = w.wheelMass;
+        this.wheelForwardFrictionExtremumSlip = w.wheelForwardFrictionExtremumSlip;
+        this.wheelSidewaysFrictionExtremumSlip = w.wheelSidewaysFrictionExtremumSlip;
     }
 }

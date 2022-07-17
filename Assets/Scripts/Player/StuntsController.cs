@@ -21,7 +21,7 @@ public class StuntsController : MonoBehaviour
 
     private CarController carController;
 
-    private Animator playerAnimator;
+    internal Animator playerAnimator;
 
     private GUIController guiController;
     
@@ -120,6 +120,14 @@ public class StuntsController : MonoBehaviour
     }
     internal void UpdatePlayerAnimationBool(string animKey, bool newState){
         playerAnimator.SetBool(animKey, newState);
+    }
+
+    internal void UpdatePlayerAnimationInt(string animKey, int newState){
+        playerAnimator.SetInteger(animKey, newState);
+    }
+
+    internal int GetPlayerAnimationInt(string animKey){
+        return playerAnimator.GetInteger(animKey);
     }
 
     internal bool GetPlayerAnimationBoolState(string animKey){

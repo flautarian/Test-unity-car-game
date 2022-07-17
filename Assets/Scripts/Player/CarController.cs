@@ -52,8 +52,9 @@ public class CarController : MonoBehaviour {
 	}
 
 	private void Update() {
-		HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT), 0.1f);
-        VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN), 0.1f);
+		HorizontalAxis = CaptureDirectionalKeys(HorizontalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT), 0.1f, false);
+        VerticalAxis = CaptureDirectionalKeys(VerticalAxis, GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE), GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_DOWN), 0.1f, true);
+		
 	}
 
 	void FixedUpdate () {
@@ -68,8 +69,8 @@ public class CarController : MonoBehaviour {
 				scaledTorque = Mathf.Lerp(scaledTorque, 0,  (wheelRL.rpm-idealRPM) / (maxRPM-idealRPM) );
 		}
 		
-		DoRollBar(wheelFR, wheelFL);
-		DoRollBar(wheelRR, wheelRL);
+		DoRollBar(wheelFR, wheelFL, true);
+		DoRollBar(wheelRR, wheelRL, false);
 
 		actualScaledTorque = canMove ? scaledTorque : 0f;
 
@@ -92,7 +93,15 @@ public class CarController : MonoBehaviour {
 
 	}
 	
-	private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative, float axisSensibility){
+	private float CaptureDirectionalKeys(float StartingPoint, KeyCode positive, KeyCode negative, float axisSensibility, bool isforwardAccel){
+		if(isforwardAccel){	
+			if(Input.GetKey(positive) && Input.GetKey(negative) && rBody.velocity.magnitude < 5){
+				rBody.velocity = Vector3.zero;
+				stuntsController.UpdatePlayerAnimationBool(Constants.ANIMATION_TRIGGER_PLAYER_PREPARE_ACCELERATION, true);
+				return 0;
+			}
+			else stuntsController.UpdatePlayerAnimationBool(Constants.ANIMATION_TRIGGER_PLAYER_PREPARE_ACCELERATION, false);
+		}
         if(!Input.GetKey(positive) && !Input.GetKey(negative)){
             if(Math.Abs(StartingPoint) < 0.05) StartingPoint = 0;
             else StartingPoint = Mathf.Lerp(0f, StartingPoint, 25 * Time.deltaTime);
@@ -104,7 +113,7 @@ public class CarController : MonoBehaviour {
         return Mathf.Clamp(StartingPoint, -1f, 1f);
     }
 
-	void DoRollBar(WheelCollider WheelL, WheelCollider WheelR) {
+	void DoRollBar(WheelCollider WheelL, WheelCollider WheelR, bool calculateLanding) {
 		WheelHit hit;
 		float travelL = 1.0f;
 		float travelR = 1.0f;
@@ -132,7 +141,8 @@ public class CarController : MonoBehaviour {
 		}
 		
 		//rBody.isKinematic = !canMove;
-
+		if((groundedL || groundedR) && !grounded && calculateLanding)
+			GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
 		grounded = groundedL || groundedR;
 	}
 
@@ -148,12 +158,26 @@ public class CarController : MonoBehaviour {
     internal void impulseUpCar(float amount){
         rBody.AddForce(Vector3.up * amount, ForceMode.Impulse);
     }
+
     internal void impulseRightCar(float amount){
         rBody.AddForce(Vector3.right * amount, ForceMode.Impulse);
     }
 
     internal void impulseForwardCar(float amount){
-        rBody.AddForce(Vector3.forward * amount, ForceMode.Impulse);
+		GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
+        rBody.AddRelativeForce(Vector3.forward * amount, ForceMode.Acceleration);
+		stuntsController.UpdatePlayerAnimationInt(Constants.ANIMATION_TRIGGER_PLAYER_ACCELERATION_INT,0);
+    }
+
+	internal void TriggerHatTrick(){
+        Player player = GetComponentInParent(typeof(Player)) as Player;
+		Debug.Log("HELO!" + player.actualHat.keyCode);
+	}
+
+    internal void addClockAccel(int amount){
+		int res = stuntsController.GetPlayerAnimationInt(Constants.ANIMATION_TRIGGER_PLAYER_ACCELERATION_INT);
+        stuntsController.UpdatePlayerAnimationInt(Constants.ANIMATION_TRIGGER_PLAYER_ACCELERATION_INT, res + amount >= 100 ? 100 :  res + amount);
+		GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_LANDINGCAR, transform.position);
     }
 
     internal void TogglePlayerObstaclesClip(int value){

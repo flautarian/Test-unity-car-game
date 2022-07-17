@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
     private int actualCarEquipped = 0;
     [SerializeField]
-    private ShopHat actualHat;
+    internal ShopHat actualHat;
     [SerializeField]
     internal ShopWheel actualWheel;
 

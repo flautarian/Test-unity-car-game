@@ -9,7 +9,7 @@ public class ShopHat : MonoBehaviour
     internal Mesh CHat;
     
     [SerializeField]
-    internal int keyCode = -1;
+    public int keyCode = -1;
 
     [SerializeField]
     internal int price;

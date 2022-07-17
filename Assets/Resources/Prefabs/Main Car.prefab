@@ -11541,7 +11541,7 @@ MonoBehaviour:
   wheelRL: {fileID: 29019165586830593}
   idealRPM: 1
   maxRPM: 1500
-  VerticalAxis: 0
+  VerticalAxis: 500
   HorizontalAxis: 0
   turnRadius: 15
   torque: 1000
@@ -11555,6 +11555,7 @@ MonoBehaviour:
   scaledTorque: 0
   AntiRoll: 20000
   rBody: {fileID: 4555888489222397589}
+  currentStreetType: 0
   driveMode: 2
 --- !u!114 &1570128922700862448
 MonoBehaviour:

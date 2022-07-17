@@ -75,6 +75,13 @@ public class WheelController : MonoBehaviour
         transform.localScale = new Vector3(wheel.wheelSize, wheel.wheelSize, wheel.wheelSize);
         wheelCollider.radius = wheel.wheelSize / 2;
         wheelIndex = wheel.keyCode;
+        wheelCollider.mass = wheel.wheelMass;
+        var forward = wheelCollider.forwardFriction;
+        var sideways = wheelCollider.sidewaysFriction;
+        forward.extremumSlip = wheel.wheelForwardFrictionExtremumSlip;
+        sideways.extremumSlip = wheel.wheelSidewaysFrictionExtremumSlip;
+        wheelCollider.forwardFriction = forward;
+        wheelCollider.sidewaysFriction = sideways;
     }
 
     

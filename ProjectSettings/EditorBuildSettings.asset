@@ -17,4 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StuntChallenge.unity
     guid: 7aedd0a42e07dce47a72f0b34dc3bcbb
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: f780287efa45c124caa284dd068ebe88,
+      type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: 7e8a3ab7b97eb4246bf2e0d28d47b5bd, type: 2}
