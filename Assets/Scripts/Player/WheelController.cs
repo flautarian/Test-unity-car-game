@@ -48,6 +48,7 @@ public class WheelController : MonoBehaviour
 
     void FixedUpdate()
     {
+        wheelCollider.enabled = GlobalVariables.Instance.inGameState == InGamePanels.GAMEON;
         if(grounded && driftEffect != null)
             manageDriftEffect();
         if(player.actualWheel != null && wheelIndex != player.actualWheel.keyCode)
@@ -71,17 +72,23 @@ public class WheelController : MonoBehaviour
     }
 
     private void UpdateWheel(ShopWheel wheel){
+        // Mesh
         meshFilter.sharedMesh = wheel.CWheel;
+        // localScale and other data
         transform.localScale = new Vector3(wheel.wheelSize, wheel.wheelSize, wheel.wheelSize);
         wheelCollider.radius = wheel.wheelSize / 2;
         wheelIndex = wheel.keyCode;
         wheelCollider.mass = wheel.wheelMass;
+        // Extremum forward
         var forward = wheelCollider.forwardFriction;
-        var sideways = wheelCollider.sidewaysFriction;
         forward.extremumSlip = wheel.wheelForwardFrictionExtremumSlip;
-        sideways.extremumSlip = wheel.wheelSidewaysFrictionExtremumSlip;
         wheelCollider.forwardFriction = forward;
-        wheelCollider.sidewaysFriction = sideways;
+        // Extremmum sideway
+        if(isFrontWheel){
+            var sideways = wheelCollider.sidewaysFriction;
+            sideways.extremumSlip = wheel.wheelSidewaysFrictionExtremumSlip;
+            wheelCollider.sidewaysFriction = sideways;
+        }
     }
 
     

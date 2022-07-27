@@ -63,7 +63,7 @@ public class LvlDetailsPanelController : MonoBehaviour
         }
     }
 
-    public void PrepareLevelDetailsPanelFromLevelSettings(LevelSettings lvl){
+    public void PrepareLevelDetailsPanelFromLevelSettings(LvlSettings lvl){
         Debug.Log("Updating lvl details info: " + (int)lvl.objective);
         for(int i = 0; i < lvl.mutators.Length; i++){
             Mutators[i].sprite = MutatorRepresentation[(int)lvl.mutators[i]];
@@ -80,10 +80,10 @@ public class LvlDetailsPanelController : MonoBehaviour
             objectiveI18N.updateTranslation(true);
         }
         if(PrizeText != null)
-            PrizeText.text = lvl.prize == LevelSettings.PrizeLevel.COINS ? " X " + lvl.prizeDetail : "";
-        if(lvl.prize == LevelSettings.PrizeLevel.COINS)
+            PrizeText.text = lvl.prize == LvlSettings.PrizeLevel.COINS ? " X " + lvl.prizeDetail : "";
+        if(lvl.prize == LvlSettings.PrizeLevel.COINS)
             PrizeMesh.sharedMesh = PrizeMeshes[0];
-        else if(lvl.prize == LevelSettings.PrizeLevel.SCROLL)
+        else if(lvl.prize == LvlSettings.PrizeLevel.SCROLL)
             PrizeMesh.sharedMesh = PrizeMeshes[1];
         else 
             PrizeMesh.sharedMesh = null;

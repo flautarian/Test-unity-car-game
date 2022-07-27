@@ -60,6 +60,7 @@ public class Constants
     public const string PARTICLE_S_TURNUPCAR = "TurnUpCarParticle";
     public const string PARTICLE_S_HIT = "HitParticle";
     public const string PARTICLE_S_SMOKE_HIT = "SmokeHitParticle";
+    public const string PARTICLE_S_EXPLOSION = "explosion1";
 
     // Game over types
     public const string GAME_OVER_VEHICLE_DROWNED = "Vehicle drowned";
@@ -98,6 +99,7 @@ public class Constants
 
     // panels
     public const string ANIMATION_TRIGGER_PAUSEGAME_PANELS = "PauseGame";
+    public const string ANIMATION_TRIGGER_OPEN_LVL_DETAILS = "OpenLvlDetails";
     public const string ANIMATION_TRIGGER_GAMEOVER_PANELS = "GameOver";
     public const string ANIMATION_TRIGGER_GAMEWONPANELS = "GameWon";
     public const string ANIMATION_TRIGGER_TAX_PANEL_BUTTON = "TaxLevelSelect";

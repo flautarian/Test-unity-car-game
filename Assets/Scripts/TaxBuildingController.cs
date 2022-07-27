@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using Honeti;
 
-public class TaxBuildingController : MonoBehaviour
+public class TaxBuildingController : BuildingController
 {
     private bool pointed; 
     private Camera cam;
@@ -16,10 +16,19 @@ public class TaxBuildingController : MonoBehaviour
     private TextMeshProI18n levelNameI18n;
 
     [SerializeField]
-    private LevelSettings[] options;
+    private LvlIcon[] options;
+
+    [SerializeField]
+    private MeshFilter[] lvlStatus;
+
     [SerializeField]
     private Transform camPos;
-    public int actualOption =0, actualLastLevel=0;
+
+    [SerializeField]
+    private int actualOption =0;
+    
+    [SerializeField]
+    private int actualLastLevel=0;
 
     [SerializeField]
     private Outline outlineScript;
@@ -28,19 +37,31 @@ public class TaxBuildingController : MonoBehaviour
 
     [SerializeField]
     private PlatformController platformController;
+
     void Start()
     {
         cam = Camera.main;
         actualOption = GlobalVariables.Instance.GetEquippedWheelIndex();
         actualLastLevel = GlobalVariables.Instance.GetActualTaxLastLevel();
         actualOption = actualLastLevel < 0 ? 0 : actualLastLevel;
-        UpdateActualOption();
+        int index = 0;
+        foreach(var option in options){
+            if(GlobalVariables.Instance.IsCompletedLevel(index))option.setLvlStatus(lvlStatus[0], 0);
+            else if(GlobalVariables.Instance.IsCompletableLevel(index))option.setLvlStatus(lvlStatus[1], 1);
+            else option.setLvlStatus(lvlStatus[2], 2);
+            index++;
+        }
+        UpdateActualOption(0);
     }
 
-    private void UpdateActualOption(){
+    private void UpdateActualOption(int increment){
+        if(options[actualOption].toggle)
+            options[actualOption].togglePosition();
+        actualOption += increment;
         if(options.Length > actualOption && options[actualOption] != null){
             levelName.text = "^level_name_" + actualOption;
             levelNameI18n.UpdateText();
+            options[actualOption].togglePosition();
         }
     }
 
@@ -59,17 +80,15 @@ public class TaxBuildingController : MonoBehaviour
                 actualCarPlayerController.transform.position = platformController.transform.position;
             }
             if(pointed){
-                if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT))){
-                    if(actualOption < options.Length && actualOption <= actualLastLevel) actualOption++;
-                    UpdateActualOption();
-                }
-                else if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT))){
-                    if(actualOption > 0) actualOption--;
-                    UpdateActualOption();
-                }
+                if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_RIGHT))
+                && actualOption < options.Length && actualOption <= actualLastLevel)
+                        UpdateActualOption(1);
+                else if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_LEFT)) && actualOption > 0) 
+                    UpdateActualOption(-1);
 
-                if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE))){
-                    // TODO: acceder a UI de detalles de nivel
+                if(Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_ACCELERATE))
+                    && GlobalVariables.Instance.inGameState == InGamePanels.LEVELSELECTION){
+                    executeChangeState(InGamePanels.LEVELSELECTION, options[actualOption].lvlSettings);
                 }
             }
         }
@@ -95,6 +114,7 @@ public class TaxBuildingController : MonoBehaviour
     private IEnumerator ToggleSwitchCam(){
         yield return new WaitForSeconds(0.25f);
         GlobalVariables.Instance.switchCameraFocusToSecondaryObject(pointed, pointed);
+        GlobalVariables.Instance.inGameState = pointed ? InGamePanels.LEVELSELECTION : InGamePanels.GAMEON;
         if(!pointed) 
             actualCarPlayerController = null;
     }

@@ -19,6 +19,8 @@ public abstract class Obstacle : MonoBehaviour
 
     internal Quaternion initialLocalRotation;
 
+    internal Spawner originSpawner; 
+
     public abstract void SetPositioAndTargetFromSpawner(Spawner spawner);
 
     public abstract void Collide(Transform c);
@@ -30,6 +32,8 @@ public abstract class Obstacle : MonoBehaviour
 
     internal void inhabiliteObstacle()
     {
+        if(originSpawner != null) 
+            originSpawner.spawnedObjectReturnToDisabled();
         this.gameObject.SetActive(false);
     }
 

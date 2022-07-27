@@ -14,8 +14,13 @@ public enum GameMode
     INFINITERUNNER, CHALLENGE, TESTING, WOLRDMAINMENU, MAINMENU, MULTIPLAYER
 }
 
+public enum LvlType
+{
+    TAX, CHALLENGE, AUTOSCHOOL
+}
+
 public enum InGamePanels{
-    GAMEON, PAUSED, LEVELSELECTION, GAMELOST, GAMEWON, SUBUI1
+    GAMEON, PAUSED, LEVELSELECTION, SHOPSELECTION, GAMELOST, GAMEWON, SUBUI1
 }
 
 public enum PanelInteractionType{
@@ -134,7 +139,7 @@ public class GlobalVariables : MonoBehaviour
     public PanelInteractionType actualPanelInteractionType;
 
     // Configuracio del nivell escollit
-    public LevelSettings actualLevelSettings;
+    public LvlSettings actualLevelSettings;
 
     // Flag per generar linea de meta per el cas d'haver complert els objectius del nivell
     public bool generateGoalLine = false;
@@ -178,18 +183,9 @@ public class GlobalVariables : MonoBehaviour
 
     internal Vector3 lastVisitedBuildingPositionPlayer;
 
-    private void Awake()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        
+
         var es = GameObject.Find("EventSystem");
         eventSystem = es.GetComponent<EventSystem>();
         
@@ -203,14 +199,15 @@ public class GlobalVariables : MonoBehaviour
         if(plyer.TryGetComponent(out Player p))
             player = p;
 
-        objectiveActualTarget = 0;
-
         saveGameData = GetComponent<SaveGame>();
-        if(actualLevelSettings == null) actualLevelSettings = GetComponent<LevelSettings>();
+        
+        objectiveActualTarget = 0;
+        
+        if(actualLevelSettings == null) actualLevelSettings = GetComponent<LvlSettings>();
 
         if(actualLevelSettings != null && IsLevelGameState()) 
             PoolManager.Instance.PreparePoolDataFromLevel(actualLevelSettings.availablePrefabs);
-        
+            
         if (gameMode == GameMode.INFINITERUNNER)
         {
             GameObject firstStreet = PoolManager.Instance.SpawnFromPool(Constants.POOL_ONE_TO_ONE_STREET, Vector3.zero, Quaternion.Euler(0, 0, 0), streetsContainer);
@@ -223,7 +220,27 @@ public class GlobalVariables : MonoBehaviour
 
         if(gameMode == GameMode.MAINMENU){
             StartCoroutine(PlayDefaultSceneSong());
+        } 
+    }
+
+    private void OnDestroy ()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
         Debug.Log("GlobalVariables Awakening!!");
     }
 
@@ -246,8 +263,7 @@ public class GlobalVariables : MonoBehaviour
     }
 
     internal void GoToTaxLevel(){
-        ResetAllGameOnFlags();
-        FadeOutActualSong();
+        CleanBeforeChangeScene();
         if(actualLevelSettings.sceneName != "")
             SceneManager.LoadScene(actualLevelSettings.sceneName);
         else
@@ -524,7 +540,7 @@ public class GlobalVariables : MonoBehaviour
         saveGameData.UpdateSaveGame();
     }
 
-    public void PrepareGlobalToLevel(LevelSettings newLvl){
+    public void PrepareGlobalToLevel(LvlSettings newLvl){
         actualLevelSettings.CopyFromLevel(newLvl);
     }
 
@@ -536,7 +552,7 @@ public class GlobalVariables : MonoBehaviour
         return orientation == SpawnerOrientation.LEFT ? actualLevelSettings.spawnerStaticLevelLeft : actualLevelSettings.spawnerStaticLevelRight;
     }
 
-    public List<LevelSettings.PoolLoader> getLoadedPools(){
+    public List<LvlSettings.PoolLoader> getLoadedPools(){
         return actualLevelSettings.availablePrefabs;
     }
 
@@ -603,6 +619,10 @@ public class GlobalVariables : MonoBehaviour
 
     public void switchCameraFocusToSecondaryObject(bool focusSecondary, bool followSecondary){
         if(mainCameraControl == null) UpdateMainCameraAttribute();
+        // adapt field view camera
+        mainCameraControl.m_Lens.FieldOfView = focusSecondary ? 40 + (int) (50 * 0.5) : saveGameData.data.farCamera;
+        mainCameraControl.m_Lens.FarClipPlane = focusSecondary ? 75 + (int) (400 * 0.5) : saveGameData.data.farClipPlane;
+        
         mainCameraControl.m_LookAt = focusSecondary ? cameraLookFocusTransform : cameraMainLookTransform;
         mainCameraControl.m_Follow = followSecondary ? cameraFollowFocusTransform : cameraMainFollowTransform;
         playerTargetedByCamera = !focusSecondary;
@@ -749,7 +769,7 @@ public class GlobalVariables : MonoBehaviour
         saveGameData.data.equippedCar = value;
     }
 
-    public LevelSettings.PrizeLevel GetActualLevelPrizeType(){
+    public LvlSettings.PrizeLevel GetActualLevelPrizeType(){
         return actualLevelSettings.prize;
     }
 
@@ -770,9 +790,9 @@ public class GlobalVariables : MonoBehaviour
             saveGameData.data.levels[actualLevelSettings.lvlIndex].done = true;
         else if (gameMode == GameMode.CHALLENGE)
             saveGameData.data.challenges[actualLevelSettings.lvlIndex] = 1.0f;
-        if(GetActualLevelPrizeType() == LevelSettings.PrizeLevel.COINS)
+        if(GetActualLevelPrizeType() == LvlSettings.PrizeLevel.COINS)
             UpdateCoinsOfPlayerForLvlSuccessfull(actualLevelSettings.prizeDetail);
-        else if(GetActualLevelPrizeType() == LevelSettings.PrizeLevel.SCROLL)
+        else if(GetActualLevelPrizeType() == LvlSettings.PrizeLevel.SCROLL)
             UnlockScroll(actualLevelSettings.prizeDetail);
         saveGameData.data.totalCoins += totalCoins;
         FadeOutActualSong();

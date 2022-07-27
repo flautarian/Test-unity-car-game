@@ -16,4 +16,7 @@ MonoBehaviour:
   keyCode: 6
   price: 1000
   wheelOffset: 0.3
-  wheelSize: 0.75
+  wheelSize: 0.7
+  wheelMass: 25
+  wheelForwardFrictionExtremumSlip: 0.4
+  wheelSidewaysFrictionExtremumSlip: 0.3

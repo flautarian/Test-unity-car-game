@@ -50,10 +50,14 @@ public class Player : MonoBehaviour
             TranslatePlayerCar(GlobalVariables.Instance.lastVisitedBuildingPositionPlayer);
         UpdateActualChosenCar();
         UpdateCarWheels();
+        StartCoroutine(lastSecurePositionRefresh());
         //UpdateCarHat();
     }
 
     private void FixedUpdate() {
+        
+		if(Input.GetKey("up"))
+			destroyPlayer("");
         // Manage of car properties and the changes of it from GlobalVariables
         ManageCarProperties();
         // Manage of nitro taken
@@ -162,13 +166,10 @@ public class Player : MonoBehaviour
             GlobalVariables.Instance.turnedCar = carController.turned;
             turnedUpParticle.gameObject.SetActive(carController.turned);
         }
-        if(GlobalVariables.Instance.gameMode == GameMode.WOLRDMAINMENU){
-            StartCoroutine(ResetPosition());
-        }
-        else{
+        
             stuntsController.TriggerAnimation(Constants.ANIMATION_NAME_EXPLODE_BOOL);
             stuntsController.GetGUIController().startGameOver(reason);
-        }
+        
     }
 
     public IEnumerator ResetPosition(){
@@ -244,6 +245,16 @@ public class Player : MonoBehaviour
             RunningCarAudioSource.clip = runningCarChunk;
             RunningCarAudioSource.Play();
         }
+    }
+
+    internal IEnumerator lastSecurePositionRefresh(){
+        while(true)
+         {
+            yield return new WaitForSeconds(5);
+            if(carController.currentStreetType != StreetType.water)
+               lastSecurePositionPlayer = transform.position;
+            
+         }
     }
 
     internal int GetDestructablePartsCount(){

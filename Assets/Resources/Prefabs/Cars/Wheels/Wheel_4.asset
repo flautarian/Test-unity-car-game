@@ -17,3 +17,6 @@ MonoBehaviour:
   price: 500
   wheelOffset: 0.3
   wheelSize: 0.7
+  wheelMass: 30
+  wheelForwardFrictionExtremumSlip: 0.5
+  wheelSidewaysFrictionExtremumSlip: 0.4

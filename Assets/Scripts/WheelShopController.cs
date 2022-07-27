@@ -102,6 +102,10 @@ public class WheelShopController : MonoBehaviour
         }
     }
 
+    public void ToggleShopGameState(){
+        GlobalVariables.Instance.inGameState = pointed ? InGamePanels.SHOPSELECTION : InGamePanels.GAMEON;
+    }
+
     private void OnTriggerEnter(Collider other){
         if(other.tag.Equals(Constants.GO_TAG_PLAYER) && GlobalVariables.Instance.actualPanelInteractionType == PanelInteractionType.NO_INTERACTION){
             GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.WHEEL_PANEL_TYPE, camPos, camPos);

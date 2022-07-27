@@ -32,7 +32,7 @@ public class LvlSelectionButton : SelectButtonController
     public override void executeButton(){
         LevelSettings levelSettings = GetComponent<LevelSettings>();
         if(levelSettings != null){
-            GlobalVariables.Instance.PrepareGlobalToLevel(levelSettings);
+            //GlobalVariables.Instance.PrepareGlobalToLevel(levelSettings);
         }
         else Debug.LogError("LevelSettings not found!!");
         

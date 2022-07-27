@@ -35,7 +35,7 @@ public class PoolManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void PreparePoolDataFromLevel(List<LevelSettings.PoolLoader> poolsToLoad){
+    public void PreparePoolDataFromLevel(List<LvlSettings.PoolLoader> poolsToLoad){
         fillPoolsWithGOInstances(poolsToLoad);
         initializePools();
     }
@@ -47,9 +47,9 @@ public class PoolManager : MonoBehaviour
             poolDictionary.Clear();
     }
 
-    private void fillPoolsWithGOInstances(List<LevelSettings.PoolLoader> poolsToLoad){
+    private void fillPoolsWithGOInstances(List<LvlSettings.PoolLoader> poolsToLoad){
         pools.Clear();
-        foreach(LevelSettings.PoolLoader pool in poolsToLoad){
+        foreach(LvlSettings.PoolLoader pool in poolsToLoad){
             Pool p = new Pool();
             p.size = pool.size;
             p.tag = pool.tag;
@@ -79,10 +79,12 @@ public class PoolManager : MonoBehaviour
             {
                 if (prefabLoop < pool.prefabs.Length - 1) prefabLoop++;
                 else prefabLoop = 0;
-                GameObject prefab = Instantiate(pool.prefabs[prefabLoop]);
-                prefab.transform.parent = poolContainer;
-                prefab.SetActive(false);
-                queueOfPool.Add(prefab);
+                if(pool.prefabs.Length > prefabLoop){
+                    GameObject prefab = Instantiate(pool.prefabs[prefabLoop]);
+                    prefab.transform.parent = poolContainer;
+                    prefab.SetActive(false);
+                    queueOfPool.Add(prefab);
+                }
             }
             poolDictionary.Add(pool.tag, queueOfPool);
         }

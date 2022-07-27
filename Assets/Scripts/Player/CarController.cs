@@ -156,11 +156,15 @@ public class CarController : MonoBehaviour {
     }
 
     internal void impulseUpCar(float amount){
-        rBody.AddForce(Vector3.up * amount, ForceMode.Impulse);
+        rBody.AddRelativeForce(Vector3.up * amount, ForceMode.Impulse);
     }
 
+	internal void explodeCar(){
+		GlobalVariables.RequestAndExecuteParticleSystem(Constants.PARTICLE_S_EXPLOSION, transform.position);
+	}
+
     internal void impulseRightCar(float amount){
-        rBody.AddForce(Vector3.right * amount, ForceMode.Impulse);
+        rBody.AddRelativeForce(Vector3.right * amount, ForceMode.Impulse);
     }
 
     internal void impulseForwardCar(float amount){
@@ -171,7 +175,6 @@ public class CarController : MonoBehaviour {
 
 	internal void TriggerHatTrick(){
         Player player = GetComponentInParent(typeof(Player)) as Player;
-		Debug.Log("HELO!" + player.actualHat.keyCode);
 	}
 
     internal void addClockAccel(int amount){

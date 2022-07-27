@@ -32,7 +32,7 @@ public class SignChallengeController : MonoBehaviour
     private void ManageSignChallengeChange(){
         if(pointed) {
             GlobalVariables.Instance.GetAndPlayChunk(Constants.CHUNK_OK_UI_BUTTON, 1f);
-            GlobalVariables.Instance.PrepareGlobalToLevel(lvlChallenge);
+            //GlobalVariables.Instance.PrepareGlobalToLevel(lvlChallenge);
             GlobalVariables.Instance.InvoqueCanvasPanelButton(PanelInteractionType.CHALLENGE_TYPE, this.transform, this.transform);
             transform.LookAt(cam.transform);
         }

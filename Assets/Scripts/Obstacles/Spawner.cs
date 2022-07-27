@@ -24,6 +24,9 @@ public class Spawner : MonoBehaviour
     public SpawnerOrientation orientation;
     private float timeSentinelRaycast;
 
+    [SerializeField]
+    private int availableObjectsToSpawn = 5;
+
     public float dstTravelled { get; set; }
     public System.Random rand { get; set; }
 
@@ -133,7 +136,7 @@ public class Spawner : MonoBehaviour
 
     private void CheckAndDeployObstacles()
     {
-        if (target != null)
+        if (target != null && availableObjectsToSpawn > 0)
         {
             if (isReadyToInstanceMovableObstacle)
             {
@@ -141,7 +144,9 @@ public class Spawner : MonoBehaviour
                 if (obstaculoGO != null)
                 {
                     obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(this);
+                    obstaculoGO.GetComponent<Obstacle>().originSpawner = this;
                     ReSetMovableSpawnerTrigger();
+                    availableObjectsToSpawn--;
                 }
                 //else Debug.Log("MEK, sin vehiculos en el pool!!");
             }
@@ -153,10 +158,15 @@ public class Spawner : MonoBehaviour
                 {
                     obstaculoGO.GetComponent<Obstacle>().SetPositioAndTargetFromSpawner(this);
                     ReSetStaticSpawnerTrigger();
+                    availableObjectsToSpawn--;
                 }
                 //else Debug.Log("MEK, sin obstaculos estaticos en el pool!!");
             }
         }
+    }
+
+    public void spawnedObjectReturnToDisabled(){
+        availableObjectsToSpawn++;
     }
 
     void OnCollisionEnter(Collision c)

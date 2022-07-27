@@ -48,6 +48,30 @@ public class PanelsCanvasController : MonoBehaviour
         panelGameWonController.ExistenceCheck();
         panelGameLostController.ExistenceCheck();
         lvlDetailsPanelController.ExistenceCheck();
+        BuildingController.OnChangeGameState += ChangeGameState;
+    }
+
+    public void ChangeGameState(InGamePanels newState, System.Object valueAnnex){
+        switch(newState){
+            /* case GAMEON:
+            break;
+            case PAUSED: 
+            break; */
+            case InGamePanels.LEVELSELECTION: 
+                GlobalVariables.Instance.PrepareGlobalToLevel(((LvlSettings)valueAnnex));
+                animator.SetTrigger(Constants.ANIMATION_TRIGGER_OPEN_LVL_DETAILS);
+            break;
+            /* case GAMELOST: 
+            break;
+            case GAMEWON: 
+            break;
+            case SUBUI1:
+            break; */
+        }
+    }
+
+    private void OnDestroy (){
+        BuildingController.OnChangeGameState -= ChangeGameState;
     }
 
 
@@ -65,7 +89,7 @@ public class PanelsCanvasController : MonoBehaviour
                     Input.GetKeyDown(GlobalVariables.Instance.GetKeyCodeBinded(Constants.KEY_INPUT_STUNT))){
                 switch(panelInteractionType){
                     case PanelInteractionType.TAX_TYPE: // TODO: Ban this option
-                        ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
+                        //ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_TAX_PANEL_BUTTON);
                     break;
                     case PanelInteractionType.MULTIPLAYER_TYPE:
                         ExecuteAnimationToActiveUI(Constants.ANIMATION_TRIGGER_COMM_PANEL_BUTTON);

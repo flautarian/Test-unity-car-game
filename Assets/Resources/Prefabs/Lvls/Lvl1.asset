@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3221c7d2935b3014b87d8ad634882167, type: 3}
+  m_Name: Lvl1
+  m_EditorClassIdentifier: 
+  lvlIndex: 0
+  sceneName: 
+  lightLevel: 43000
+  availablePrefabs:
+  - tag: StreetObstaculo
+    prefabs:
+    - BusObstacle
+    - SpeedCarObstacle
+    size: 30
+    folder: Prefabs/Obstacles/movable obstacles
+  - tag: BeredaObstaculo
+    prefabs:
+    - trash
+    size: 10
+    folder: Prefabs/Obstacles/static obstacles
+  - tag: oneToOneWayRoads
+    prefabs:
+    - Calle0
+    - Calle1
+    - Calle5
+    size: 12
+    folder: Prefabs/Streets/lvl1
+  objective: 5
+  objectiveTarget: 30
+  objectiveEspecification: 
+  spawnerMovableLevelLeft: 5
+  spawnerMovableLevelRight: 5
+  spawnerStaticLevelLeft: 30
+  spawnerStaticLevelRight: 30
+  hasTimeLimit: 0
+  timeLimit: 0
+  secondsFallTouchedTerrain: 5
+  grassType: 0
+  mutators: 00000000000000000000000000000000
+  fog: 0
+  levelName: ^detail_highway_lvl_panel_title
+  gameMode: 0
+  prize: 1
+  prizeDetail: 100
+  StuntOverride: 
